@@ -9,7 +9,7 @@ class Store<T> {
         return this.state;
     }
 
-    // Ejecuta la accion
+    // Ejecuta la accion 2
     dispatch( action: Action ) {
         this.state = this.reducer( this.state, action);
     }
