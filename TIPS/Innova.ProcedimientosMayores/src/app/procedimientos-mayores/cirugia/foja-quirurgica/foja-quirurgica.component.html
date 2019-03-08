@@ -1,0 +1,577 @@
+<div class="row" *ngIf="fojaQuirurgicaDTO">
+    <div class="col-12">
+        <div class="card card-simple">
+            <div class="card-body">
+                    <error-interno-Component idDivToScroll="camposRequeridosFojaQuirurgica"></error-interno-Component>
+                <div class="row wizard-vertical">
+                    <div class="col-12">
+                        <div class="contenedor pt-0">
+                            <!-- Preoperatorio -->
+                            <div class="seccion">
+                                <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#preoperatorio" aria-expanded="true" aria-controls="preoperatorio">
+                                </div>
+                                <div class="titulo-subseccion ml-5" data-toggle="collapse" href="#preoperatorio" aria-expanded="true" aria-controls="preoperatorio">
+                                    <h4>Preoperatorio</h4>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="preoperatorio">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row box-gray m-0 px-1">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Diagnóstico principal</label>
+                                                                <p class="form-control-static input-read">{{ fojaQuirurgicaDTO.DiagnosticoPrincipal }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto" *ngIf="fojaQuirurgicaDTO.DiagnosticosSecundarios">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Diagnósticos Secundarios</label>
+                                                                <p *ngFor="let value of fojaQuirurgicaDTO.DiagnosticosSecundarios" class="form-control-static input-read">{{ value }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Procedimiento principal</label>
+                                                                <p class="form-control-static input-read">{{ fojaQuirurgicaDTO.ProcedimientoPrincipal }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto" *ngIf="fojaQuirurgicaDTO.ProcedimientosSecundarios">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Procedimientos Secundarios</label>
+                                                                <p *ngFor="let value of fojaQuirurgicaDTO.ProcedimientosSecundarios" class="form-control-static input-read">{{ value }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Preoperatorio -->
+                            <!-- Postoperatorio -->
+                            <div class="seccion">
+                                <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#postoperatorio" aria-expanded="true" aria-controls="postoperatorio">
+                                </div>
+                                <div class="titulo-subseccion ml-5" data-toggle="collapse" href="#postoperatorio" aria-expanded="true" aria-controls="postoperatorio">
+                                    <h4>Postoperatorio</h4>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="postoperatorio">
+                                    <div class="row pb-3">
+                                        <div class="col-12">
+                                            <div class="row py-2">
+                                                <div class="col-12">
+                                                    <h5 class="m-0">Diagnósticos</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row py-2">
+                                                <div class="col-sm-12 col-lg-8">
+                                                    <div class="form-group mb-sm-3">
+                                                        <label class="control-label">Diagnóstico principal</label>
+                                                        <app-buscar-termino 
+                                                            class="componente-buscador default" 
+                                                            [parametrosTerminologia]="paramsDiagnostico"
+                                                            [listaTerminos]="fojaQuirurgicaDTO.DiagnosticosPrincipalesEnFoja"
+                                                            [ngClass]="(fojaQuirurgicaDTO.DiagnosticosPrincipalesEnFoja.length > 0) ? 'default' : 'requerido'">
+                                                        </app-buscar-termino>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-auto align-self-center"> <label>Diagnóstico secundario</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="form-group mb-3 mt-3">
+                                                        <div class="btn-group switch">
+                                                            <button type="button" 
+                                                            (click)="onChangeSwitchDiagnostico(true)" 
+                                                            class="btn switch__btn"
+                                                            [ngClass]="{'active': viewDiagnosticoSecundario}">Si</button>
+
+                                                            <button type="button"
+                                                            (click)="onChangeSwitchDiagnostico(false)"
+                                                            class="btn switch__btn"
+                                                            [ngClass]="{'active': !viewDiagnosticoSecundario}" >No</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row py-2" *ngIf="viewDiagnosticoSecundario">
+                                                <div class="col-sm-12 col-lg-8">
+                                                    <div class="form-group mb-sm-3">
+                                                        <app-buscar-termino 
+                                                            class="componente-buscador default" 
+                                                            [parametrosTerminologia]="paramsDiagnostico"
+                                                            [listaTerminos]="fojaQuirurgicaDTO.DiagnosticosSecundariosEnFoja"
+                                                            [ngClass]="(fojaQuirurgicaDTO.DiagnosticosSecundariosEnFoja.length > 0) ? 'default' : 'requerido'">
+                                                        </app-buscar-termino>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row py-2">
+                                                <div class="col-12">
+                                                    <h5 class="m-0">Procedimientos</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row py-2">
+                                                <div class="col-sm-12 col-lg-8">
+                                                    <div class="form-group mb-sm-3">
+                                                        <label class="control-label">Procedimiento principal</label>
+                                                        <app-buscar-termino 
+                                                            class="componente-buscador default" 
+                                                            [parametrosTerminologia]="paramsProcedimiento"
+                                                            [listaTerminos]="fojaQuirurgicaDTO.ProcedimientosPrincipalesEnFoja"
+                                                            [ngClass]="(fojaQuirurgicaDTO.ProcedimientosPrincipalesEnFoja.length > 0) ? 'default' : 'requerido'">
+                                                        </app-buscar-termino>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-auto align-self-center"> <label>Procedimiento secundario</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="form-group mb-3 mt-3">
+                                                        <div class="btn-group switch">
+                                                            <button type="button"
+                                                            (click)="onChangeSwitchProcedimiento(true)"
+                                                            class="btn switch__btn"
+                                                            [ngClass]="{'active': viewProcedimientoSecundario}">Si</button>
+
+                                                            <button type="button" 
+                                                            (click)="onChangeSwitchProcedimiento(false)"
+                                                            class="btn switch__btn"
+                                                            [ngClass]="{'active': !viewProcedimientoSecundario}">No</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row py-2" *ngIf="viewProcedimientoSecundario">
+                                                <div class="col-sm-12 col-lg-8">
+                                                    <div class="form-group mb-sm-3">
+                                                        <app-buscar-termino 
+                                                            class="componente-buscador default" 
+                                                            [parametrosTerminologia]="paramsProcedimiento"
+                                                            [listaTerminos]="fojaQuirurgicaDTO.ProcedimientosSecundariosEnFoja"
+                                                            [ngClass]="(fojaQuirurgicaDTO.ProcedimientosSecundariosEnFoja.length > 0) ? 'default' : 'requerido'">
+                                                        </app-buscar-termino>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Postoperatorio -->
+                            <!-- Participantes -->
+                            <div class="seccion">
+                                <div class="row">
+                                    <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#participantes" aria-expanded="true" aria-controls="participantes">
+                                    </div>
+                                    <div class="titulo-subseccion ml-5 col-auto" data-toggle="collapse" href="#participantes" aria-expanded="true" aria-controls="participantes">
+                                        <h4>Participantes</h4>
+                                    </div>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="participantes">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-light">
+                                                    <thead class="thead-default">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Nombre</th>
+                                                            <th>Servicio</th>
+                                                            <th>Rol</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of participantesEnFoja; let i=index">
+                                                            <td align="center" class="text-center">
+                                                                <a> <span class="fa fa-star"
+                                                                    [ngClass]="{'text-warning': item.ResponsablePrincipal, 'item-hove': !item.ResponsablePrincipal}" 
+                                                                    aria-hidden="true"></span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ item.Nombre }}</td>
+                                                            <td>{{ item.Servicio }}</td>
+                                                            <td>{{ item.Rol }}</td>
+                                                            <!--Acciones-->
+                                                            <td align="center" class="text-center">
+                                                                <a> <i class="fa fa-times" (click)="eliminarParticipante(item, i)" aria-hidden="true"></i></a>
+                                                            </td>
+                                                            <!--Fin de acciones-->
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Participantes -->
+                            <!-- Anestesia -->
+                            <div class="seccion">
+                                <div class="row">
+                                    <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#anestesia" aria-expanded="true" aria-controls="anestesia">
+                                    </div>
+                                    <div class="titulo-subseccion ml-5 col-auto" data-toggle="collapse" href="#anestesia" aria-expanded="true" aria-controls="anestesia">
+                                        <h4>Anestesia</h4>
+                                    </div>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="anestesia">
+                                    <div class="row pb-2">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group m-0">
+                                                <label class="control-label">Anestesia administrada</label>
+                                                <textarea [disabled]="isView" rows="3" [(ngModel)]="fojaQuirurgicaDTO.AnestesiaAdministrada" name="anestesiaAdministrada" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Anestesia -->
+                            <!-- Tiempos -->
+                            <div class="seccion">
+                                <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#tiempos" aria-expanded="true" aria-controls="tiempos">
+                                </div>
+                                <div class="titulo-subseccion ml-5" data-toggle="collapse" href="#tiempos" aria-expanded="true" aria-controls="tiempos">
+                                    <h4>Tiempos</h4>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="tiempos">
+                                    <div class="row mb-3">
+                                        <div class="col-auto">
+                                            <form class="form-inline mb-3">
+                                                <div class="form-group">
+                                                    <label>Fecha y hora de la cirugía: </label>
+                                                    <p class="form-control-static input-read mx-sm-3">{{ fojaQuirurgicaDTO.ComienzoDeCirugia }}</p>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label>Duración del procedimiento (Minutos): </label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input [disabled]="isView" type="number" min="0" (keypress)="numberOnly($event)" [(ngModel)]="fojaQuirurgicaDTO.DuracionActoProcedimental" name="duracionActoProcedimental" class="form-control" id="duracionProcedimiento">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Tiempos -->
+                            <!-- Hallazgos -->
+                            <div class="seccion">
+                                <div class="row">
+                                    <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#hallazgos" aria-expanded="true" aria-controls="hallazgos">
+                                    </div>
+                                    <div class="titulo-subseccion ml-5 col-auto" data-toggle="collapse" href="#hallazgos" aria-expanded="true" aria-controls="hallazgos">
+                                        <h4>Descripción del Procedimiento</h4>
+                                    </div>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="hallazgos">
+                                    <div class="row pb-2">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group m-0">
+                                                <label class="control-label">Observaciones</label>
+                                                <textarea [disabled]="isView" rows="3" [(ngModel)]="fojaQuirurgicaDTO.ObservacionesHallazgos" name="observacionesHallazgos"  class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-2">
+                                        <div class="col-auto align-self-center">
+                                            <label>Plantilla</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="swDefault col-auto">
+                                                <input [disabled]="isView" id="sw-plantilla" [(ngModel)]="inputOpenPlantilla" 
+                                                class="swDefault__checkbox" name="sw-plantilla" type="checkbox">
+                                                <label for="sw-plantilla" class="swDefault__label"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-2" *ngIf="inputOpenPlantilla">
+                                        <!-- Empty state - Se mostrará el estado vacío de la búsqueda cuando aún no haya plantillas asociadas -->
+                                        <div class="col-12 text-center align-self-center busqueda-vacia m-0 py-3"> <i class="fa fa-info i-ixl-sxl" aria-hidden="true"></i>
+                                            <h1>No hay plantillas asociadas a este procedimiento.</h1>
+                                            <p>Puede añadir más de una desde el botón “Agregar plantilla”</p>
+                                        </div>
+                                        <!-- fin Empty state -->
+                                        <div class="col-12">
+                                            <div class="list-group">
+                                                <div class="list-group-item list-group-item-action bg-light" *ngFor="let doc of fojaQuirurgicaDTO.DocumentosHallazgos;let i=index">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p class="text-truncate prescripcion mb-0">{{ doc.Nombre }}</p>
+                                                        </div>
+                                                        <div class="col align-self-center text-right px-0">
+                                                            <span class="mr-3 item-hover">
+                                                                <a class="item-hover" [ngbPopover]="eliminarDocumentoProc"
+                                                                #popoverEliminar="ngbPopover" placement="left" title="Eliminar"
+                                                                (document:click)="popoverEliminar.close();closePopover(popoverEliminar)"
+                                                                (click)="openPopover(popoverEliminar,$event)" triggers="manual">
+                                                                    <i class="fa fa-trash" title="Eliminar"></i>
+                                                            <!-- Popover -->
+                                                            <ng-template #eliminarDocumentoProc>
+                                                                <div class="row" style="min-width: 300px;">
+                                                                    <div class="col-auto m-3">
+                                                                        <i class="fa fa-trash fa-2x text-danger"></i>
+                                                                    </div>
+                                                                    <div class="col p-0 pr-3">
+                                                                        <div class="mb-4 mt-2"> Eliminando <b>{{doc.Nombre}}</b>                                                                            
+                                                                            <br>
+                                                                            <a style="color: #7e8e9f;">
+                                                                                <small>Esta acción no podrá revertirse.</small>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button class="btn btn-secondary btn-sm"
+                                                                                type="button" (click)="closePopover(popoverEliminar)">Cancelar</button>
+                                                                            <button class="btn btn-danger btn-sm"
+                                                                                type="button" (click)="eliminarDocumento(i)">Confirmar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-template>
+                                                            <!-- fin Popover -->
+                                                                </a>
+                                                            </span>
+                                                            <a class="mr-3 item-hover">
+                                                                <i class="fa fa-eye mr-3" title="Visualizar" aria-hidden="true" (click)="verDocumento(doc.IdDocumento)"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             
+                                                <div class="list-group-item list-group-item-action p-0">
+                                                    <button type="button" class="btn btn-link btn-link-icon p-2"
+                                                     data-toggle="modal" data-target="#modal-agregar-documento-plantilla"
+                                                     (click)="viewModalPlantillas()">
+                                                     <i class="fa fa-plus mr-1"></i>AGREGAR PLANTILLA
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin Hallazgos -->
+                            <!-- Otros -->
+                            <div class="seccion">
+                                <div class="row">
+                                    <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#otros" aria-expanded="true" aria-controls="otros"></div>
+                                    <div class="titulo-subseccion ml-5 col-auto" data-toggle="collapse" href="#otros" aria-expanded="true" aria-controls="otros">
+                                        <h4>Otros</h4>
+                                    </div>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="otros">
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Complicaciones</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Complicaciones', 'obsComplicaciones', 'Si')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Complicaciones', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Complicaciones', 'obsComplicaciones', 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Complicaciones', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Complicaciones', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <tips-input-textarea name="obsComplicaciones" [(ngModel)]="obsComplicaciones"></tips-input-textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Pérdida estimada de sangre(ml)</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('PerdidaSangre', null, 'No cuantificable'); fojaQuirurgicaDTO.ObservacionesPerdidaSangre=0" class="btn switch__btn" [ngClass]="{'active': getIsActive('PerdidaSangre', 'No cuantificable')}">No cuantificable</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('PerdidaSangre', null, 'Menor a 100 cc'); fojaQuirurgicaDTO.ObservacionesPerdidaSangre=0" class="btn switch__btn" [ngClass]="{'active': getIsActive('PerdidaSangre', 'Menor a 100 cc')}">Menor a 100 cc</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('PerdidaSangre', null, 'Otro'); fojaQuirurgicaDTO.ObservacionesPerdidaSangre=0" class="btn switch__btn" [ngClass]="{'active': getIsActive('PerdidaSangre', 'Otro')}">Otro</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('PerdidaSangre', 'Otro')" class="row mb-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label class="mr-3">Cantidad de ml</label>
+                                            <form class="form-inline">
+                                                <div class="input-group pr-5">
+                                                    <input [disabled]="isView" type="number" min="0" (keypress)="numberOnly($event)" [(ngModel)]="fojaQuirurgicaDTO.ObservacionesPerdidaSangre" name="observacionesPerdidaSangre" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">ml</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Transfusiones requeridas</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Tranfusiones', 'obsTranfusiones', 'Si')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Tranfusiones', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Tranfusiones', 'obsTranfusiones', 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Tranfusiones', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Tranfusiones', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <tips-input-textarea name="obsTranfusiones" [(ngModel)]="obsTranfusiones"></tips-input-textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Especímenes o muestras extraídas</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Especimenes', 'obsEspecimenes', 'Si')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Especimenes', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Especimenes', 'obsEspecimenes', 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Especimenes', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Especimenes', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <tips-input-textarea name="obsEspecimenes" [(ngModel)]="obsEspecimenes"></tips-input-textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <!-- fin Otros -->
+                            <!-- Implantes -->
+                            <div class="seccion">
+                                <div class="row">
+                                    <div class="icono-seccion text-center py-1" data-toggle="collapse" href="#implantes" aria-expanded="true" aria-controls="implantes"></div>
+                                    <div class="titulo-subseccion ml-5 col-auto" data-toggle="collapse" href="#implantes" aria-expanded="true" aria-controls="implantes">
+                                        <h4>Implantes</h4>
+                                    </div>
+                                </div>
+                                <div class="seccion-contenido collapse show" id="implantes">
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Dispositivos protésicos</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('DispositivosProtesticos', 'obsDispositivosProtesticos', 'Si')" class="btn switch__btn" [ngClass]="{'active': getIsActive('DispositivosProtesticos', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('DispositivosProtesticos', 'obsDispositivosProtesticos', 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('DispositivosProtesticos', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('DispositivosProtesticos', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <tips-input-textarea name="obsDispositivosProtesticos" [(ngModel)]="obsDispositivosProtesticos"></tips-input-textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Injertos</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Injertos', 'obsInjertos', 'Si')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Injertos', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Injertos', 'obsInjertos', 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Injertos', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Injertos', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <tips-input-textarea name="obsInjertos" [(ngModel)]="obsInjertos"></tips-input-textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Tejidos</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Tejidos', null, 'Si'); fojaQuirurgicaDTO.ObservacionesTejidos=''" class="btn switch__btn" [ngClass]="{'active': getIsActive('Tejidos', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Tejidos', null, 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Tejidos', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Tejidos', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>Observaciones</label>
+                                                <textarea [disabled]="isView" rows="3" [(ngModel)]="fojaQuirurgicaDTO.ObservacionesTejidos" name="observacionesTejidos" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-6 col-md-3">
+                                            <label>Dispositivos</label>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="btn-group switch">
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Dispositivos', null, 'Si'); fojaQuirurgicaDTO.ObservacionesDispositivos=''" class="btn switch__btn" [ngClass]="{'active': getIsActive('Dispositivos', 'Si')}">Si</button>
+                                                <button [disabled]="isView" type="button" (click)="selectButtonGral('Dispositivos', null, 'No')" class="btn switch__btn" [ngClass]="{'active': getIsActive('Dispositivos', 'No')}">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="getIsActive('Dispositivos', 'Si')" class="row mb-3 align-items-center">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>Observaciones</label>
+                                                <textarea [disabled]="isView" rows="3" [(ngModel)]="fojaQuirurgicaDTO.ObservacionesDispositivos" name="observacionesDispositivos" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- fin implantes -->
+                        </div>
+                        <!-- fin contenedor -->
+                    </div>
+                </div>
+                <!-- fin wizard vertical -->
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col align-self-center text-right">
+                        <button class="btn btn-secondary btn-block-down-sm mt-1 mb-2" type="button" (click)="cerrar()" tabindex="0">Cancelar</button>
+                        <button [disabled]="isView" class="btn btn-primary btn-block-down-sm mt-1 mb-2" type="submit" (click)="guardarFoja()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-right" id="modal-agregar-documento-plantilla">
+    <div class="modal-dialog" *ngIf="verDocumentosPlantillas">
+             <app-doc-plantillas *ngIf="verDocumentosPlantillas" 
+            [parametrosAtencion]="parametrosInicializacion"  
+            (onGuardarDocumento)="agregarDocumentoAlActo($event)" >
+            </app-doc-plantillas>
+    </div>
+</div>

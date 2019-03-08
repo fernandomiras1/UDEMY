@@ -1,0 +1,22 @@
+En el menu del vbCode.
+1- Archivo - Preferencias - Fragmento de Codigo del usuario - (escribimos para que lenguaje) HTML 
+
+
+	"Tarjeta con Row": {
+		"prefix": "cardrow",
+		"body": [
+			" <div class=\"row\">",
+			"   <div class=\"col-12\">",
+			"       <div class=\"card\">",
+			"          <div class=\"card-body\">",
+			"",
+			"              $1",
+			"",
+			"         </div>",
+			"       </div>",
+			"   </div>",
+		    " </div>",
+		],
+		"description": "Crea una tarjeta del boostrap con su row"
+	}
+	

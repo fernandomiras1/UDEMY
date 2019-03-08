@@ -1,0 +1,11 @@
+Link: https://code.visualstudio.com/docs/getstarted/keybindings
+
+
+********Edición básica***************
+
+
+Ctrl+F2 = Selecciona esa palabra en todo el poryecto (Selecciona ese nombre donde apareza nuevamente)
+Ctrl + H = Remplaza esa palabra. 
+Mayús + Alt + Abajo = Copiar línea abajo
+Ctrl + D = Añadir selección al siguiente partido de búsqueda
+Alt + Arriba = Mover línea arriba

@@ -1,0 +1,183 @@
+<div class="col-12" *ngIf="actoProcedimental">
+  <div class="row">
+      <div class="col-12">
+          <div class="card" id="camposRequeridosFojaQuirurgica">
+              <div class="card-header top-border">
+                  <div class="row justify-content-between align-items-center">
+                      <div class="col-12 col-md">
+                          <h3> {{ cabecera.Procedimientos }}</h3>
+                      </div>
+                      <div *ngIf="actoProcedimental.EstructuraDeActoProcedimental.SeccionHistorico.Permisos.Consulta" class="col-12 col-md-auto">
+                          <button type="button" class="btn btn-secondary btn-sm">Ver histórico</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-body px-3 py-0">
+                  <div class="row datosContextuales">
+                      <div class="col-12 col-md datosContextuales__columna">
+                          <div class="form-group">
+                              <label class="control-label">Profesional a cargo:</label>
+                              <p class="form-control-static input-read">{{ cabecera.ProfesionalACargo.Nombre }}</p>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md datosContextuales__columna">
+                          <div class="form-group">
+                              <label class="control-label">Servicio:</label>
+                              <p class="form-control-static input-read">{{ cabecera.ProfesionalACargo.Servicio }}</p>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md datosContextuales__columna">
+                          <div class="form-group">
+                              <label class="control-label">Fecha:</label>
+                              <p class="form-control-static input-read">{{ cabecera.Fecha }}</p>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md datosContextuales__columna">
+                          <div class="form-group">
+                              <label class="control-label">Inicio estimado:</label>
+                              <p class="form-control-static input-read">{{ cabecera.InicioEstimado }}</p>
+                          </div>
+                      </div>
+                </div>
+                
+                  <div class="row contentProcedimientos" *ngIf="!showFojaQuirurgica">
+                      <div *ngFor="let seccion of secciones | filtroPermisoConsultar" class="col-12 col-md-6 col-lg-4 cardProcedimiento">
+                          <div class="card card-simple no-shadow border">
+                              <div class="card-header bg-light rounded-0">
+                                  <div class="row justify-content-between">
+                                      <div class="col align-self-center">
+                                          <h5 class="m-0">{{ seccion.Nombre }}</h5>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card-body">
+                                  <div *ngFor="let item of filtrarItemsSeccion(seccion.Items)" [ngClass]="{'col-12 cardProcedimiento__item--parcial': item.Estado === 'Incompleto',
+                                        'col-12 cardProcedimiento__item--finalizado': item.Estado === 'Completo', 'col-12 cardProcedimiento__item--deshabilitado': item.Estado === 'Deshabilitado' }">
+                                      <div class="row align-items-center">
+                                          <div class="col-auto">
+                                              <i class="fa fa-fw fa-lg cardProcedimiento__icono" [ngClass]="item.Icono" aria-hidden="true"></i>
+                                          </div>
+                                          <div class="col">
+                                              <p>{{ item.Tipo }}</p>
+                                              <p>
+                                                <!-- [style.visibility]="!item.Auditoria? 'hidden' : 'visible'" -->
+                                                <small >Modificado última vez por: {{ item.Auditoria || '-' }}</small>
+                                              </p>
+                                          </div>
+                                          <div class="col-auto">
+                                                <div class="btn-group dropdown showHoverItem">
+                                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            <i class="fa fa-ellipsis-h fa-fw fa-lg cardProcedimiento__icono--menu"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu" x-placement="top-start">
+                                                            <a *ngIf="item.Estado !== 'Deshabilitado' && item.Permisos.Consulta" class="dropdown-item" href="javascript:void(0)" 
+                                                                (click)="openModal(item, true)">Ver</a>
+                                                            <a *ngIf="item.Estado !== 'Deshabilitado' && item.Permisos.Edicion" class="dropdown-item" href="javascript:void(0)" 
+                                                                (click)="openModal(item, false)">Editar</a>
+                                                            <a *ngIf="item.Estado !== 'Deshabilitado' && item.Permisos.Deshabilitar" class="dropdown-item"
+                                                                (click)="cambiarEstadoDeItem(item, false)">Deshabilitar</a>
+                                                            <a *ngIf="item.Estado === 'Deshabilitado' && item.Permisos.Deshabilitar" class="dropdown-item"
+                                                                (click)="cambiarEstadoDeItem(item, true)">Habilitar</a>
+                                                        </div>
+                                                </div>
+                                         </div>
+                                      </div>
+                                  </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-4 cardProcedimiento" *ngIf="documentos.Documentos.length > 0 && documentos.Permisos.Consulta">
+                            <div class="card card-simple no-shadow border">
+                                <div class="card-header bg-light rounded-0">
+                                    <div class="row justify-content-between">
+                                        <div class="col align-self-center">
+                                            <h5 class="m-0">Documentación</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div *ngFor="let item of documentos.Documentos" class="col-12 cardProcedimiento__item">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <i class="fa fa-file-text-o fa-fw fa-lg cardProcedimiento__icono" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col">
+                                                <p>{{ item.Nombre }}</p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a class="mr-3 item-hover">
+                                                    <i class="fa fa-print" title="Imprimir" aria-hidden="true" (click)="verDocumento(item.IdDocumento)"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+                <app-foja-quirurgica (btnCerrar)="showFojaQuirurgica = $event" *ngIf="showFojaQuirurgica"
+                [parametrosInicializacion]="parametrosInicializacion"
+                [idItemEnActoProcedimental]="procedimientoSelected.IdItem">
+                </app-foja-quirurgica>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- data-keyboard="false" data-backdrop="static" -->
+<div class="modal fade modal-right" id="modal-general">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row justify-content-between">
+                    <div class="col col-sm-auto align-self-center">
+                        <div class="modal-title">
+                            <button type="button" class="close" (click)="closeModal()" aria-label="Close"> 
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="mb-0 ml-3">{{ procedimientoSelected?.Tipo }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" *ngIf="procedimientoSelected">
+                
+                <app-participantes 
+                [parametrosInicializacion]="parametrosInicializacion"
+                *ngIf="procedimientoSelected.Tipo == enumTipoProcedimientos.Participantes">
+                </app-participantes>
+
+
+                <app-checklist *ngIf="procedimientoSelected.Tipo == enumTipoProcedimientos.ChecklistPreinduccion || 
+                                      procedimientoSelected.Tipo == enumTipoProcedimientos.ChecklistPausa ||
+                                      procedimientoSelected.Tipo == enumTipoProcedimientos.ChecklistSignOut" 
+                    [parametrosInicializacion]="parametrosInicializacion"
+                    [tipoNombre]="procedimientoSelected.Tipo"
+                    [cabeceraTitulo]="cabecera.Procedimientos" >
+                </app-checklist> 
+
+                <app-tiempos *ngIf="procedimientoSelected.Tipo == enumTipoProcedimientos.Tiempos"
+                    [parametrosInicializacion]="parametrosInicializacion"
+                    [fechaProgramada]="cabecera.Fecha"
+                    [horaProgramada]="cabecera.InicioEstimado"
+                    [horaEstimada]="cabecera.DuracionEstimada">
+                </app-tiempos>
+
+                <app-nota-preoperatoria *ngIf="procedimientoSelected.Tipo == enumTipoProcedimientos.NotaPreoperatoria"
+                    [parametrosInicializacion]="parametrosInicializacion">
+                </app-nota-preoperatoria>                   
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-outline" (click)="closeModal()" >Cancelar</button>
+                <button type="button" class="btn btn-primary" [disabled]="appService.isView" (click)="guardarModal()">Guardar</button>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div> 
+      

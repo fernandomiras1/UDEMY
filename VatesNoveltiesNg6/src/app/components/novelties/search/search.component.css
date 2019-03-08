@@ -1,0 +1,36 @@
+ .mat-option-double {
+    line-height: 17px;
+}
+.mat-column-Month {
+    flex: 0 0 7%;
+}
+.mat-column-EmployeeName {
+    flex: 0 0 10%;
+}
+.mat-column-CurrentNetSalary {
+    flex: 0 0 8%;
+}
+.mat-column-NewNetSalary {
+    flex: 0 0 8%;
+}
+.mat-column-NoveltyPercentage {
+    flex: 0 0 8%;
+}
+.mat-column-NoveltyAmount {
+    flex: 0 0 8%;
+}
+.mat-column-NoveltyType {
+    flex: 0 0 10%;
+}
+.mat-column-NoveltyStatusName {
+    flex: 0 0 10%;
+}
+.mat-column-Approver {
+    flex: 0 0 10%;
+}
+.mat-column-Observations {
+    flex: 0 0 10%;
+}
+.mat-column-actions {
+    flex: 0 0 10%;
+} 

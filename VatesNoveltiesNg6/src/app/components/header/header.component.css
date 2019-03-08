@@ -1,0 +1,12 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.logo-img {
+      width: 100px;
+      margin-right: 10px;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 50px !important;
+}

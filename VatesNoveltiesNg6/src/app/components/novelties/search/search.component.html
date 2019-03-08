@@ -1,0 +1,257 @@
+<form [formGroup]="formSearch">
+    <div class="col-md-12 col-lg-12">
+        <div class="app-content">
+            <mat-card>
+                <mat-card-title>
+                    Gestor de Novedades
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="form-row">
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="dpDateFrom" autocomplete="off" placeholder="Periodo Desde" formControlName="DateFrom">
+                                <mat-datepicker-toggle matSuffix [for]="dpDateFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #dpDateFrom startView="multi-year" (yearSelected)="chosenYearHandlerDateFrom($event)" (monthSelected)="chosenMonthHandlerDateFrom($event, dpDateFrom)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="dpDateTo" autocomplete="off" placeholder="Periodo Hasta" formControlName="DateTo">
+                                <mat-datepicker-toggle matSuffix [for]="dpDateTo"></mat-datepicker-toggle>
+                                <mat-datepicker #dpDateTo startView="multi-year" (yearSelected)="chosenYearHandlerDateTo($event)" (monthSelected)="chosenMonthHandlerDateTo($event, dpDateTo)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Recurso" formControlName="employee" [matAutocomplete]="autoResource">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoResource" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoResource="matAutocomplete" [displayWith]="displayResource">
+                                    <mat-option class="mat-option-double" *ngFor="let item of listResource" [value]="item">
+                                        <span>
+                      <strong>{{ this.getName(item)}}</strong>
+                      <br />
+                    </span>
+                                        <small>{{item.Email}}</small>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Revisor" name="reviser" formControlName="managerId">
+                                    <mat-option *ngFor="let reviser of listReviser" [value]="reviser.Id">
+                                        {{reviser.FirstName}} {{reviser.LastName}}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('managerId').value" matSuffix mat-icon-button (click)="formSearch.get('managerId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="PM" name="pm" formControlName="pmId">
+                                    <mat-option *ngFor="let pm of listPms" [value]="pm.Id">
+                                        {{ pm.FirstName }} {{pm.LastName}}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('pmId').value && authenticationData.permissions.SeleccionaPM" matSuffix mat-icon-button (click)="formSearch.get('pmId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Tipo de Novedad" name="typeNovelties" formControlName="typeId">
+                                    <mat-option *ngFor="let type of listTypes" [value]="type.id">
+                                        {{ type.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('typeId').value && !formSearch.get('withRetroactive').value" matSuffix mat-icon-button (click)="formSearch.get('typeId').reset()">
+                                <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Estado" name="status" formControlName="statusId">
+                                    <mat-option *ngFor="let status of listStatus" [value]="status.id">
+                                        {{ status.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('statusId').value" matSuffix mat-icon-button (click)="formSearch.get('statusId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Cliente" formControlName="client" [matAutocomplete]="autoClient">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoClient" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoClient="matAutocomplete" [displayWith]="displayClient">
+                                    <mat-option *ngFor="let client of listClients" [value]="client">
+                                        {{ client.Name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Proyecto" formControlName="project" [matAutocomplete]="autoProject">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoProject" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoProject="matAutocomplete" [displayWith]="displayProject">
+                                    <mat-option *ngFor="let project of listProjects" [value]="project">
+                                        {{ project.Name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" autocomplete="off" min="0" max="100" placeholder="% Recat Min" name="incrementPercentageFromName" (keypress)="validationsService.numberOnly($event)" formControlName="incrementPercentageFrom">
+                                <mat-error *ngIf="formSearch.get('incrementPercentageFrom').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" autocomplete="off" min="0" max="100" placeholder="% Recat Máx" name="incrementPercentageToName" (keypress)="validationsService.numberOnly($event)" formControlName="incrementPercentageTo">
+                                <mat-error *ngIf="formSearch.get('incrementPercentageTo').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1" style="margin-top: 8px;">
+                            <mat-checkbox name="withRetroactiveName" formControlName="withRetroactive">Con Retroactivo</mat-checkbox>
+                        </div>
+
+                        <div class="col-md-5">
+                            <spinner-button (click)="btnSearch()" class="pull-right" [options]="spinnerButtonSearch" type="submit">
+                            </spinner-button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-container mat-elevation-z8">
+                        <div class="example-loading-shade" *ngIf="isLoadingResults">
+                            <mat-spinner [diameter]="50" *ngIf="isLoadingResults"></mat-spinner>
+                        </div>
+                        <mat-table #table [dataSource]="dataSource" class="table">
+                            <ng-container matColumnDef="Month">
+                                <mat-header-cell *matHeaderCellDef> Mes </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Month}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="EmployeeName">
+                                <mat-header-cell *matHeaderCellDef> Apellido y Nombre </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.EmployeeName}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="CurrentNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Total Sueldo Neto </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.CurrentNetSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NewNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Sueldo Neto Estimado </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NewNetSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NoveltyPercentage">
+                                <mat-header-cell *matHeaderCellDef> Porcentaje </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyPercentage}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NoveltyAmount">
+                                <mat-header-cell *matHeaderCellDef> Monto Novedad </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyAmount}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NoveltyType">
+                                <mat-header-cell *matHeaderCellDef> Tipo de Novedad </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyType}}&nbsp;
+                                    <mat-icon *ngIf="row.WithRetroactive" matTooltip="Monto: ${{row.RetroactiveAmount}} - Fecha: {{row.RetroactiveDate}}" class="gridInfoIconOrange">trip_origin
+                                    </mat-icon>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NoveltyStatusName">
+                                <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyStatusName}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Approver">
+                                <mat-header-cell *matHeaderCellDef> Revisor </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Approver}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Observations">
+                                <mat-header-cell *matHeaderCellDef> Observación </mat-header-cell>
+                                <mat-cell *matCellDef="let row" matTooltip={{row.Observations}}>
+                                    <span class="trim-info">{{row.Observations}}</span></mat-cell>
+                            </ng-container>
+
+                            <!-- actions NoveltyStatusId -->
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-icon class="cursor md-dark" matTooltip="Editar" (click)="editNovelty(row.NoveltyId)" *ngIf="authenticationData.permissions.NovedadesAlta && authenticationData.permissions.EditarNovedadAprobada && row.NoveltyStatusId == statusEnum.Approved || row.NoveltyStatusId == statusEnum.Requested || row.NoveltyStatusId == statusEnum.ObservedAdm">edit</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Ver Detalle" (click)="viewNovelty(row.NoveltyId)">search</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Rechazar" (click)="noveltiesService.openRejectDialog(row.NoveltyId, btnSearch)" *ngIf="authenticationData.permissions.RechazarNovedades && row.NoveltyStatusId == statusEnum.Requested">cancel</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Aprobar" (click)="noveltiesService.approveNovelty(row.NoveltyId, btnSearch)" *ngIf="authenticationData.permissions.AprobarNovedades && row.NoveltyStatusId == statusEnum.Requested">check_circle</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Eliminar" (click)="noveltiesService.deleteNovelty(row.NoveltyId)" *ngIf="authenticationData.permissions.EliminarNovedades && row.NoveltyStatusId == statusEnum.Requested">delete_forever</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Aprobar Administración" (click)="noveltiesService.approveAdmNovelty(row.NoveltyId, btnSearch)" *ngIf="authenticationData.permissions.AprobarAdmNovedades && row.NoveltyStatusId == statusEnum.Approved">verified_user</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Observar" (click)="noveltiesService.openObserveDialog(row.NoveltyId, btnSearch)" *ngIf="authenticationData.permissions.ObservarAdmNovedades && row.NoveltyStatusId == statusEnum.Approved">visibility</mat-icon>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns">
+
+                            </mat-header-row>
+                            <!-- Si necesitamos seleccionar uno o mas registros (click)="selection.toggle(row)" -->
+                            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'paintConlum': row.MultiProject }">
+                            </mat-row>
+                        </mat-table>
+                        <div *ngIf="dataSource.data.length === 0" class="form-group col-md-12 center">
+                            <div class="alert alert-danger" style="text-align: center;" role="alert">
+                                La grilla no contiene registros por defecto.
+                            </div>
+                        </div>
+                        <mat-paginator [length]="resultsLength" [pageSize]="10" (page)="getNext($event)">
+                        </mat-paginator>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions align="end">
+                    <button type="button" class="btn" mat-raised-button color="primary">
+            <span>Recategorización Masiva</span>
+          </button>
+                    <!-- <div fxFlex></div> -->
+                    <button type="button" *ngIf="authenticationData.permissions.NovedadesAlta" mat-raised-button color="primary" (click)="newNovelties()">
+            <span>Cargar Novedad</span>
+          </button>
+                    <button type="button" mat-raised-button color="primary" [routerLink]="['/cruising-salary']">
+            <span>Ir a Sueldo Crucero</span>
+          </button>
+                    <span class="fill-remaining-space"></span>
+                    <spinner-button (click)="exportExcel()" *ngIf="dataSource.data.length > 0 && authenticationData.permissions.ExportarNovedades" [options]="spinnerButtonExcel">
+                    </spinner-button>
+                    <button type="button" mat-raised-button color="primary" [routerLink]="['/home']">
+            <span>Cerrar</span>
+          </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+        </div>
+    </div>
+</form>

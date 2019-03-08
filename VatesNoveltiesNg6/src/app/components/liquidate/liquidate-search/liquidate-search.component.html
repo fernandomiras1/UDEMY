@@ -1,0 +1,307 @@
+<form [formGroup]="formSearch">
+    <div class="col-md-12 col-lg-12">
+        <div class="app-content">
+            <mat-card>
+                <mat-card-title>
+                    Liquidar
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="form-row">
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="dpDateFrom" autocomplete="off" placeholder="Periodo Desde" formControlName="DateFrom">
+                                <mat-datepicker-toggle matSuffix [for]="dpDateFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #dpDateFrom startView="multi-year" (yearSelected)="chosenYearHandlerDateFrom($event)" (monthSelected)="chosenMonthHandlerDateFrom($event, dpDateFrom)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="dpDateTo" autocomplete="off" placeholder="Periodo Hasta" formControlName="DateTo">
+                                <mat-datepicker-toggle matSuffix [for]="dpDateTo"></mat-datepicker-toggle>
+                                <mat-datepicker #dpDateTo startView="multi-year" (yearSelected)="chosenYearHandlerDateTo($event)" (monthSelected)="chosenMonthHandlerDateTo($event, dpDateTo)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Recurso" formControlName="employee" [matAutocomplete]="autoResource">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoResource" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoResource="matAutocomplete" [displayWith]="displayResource">
+                                    <mat-option class="mat-option-double" *ngFor="let item of listResource" [value]="item">
+                                        <span>
+                      <strong>{{ this.getName(item)}}</strong>
+                      <br />
+                    </span>
+                                        <small>{{item.Email}}</small>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Revisor" name="reviser" formControlName="managerId">
+                                    <mat-option *ngFor="let reviser of listReviser" [value]="reviser.Id">
+                                        {{reviser.FirstName}} {{reviser.LastName}}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('managerId').value" matSuffix mat-icon-button (click)="formSearch.get('managerId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="PM" name="pm" formControlName="pmId">
+                                    <mat-option *ngFor="let pm of listPms" [value]="pm.Id">
+                                        {{ pm.FirstName }} {{pm.LastName}}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('pmId').value && authenticationData.permissions.SeleccionaPM" matSuffix mat-icon-button (click)="formSearch.get('pmId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Tipo de Novedad" name="typeNovelties" formControlName="typeId">
+                                    <mat-option *ngFor="let type of listTypes" [value]="type.id">
+                                        {{ type.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('typeId').value" matSuffix mat-icon-button (click)="formSearch.get('typeId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Estado" name="status" formControlName="statusId">
+                                    <mat-option *ngFor="let status of listStatus" [value]="status.id">
+                                        {{ status.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <button type="button" mat-button matTooltip="Limpiar" *ngIf="formSearch.get('statusId').value" matSuffix mat-icon-button (click)="formSearch.get('statusId').reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Cliente" formControlName="client" [matAutocomplete]="autoClient">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoClient" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoClient="matAutocomplete" [displayWith]="displayClient">
+                                    <mat-option *ngFor="let client of listClients" [value]="client">
+                                        {{ client.Name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="text" placeholder="Proyecto" formControlName="project" [matAutocomplete]="autoProject">
+                                <mat-spinner matSuffix *ngIf="isLoadingAutoProject" mode="indeterminate" diameter="20"></mat-spinner>
+                                <mat-autocomplete #autoProject="matAutocomplete" [displayWith]="displayProject">
+                                    <mat-option *ngFor="let project of listProjects" [value]="project">
+                                        {{ project.Name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" name="minDiffWithCruisingSalaryName" placeholder="Dif.Cruc.(Desde)" formControlName="minDiffWithCruisingSalary">
+                                <mat-error *ngIf="formSearch.get('minDiffWithCruisingSalary').hasError('max')">
+                                    No se puede exceder los 5 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="formSearch.get('minDiffWithCruisingSalary').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" name="maxDiffWithCruisingSalaryName" placeholder="Dif.Cruc.(Hasta)" formControlName="maxDiffWithCruisingSalary">
+                                <mat-error *ngIf="formSearch.get('maxDiffWithCruisingSalary').hasError('max')">
+                                    No se puede exceder los 5 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="formSearch.get('maxDiffWithCruisingSalary').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" name="minDiffWithPreviousMonthName" placeholder="Mes Ant.(Desde)" formControlName="minDiffWithPreviousMonth">
+                                <mat-error *ngIf="formSearch.get('minDiffWithPreviousMonth').hasError('max')">
+                                    No se puede exceder los 5 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="formSearch.get('minDiffWithPreviousMonth').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" name="maxDiffWithPreviousMonthName" placeholder="Mes Ant.(Hasta)" formControlName="maxDiffWithPreviousMonth">
+                                <mat-error *ngIf="formSearch.get('maxDiffWithPreviousMonth').hasError('max')">
+                                    No se puede exceder los 5 caracteres
+                                </mat-error>
+                                <mat-error *ngIf="formSearch.get('maxDiffWithPreviousMonth').hasError('pattern')">
+                                    {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3" style="margin-top: 8px;">
+                            <mat-radio-group formControlName="withNovelty">
+                                <mat-radio-button checked="true" value="null">Todos</mat-radio-button>&nbsp;
+                                <mat-radio-button value="true">Con Novedad</mat-radio-button>&nbsp;
+                                <mat-radio-button value="false">Sin Novedad</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="col-md-1">
+                            <spinner-button (click)="btnSearch()" class="pull-right" [options]="spinnerButtonSearch">
+                            </spinner-button>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- aca va la tabla -->
+                    <div class="table-container mat-elevation-z8">
+                        <div class="example-loading-shade" *ngIf="isLoadingResults">
+                            <mat-spinner [diameter]="50" *ngIf="isLoadingResults"></mat-spinner>
+                        </div>
+                        <mat-table #table [dataSource]="gridItemData.dataSource" class="table">
+
+                            <ng-container matColumnDef="Month" sticky>
+                                <mat-header-cell *matHeaderCellDef> Mes </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Month}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Cuit" sticky>
+                                <mat-header-cell *matHeaderCellDef> Cuit </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Cuit}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="EmployeeName" sticky>
+                                <mat-header-cell *matHeaderCellDef> Apellido y Nombre </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.EmployeeName}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ToPayNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Total Recibo Estudio </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.ToPayNetSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="CruisingNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Total Recibo Crucero </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.CruisingNetSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="PreviousNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Sueldo Liqui. Mes Anterior </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.PreviousNetSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="IncomeTaxRetention">
+                                <mat-header-cell *matHeaderCellDef> Retención Ganacia </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.IncomeTaxRetention}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="DiffWithPreviousSalary">
+                                <mat-header-cell *matHeaderCellDef> Dif. Mes Anterior </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.DiffWithPreviousSalary }} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="DiffWithCruisingSalary">
+                                <mat-header-cell *matHeaderCellDef> Dif. Sueldo Crucero </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.DiffWithCruisingSalary}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NoveltyTypes">
+                                <mat-header-cell *matHeaderCellDef> Tipo de Novedades </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyTypes}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="AdministrationComments">
+                                <mat-header-cell *matHeaderCellDef> Obsev. Administración </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.AdministrationComments}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="AdditionalInformation">
+                                <mat-header-cell *matHeaderCellDef> Información Adicional </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.AdditionalInformation}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Justification">
+                                <mat-header-cell *matHeaderCellDef> Justificación </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Justification}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="StatusDescription">
+                                <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.StatusDescription}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions" stickyEnd>
+                                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-icon class="cursor md-dark" matTooltip="Conciliar" (click)="reconcile(row.Id)" *ngIf="row.StatusId != statusEnum.Reconciled && row.StatusId != statusEnum.Payed
+                                     && row.StatusId != statusEnum.Sent && row.StatusId != statusEnum.Pending  && authenticationData.permissions.ConciliarLiquidaciones">repeat</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Justificar" (click)="openJustificationDialog(row.Id, row.Justification)" *ngIf="row.StatusId != statusEnum.Pending && authenticationData.permissions.JustificarLiquidaciones">pan_tool</mat-icon>
+                                    <mat-icon class="cursor md-dark" matTooltip="Liquidar" (click)="payed(row.Id)" *ngIf="row.StatusId != statusEnum.Sent && row.StatusId != statusEnum.Imported && row.StatusId != statusEnum.Pending && row.StatusId != statusEnum.Payed && row.StatusId != statusEnum.Justified && authenticationData.permissions.LiquidarLiquidaciones">description</mat-icon>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="gridItemData.displayedColumns">
+
+                            </mat-header-row>
+                            <mat-row *matRowDef="let row; columns: gridItemData.displayedColumns;">
+                            </mat-row>
+                        </mat-table>
+                        <div *ngIf="gridItemData.dataSource.data.length === 0" class="form-group col-md-12 center">
+                            <div class="alert alert-danger" style="text-align: center;" role="alert">
+                                La grilla no contiene registros por defecto.
+                            </div>
+                        </div>
+                        <mat-paginator [length]="gridItemData.resultCount" [pageSize]="10" (page)="getNext($event)">
+                        </mat-paginator>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions align="end">
+
+                    <button type="button" class="m-1" mat-raised-button color="primary" (click)="fileUploadStudy()" *ngIf="authenticationData.permissions.ImportarLiquidaciones">
+            <span>Importar de Estudio</span>
+          </button>
+                    <spinner-button class="m-1" (click)="btnSalaryToPay()" [options]="spinnerBtnSalaryToPay" *ngIf="authenticationData.permissions.LiquidarLiquidaciones"></spinner-button>
+
+                    <spinner-button class="m-1" (click)="btnSalaryToReconcile()" [options]="spinnerBtnSalaryToReconcile" *ngIf="authenticationData.permissions.ConciliarLiquidaciones"></spinner-button>
+
+                    <button type="button" class="m-1" mat-raised-button color="primary" (click)="onChangeStatusToSent()" *ngIf="authenticationData.permissions.EnviarLiquidaciones">
+            <span>Enviar Estudio</span>
+          </button>
+
+                    <span class="fill-remaining-space"></span>
+                    <spinner-button (click)="exportToExcel()" class="m-1" *ngIf="gridItemData.dataSource.data.length > 0 && authenticationData.permissions.EnviarLiquidaciones" [options]="spinnerButtonExcel">
+                    </spinner-button>
+                    <button type="button" class="m-1" mat-raised-button color="primary" [routerLink]="['/home']">
+            <span>Cerrar</span>
+          </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+        </div>
+    </div>
+</form>

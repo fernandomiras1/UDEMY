@@ -1,0 +1,59 @@
+<div class="row" *ngIf="tiposdeHito && dateValidate.length > 0">
+    <div class="col-12">
+        <h4 class="font-weight-bold mb-3">Tiempos teóricos</h4>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Inicio programado:</label>
+            <p class="form-control-static input-read">{{fechaProgramada}} - {{horaProgramada}}</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label">Duración estimada:</label>
+            <p class="form-control-static input-read">{{horaEstimada || 0}} minutos</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <h4 class="font-weight-bold mb-3 mt-4">Tiempos reales</h4>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[0].Input" name="estadiaInicio" (change)="changeInput(0)" (onChange)="onchangeInput(0)" ></tips-input-date-time>
+        </div>
+    </div>
+    <div class="w-100"></div>
+     <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[1].Input" name="induccionInicio" (change)="changeInput(1)" (onChange)="onchangeInput(1)"></tips-input-date-time>
+        </div>
+    </div>
+   <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[2].Input" name="induccionFin" (change)="changeInput(2)" (onChange)="onchangeInput(2)"></tips-input-date-time>
+        </div>
+    </div>
+    <div class="w-100"></div>
+     <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[3].Input" name="cirugiaInicio" (change)="changeInput(3)" (onChange)="onchangeInput(3)"></tips-input-date-time>
+        </div>
+    </div>
+   <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[4].Input" name="cirugiaFin" (change)="changeInput(4)" (onChange)="onchangeInput(4)"></tips-input-date-time>
+        </div>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[5].Input" name="anestesiaFin" (change)="changeInput(5)" (onChange)="onchangeInput(5)"></tips-input-date-time>
+        </div>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6">
+        <div class="form-group">
+            <tips-input-date-time [(ngModel)]="dateValidate[6].Input" name="estadiaFin" (change)="changeInput(6)" (onChange)="onchangeInput(6)"></tips-input-date-time>
+        </div>
+    </div>
+</div>

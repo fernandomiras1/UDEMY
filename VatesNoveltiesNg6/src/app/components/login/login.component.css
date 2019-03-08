@@ -1,0 +1,18 @@
+
+mat-card {
+  max-width: 300px;
+  margin: 3em auto;
+  text-align: center;
+}
+.signin-content {
+  padding: 70px 1rem;
+}
+.full-width-input {
+  width: 100%;
+}
+
+md-card-title {
+  flex: initial!important;
+}
+
+

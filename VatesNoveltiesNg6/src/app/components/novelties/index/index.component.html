@@ -1,0 +1,2 @@
+<app-search *ngIf="(applicationService.currentStatus == modeEnum.Search)"></app-search>
+<app-details *ngIf="(applicationService.currentStatus != modeEnum.Search)"></app-details>

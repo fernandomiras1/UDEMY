@@ -1,0 +1,131 @@
+<form [formGroup]="recategorization" id="FormRecategorization">
+    <mat-card class="mat-top mat-elevation-z4">
+        <mat-card-content>
+
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Recibo Actual</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput formControlName="Net" type="number" placeholder="Recibo">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Adicional Actual</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput formControlName="Additional" type="number" placeholder="Recibo">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Total Actual</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput formControlName="Total" type="number" placeholder="Recibo">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-label class="color-black">
+                        <br>
+                        <mat-checkbox class="example-full-width" formControlName="IsRetroactive">Retroactivo</mat-checkbox>
+                    </mat-label>
+                </div>
+
+                <div class="form-group col-md-1" *ngIf="recategorization.get('IsRetroactive').value">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Monto" type="number" (keypress)="validationsService.numberOnly($event)" formControlName="RetroactiveAmount">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-1" *ngIf="recategorization.get('IsRetroactive').value">
+                    <mat-form-field class="example-full-width">
+                        <input matInput [matDatepicker]="picker" placeholder="Mes" formControlName="RetroactiveDate" (dateChange)="changePeriod($event)">
+                        <mat-datepicker-toggle (change)="changePeriod()" matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-1" *ngIf="recategorization.get('IsRetroactive').value">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Cant. Meses" type="number" formControlName="RetroactiveMonthCount">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom: -2%;">
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Nuevo Recibo</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput placeholder="Recibo" formControlName="NewNetSalary" (blur)="mapPricingData()" type="number" required>
+                        <mat-error *ngIf="recategorization.get('NewNetSalary').hasError('required')">
+                            Por favor, ingrese el monto del Recibo.
+                        </mat-error>
+                        <mat-error *ngIf="recategorization.get('NewNetSalary').hasError('min')">
+                            {{commonMessage(messageEnum.LessThanZero)}}
+                        </mat-error>
+                        <mat-error *ngIf="recategorization.get('NewNetSalary').hasError('pattern')">
+                            {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Nuevo Adicional</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput placeholder="Adicional" formControlName="NewAdditionalSalary" (blur)="mapPricingData()" type="number">
+                        <mat-error *ngIf="recategorization.get('NewAdditionalSalary').hasError('min')">
+                            {{commonMessage(messageEnum.LessThanZero)}}
+                        </mat-error>
+                        <mat-error *ngIf="recategorization.get('NewAdditionalSalary').hasError('pattern')">
+                            {{commonMessage(messageEnum.OnlyIntegerNumbers)}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Nuevo Total</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput placeholder="Total" formControlName="NewTotal" type="number">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">% de Incremento</mat-label>
+                        <input matInput placeholder="% de Incremento" formControlName="IncrementPercentage" (blur)="mapPricingAmountIncrement()" type="number">
+                        <mat-error *ngIf="recategorization.get('IncrementPercentage').hasError('min')">
+                            El Incremento no puede ser menor a cero.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Diferencia</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput placeholder="Diferencia" formControlName="NewDifference" type="number">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2" *ngIf="appService.currentStatus == modeEnum.New">
+                    <br>
+                    <div class="form-row pull-right">
+                        <button type="button" mat-raised-button color="primary" (click)="addNovelty()">
+                  <span>Agregar</span>
+              </button>&nbsp;
+                        <button type="button" mat-stroked-button color="primary" (click)="comeback()">
+                <span>Cancelar</span>
+            </button>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</form>

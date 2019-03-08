@@ -1,0 +1,30 @@
+Pasos para crear mi backEnd Server. 
+
+1) PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm init
+2) ponemos el nombre y luego todo enter. Le genera un Archivo ( Package.json )
+3)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm install express
+4)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm install cors
+5)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm install body-parser
+6)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> tsc --init
+8)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm install @types/express --save-dev
+9)npm install @types/cors --save-dev
+10)PS A:\Desarrollos\REPOSITORIOS\UDEMY\Angular-App-Tiempo-Real-Fernando-Herrera\PROYECTO\sockets\01-server> npm install socket.io
+11)npm install @types/socket.io --save-dev
+
+
+Pasos para crear mi Front-End (Angular).
+1) ng new prueba ( creacion del proyecto con angular ClI ) 
+2) (https://www.npmjs.com/package/ngx-socket-io) npm i ngx-socket-io
+
+Seccion 7 : Grafias en tiempo Real 
+----------------------------------
+links: 
+1 - https://valor-software.com/ng2-charts/
+2 - https://www.npmjs.com/package/ngx-socket-io
+----------------------------------
+1) npm i ngx-socket-io
+2) npm install ng2-charts --save
+3) npm install chart.js --save
+
+
+

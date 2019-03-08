@@ -1,0 +1,153 @@
+<div class="row" *ngIf="participantes">
+    <div class="col-12" id="messageError">
+        <h4 class="font-weight-bold mb-3">Participantes</h4>
+    </div>
+    <div class="col-12">
+    <error-interno-Component idDivToScroll="messageError"></error-interno-Component>
+    <!-- Contenedor -->
+    <div class="contenedor">
+        <div class="row py-2">
+            <div class="col-12 mt-3">
+                    <div class="row head">
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4">
+                            <p class="mb-0"><strong>Nombre</strong></p>
+                        </div>
+                        <div class="col-3">
+                            <p class="mb-0"><strong>Servicio</strong></p>
+                        </div>
+                        <div class="col-3" style="text-align: center;">
+                            <p class="mb-0"><strong>Rol</strong></p>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+            <div class="col-12" >
+                <div class="list-group">
+                        <div *ngFor="let item of participantes.Participantes; let i=index" class="list-group-item list-group-item-action py-2">
+                            <div class="row" [ngbTooltip]="item.MensajeEliminacion" style="align-items: center;">
+                                <div class="col-1">
+                                    <a> <i class="fa fa-star"
+                                        (click)="responsablePrincipal(item)" 
+                                        [ngClass]="{'text-warning': item.ResponsablePrincipal, 'item-hove': !item.ResponsablePrincipal}" 
+                                        aria-hidden="true">
+                                        </i>
+                                    </a>
+                                </div>
+                                <div class="col-4 pull-left p-0"> {{ item.Nombre }} </div>
+                                <div class="col-3"> {{ item.Servicio }} </div>
+                                <div class="col-3">
+                                    <div class="form-group" [ngClass]="{'has-error': item.IdRol == 0}">
+                                        <select class="form-control" (change)="changeRoles($event.target.value, item)" [disabled]="isView">
+                                                <option value="">Seleccione...</option>
+                                                <option *ngFor="let rol of selectRoles" [selected]="item.IdRol == rol.Id" [value]="rol.Id"> {{ rol.Nombre }} </option>
+                                        </select>
+                                        <span *ngIf="item.IdRol == 0" class="has-error">Debe seleccionar un rol</span>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <a *ngIf="item.PermiteEliminar"> <i class="fa fa-times"
+                                        (click)="eliminarParticipante(i, item.ResponsablePrincipal)" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item list-group-item-action p-0">
+                            <div class="row">
+                                <div class="col-12 align-self-center">
+                                    <div>
+                                        <button type="button" (click)="mostrarParticipantes = true" [disabled]="isView" class="btn btn-link btn-link-icon">
+                                            <i class="fa fa-plus mr-1"></i>AGREGAR PARTICIPANTE
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item list-group-item-action p-0">
+                            <div class="box-gray mt-0 p-3 mb-0"  *ngIf="mostrarParticipantes">
+                                <div class="row m-0">
+                                    <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-2">Nombre</label>
+                                                <input type="text" class="form-control" #nombre 
+                                                (input)="habilitarBtn(nombre.value, apellido.value)"
+                                                (keyup.enter)="buscarProfesionales(nombre.value,apellido.value)">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-2">Apellido</label>
+                                                <input type="text" class="form-control" #apellido 
+                                                (input)="habilitarBtn(nombre.value, apellido.value)"
+                                                (keyup.enter)="buscarProfesionales(nombre.value,apellido.value)">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-right">
+                                            <button type="button" class="btn btn-primary" [disabled]="!busquedaHabilitada"
+                                            (click)="buscarProfesionales(nombre.value, apellido.value)">Buscar</button>
+                                        </div>
+                                    <div class="col-12">
+                                        <div class="row my-3">
+                                            <div class="col-12">
+                                                <div class="table-responsive" style="height: auto;" *ngIf="searchResultsPaginated.length > 0">
+                                                        <table class="table table-hover table-light">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <label>
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </th>
+                                                                    <th>Apellido y nombre</th>
+                                                                    <th>Servicio</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let participante of searchResultsPaginated">
+                                                                    <td class="align-top">
+                                                                        <label>
+                                                                            <input class="checkbox" type="checkbox" 
+                                                                            (change)="seleccionar(participante,$event)">
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="align-top">{{participante.Nombre}}</td>
+                                                                    <td class="align-top">{{participante.Servicio}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <!-- Paginador -->
+                                    <div class="col-12" *ngIf="searchResultsPaginated.length > 0">
+                                        <app-paginador *ngIf="paginadorModel" 
+                                                        [paginadorDto]="paginadorModel"
+                                                        (onCambioPagina)="paginateBuscarProfesional($event)">
+                                        </app-paginador>
+                                    </div>
+                                    <!-- fin Paginador -->
+                                    </div>
+                                    <hr>
+                                    <div class="col-12">
+                                        <div class="row justify-content-end">
+                                            <div class="col-auto mt-5">
+                                                <button type="button" (click)="mostrarParticipantes = !mostrarParticipantes" class="btn btn-primary-outline">Cancelar</button>
+                                                <button type="button" (click)="agregarParticipantes()" class="btn btn-primary">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin Contenedor -->
+    </div>
+</div>

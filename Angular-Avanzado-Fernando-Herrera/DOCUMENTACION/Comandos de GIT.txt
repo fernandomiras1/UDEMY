@@ -1,0 +1,15 @@
+---SUBIR------
+git status (vemos en rojo los archivos por subir)
+git add . ( agregamos todos los achivos a subir ) 
+git status ( todo en verde)
+git commit -m "Nombre del commit" 
+git push origin master ( subimos las cosas al repo ) 
+
+---- TAGS ----
+git tag ( Ver todos las versiones ) 
+git tag -a v0.0.1 -m "Descipcion de la version"
+git push --tags (subir a git)
+
+-----------------------USER Y PASS CUENTA GIT------------
+User: fernandomiras1
+pass: Repo36354931

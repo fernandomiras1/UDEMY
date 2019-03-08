@@ -1,0 +1,92 @@
+.mat-option-double {
+    line-height: 17px;
+}  
+.mat-column-select {
+    flex: 0 0 50px;
+}
+.mat-column-Month {
+    flex: 0 0 50px;
+}
+.mat-column-EmployeeName {
+    flex: 0 0 140px;
+}
+.mat-column-Cuit {
+    flex: 0 0 80px;
+}
+.mat-column-Location {
+    flex: 0 0 80px;
+}
+.mat-column-BasicSalary {
+    flex: 0 0 80px;
+}
+.mat-column-OnAccountSalary {
+    flex: 0 0 80px;
+}
+.mat-column-NetSalary {
+    flex: 0 0 80px;
+}
+.mat-column-AdditionalSalary {
+    flex: 0 0 80px;
+}
+.mat-column-TotalSalary {
+    flex: 0 0 80px;
+}
+.mat-column-CATDate {
+    flex: 0 0 80px;
+}
+.mat-column-AgreementCoefficient {
+    flex: 0 0 100px;
+}
+.mat-column-GrossSalary {
+    flex: 0 0 80px;
+}
+.mat-column-NoveltyAmount {
+    flex: 0 0 80px;
+}
+.mat-column-NoveltyTypes {
+    flex: 0 0 200px;
+}
+.mat-column-AdditionalInformation {
+    flex: 0 0 200px;
+}
+.mat-column-Observations {
+    flex: 0 0 130px;
+}
+.mat-column-StatusDescription {
+    flex: 0 0 120px;
+}
+.mat-column-actions {
+    flex: 0 0 120px;
+}
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}
+
+.mat-row {
+    border-style: none !important;
+}
+/* mat-row{
+    border-bottom-width: 0px !important;
+    border-style: hidden !important;
+} */
+  
+  /* td.mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+  }
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+   */
+  /* .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  } */
+  
+  /* .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+   */
+

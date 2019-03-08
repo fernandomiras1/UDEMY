@@ -1,0 +1,3 @@
+comando para instalar (ng2-charts). 
+1 -npm install ng2-charts --save
+2 -npm install chart.js --save

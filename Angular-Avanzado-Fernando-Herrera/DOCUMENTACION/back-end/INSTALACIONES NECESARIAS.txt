@@ -1,0 +1,71 @@
+------------------Instalar Git-2.19.1-64-bit.exe------------------------------
+link: https://git-scm.com/downloads
+
+------------------Instalar Express.js------------------------------
+link: https://expressjs.com/es/starter/installing.html
+comando: npm install express --save
+
+
+------------------Instalar nodemon------------------------------
+link: https://nodemon.io/
+comando: npm install -g nodemon
+
+
+------------------Instalar mongoDB------------------------------
+link: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/?_ga=2.261172813.170144613.1542477499-1816890451.1542477499
+
+------------------Instalar Robo 3T------------------------------
+link: https://robomongo.org/download
+
+------------------Instalar mongoosejs------------------------------
+link: https://mongoosejs.com/docs/index.html
+comando: npm install mongoose --save
+
+------------------Instalar body-parser------------------------------
+link: https://github.com/expressjs/body-parser
+comando: npm install body-parser --save
+
+
+------------------Instalar Mongoose-unique-validator----------------------
+
+comando: npm install mongoose-unique-validator --save
+
+
+------------------Instalar bcryptjs ( Encriptar password en db de una sola via)-------------------
+link: https://www.npmjs.com/package/bcryptjs
+comando: npm i bcryptjs --save
+
+
+------------------Instalar JsonWebToken------------------------------
+link: https://github.com/auth0/node-jsonwebtoken
+comando: npm install jsonwebtoken --save
+
+
+---------------Express-FileUpload------------------------------------------
+link: https://github.com/richardgirges/express-fileupload
+comando: npm install --save express-fileupload
+
+
+---------------serve-index------------------------------------------
+link: https://github.com/expressjs/serve-index
+comando: npm install serve-index --save
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------GOOGLE SIGN-IN----------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+CONSOLA GOOGLE: https://console.developers.google.com/apis/dashboard?project=smiling-parser-223121
+----------ESTO VA EN UN NUEVO PROYECTO.
+link: https://github.com/johnpapa/lite-server
+comando: npm install lite-server --save-dev
+
+Using a Google API Client Library
+comando: npm install google-auth-library --save
+
+
+
+
+
+
+

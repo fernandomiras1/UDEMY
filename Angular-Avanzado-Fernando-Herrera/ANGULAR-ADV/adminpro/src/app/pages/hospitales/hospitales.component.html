@@ -1,0 +1,61 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- se dispara cuado se suelta la letra del teclado el 'keyup' -->
+                <input #input (keyup)="buscarHospital( input.value )" type="text" class="form-control" placeholder="Buscar hospital...">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button (click)="crearHospital()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                <i class="fa fa-plus"></i>
+                Crear Hospital
+              </button>
+                </div>
+
+                <h3 class="card-title">Hospitales registrados ( <small>{{totalRegistros}}</small> )</h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitales">
+                            <td class="w70">
+                                <img (click)="actualizarImagen(hospital)" [src]="hospital.img | imagen: 'hospital'" class="img-50 pointer">
+                            </td>
+                            <td>
+                                <input [(ngModel)]="hospital.nombre" name="nombre" type="text" class="form-control">
+                            </td>
+                            <td>
+                                <button (click)="actualizarHospital(hospital)" class="btn btn-primary m-1">
+                         <i class="fa fa-save"></i>
+                      </button>
+
+                                <button (click)="borrarHospital(hospital)" class="btn btn-danger m-1">
+                         <i class="fa fa-trash-o"></i>
+                      </button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<p [ngStyle]="{'font-size': tamano +'px'}">
+ Hola Mundo.. esta es una etiqueta 1 
+</p>
+
+
+<p [style.fontSize]="'40px'">
+  Hola Mundo.. esta es una etiqueta 2
+ </p>
+
+
+ <p [style.fontSize.px]="tamano">
+  Hola Mundo.. esta es una etiqueta 3
+ </p>
+
+ <button class="btn btn-primary" (click)="tamano = tamano + 5">
+   <i class="fa fa-plus"></i>
+ </button>
+
+ <button class="btn btn-primary" (click)="tamano = tamano - 5">
+  <i class="fa fa-minus"></i>
+</button>
+

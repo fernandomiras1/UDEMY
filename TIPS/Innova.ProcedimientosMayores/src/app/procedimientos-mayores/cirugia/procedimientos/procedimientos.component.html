@@ -1,0 +1,96 @@
+  <div *ngIf="procedimientoDTO">
+  <div class="row">
+      <div class="col-12">
+          <h5 class="font-weight-bold mb-3">Listado de procedimientos preoperatorios</h5>
+      </div>
+  </div>
+  <div class="row mb-5">
+      <div class="col-12">
+          <div class="list-group">
+              <div *ngFor="let item of procedimientoDTO.ProcedimientosPreoperatorios" class="list-group-item list-group-item-action py-2">
+                  <div class="row">
+                      <div class="col-6 pull-left p-0"> {{ item.NombreProcedimiento }} </div>
+                      <div class="col-2" *ngIf="item.Principal"> Principal </div>
+                      <div class="col-2" *ngIf="!item.Principal"> Secundario </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12">
+          <h5 class="font-weight-bold mb-3">Listado de procedimientos postoperatorios</h5>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12">
+          <div class="list-group">
+              <div *ngFor="let item of procedimientoDTO.ProcedimientosPostoperatorios; let i=index" class="list-group-item list-group-item-action py-2">
+                  <div class="row" [ngbTooltip]="item.MensajeEliminacion">
+                      <div class="col-6 pull-left p-0"> {{ item.NombreProcedimiento }} </div>
+                      <div class="col-4" *ngIf="item.Principal"> Principal </div>
+                      <div class="col-4" *ngIf="!item.Principal"> Secundario </div>
+                      <div class="col-2 text-right" *ngIf="item.PermiteEliminacion">
+                          <a> <i class="fa fa-times px-2" (click)="eliminarProcedimiento(i)" aria-hidden="true"></i>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item list-group-item-action p-0">
+                  <div class="row">
+                      <div class="col-12 align-self-center">
+                          <div>
+                              <button type="button" class="btn btn-link btn-link-icon" (click)="addPlantilla = true" ><i class="fa fa-plus mr-1">
+                              </i>AGREGAR PROCEDIMIENTO</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div *ngIf="addPlantilla" class="list-group-item list-group-item-action p-0">
+                  
+                  <div class="box-gray mt-0 p-3 mb-0" id="camposRequeridos">
+                      <div class="row">
+                          <div class="col-md-12">
+                                <error-interno-Component idDivToScroll="camposRequeridos"></error-interno-Component>
+                            <div class="form-group">
+                                <label class="control-label">Procedimiento</label>
+                                <app-buscar-termino 
+                                    id="ProcedimientoPrincipal" 
+                                    class="componente-buscador default" 
+                                    [parametrosTerminologia]="paramsProcedimiento"
+                                    [listaTerminos]="procedimientoPrincipal"
+                                    [cantidadMaximaTerminos]="1"
+                                    [ngClass]="(procedimientoPrincipal.length > 0) ? 'default' : 'requerido'">
+                                </app-buscar-termino>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12">
+                              <label class="control-label">Tipo de procedimiento</label>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="form-group has-error">
+                                  <div class="btn-group switch col-4 p-0">
+                                      <button type="button" (click)="tipoProcedimiento(true)" class="btn switch__btn" [ngClass]="{'active': isActive}">Principal</button>
+                                      <button type="button" (click)="tipoProcedimiento(false)" class="btn switch__btn" [ngClass]="{'active': isActive == false}">Secundario</button>
+                                  </div>
+                                  <span *ngIf="isActive == null" class="has-error">Debe seleccionar un tipo de procedimiento</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col align-self-center text-right mt-5">
+                              <button type="button" class="btn btn-primary-outline btn-sm" (click)="cerrarProcedimineto()">Cancelar</button>
+                              <button type="button" class="btn btn-primary btn-sm" (click)="agregarProcedimineto()" >Agregar</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
