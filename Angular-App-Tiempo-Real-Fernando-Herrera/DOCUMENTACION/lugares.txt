@@ -1,0 +1,17 @@
+lugares: Lugar[] = [
+  {
+    nombre: 'Udemy',
+    lat: 37.784679,
+    lng: -122.395936
+  },
+  {
+    nombre: 'Bahía de San Francisco',
+    lat: 37.798933,
+    lng: -122.377732
+  },
+  {
+    nombre: 'The Palace Hotel',
+    lat: 37.788578,
+    lng: -122.401745
+  }
+];
