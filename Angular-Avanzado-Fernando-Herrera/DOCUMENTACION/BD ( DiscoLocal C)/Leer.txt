@@ -1,0 +1,1 @@
+Poner esta carpeta data en el disco local c de la maquina, Aca esta la base de datos en mongoDB

@@ -1,0 +1,18 @@
+
+
+------------------Instalar ng2-charts------------------------------
+link: https://valor-software.com/ng2-charts/
+1 -npm install ng2-charts --save
+2 -npm install chart.js --save
+
+------------------Instalar sweetalert (Aletas en el Lado del FrontEnd)----------------------
+comando: npm install --save sweetalert
+
+
+
+
+
+
+
+
+
