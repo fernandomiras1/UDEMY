@@ -1,0 +1,16 @@
+.mat-top {
+    margin-top: 15px;
+    height: 6.5em;
+}
+
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+.color-black {
+    color: black;
+}

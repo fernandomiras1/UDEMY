@@ -1,0 +1,179 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.app-content {
+  margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* --------Gestores Globales------------ */
+.cursor {
+  cursor: pointer;
+}
+
+.multiProject {
+  color: #ffb10073;
+}
+
+.gridInfoIconOrange  {
+  color:orangered;
+  font-size: 1.2em !important;
+  padding-top: .4em;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-half-width {
+  width: 50%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.table {
+  width: 100%;
+}
+
+.paintConlum {
+  background-color: #ffb10073;
+}
+
+.material-icons,
+.icon-text,
+.icon-text-caps,
+.icon-text-tweaked {
+  vertical-align: middle;
+}
+
+.icon-text-tweaked {
+  position: relative;
+  top: 1px;
+}
+
+/* Spinner for the table o div  */
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-card {
+  padding: 1% !important;
+}
+
+.mat-card-actions {
+  padding: 15px !important;
+  margin-top: -1.5%;
+}
+
+/* --------Fin Gestores Globales------------ */
+
+.mat-card-title {
+  font-size: 18px; /*original 24*/
+}
+.mat-card-content,
+.mat-card-header .mat-card-title,
+.mat-card-subtitle {
+  font-size: 12px; /*original 14*/
+}
+.mat-option {
+  font-size: 14px; /*original 16*/
+}
+.app-content {
+  font-size: 12px;
+}
+.table-container .mat-cell {
+  font-size: 0.9em;
+}
+.mat-row {
+  min-height: 24px;
+}
+.mat-header-cell {
+  font-size: 0.9em;
+}
+.mat-header-row {
+  min-height: 30px;
+}
+.material-icons {
+  font-size: 24px;
+}
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.75);
+}
+.mat-button,
+.mat-fab,
+.mat-flat-button,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-raised-button,
+.mat-stroked-button {
+  font-size: 12px;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 1em;
+}
+
+/* string limit '...' */
+.trim-info {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loading-All-Screen {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-checkbox-inner-container {
+  height: 15px !important;
+  width: 15px !important;
+}

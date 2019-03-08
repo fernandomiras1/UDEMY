@@ -1,0 +1,67 @@
+.mat-option-double {
+    line-height: 17px;
+}
+
+.mat-column-Month {
+    flex: 0 0 7%;
+}
+
+.mat-column-EmployeeName {
+    flex: 0 0 15%;
+}
+
+.mat-column-Cuit {
+    flex: 0 0 10%;
+}
+
+.mat-column-ToPayNetSalary {
+    flex: 0 0 5%;
+}
+
+.mat-column-CruisingNetSalary {
+    flex: 0 0 5%;
+}
+
+.mat-column-PreviousNetSalary {
+    flex: 0 0 8%;
+}
+
+.mat-column-IncomeTaxRetention {
+    flex: 0 0 8%;
+}
+
+.mat-column-DiffWithPreviousSalary {
+    flex: 0 0 8%;
+}
+
+.mat-column-DiffWithCruisingSalary {
+    flex: 0 0 8%;
+}
+
+.mat-column-NoveltyTypes {
+    flex: 0 0 8%;
+}
+
+.mat-column-AdministrationComments {
+    flex: 0 0 8%;
+}
+
+.mat-column-AdditionalInformation {
+    flex: 0 0 8%;
+}
+
+.mat-column-Justification {
+    flex: 0 0 10%;
+}
+
+.mat-column-StatusDescription {
+    flex: 0 0 10%;
+}
+
+.mat-column-actions {
+    flex: 0 0 10%;
+}
+
+.mat-row {
+    border-style: none !important;
+}

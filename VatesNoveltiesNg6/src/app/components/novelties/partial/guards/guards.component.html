@@ -1,0 +1,85 @@
+<form [formGroup]="componentForm" id="FormcomponentForm">
+    <mat-card class="mat-top mat-elevation-z4">
+        <mat-card-content>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Cliente</mat-label>
+                        <input matInput type="text" placeholder="Cliente" name="nameClient" formControlName="Client" [matAutocomplete]="autoClient">
+                        <mat-error *ngIf="componentForm.get('Client').hasError('required')">
+                            Por favor, ingrese el nombre del cliente.
+                        </mat-error>
+                        <mat-autocomplete #autoClient="matAutocomplete" [displayWith]="displayClient">
+                            <mat-option *ngFor="let client of listClients" [value]="client">
+                                {{ client.Name }}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                    </mat-form-field>
+
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Proyecto</mat-label>
+                        <input matInput type="text" name="nameProject" placeholder="Proyecto" formControlName="Project" [matAutocomplete]="autoProject">
+                        <mat-error *ngIf="componentForm.get('Project').hasError('required')">
+                            Por favor, ingrese el nombre del proyecto.
+                        </mat-error>
+                        <mat-autocomplete #autoProject="matAutocomplete" [displayWith]="displayProject">
+                            <mat-option *ngFor="let project of listProjects" [value]="project" (onSelectionChange)="onSelectedOption($event.source.selected, project);">
+                                {{ project.Name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Monto</mat-label>
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <input matInput placeholder="Monto" name="newDifferenceName" formControlName="NewDifference" (keypress)="validationsService.numberOnly($event)" (blur)="mapPricingAmount()" type="number">
+                        <mat-error *ngIf="componentForm.get('NewDifference').hasError('min')">
+                            El Monto no puede ser menor o igual cero.
+                        </mat-error>
+                        <mat-error *ngIf="componentForm.get('NewDifference').hasError('required')">
+                            Por favor, ingrese el Monto.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label class="color-black">Porcentaje</mat-label>
+                        <input matInput placeholder="Porcentaje" name="IncrementPercentageName" formControlName="IncrementPercentage" (keypress)="validationsService.numberOnly($event)" (blur)="mapPricingPercentage()" type="number">
+                        <mat-error *ngIf="componentForm.get('IncrementPercentage').hasError('min')">
+                            El Porcentaje no puede ser menor o igual cero.
+                        </mat-error>
+                        <mat-error *ngIf="componentForm.get('IncrementPercentage').hasError('required')">
+                            Por favor, ingrese el Porcentaje.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-1">
+                    <mat-checkbox name="fixedAmountName" formControlName="FixedAmount">Monto Fijo</mat-checkbox>
+                    <mat-checkbox name="CurrentMonthName" formControlName="CurrentMonth">Mes Actual</mat-checkbox>
+                </div>
+
+                <div class="form-group col-md-3" *ngIf="appService.currentStatus == modeEnum.New">
+                    <div class="form-row pull-right">
+                        <button type="button" mat-raised-button color="primary" class="m-1" (click)="addGuards()">
+                            <span>Agregar</span>
+                        </button>
+                        <button type="button" mat-stroked-button color="primary" class="m-1" (click)="comeback()">
+                          <span>Cancelar</span>
+                      </button>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</form>

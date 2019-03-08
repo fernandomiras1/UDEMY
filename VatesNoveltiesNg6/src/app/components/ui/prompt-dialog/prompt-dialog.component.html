@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data?.title }}</h1>
+<div mat-dialog-content>
+  <p>{{ data?.message }}</p>
+  <mat-form-field class="example-full-width">
+    <input matInput [placeholder]="data?.inputPlaceholder" [(ngModel)]="itemData.comments">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" [disabled]="!itemData.comments" [mat-dialog-close]="itemData.comments" cdkFocusInitial>Aceptar</button>
+  <span class="fill-remaining-space"></span>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+</div>

@@ -1,0 +1,82 @@
+<form [formGroup]="componentForm">
+  <div class="col-lg-12 col-md-12" mat-elevation-z8>
+    <h1 mat-dialog-title>Modificar Distribución de Sueldo</h1>
+    <h6 mat-dialog-title>{{ componentForm.get('EmployeeName').value }}</h6>
+    <div mat-dialog-content>
+
+      <div class="form-row">
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Básico Crucero" formControlName="BasicSalary">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="A Cuenta" formControlName="OnAccountSalary">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Total Recibo" formControlName="NetSalary">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Distribución" formControlName="DistributionPercentaje">
+            <span matPrefix>%&nbsp;</span>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input name="newBasicSalaryName" type="number" matInput placeholder="Nuevo Básico Crucero" formControlName="newBasicSalary">
+            <span matPrefix>$&nbsp;</span>
+            <mat-error *ngIf="isInvalidField('newBasicSalary')">
+              <span *ngIf="componentForm.get('newBasicSalary').hasError('required')">
+                Por favor, ingrese un crucero válido.
+              </span>
+              <span *ngIf="!componentForm.get('newBasicSalary').hasError('required') && componentForm.get('newBasicSalary').hasError('greaterOrEqual')">
+                El nuevo básico debe ser mayor a {{ componentForm.get('BasicSalary').value }} y menor o igual {{
+                componentForm.get('NetSalary').value }}.
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Nuevo A Cuenta" formControlName="newOnAccountSalary">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Total Recibo" formControlName="NetSalary">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Nueva Distribución" formControlName="newDistributionPercentaje">
+            <span matPrefix>%&nbsp;</span>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-3 offset-md-9">
+          <button color="primary" (click)="onSubmit()" class="m-2" mat-raised-button>
+            <span>Aceptar</span>
+          </button>
+          <button mat-button (click)="onCancel()">
+            <span>Cancelar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

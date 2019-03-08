@@ -1,0 +1,268 @@
+<form [formGroup]="formCreate" (submit)="appService.currentStatus == modeEnum.New ? saveNovelties() : editNovelties()">
+    <div class="col-md-12 col-lg-12">
+        <div class="app-content">
+            <mat-card>
+                <div class="loading-All-Screen" *ngIf="isLoadingAllScreen">
+                    <mat-spinner *ngIf="isLoadingAllScreen"></mat-spinner>
+                </div>
+                <mat-card>
+                    <mat-card-title>
+                        <span *ngIf="(appService.currentStatus == modeEnum.New)">Cargar Novedades</span>
+                        <span *ngIf="(appService.currentStatus == modeEnum.Edit)">Editar Novedad</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="form-row">
+                            <div class="col-md-3" *ngIf="appService.currentStatus == modeEnum.New">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" placeholder="Recurso" formControlName="employee" [matAutocomplete]="autoResource" required>
+                                    <mat-error *ngIf="isFieldInvalid('employee')">
+                                        Por favor, ingrese el Recurso.
+                                    </mat-error>
+                                    <button type="button" mat-button *ngIf="formCreate.get('employee').value && noveltyBinding.details.length < 0 && !isLoadingResults" matSuffix mat-icon-button aria-label="Clear" (click)="cleanEmployee()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                                    <mat-spinner matSuffix *ngIf="isLoadingResults" mode="indeterminate" diameter="20"></mat-spinner>
+                                    <mat-autocomplete #autoResource="matAutocomplete" [displayWith]="displayResource">
+                                        <mat-option class="mat-option-double" *ngFor="let item of listResource" [value]="item" (onSelectionChange)="onSelectedOption($event.source.selected, item.Id);">
+                                            <span>
+                        <strong>{{ this.getName(item)}}</strong>
+                        <br/>
+                      </span>
+                                            <small>{{item.Email}}</small>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <!-- Modo Edición/Visualización -->
+                            <div class="col-md-3" *ngIf="isEdit || isView">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput type="text" placeholder="Recurso" [value]="employeeEdit" disabled>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-1">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput [matDatepicker]="dpPeriodDate" [min]="minPeriodDate" autocomplete="off" placeholder="Período *" formControlName="periodDate" />
+                                    <mat-error *ngIf="isFieldInvalid('periodDate')">
+                                        Por favor, ingrese un período valido.
+                                    </mat-error>
+                                    <mat-datepicker-toggle matSuffix [for]="dpPeriodDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #dpPeriodDate startView="multi-year" (yearSelected)="chosenYearHandlerPeriodDate($event)" (monthSelected)="chosenMonthHandlerPeriodDate($event, dpPeriodDate)" panelClass="example-month-picker"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-select placeholder="Revisor" formControlName="approver" required>
+                                        <mat-option *ngFor="let approver of listApprover" [value]="approver.Id">
+                                            {{approver.FirstName}} {{approver.LastName}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="isFieldInvalid('approver')">
+                                        Por favor, ingrese el Revisor.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Observaciones" formControlName="observations" required>
+                                    <mat-error *ngIf="isFieldInvalid('observations')">
+                                        Por favor, ingrese una Observación.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="employeeDetail.EmpId != null && !isLoadingResults">
+                            <div class="form-row">
+
+                                <div class="col-md-4" *ngIf="employeeDetail.PMs">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="PM" [value]="employeeDetail.PMs" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Área" [value]="employeeDetail.Area" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4" *ngIf="employeeDetail.Projects">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Proyectos" [value]="employeeDetail.Projects" disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-row" *ngIf="employeeDetail.EmpId != null">
+
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Sueldo Liquidado Mes Anterior" [value]="employeeDetail.PreviousLiquidatedSalary" type="number" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Sueldo Mes Actual Estimado" [value]="employeeDetail.EstimatedNetSalary" type="number" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Total Sueldo Neto(Crucero)" [value]="employeeDetail.TotalNetSalary" type="number" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-select placeholder="Tipo de Novedad" name="noveltyTypeName" (valueChange)="valueChangeTypeNovelties()" formControlName="noveltyType">
+                                            <mat-option *ngFor="let type of listTypes" [value]="type.id">
+                                                {{ type.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-label>
+                                            <mat-icon>format_list_bulleted</mat-icon>
+                                            <b> Tipos de Novedad</b>
+                                        </mat-label>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6" *ngIf="!isNew && itemData.ObservedAdmComments != ''">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput type="text" placeholder="Observación Administración" formControlName="observarAdmNovedades">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6" *ngIf="isView && itemData.RejectComments != ''">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput type="text" placeholder="Motivo de Rechazo" [value]="rejectComments" disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="app-content" [ngSwitch]="formCreate.get('noveltyType').value" *ngIf="employeeDetail.EmpId != null && !isLoadingResults">
+                    <div *ngSwitchCase="typeEnum.Recategorizacion">
+                        <app-recategorization [employeeCruise]="employeeCruise" (changeitemData)="onChangesItemData($event)" (btnCancel)="closePartials($event)"></app-recategorization>
+                    </div>
+                    <div *ngSwitchCase="typeEnum.Guardia">
+                        <app-guards [editItemData]="itemData" [employeeCruise]="employeeCruise" [employeeDetail]="employeeDetail" (changeitemData)="onChangesItemData($event)" (btnCancel)="closePartials($event)"></app-guards>
+                    </div>
+                    <div *ngSwitchCase="typeEnum.HorasExtras">
+                        <app-extra-hour [editItemData]="itemData" [employeeCruise]="employeeCruise" [employeeDetail]="employeeDetail" (changeitemData)="onChangesItemData($event)" (btnCancel)="closePartials($event)"></app-extra-hour>
+                    </div>
+                    <!-- <div *ngSwitchDefault>output2</div> -->
+                </div>
+
+                <div class="app-content" *ngIf="noveltyBinding.details.length > 0">
+                    <div class="table-container mat-elevation-z4">
+                        <mat-table #table [dataSource]="dataSource" class="table">
+
+                            <ng-container matColumnDef="NoveltyDescription">
+                                <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.NoveltyDescription}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Client">
+                                <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Client ? row.Client.Name : ''}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Project">
+                                <mat-header-cell *matHeaderCellDef> Proyecto </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.Project ? row.Project.Name: ''}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NewDifference">
+                                <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> $ {{row.NewDifference ? row.NewDifference : 0}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NewNetSalary">
+                                <mat-header-cell *matHeaderCellDef> Recibo </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> $ {{row.NewNetSalary ? row.NewNetSalary : 0}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NewAdditionalSalary">
+                                <mat-header-cell *matHeaderCellDef> Adicional </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> $ {{row.NewAdditionalSalary ? row.NewAdditionalSalary : 0}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="NewTotal">
+                                <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> $ {{row.NewTotal ? row.NewTotal : 0}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="IncrementPercentage">
+                                <mat-header-cell *matHeaderCellDef> Porcentaje </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.IncrementPercentage ? row.IncrementPercentage : 0}} %</mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="IsRetroactive">
+                                <mat-header-cell *matHeaderCellDef> Retroactivo </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-checkbox *ngIf="row.noveltyType == typeEnum.Recategorizacion" [checked]="row.IsRetroactive" [disabled]="true"></mat-checkbox>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="RetroactiveAmount">
+                                <mat-header-cell *matHeaderCellDef> Monto Retroactivo </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.RetroactiveAmount}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="RetroactiveDate">
+                                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.RetroactiveDate | date: 'dd/MM/yyyy'}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="RetroactiveMonthCount">
+                                <mat-header-cell *matHeaderCellDef> Cant. de Meses </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.RetroactiveMonthCount}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-icon class="cursor md-dark" matTooltip="Rechazar" (click)="deleteNoveltyType(row)">cancel</mat-icon>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </mat-row>
+
+                        </mat-table>
+                    </div>
+                </div>
+                <br>
+                <mat-card-actions align="end">
+                    <button mat-raised-button color="primary" type="button" (click)="noveltiesService.openRejectDialog(itemData?.Id)" *ngIf="authenticationData.permissions.RechazarNovedades && itemData?.NoveltyStatus === statusEnum.Requested">
+            <mat-icon class="cursor m-1">cancel</mat-icon>
+            <span>Rechazar</span>
+          </button>
+                    <button mat-raised-button color="primary" type="button" (click)="noveltiesService.approveNovelty(itemData?.Id)" *ngIf="authenticationData.permissions.AprobarNovedades && itemData?.NoveltyStatus == statusEnum.Requested">
+            <mat-icon class="cursor m-1">check_circle</mat-icon>
+            <span>Aprobar</span>
+          </button>
+                    <button mat-raised-button color="primary" type="button" (click)="noveltiesService.deleteNovelty(itemData?.Id)" *ngIf="authenticationData.permissions.EliminarNovedades && itemData?.NoveltyStatus == statusEnum.Requested">
+            <mat-icon class="cursor m-1">delete_forever</mat-icon>
+            <span>Eliminar</span>
+          </button>
+                    <button mat-raised-button color="primary" type="button" (click)="noveltiesService.approveAdmNovelty(itemData?.Id)" *ngIf="authenticationData.permissions.AprobarAdmNovedades && itemData?.NoveltyStatus == statusEnum.Approved">
+            <mat-icon class="cursor m-1">verified_user</mat-icon>
+            <span>Aprobar Administración</span>
+          </button>
+                    <button mat-raised-button color="primary" type="button" (click)="noveltiesService.openObserveDialog(itemData?.Id)" *ngIf="authenticationData.permissions.ObservarAdmNovedades && itemData?.NoveltyStatus == statusEnum.Approved">
+            <mat-icon class="cursor m-1">visibility</mat-icon>
+            <span>Observar</span>
+          </button>
+
+                    <span class="fill-remaining-space"></span>
+
+                    <button type="button" mat-stroked-button color="primary" type="button" (click)="comeback()">
+            <span>Cerrar</span>
+          </button>
+                    <button type="button" mat-raised-button color="primary" type="submit" *ngIf="!isView">
+            <span>Guardar</span>
+          </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</form>

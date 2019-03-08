@@ -1,0 +1,85 @@
+.mat-option-double {
+    line-height: 17px;
+}
+
+.color-black {
+    color: black;
+}
+
+.example-margin {
+    margin: 10px;
+    width: 100%;
+}
+
+.app-list {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+mat-list-item {
+    font-size: 15px !important;
+    height: 25px !important;
+}
+
+.example-section {
+    display: flex;
+}
+
+.section-content {
+    padding: 15px;
+}
+
+h3 {
+    margin-bottom: 5px;
+}
+
+.mat-column-NoveltyDescription {
+    flex: 0 0 10%;
+}
+
+.mat-column-Client {
+    flex: 0 0 15%;
+}
+
+.mat-column-Project {
+    flex: 0 0 15%;
+}
+
+.mat-column-NewDifference {
+    flex: 0 0 5%;
+}
+
+.mat-column-NewNetSalary {
+    flex: 0 0 5%;
+}
+
+.mat-column-NewAdditionalSalary {
+    flex: 0 0 5%;
+}
+
+.mat-column-NewTotal {
+    flex: 0 0 5%;
+}
+
+.mat-column-IncrementPercentage {
+    flex: 0 0 5%;
+}
+
+.mat-column-IsRetroactive {
+    flex: 0 0 5%;
+}
+
+.mat-column-RetroactiveAmount {
+    flex: 0 0 5%;
+}
+
+.mat-column-RetroactiveDate {
+    flex: 0 0 5%;
+}
+
+.mat-column-RetroactiveMonthCount {
+    flex: 0 0 5%;
+}
+
+.mat-column-actions {
+    flex: 0 0 5%;
+}
