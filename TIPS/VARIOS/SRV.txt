@@ -1,0 +1,13 @@
+DNS: ajproducciones.dyndns.org
+USER: Administrador
+PASS: Fmiras36354931
+
+-----------
+
+REPORSITORIOS
+( fer.miras y pass: F_Miras_Rep0) 
+(adrian.avend pass: Adrian_avend )
+
+Alejandro Scaglione
+(ale.scaglione pass: Scaglione_Rep0)
+----------

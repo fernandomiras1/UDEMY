@@ -1,0 +1,53 @@
+<div class="row" *ngIf="checklistPreinduccion">
+        <div *ngIf="tipoNombre && tipoNombre === 'SignOut'">
+        <div class="col-12">
+                <h4 class="font-weight-bold mb-3">Diagnóstico preoperatorio</h4>
+         </div>
+        <div class="col-12 bg-gray mb-3">
+                <div class="form-group">
+                    <label class="control-label">Procedimiento principal</label>
+                    <p class="form-control-static input-read">{{ cabeceraTitulo }}</p>
+                </div>
+         </div>
+        </div>
+        <div *ngFor="let item of items" class="col-12">
+            <h4 *ngIf="!item.Chequeable" class="font-weight-bold mb-3">{{item.Texto}}</h4>
+            <div *ngIf="item.Chequeable" class="form-group row align-items-center mb-0">
+                <label class="control-label m-0 col-5">{{item.Texto}}</label>        
+
+                <div *ngIf="item.TipoDeItem === 'radiobutton'" class="btn-group switch col">
+                    <button *ngFor="let value of item.PosiblesValoresDeRespuesta;" type="button" [disabled]="isView" [value]="value.Nombre"
+                        class="btn switch__btn" [ngClass]="{'active': value.Seleccionado}" 
+                            (click)="selectButton(item,value, item.PosiblesValoresDeRespuesta); ">
+                            {{value.Nombre }}
+                    </button>
+                </div>
+                <div *ngIf="item.TipoDeItem === 'combobox'" class="btn-group switch col">
+                    <select class="form-control col-8" (change)="changeSeleccionable($event, item.PosiblesValoresDeRespuesta)" [disabled]="isView"> 
+                        <option value="">Seleccione...</option>
+                        <option *ngFor="let value of item.PosiblesValoresDeRespuesta" 
+                            [selected]="value.Seleccionado" [ngValue]="value">{{ value.Nombre }}</option>
+                    </select>
+                </div>
+
+                <div *ngIf="item.TipoDeItem === 'input'" class="form-group col-12">
+                    <div class="form-group">
+                        <textarea type="text" [(ngModel)]="item.Observaciones" name="obser" rows="3" class="form-control" [disabled]="isView"></textarea>
+                    </div>
+                </div>
+
+                <small *ngIf="item.Leyenda" class="form-text text-muted col-7"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ item.Leyenda }}</small>
+
+                <div *ngIf="isVisible(item)" class="form-group col-12">
+                    <br>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <textarea [disabled]="isView" rows="3" [(ngModel)]="item.Observaciones" name="observaciones" class="form-control"></textarea>
+                    </div>
+
+                    <!-- <tips-input-text name="obsItems" (change)="changeInputObser(item)" [(ngModel)]="obsItems"></tips-input-text> -->
+                </div>
+            </div>
+          <hr>
+        </div>
+    </div>

@@ -1,0 +1,9 @@
+<app-documentos-texto-visualizar-plantillas-component
+        class="modal-content" 
+        [urlBackend]="urlBackendDocumentos" 
+        [IdEvento]="parametrosAtencion.IdEvento" 
+        [IdPaciente]="parametrosAtencion.IdPersona"                  
+        (onDocumentoGuardado)="accionesDeGuardadoDeDocumento($event)" 
+        (onCerrarVentana)="desactivarVisualizacionDePlantilla()"                  
+        (onError)="handleOnError($event)">
+</app-documentos-texto-visualizar-plantillas-component>

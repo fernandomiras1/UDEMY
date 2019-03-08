@@ -1,0 +1,106 @@
+<div class="row" *ngIf="notaRequest">
+  <div class="col-12">
+      <h4 class="font-weight-bold mb-3">Diagnóstico preoperatorio</h4>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label class="control-label">Diagnóstico principal</label>
+          <p class="form-control-static input-read">{{ notaPreoperatoria.DiagnosticoPrincipal }}</p>
+      </div>
+  </div>
+    <div class="col-6" *ngIf="notaPreoperatoria.DiagnosticosSecundarios">
+        <div class="form-group">
+            <label class="control-label">Diagnósticos Secundarios</label>
+            <p *ngFor="let value of notaPreoperatoria.DiagnosticosSecundarios" class="form-control-static input-read">{{ value }}</p>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label class="control-label">Procedimiento principal</label>
+            <p class="form-control-static input-read">{{ notaPreoperatoria.ProcedimientoPrincipal }}</p>
+        </div>
+    </div>
+    <div class="col-6" *ngIf="notaPreoperatoria.ProcedimientosSecundarios">
+        <div class="form-group">
+            <label class="control-label">Procedimientos Secundarios</label>
+            <p *ngFor="let value of notaPreoperatoria.ProcedimientosSecundarios" class="form-control-static input-read">{{ value }}</p>
+        </div>
+    </div>
+  <div class="col-12">
+      <h4 class="font-weight-bold mb-3 mt-4">Anestesia</h4>
+  </div>
+  <div class="col-12">
+      <div class="form-group row align-items-center mb-0">
+          <label class="control-label col-8 m-0">Tiene apto de valoración preanestésica.</label>
+          <div class="btn-group switch col-4">
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('AptoValoracionPreanestesica', 'obsAptoValoracionPreanestesica', 'Si')" [ngClass]="{'active': getIsActive('AptoValoracionPreanestesica', 'Si')}">Si</button>
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('AptoValoracionPreanestesica', 'obsAptoValoracionPreanestesica', 'No')" [ngClass]="{'active': getIsActive('AptoValoracionPreanestesica', 'No')}">No</button>
+          </div>
+          <div *ngIf="getIsActive('AptoValoracionPreanestesica', 'No')" class="form-group col-12">
+                <label class="control-label">Observaciones</label>
+                <tips-input-text name="obsAptoValoracionPreanestesica" [(ngModel)]="obsAptoValoracionPreanestesica"></tips-input-text>
+          </div>
+      </div>
+      <hr>
+  </div>
+  <div class="col-12">
+      <div class="form-group row align-items-center mb-0">
+          <label class="control-label col-8 m-0">Se explican riesgos, beneficios y alternativas al procedimiento.</label>
+          <div class="btn-group switch col-4">
+              <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('ExplicaRiesgosOperativos', 'obsRiesgosOperativos', 'Si')" [ngClass]="{'active': getIsActive('ExplicaRiesgosOperativos', 'Si')}">Si</button>
+              <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('ExplicaRiesgosOperativos', 'obsRiesgosOperativos', 'No')" [ngClass]="{'active': getIsActive('ExplicaRiesgosOperativos', 'No')}">No</button>
+          </div>
+          <div *ngIf="getIsActive('ExplicaRiesgosOperativos', 'No')" class="form-group col-12">
+            <label class="control-label">Observaciones</label>
+            <tips-input-text name="obsRiesgosOperativos" [(ngModel)]="obsRiesgosOperativos"></tips-input-text>
+          </div>
+      </div>
+      <hr>
+  </div>
+  <div class="col-12">
+      <div class="form-group row align-items-center mb-0">
+          <label class="control-label col-8 m-0">Tiene AIS quirúrgico y CI firmados y disponibles.</label>
+          <div class="btn-group switch col-4">
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('DocumentacionCompleta', 'obsDocumentacionCompleta', 'Si')" [ngClass]="{'active': getIsActive('DocumentacionCompleta', 'Si')}">Si</button>
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('DocumentacionCompleta', 'obsDocumentacionCompleta', 'No')" [ngClass]="{'active': getIsActive('DocumentacionCompleta', 'No')}">No</button>
+          </div>
+          <div *ngIf="getIsActive('DocumentacionCompleta', 'No')" class="form-group col-12">
+            <label class="control-label">Observaciones</label>
+            <tips-input-text name="obsDocumentacionCompleta" [(ngModel)]="obsDocumentacionCompleta"></tips-input-text>
+          </div>
+      </div>
+      <hr>
+  </div>
+  <div class="col-12">
+      <div class="form-group row align-items-center mb-0">
+          <label class="control-label col-8 m-0">Paciente en condiciones para procedimiento.</label>
+          <div class="btn-group switch col-4">
+              <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('PacienteEnCondiciones', 'obsPacienteEnCondiciones', 'Si')" [ngClass]="{'active': getIsActive('PacienteEnCondiciones', 'Si')}">Si</button>
+              <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('PacienteEnCondiciones', 'obsPacienteEnCondiciones', 'No')" [ngClass]="{'active': getIsActive('PacienteEnCondiciones', 'No')}">No</button>
+          </div>
+          <div *ngIf="getIsActive('PacienteEnCondiciones', 'No')" class="form-group col-12">
+            <label class="control-label">Observaciones</label>
+            <tips-input-text name="obsPacienteEnCondiciones" [(ngModel)]="obsPacienteEnCondiciones"></tips-input-text>
+          </div>
+      </div>
+      <hr>
+  </div>
+  <div class="col-12">
+      <div class="form-group row align-items-center mb-0">
+          <label class="control-label col-8 m-0">Se anticipan cuidados que requerirá el paciente en el postoperatorio.</label>
+          <div class="btn-group switch col-4">
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('AnticipoDeCuidados', null, 'Si')" [ngClass]="{'active': getIsActive('AnticipoDeCuidados', 'Si')}">Si</button>
+            <button [disabled]="isView" type="button" class="btn switch__btn" (click)="selectButtonGral('AnticipoDeCuidados', null, 'No')" [ngClass]="{'active': getIsActive('AnticipoDeCuidados', 'No')}">No</button>
+          </div>
+      </div>
+      <hr>
+  </div>
+  <div class="col-12">
+        <div class="form-group row align-items-center mb-0">
+            <label class="control-label col-8 m-0">Unidad de destino.</label>
+            <div class="col-4">
+                <tips-input-select [(ngModel)]="selectDestino" name="selectDestino"></tips-input-select>
+            </div>
+        </div>
+    </div>
+</div>

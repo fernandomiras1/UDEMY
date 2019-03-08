@@ -1,0 +1,25 @@
+{
+  "ambiente": "local",
+  "backEndAplicacion": "http://localhost:16287/api/",
+  "From": "innovaProcedimientos",
+  "ClienteId": 2,  
+  "assets": {
+    "urlBase": "http://Innova.dev.tipsalud.local/Comun/FrameworkUI/",
+    "styles": [
+      "css/vendor.css",
+      "css/app.css"
+    ],
+    "scripts": [
+      "js/vendor.js",
+      "js/app.js"
+    ]
+  },
+  "terminologiacomun": {
+    "urlBackEnd": "http://Innova.dev.tipsalud.local/Conocimiento/terminologia/integraciones/api/"
+   },
+   "procedimientos": {
+    "urlBackendMenores" : "http://Innova.dev.tipsalud.local/Asistencial/Clinica/Procedimientos/BackendMenores/api/",
+    "urlBackendMayores" : "http://localhost:16287/api/"
+   },
+   "UrlGestionDocumentos": "http://Innova.dev.tipsalud.local/Comun/Componentes/api/"
+}
