@@ -1,0 +1,4 @@
+Instalaciones de librerias
+1) Angular Fire 2 
+https://github.com/angular/angularfire2
+npm install firebase @angular/fire --save
