@@ -20,3 +20,14 @@
   <i class="fa fa-minus"></i>
 </button>
 
+<h3>Proceso Asincrono</h3>
+
+<button class="btn btn-primary" type="button" name="button" (click)="ejecutar()" [disabled]="loading">
+  <i class="fa" [ngClass]="{'fa-save': !loading, 'fa-refresh fa-spin': loading}"></i>
+  
+  <span *ngIf="!loading">Guardar Cambios</span>
+  <span *ngIf="loading">Espere por favor</span>
+</button>
+
+
+
