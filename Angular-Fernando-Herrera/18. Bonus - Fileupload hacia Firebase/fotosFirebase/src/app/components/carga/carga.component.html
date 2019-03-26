@@ -25,7 +25,9 @@
 
       <tbody>
         <tr *ngFor="let archivo of archivos">
-          <td> {{ archivo.nombreArchivo }} </td>
+          <td [ngClass]="{'text-green': archivo.progreso >= 100 }" > 
+            {{ archivo.nombreArchivo }}
+          </td>
           <!-- redondee a dos decima -->
           <td>{{ archivo.archivo.size / 1024 / 1024 | number: '.2-2' }} MB</td>
           <td>

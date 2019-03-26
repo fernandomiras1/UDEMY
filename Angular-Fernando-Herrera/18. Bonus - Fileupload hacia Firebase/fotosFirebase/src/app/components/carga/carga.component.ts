@@ -7,7 +7,7 @@ import { CargarImagenesService } from '../../services/cargar-imagenes.service';
   selector: 'app-carga',
   templateUrl: './carga.component.html',
   styles: []
-})
+}) 
 export class CargaComponent implements OnInit {
 
   // Esta sobre el elemento Drop 
