@@ -40,7 +40,7 @@
         </a>
       </li>
   
-      <li class="nav-item" routerLink="/login">
+      <li class="nav-item" (click)="authService.logout()">
         <a class="nav-link cursor">
           <i class="menu-icon fa fa-sign-out-alt"></i>
           <span class="menu-title">Cerrar sesión</span>
