@@ -13,3 +13,4 @@ const autos = [
     { modelo: 'Camaro', motor: '7 .0'}
 ]
 console.log(autos);
+// me quede en el video 26
