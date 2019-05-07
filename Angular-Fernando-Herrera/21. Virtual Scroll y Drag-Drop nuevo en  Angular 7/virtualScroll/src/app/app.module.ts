@@ -12,19 +12,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { DragComponent } from './drag/drag.component';
 import { PaisesComponent } from './paises/paises.component';
 import { from } from 'rxjs';
+import { GraficosTestComponent } from './graficos-test/graficos-test.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
     VirtualComponent,
     DragComponent,
-    PaisesComponent
+    PaisesComponent,
+    GraficosTestComponent
   ],
   imports: [
     BrowserModule,
     ScrollingModule,
     DragDropModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

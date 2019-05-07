@@ -15,3 +15,14 @@ class OtraClase {
         
     }
 }
+
+function() {
+    let objeto = {
+        nombre: 'Fer',
+        saludar: ()=> {
+            const obj2 = {
+                
+            }
+        }
+    }
+}

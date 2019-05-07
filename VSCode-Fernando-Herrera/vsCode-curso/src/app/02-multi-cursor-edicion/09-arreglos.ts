@@ -12,7 +12,10 @@
 // Crear un arreglo con los días de la semana
 
 
-
+'Lunes',
+'Martes',
+'Mircoles',
+'Juves',
 
 
 
