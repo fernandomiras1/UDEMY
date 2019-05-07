@@ -81,16 +81,27 @@ buscador.addEventListener('input', obtenerEvento);
 // Se una mas en lo select. cuando cambie recien ingresa.
 buscador.addEventListener('change', obtenerEvento);
 
-
-
-
-
-
-
-
 function obtenerEvento(e) {
     console.log( buscador.value );
     document.querySelector('#encabezado').innerHTML = buscador.value;
     console.log(`EVENTO: ${e.type}` );
 }
 
+// Delegetion - Borrar cualquier contenido que este en una clase espesifica. 
+
+// Vamos a escuchar a todo el BODY el evento CLICK
+document.body.addEventListener('click', eliminarElemento);
+
+function eliminarElemento(e) {
+    e.preventDefault();
+
+    // Si hay una clase llamada borrar-curso ingresa al IF
+    if ( e.target.classList.contains('borrar-curso') ) {
+        // Ingresamos dos veces al parentElement, para ir al <tr> compelto de la tabla, a si podemos elimnar el <tr>
+        console.log(e.target.parentElement.parentElement.remove());
+    }
+
+    if ( e.target.classList.contains('agregar-carrito') ) {
+        console.log('agregar-carrito');
+    }
+}
