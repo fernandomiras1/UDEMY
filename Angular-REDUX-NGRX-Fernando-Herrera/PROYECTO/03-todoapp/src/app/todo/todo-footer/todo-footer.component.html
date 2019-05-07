@@ -4,15 +4,10 @@
   <span class="todo-count"><strong>0</strong> tareas pendientes</span>
   <!-- Remove this if you don't implement routing -->
   <ul class="filters">
-    <li>
-      <a class="selected" href="#/">Todos</a>
+    <li *ngFor="let filtro of filtrosValidos">
+      <a> {{ filtro }} </a>
     </li>
-    <li>
-      <a href="#/active">Pendientes</a>
-    </li>
-    <li>
-      <a href="#/completed">Completados</a>
-    </li>
+   
   </ul>
   <!-- Hidden if no completed items are left ↓ -->
   <button class="clear-completed">Limpiar Completados</button>
