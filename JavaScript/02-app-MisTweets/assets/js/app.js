@@ -15,8 +15,6 @@ function eventListener() {
     document.addEventListener('DOMContentLoaded', localStorageListo);
 }
 
-
-
 // Funciones
 
 // Añadir Tweets del Formulario
@@ -90,4 +88,23 @@ function obtenerTweetsLocalStorage() {
     }
 
     return tweets; 
+}
+
+// Eliminar tweet del LocalStorage
+function borrarTweetLocalStorage(tweet) {
+
+    let tweets, tweetBorrar;
+    // Elimina la X del tweet
+    tweetBorrar = tweet.substring(0, tweet.length - 1);
+    // Obtengo todos los tweets del localStorage
+    tweets = obtenerTweetsLocalStorage();
+    // recorro todos los tweet, y selecciono el index
+    tweets.forEach((tweet, index) => {
+        if ( tweetBorrar === tweet ) {
+            // borro el tweet del array.
+            tweets.splice(index, 1);
+        }
+    });
+    // Piso el nuevo array con el tweet eliminado.  y lo gurado en LocalS
+    localStorage.setItem('tweets', JSON.stringify(tweets) );
 }
