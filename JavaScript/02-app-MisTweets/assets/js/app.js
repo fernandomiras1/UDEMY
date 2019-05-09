@@ -108,3 +108,20 @@ function borrarTweetLocalStorage(tweet) {
     // Piso el nuevo array con el tweet eliminado.  y lo gurado en LocalS
     localStorage.setItem('tweets', JSON.stringify(tweets) );
 }
+
+const nombres = ['fer', 'fede', 'emi'];
+
+const persona = {
+    altura: '2m',
+    peso: '80 kilos'
+}
+
+for ( let p in persona) {
+
+    console.log(`objeto ${p}: propiedad: ${persona[p]}`);
+}
+
+
+for( let nombre of nombres.entries() ) {
+    console.log(nombre);
+}
