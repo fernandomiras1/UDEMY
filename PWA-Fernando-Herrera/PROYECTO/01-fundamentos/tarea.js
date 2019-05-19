@@ -64,7 +64,9 @@ function postData( persona ) {
 
 
 fetch( 'https://swapi.co/api/people/1/' )
+    // Obtenemos la repuesta y lo serielizamos 
     .then( resp => resp.json() )
+    // hacemos el posteo al post, no hace falta pasarle por arguemto la persona. 
     .then( postData )
     .then( resp => resp.json() )
     .then( console.log );
