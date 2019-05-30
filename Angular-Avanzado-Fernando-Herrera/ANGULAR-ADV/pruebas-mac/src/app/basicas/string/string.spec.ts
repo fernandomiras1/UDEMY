@@ -1,22 +1,28 @@
-import { mensaje } from "./string";
+import { mensaje } from './string';
 
-// Agrupador de pruebas
-describe('Pruebas de String', () => {
+// describe('Pruebas de Strings');
+// it('Debe de regresar un string');
 
-    // Prueba en espesifico
-    it('Debe de regresar un string', () => {
+
+describe( 'Pruebas de strings', () => {
+
+    it( 'Debe de regresar un string', () => {
 
         const resp = mensaje('Fernando');
+        expect(  typeof resp ).toBe('string');
 
-        // Espera que esto sea un string.
-        expect( typeof resp ).toBe('string');
     });
-    
-    it('Debe de retornar un saludo con el nombre enviado', () => {
 
-        const nombre = 'Fer';
+    it( 'Debe de retornar un saludo con el nombre enviado', () => {
+
+        const nombre = 'Juan';
         const resp = mensaje( nombre );
 
         expect( resp ).toContain( nombre );
+
     });
+
 });
+
+
+
