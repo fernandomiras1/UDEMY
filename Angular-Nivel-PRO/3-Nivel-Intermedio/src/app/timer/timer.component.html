@@ -3,5 +3,11 @@
 
   <app-display [time]="countdown"></app-display>
 
-  <button (click)="startCountdown()">RESTART</button>
+  <div class="button">
+    <button *ngIf="paused" (click)="toogleCountdown()">Play</button>
+    <button *ngIf="!paused" (click)="toogleCountdown()">Pause</button>
+    <button (click)="restarCountdown()">RESTART</button>
+
+  </div>
+
 </div>
