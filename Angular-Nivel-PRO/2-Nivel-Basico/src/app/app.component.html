@@ -1,3 +1,16 @@
 <h1>
-  Hello world!
+  <app-progress-bar [progress]="counterProgress"></app-progress-bar>
+  
+  <!-- Template Reference Variable: una variable local que represanta el componete, 
+  de esta forma podemos utilizar sus metodos -->
+  <app-countdown #appCountdown
+  [init]="totalCountdown"
+  (onDecrease)="updateProgress($event)"
+  (onComplete)="countdownFinished()">
+  </app-countdown>
+  <div class="initInput">
+    <label for="totalCountdown">Init on: </label>
+    <input id="totalCountdown" type="text" [(ngModel)]="totalCountdown">
+  </div>
+  <button (click)="appCountdown.startCountdown(); counterProgress = 0;">RESET</button>
 </h1>

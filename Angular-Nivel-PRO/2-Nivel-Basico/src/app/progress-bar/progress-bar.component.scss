@@ -1,0 +1,15 @@
+// esto es sass, dentro de un host ( el contendero del componente) tenemos un div
+:host {
+    display: block;
+    width: 300px;
+    height: 20px;
+    margin: 8px;
+    border: 1px solid;
+    background-color: white;
+
+    div {
+        background-color: #333;
+        height: 100%;
+        width: 30%;
+    }
+}
