@@ -1,13 +1,16 @@
 <div class="timer">
-  <app-progress-bar [progress]="(init-countdown)/init*100"></app-progress-bar>
+  <app-progress-bar [progress]="progress"></app-progress-bar>
 
-  <app-display [time]="countdown"></app-display>
+  <!-- agregando el async: angular rompe la subcripcion por nosotros -->
+  <!-- cancela la subcripcion del observable cuando el componente se cierra -->
+  <!-- <app-display [time]="timerService.countdown$ | async"></app-display> -->
+  
+  <app-display [time]="countdow"></app-display>
 
   <div class="button">
-    <button *ngIf="paused" (click)="toogleCountdown()">Play</button>
-    <button *ngIf="!paused" (click)="toogleCountdown()">Pause</button>
-    <button (click)="restarCountdown()">RESTART</button>
-
+    <button *ngIf="timerService.paused" (click)="timerService.toogleCountdown()">Play</button>
+    <button *ngIf="!timerService.paused" (click)="timerService.toogleCountdown()">Pause</button>
+    <button (click)="timerService.restarCountdown()">RESTART</button>
   </div>
 
 </div>
