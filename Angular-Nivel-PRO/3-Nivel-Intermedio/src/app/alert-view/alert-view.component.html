@@ -4,17 +4,18 @@
   <div class="card">
 
     <div class="header">
-      Add new timer
+      <!-- le decimos que le vamos a 
+      pasar todo lo que contenga el selecor header -->
+     <ng-content select="[header]"></ng-content>
     </div>
 
     <div class="message">
-      <label>Set the number of seconds for your timer</label>
-      <input [(ngModel)]="time" type="number">
+      <!-- Proyeccion de contenido con inyeccion Slock -->
+      <ng-content></ng-content>
     </div>
-
+ 
     <div class="footer">
-      <button (click)="onCancel.emit()" class="cancel-button">Cancel</button>
-      <button (click)="onSubmit.emit(time)">Ok</button>
+      <ng-content select="button"></ng-content>  
     </div>
   </div>
 

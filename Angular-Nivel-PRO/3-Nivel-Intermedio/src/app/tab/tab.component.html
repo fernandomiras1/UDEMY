@@ -1,3 +1,5 @@
-<div>
+
+<!-- se le proyecta el contedio que va a tener el body de cada taps -->
+<div *ngIf="isActive" (click)="clickTabContent()">
   <ng-content></ng-content>
 </div>

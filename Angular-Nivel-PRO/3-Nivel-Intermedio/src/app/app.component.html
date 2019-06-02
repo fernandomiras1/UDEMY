@@ -1,6 +1,43 @@
 <div>
-  <h1>Timers</h1>
-  <app-timer init="3" (onComplete)="logCountdowEnd()"></app-timer>
-  <app-timer init="20" (onComplete)="logCountdowEnd()"></app-timer>
-  <app-timer init="30" (onComplete)="logCountdowEnd()"></app-timer>
+  
+  <app-tabs>
+    <app-tab title="Timers">
+      <app-timer *ngFor="let timer of timers" init="{{ timer }}" 
+        (onComplete)="showEndTimerAlert()">
+      </app-timer>
+      <button class="add" (click)="showAddTimer()">+</button>
+    </app-tab>
+
+    <app-tab title="Crono">
+      Crono. Not available
+    </app-tab>
+    <app-tab title="Alarma">
+        Alarma. Not available
+    </app-tab>
+  </app-tabs>
+
+  <app-alert-view [hidden]="!isAddTimerVisible">
+    <div header>
+      Add new timer
+    </div>
+    <label>Set the number of seconds for your timer</label>
+    <input [(ngModel)]="time" type="number">
+    <button (click)="hideAddTimer()" class="cancel-button">Cancel</button>
+    <button (click)="submitAddTimer()">Ok</button>
+  </app-alert-view>
+  
+  
+  <app-alert-view [hidden]="!isEndAlertVisible">
+    <div header>
+      Timer Ended
+    </div>
+    <div>
+      You countdown is finished
+    </div>
+    <button (click)="hideEndTimerAlert()">Ok</button>
+  </app-alert-view>
+
+  <!-- Ejemplo con:  @ViewChild -->
+  <app-simple-alert-view></app-simple-alert-view>
+  
 </div>
