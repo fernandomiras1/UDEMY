@@ -11,6 +11,7 @@ export class SimpleAlertViewComponent implements OnInit {
 
   @Input() message:string;
   @Input() title:string;
+  @Output() onDismiss: EventEmitter<void> = new EventEmitter<void>();
   public visible:boolean = false;
 
   ngOnInit() {
@@ -18,6 +19,8 @@ export class SimpleAlertViewComponent implements OnInit {
 
   public dismiss(){
     this.visible = false;
+    //Cuando se cierra el modal lo emitimos en el onDismiss.
+    this.onDismiss.emit();
   }
 
   public show(){

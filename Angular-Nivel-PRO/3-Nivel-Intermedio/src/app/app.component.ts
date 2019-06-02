@@ -1,4 +1,5 @@
-import { Component, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, AfterContentInit, ViewContainerRef, 
+  ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { SimpleAlertViewComponent } from './simple-alert-view/simple-alert-view.component';
 
 @Component({
@@ -12,8 +13,13 @@ export class AppComponent implements AfterContentInit{
   public time: number = 0;
   public timers: Array<number> = [];
   @ViewChild( SimpleAlertViewComponent ) alert: SimpleAlertViewComponent;
- 
-  constructor() { 
+  // Referencia a mi alert Dinamico.
+  // ViewContainerRef: me permite crear contendio Dinamico
+  @ViewChild('alertDinamico', {read: ViewContainerRef}) alertContainer: ViewContainerRef;
+  public simpleAlert: ComponentRef<SimpleAlertViewComponent> = null; 
+
+  // ComponentFactoryResolver; me permite crear componentes dinamicos.
+  constructor(private resolver: ComponentFactoryResolver) { 
     this.timers = [3, 20, 185];
   }
 
@@ -39,8 +45,24 @@ export class AppComponent implements AfterContentInit{
     this.isAddTimerVisible = false;
   }
 
+  // Mostramos el Componente Dinamico en este caso el Alert
   public showEndTimerAlert() {
-    this.isEndAlertVisible = true;
+    //this.isEndAlertVisible = true;
+
+    // Fabricamos en Componente Dinamico ( MODAL )
+    const alertFactory = this.resolver.resolveComponentFactory(SimpleAlertViewComponent);
+    this.simpleAlert = this.alertContainer.createComponent(alertFactory);
+    // Agregamos el contendio del modal
+    this.simpleAlert.instance.title = 'timer ended';
+    this.simpleAlert.instance.message = 'your countdown has finished';
+    this.simpleAlert.instance.onDismiss.subscribe( () => {
+      console.log('se cerro el Modal. y lo campatamos al evento');
+      // cuando se cierra el modal, destruimos el modal Dinamico
+      this.simpleAlert.destroy();
+    });
+    console.log( this.simpleAlert.instance );
+    
+    this.simpleAlert.instance.show();
   }
   
   public hideEndTimerAlert() {

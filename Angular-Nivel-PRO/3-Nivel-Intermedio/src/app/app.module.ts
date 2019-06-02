@@ -30,6 +30,11 @@ import { SimpleAlertViewComponent } from './simple-alert-view/simple-alert-view.
     FormsModule,
     HttpModule
   ],
+  // Creamos un componente DINAMICO. REnderiza en el compilador.
+  entryComponents: [
+    // Angular tiene que saber que este componente se va a crear de forma dinamica (Modal)
+    SimpleAlertViewComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -26,8 +26,9 @@
     <button (click)="submitAddTimer()">Ok</button>
   </app-alert-view>
   
-  
-  <app-alert-view [hidden]="!isEndAlertVisible">
+  <!-- Lo comento porque lo voy a generar de forma dinamica -->
+   
+  <!-- <app-alert-view [hidden]="!isEndAlertVisible">
     <div header>
       Timer Ended
     </div>
@@ -35,9 +36,12 @@
       You countdown is finished
     </div>
     <button (click)="hideEndTimerAlert()">Ok</button>
-  </app-alert-view>
+  </app-alert-view> -->
 
   <!-- Ejemplo con:  @ViewChild -->
   <app-simple-alert-view></app-simple-alert-view>
+
+  <!-- Creamos un Modal de forma Dinamica -->
+  <ng-container #alertDinamico></ng-container>
   
 </div>
