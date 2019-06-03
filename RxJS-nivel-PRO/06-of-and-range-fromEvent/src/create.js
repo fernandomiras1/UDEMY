@@ -6,12 +6,13 @@ export default () => {
 
     const actionBtn = document.getElementById('action-btn');
 
+    // Obtiene los eventos de tipo Click.
     const source = fromEvent( actionBtn, 'click' );
-
+ 
+    // Se subscribe a los eventosClick.
     source.subscribe( event => {
         displayLog(`click event at pos (${event.x}), (${event.y})`);
     });
-
 
     const eventDocument = fromEvent( document, 'mousemove');
     eventDocument.subscribe( event => {
