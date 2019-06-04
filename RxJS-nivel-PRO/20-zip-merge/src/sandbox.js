@@ -1,9 +1,17 @@
 import { updateDisplay, displayLog } from './utils';
-import { fromEvent } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { fromEvent, zip } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 export default () => {
-    /** start coding */
+    /** 
+     * ZIP
+     * Convina varios flujos de datos en un unico obsebable que devuele un array con los valores de los obser.
+     * de entrada por orden.
+     * 
+     * MERGE FUNCTION
+     * entrelasa los flujos de distinos observables en un unico flujo de dato
+     * 
+    */
 
     /** init canvas and context reference  */
     const canvas = document.getElementById('drawboard');
@@ -59,7 +67,17 @@ export default () => {
 
     //TODO: draw current line
 
+    // usando ZIP 
+    const drawLine$ = zip(mouseStart$, mouseEnd$).pipe(
+        tap(console.log),
+        map(([start, end]) => {
+            return {
+                origin: start.coords,
+                end: end.coords
+            }
+        })
+    )
     
-
+    drawLine$.subscribe(data => drawLine( data.origin, data.end ));
     /** end coding */
 }
