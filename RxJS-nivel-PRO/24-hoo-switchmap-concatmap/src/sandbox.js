@@ -15,8 +15,6 @@ export default () => {
      */
     
     const button = document.getElementById('btn');
-
-    /** get comments on button click */
     fromEvent(button, 'click').pipe(
         // utlizo la funcion scan, para emitir un contador
         scan((acc, evt) => acc + 1, 0),
