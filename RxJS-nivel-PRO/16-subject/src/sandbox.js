@@ -1,5 +1,5 @@
 import { updateDisplay } from './utils';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent, Subject, BehaviorSubject } from 'rxjs';
 import { map, tap, share } from 'rxjs/operators';
 
 export default () => {
@@ -27,8 +27,8 @@ export default () => {
         })
     )
 
-    // Creamos nuestro Subject
-    const scrollProgressHot$ = new Subject();
+    // Creamos nuestro BehaviorSubject ya que lo tenemos q inicializar en 0
+    const scrollProgressHot$ = new BehaviorSubject(0);
     // Me subscribo al evento scroll. Por unica vez, tiene una sola subscripcion.
     scrollProgress$.subscribe( scrollProgressHot$ );
 
@@ -37,6 +37,16 @@ export default () => {
     const subscription2 = scrollProgressHot$.subscribe(
         val => updateDisplay(`${ Math.floor(val) } %`)
     );
+    
+    /**
+       Como el scrollProgressHot es un Subjet, no solo me 
+       sirve como distribuidor de eventos si no tambien me permite emitir sus propos eventos.
+       Como tambien es un Observable puedo emitir un evento,
+       con el next. por lo cual emito que inicie con el porcentaje 0 
+     */
+    // scrollProgressHot$.next(0);
+
+    console.log("scroll initial state: ", scrollProgressHot$.value);
 
     /** end coding */
 }

@@ -9,6 +9,7 @@ Para eso usamos el operador pairwise
 
 pairwise: Se encarga de emitir los eventos en pareja de datos consecutivos, de este modo podes trabajar sobre el datos
 actual y el anterior.
+pairwise te permite acceder al evento anterir, si neceidad de utilizar ninguna variable externa.
 */
 
 export default () => {

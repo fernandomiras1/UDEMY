@@ -27,7 +27,7 @@ export default () => {
         }),
         /** 
         Uso el share, para no generar dos intancias del scrollProgress$. Ya que estoy me estoy 
-        subscribiendo dos veces, y genera dos intancias separadas. COn el Sahre, solo genera una instancia 
+        subscribiendo dos veces, y genera dos intancias separadas. Con el Sahre, solo genera una instancia 
         Optimizando el rendimiento.
         */
         share()
