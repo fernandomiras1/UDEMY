@@ -1,0 +1,128 @@
+body {
+    box-sizing: border-box;
+    margin:0;
+    background: #ff9966;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff5e62, #ff9966);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff5e62, #ff9966); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.header-sitio {
+    background-color: #03A9F4;
+    padding:0 20px;
+    /* Flex aqui*/
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (min-width:768px) {
+    .header-sitio {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.header-sitio h1 {
+    color:white;
+}
+nav {
+    /* Flex aqui*/
+    align-self: center;
+}
+nav a {
+    color: white; 
+    font-family: 'IBM Plex Serif', serif;
+    text-decoration: none;
+}
+
+.contenedor {
+    background-color: white;
+    height: calc( 100vh - 20px );
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 30px 0 30px;
+}
+h1, h2 {
+    text-align: center;
+    font-family: 'IBM Plex Serif', serif;
+}
+h2 {
+    color:white;
+}
+
+.contenedor-flex {
+    margin-top: 20px;
+    /* Flex aqui*/
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (min-width:768px) { 
+    .contenedor-flex {
+        flex-direction: row;
+    }
+}
+
+.principal {
+    flex:1;
+    order:2;
+}
+aside {
+    /* flex aqui*/
+    flex:1;
+    margin-bottom: 20px;
+}
+
+aside {
+    background-color: #03A9F4;
+}
+@media screen and (min-width:768px) {
+    .principal {
+        margin-right: 20px;
+        /* Flex aqui*/
+        /* flex-grow flex-shrink basis */
+        flex: 0 1 60% ;
+        order:-1;
+    }
+    aside {
+        flex:2;
+    }
+}
+.servicios {
+    /* Flex aqui*/
+    display: flex;
+    flex-wrap: wrap;
+}
+.servicios .servicio {
+    /* Flex aqui*/
+    flex:1;
+}
+@media screen and (min-width:768px) {
+    .servicios .servicio {
+        flex: 0 1 calc ( 33.3% - 1rem);
+    }
+}
+
+.servicio {
+    padding: 5px;
+    background-color: #E53935;
+}
+.servicio:nth-child(1) {
+
+}
+
+.servicio:nth-child(2) {
+    background-color: #8E24AA;
+}
+
+.servicio:nth-child(3) {
+    background-color: #3F51B5;
+}
+
+footer {
+    height: 100px;
+    background-color: #8E24AA;
+    margin-top: 20px;
+    /* Flex aqui*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer p {
+    color: white;
+}
