@@ -1,0 +1,79 @@
+body {
+    /* Si agregamos padin no afete al anoche de nuestros elementos */
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h2 {
+    /* 0: para que no crezca y una base del 100% */
+    flex: 0 1 100%;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+    font-weight: 700;
+}
+
+img {
+    /* esto va a ser que las imagenes sean responsive. */
+    max-width: 100%;
+}
+
+/* antes de mostrar 3 card, pasamos a mostrar 2 card */
+@media screen and (min-width: 480px) {
+    
+    .contenido-principal{
+        display: flex;
+        flex-wrap: wrap;
+        /* separacion en cada uno de nuestros card */
+        justify-content: space-between;
+    }
+    .entrada {
+        flex: 0 1 calc(50% - 1rem);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    
+    .entrada {
+        flex: 0 1 calc(33% - 1rem);
+    }
+}
+
+.entrada {
+    /* agregamos un poco de separacion */
+    margin-bottom: 1rem;
+}
+.contenido {
+    background-color: white;
+    text-align: center;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+
+.contenido span {
+    color: brown;
+}
+
+.contenido h3 {
+    font-size: .9rem;
+    line-height: 1.4rem;
+    text-transform: uppercase;
+}
+
+.boton {
+    background-color: #008fd1;
+    color: white;
+    padding: .6rem 3rem;
+    margin-top: 1rem;
+    display: inline-block;
+    text-decoration: none;
+}
