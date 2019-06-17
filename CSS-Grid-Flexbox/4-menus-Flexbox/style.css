@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     box-sizing: border-box;
     margin:0;
@@ -63,6 +67,15 @@ nav ul a {
 
 /* ICONOS  */
 
+.iconos ul li a {
+    display: flex;
+    justify-content: center;
+}
+
+.iconos .icono {
+    flex: 0 1 2rem;
+}
+
 .iconos .texto span {
     font-size: .8rem;
     /* Para que se acomode debajo del texto */
@@ -79,9 +92,105 @@ nav ul a {
     }
     
     .iconos ul li {
+        flex: 0 1 50%;
+    }
+}
+
+@media screen and (min-width:768px) {
+
+    .iconos ul li {
         /* Flex 1: nos garantiza tomar el mismo espacio cada uno de los iconos */
         flex: 1;
     }
 }
 
 /* FIN ICONOS  */
+
+/* Dropdown */
+
+.dropdown ul {
+    display: flex;
+    flex-direction: column;
+}
+
+/* media query */
+@media screen and (min-width: 768px) {
+    .dropdown ul {
+        flex-direction: row;
+    }
+}
+
+/* selecionamos cada uno de los enlaces */
+.dropdown ul li {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+    .dropdown ul li{
+        /* para crear el subMenu */
+        position: relative;
+        flex: 1 1 100%;
+    }
+   
+    .dropdown ul li ul{
+        /* para crear el subMenu */
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #ff5e62;
+    }
+   
+    .dropdown ul li:hover ul{
+        /* para crear el subMenu */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* FIN Dropdown */
+
+/* redes Sociales */
+
+.sociales ul li span {
+    display: none;
+}
+
+.sociales ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sociales ul li a:before {
+    font-family: 'Font Awesome 5 Brands';
+}
+
+.sociales ul li a[href*='facebook.com']::before {
+    content: '\f39e';
+}
+.sociales ul li a[href*='twitter.com']::before {
+    content: '\f099';
+}
+.sociales ul li a[href*='youtube.com']::before {
+    content: '\f167';
+}
+.sociales ul li a[href*='instagram.com']::before {
+    content: '\f16d';
+}
+.sociales ul li a[href*='pinterest.com']::before {
+    content: '\f0d2';
+}
+
+/* FIN redes Sociales */
+
+
+/* Combinacion social y dropdown */
+
+.navegacion-social-dropdown {
+    display: flex;
+    /* va a colocar dropdown izquierda iconos derecha */
+    justify-content: space-between;
+    background-color: #3F51B5;
+}
