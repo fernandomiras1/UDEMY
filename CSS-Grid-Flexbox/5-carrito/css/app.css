@@ -16,6 +16,9 @@ body {
 .oculto {
   display: none; }
 
+.centrado {
+  text-align: center; }
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -87,7 +90,8 @@ body {
         height: 3rem; }
 
 .barra {
-  min-height: 7rem;
+  min-height: 6rem;
+  padding: 1rem;
   background: linear-gradient(to right, #741d51 0%, #e44e52 100%);
   color: white; }
   .barra .iconos {
@@ -108,7 +112,15 @@ body {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    background-position: left center !important; }
+    background-position: 5% center !important;
+    background-size: 2.4rem;
+    text-align: center; }
+    @media only screen and (min-width: 768px) {
+      .barra .icono {
+        background-position: 20% center !important; } }
+    @media only screen and (min-width: 1024px) {
+      .barra .icono {
+        background-position: left center !important; } }
     .barra .icono.icono1 {
       background-image: url("../img/icono1.png");
       background-repeat: no-repeat;
@@ -121,3 +133,50 @@ body {
       background-image: url("../img/icono3.png");
       background-repeat: no-repeat;
       background-position: center center; }
+
+.cursos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .cursos .curso {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 calc(50% - 1rem);
+    flex: 0 1 calc(50% - 1rem);
+    border: 1px solid #d9d9d9;
+    margin-bottom: 1rem; }
+    .cursos .curso .imagen-curso {
+      width: 100%; }
+    @media only screen and (min-width: 768px) {
+      .cursos .curso {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 1 calc(33% - 1rem);
+        flex: 0 1 calc(33% - 1rem); } }
+    @media only screen and (min-width: 1024px) {
+      .cursos .curso {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 1 calc(25% - 1rem);
+        flex: 0 1 calc(25% - 1rem); } }
+
+.info-curso {
+  padding: 1rem; }
+  .info-curso h4 {
+    margin: 0;
+    font-size: 1.2rem; }
+  .info-curso .precio {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between; }
+    .info-curso .precio .regular {
+      text-decoration: line-through; }
+    .info-curso .precio .oferta {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: green; }

@@ -24,6 +24,10 @@ body {
     display: none;
 }
 
+.centrado {
+    text-align: center;
+}
+
 .header {
     display: flex;
     // el logo del lado izquiero el carrito del ladro derecho
@@ -115,7 +119,8 @@ body {
 }
 
 .barra {
-    min-height: 7rem;
+    min-height: 6rem;
+    padding: 1rem;
     @include gradiente($secundario, $terciario);
     color: white;
 
@@ -129,8 +134,17 @@ body {
 
     .icono {
         flex: 1;
-        background-position: left center !important;
+        background-position: 5% center !important;
         
+        @include tablet {
+            background-position: 20% center !important;
+        }
+        @include desktop {
+            background-position: left center !important;
+        }
+
+        background-size: 2.4rem;
+        text-align: center;
         &.icono1 {
             @include background-image('../img/icono1.png');
         }
@@ -141,6 +155,53 @@ body {
 
         &.icono3 {
             @include background-image('../img/icono3.png');
+        }
+    }
+}
+
+.cursos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    // Afecta a c/u de los cursos
+    .curso {
+
+        .imagen-curso {
+            width: 100%;
+        }
+        flex: 0 1 calc(50% - 1rem);
+        border: 1px solid darken( $gris, 10);
+        margin-bottom: 1rem;
+        @include tablet {
+            flex: 0 1 calc(33% - 1rem);
+        }
+   
+        @include desktop {
+            flex: 0 1 calc(25% - 1rem);
+        }
+    }
+}
+
+.info-curso {
+    padding: 1rem;
+
+    h4 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+
+    .precio {
+        display: flex;
+        justify-content: space-between;
+        .regular {
+            // tayamos el precio
+            text-decoration: line-through;
+        }
+        .oferta {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: green;
         }
     }
 }
