@@ -1,0 +1,146 @@
+@import 'variables';
+@import 'mixins';
+
+html {
+    @include box-sizing(border-box);
+}
+*,
+*:after,
+*:before {
+    @include box-sizing(inherit);
+}
+
+body {
+    font-family: $fuente_principal;
+}
+
+.contenedor {
+    max-width: 1100px;
+    // centramos el sitio web
+    margin: 0 auto;
+}
+
+.oculto {
+    display: none;
+}
+
+.header {
+    display: flex;
+    // el logo del lado izquiero el carrito del ladro derecho
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+        padding: 1.4rem 0;
+    }
+}
+
+.carrito-compras {
+    position: relative;
+
+    &:hover .contenido {
+       display: block;
+       position: absolute;
+       right: 0;
+       background-color: $gris;
+       padding: 1rem;
+       max-width: 400px;
+
+       img {
+           max-width: 150px;
+       }
+
+       .boton {
+            @include boton($principal);
+       }
+    }
+
+}
+
+.hero {
+    min-height: 24rem;
+    @include background-image('../img/hero.jpg');
+    // extendemos la imagen
+    background-size: cover;
+    color: white;
+    // con display lo va a centrar al texto.
+    display: flex;
+    align-items: center;
+
+    .contenido-hero{
+        //Como flex 1 crece me deja un espacio
+        flex: 1;
+
+        h2 {
+            font-weight: 400;
+            font-size: 2.4rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        form {
+            position: relative;
+
+            @include tablet() {
+                width: 40%;
+            }
+
+            input[type='submit'] {
+                // para que se agrege al lado del input
+                position: absolute;
+                // para que se ponga del lado izquiero
+                right: 0;
+                // Para que el boton este dentro del input ponemos un top 0
+                top: 0;
+                @include background-image('../img/lupa.png');
+                width: 3rem;
+                height: 3rem;
+                display: block;
+                text-indent: -9999px;
+                border: none;
+                cursor: pointer;
+            }
+            
+            input[type='text'] {
+                width: 100%;
+                // altura al input
+                height: 3rem;
+            } 
+
+
+        }
+    }
+}
+
+.barra {
+    min-height: 7rem;
+    @include gradiente($secundario, $terciario);
+    color: white;
+
+    .iconos {
+        display: flex;
+        flex-direction: column;
+        @include desktop() {
+            flex-direction: row;
+        }
+    }
+
+    .icono {
+        flex: 1;
+        background-position: left center !important;
+        
+        &.icono1 {
+            @include background-image('../img/icono1.png');
+        }
+
+        &.icono2 {
+            @include background-image('../img/icono2.png');
+        }
+
+        &.icono3 {
+            @include background-image('../img/icono3.png');
+        }
+    }
+}

@@ -25,7 +25,7 @@ export class TimerService {
         this.clearTimeout();
     }
     
-      restarCountdown(init?){
+      restarCountdown(init?) {
 
         if ( init ) this.init = init;
 
