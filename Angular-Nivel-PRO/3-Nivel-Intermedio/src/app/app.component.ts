@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, AfterContentInit, ViewContainerRef, 
-  ComponentFactoryResolver, ComponentRef, ElementRef} from '@angular/core';
+  ComponentFactoryResolver, ComponentRef, ElementRef, Renderer2} from '@angular/core';
 import { SimpleAlertViewComponent } from './simple-alert-view/simple-alert-view.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class AppComponent implements AfterContentInit{
   // ElementRef
   @ViewChild('timeInput') timeInput: ElementRef;
   // ComponentFactoryResolver; me permite crear componentes dinamicos.
-  constructor(private resolver: ComponentFactoryResolver) { 
+  constructor(private render: Renderer2 ,private resolver: ComponentFactoryResolver) { 
     this.timers = [3, 20, 185];
   }
 
@@ -29,8 +29,11 @@ export class AppComponent implements AfterContentInit{
   // ya que es el momento de inyectar contenido a la vista y  donde no se estan haciendo estos check de cambios
   ngAfterContentInit() {
     console.log(this.timeInput);
-    this.timeInput.nativeElement.setAttribute('placeholder', 'enter seconds');
-    this.timeInput.nativeElement.classList.add('time-in');
+    // Manipulamos el DOM pero de forma segura para que funcione en cualquier tipo de plataforma.
+    this.render.setAttribute(this.timeInput.nativeElement, 'placeholder', 'enter seconds');
+    // this.timeInput.nativeElement.setAttribute('placeholder', 'enter seconds');
+    this.render.addClass(this.timeInput.nativeElement, 'time-in');
+    // this.timeInput.nativeElement.classList.add('time-in');
     // podemos manipular sus variables
     this.alert.show();
     this.alert.title = 'Hi';
@@ -44,7 +47,10 @@ export class AppComponent implements AfterContentInit{
   public showAddTimer() {
     this.isAddTimerVisible = true;
     // Hacemos focus sobre el input cuando se abre.
-    setTimeout(()=>{this.timeInput.nativeElement.focus();});
+    setTimeout(()=>{
+      // this.timeInput.nativeElement.focus();
+      this.render.selectRootElement(this.timeInput.nativeElement).focus();
+    });
   }
 
   public hideAddTimer() {
