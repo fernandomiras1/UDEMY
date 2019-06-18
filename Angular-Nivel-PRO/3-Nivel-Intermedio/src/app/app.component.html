@@ -21,7 +21,7 @@
       Add new timer
     </div>
     <label>Set the number of seconds for your timer</label>
-    <input [(ngModel)]="time" type="number">
+    <input [(ngModel)]="time" type="number" #timeInput>
     <button (click)="hideAddTimer()" class="cancel-button">Cancel</button>
     <button (click)="submitAddTimer()">Ok</button>
   </app-alert-view>

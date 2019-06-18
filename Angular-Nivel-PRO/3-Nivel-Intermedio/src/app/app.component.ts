@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, AfterContentInit, ViewContainerRef, 
-  ComponentFactoryResolver, ComponentRef } from '@angular/core';
+  ComponentFactoryResolver, ComponentRef, ElementRef} from '@angular/core';
 import { SimpleAlertViewComponent } from './simple-alert-view/simple-alert-view.component';
 
 @Component({
@@ -18,6 +18,8 @@ export class AppComponent implements AfterContentInit{
   @ViewChild('alertDinamico', {read: ViewContainerRef}) alertContainer: ViewContainerRef;
   public simpleAlert: ComponentRef<SimpleAlertViewComponent> = null; 
 
+  // ElementRef
+  @ViewChild('timeInput') timeInput: ElementRef;
   // ComponentFactoryResolver; me permite crear componentes dinamicos.
   constructor(private resolver: ComponentFactoryResolver) { 
     this.timers = [3, 20, 185];
@@ -26,7 +28,9 @@ export class AppComponent implements AfterContentInit{
   // Si tu quieres modificar el viewChild al inicio es mejor usar ngAfetConentInit,
   // ya que es el momento de inyectar contenido a la vista y  donde no se estan haciendo estos check de cambios
   ngAfterContentInit() {
-    console.log(this.alert);
+    console.log(this.timeInput);
+    this.timeInput.nativeElement.setAttribute('placeholder', 'enter seconds');
+    this.timeInput.nativeElement.classList.add('time-in');
     // podemos manipular sus variables
     this.alert.show();
     this.alert.title = 'Hi';
@@ -39,6 +43,8 @@ export class AppComponent implements AfterContentInit{
 
   public showAddTimer() {
     this.isAddTimerVisible = true;
+    // Hacemos focus sobre el input cuando se abre.
+    setTimeout(()=>{this.timeInput.nativeElement.focus();});
   }
 
   public hideAddTimer() {
@@ -61,7 +67,6 @@ export class AppComponent implements AfterContentInit{
       this.simpleAlert.destroy();
     });
     console.log( this.simpleAlert.instance );
-    
     this.simpleAlert.instance.show();
   }
   
