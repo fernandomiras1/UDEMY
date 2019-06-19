@@ -20,12 +20,8 @@ body {
   text-align: center; }
 
 .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center; }
   .header .logo {
     padding: 1.4rem 0; }
@@ -57,8 +53,6 @@ body {
   background-size: cover;
   color: white;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center; }
   .hero .contenido-hero {
     flex: 1; }
@@ -95,22 +89,12 @@ body {
   background: linear-gradient(to right, #741d51 0%, #e44e52 100%);
   color: white; }
   .barra .iconos {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column; }
     @media only screen and (min-width: 1024px) {
       .barra .iconos {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: row;
         flex-direction: row; } }
   .barra .icono {
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     background-position: 5% center !important;
     background-size: 2.4rem;
@@ -135,17 +119,10 @@ body {
       background-position: center center; }
 
 .cursos {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between; }
   .cursos .curso {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 1 calc(50% - 1rem);
     flex: 0 1 calc(50% - 1rem);
     border: 1px solid #d9d9d9;
     margin-bottom: 1rem; }
@@ -153,13 +130,9 @@ body {
       width: 100%; }
     @media only screen and (min-width: 768px) {
       .cursos .curso {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 1 calc(33% - 1rem);
         flex: 0 1 calc(33% - 1rem); } }
     @media only screen and (min-width: 1024px) {
       .cursos .curso {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 1 calc(25% - 1rem);
         flex: 0 1 calc(25% - 1rem); } }
 
 .info-curso {
@@ -168,11 +141,7 @@ body {
     margin: 0;
     font-size: 1.2rem; }
   .info-curso .precio {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between; }
     .info-curso .precio .regular {
       text-decoration: line-through; }
@@ -180,3 +149,34 @@ body {
       font-size: 1.6rem;
       font-weight: 700;
       color: green; }
+  .info-curso .boton {
+    background-color: #741d51;
+    padding: .5rem 1rem;
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none; }
+
+.footer {
+  border-top: 1px solid #d9d9d9;
+  margin-top: 1rem;
+  padding-top: 2rem; }
+  .footer .contenedor-footer {
+    display: flex;
+    flex-direction: column; }
+    @media only screen and (min-width: 480px) {
+      .footer .contenedor-footer {
+        flex-direction: row; } }
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  flex: 1; }
+  @media only screen and (min-width: 1024px) {
+    .menu {
+      flex: 0 1 calc(30% - 1rem); } }
+  .menu a {
+    color: black;
+    text-decoration: none;
+    margin-bottom: .5rem; }
