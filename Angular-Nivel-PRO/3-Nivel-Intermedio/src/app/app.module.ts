@@ -11,31 +11,35 @@ import { AlertViewComponent } from './alert-view/alert-view.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tab/tab.component';
 import { SimpleAlertViewComponent } from './simple-alert-view/simple-alert-view.component';
+import { TasasPlazoFijoComponent } from './tasas-plazoFijo/tasas-plazoFijo.component';
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProgressBarComponent,
-    DisplayComponent,
-    TimerComponent,
-    AlertViewComponent,
-    TabsComponent,
-    TabComponent,
-    SimpleAlertViewComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
-  // Creamos un componente DINAMICO. REnderiza en el compilador.
-  entryComponents: [
-    // Angular tiene que saber que este componente se va a crear de forma dinamica (Modal)
-    SimpleAlertViewComponent
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      ProgressBarComponent,
+      DisplayComponent,
+      TimerComponent,
+      AlertViewComponent,
+      TabsComponent,
+      TabComponent,
+      SimpleAlertViewComponent,
+      TasasPlazoFijoComponent
+   ],
+   imports: [
+      BrowserModule,
+      FormsModule,
+      HttpModule
+   ],
+   //Creamos un componente DINAMICO.REnderiza en el compilador
+   entryComponents: [
+      //Angular tiene que saber que este componente se va a crear de forma dinamica(Modal)
+      SimpleAlertViewComponent
+   ],
+   providers: [],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }

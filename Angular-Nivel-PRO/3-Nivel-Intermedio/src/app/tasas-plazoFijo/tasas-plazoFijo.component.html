@@ -1,0 +1,13 @@
+<div class="contenedor">
+
+  <h1> Calcular Taza</h1>
+  <a href="https://www.elmejortrato.com.ar/creditos/como-calcular-la-ganancia-por-plazo-fijo">Simulador Online</a>
+  <p><strong>Ejemplo:</strong> Para un montante de 1000 pesos, una tasa de interés anual del 18% y un plazo fijo a 60 días tendríamos que:</p>
+  <p><strong>1000 x (0,18 x 60/365) = 29,589</strong></p>
+  
+  <input [(ngModel)]="montoActual" placeholder="Monto" type="number">
+  <input [(ngModel)]="tasa" placeholder="tasa" type="number">
+  <input [(ngModel)]="periodo" placeholder="periodo en dias" type="number">
+  <h3>Resultado: <strong>{{ resultado | number}}</strong></h3>
+  <button (click)="calcular()" class="cancel-button">calcular</button>
+</div>
