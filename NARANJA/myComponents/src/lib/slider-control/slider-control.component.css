@@ -1,0 +1,80 @@
+.z-slider {
+    display: flex;
+    flex-direction: column;
+    height: 102px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+} 
+
+.disabled {
+    cursor: not-allowed;
+}
+
+
+.container {
+    align-items: center;
+    display: flex;
+    width: 100%;
+
+}
+
+.container__text {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+
+}
+
+.container__label {
+    color: black;
+    font-family: sans-serif;
+    font-size: 1.25rem;
+    height: 1rem;
+    line-height: 0.4;
+    margin-top: 1.25rem;
+    position: relative;
+    width: fit-content;
+
+}
+
+.progressLine {
+  background: #fe5000;
+  height: 2px;
+  position: absolute;
+}
+
+.e-range {
+    display: block;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    width: 100%;
+    margin: 0;
+    height: 30px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .e-range:focus {
+    outline: none;
+  }
+  
+  
+.e-range::-webkit-slider-thumb {
+    position: relative;
+    -webkit-appearance: none;
+            appearance: none;
+    height: 20px;
+    width: 20px;
+    background: #fe5000;
+    border-radius: 100%;
+    border: 0;
+    top: 50%;
+    margin-top: -10px;
+}
+  
+
+  
+
+  
+  

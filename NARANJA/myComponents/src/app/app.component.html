@@ -1,0 +1,37 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="contenedor">
+    
+  <p class="z-hero" style="text-align: center; color: #fe5000"> Zumo styleguide </p>
+  
+ 
+  <!-- <div class="card">
+    <p class="z-title" style="color: #fe5000;">Tipografía</p>
+    <div class="card-body">
+      <p class="z-hero"> Zumo Hero </p>
+      <h1 class="z-legal">Zumo Legal</h1>
+      <p class="z-title"> Title </p>
+      <p class="z-subtitle"> Subtitle </p>
+    </div>
+  </div> -->
+  
+    <div class="card">
+      <p class="z-title" style="color: #fe5000;">Slider</p>
+      <br>
+      <div class="card-body">
+        <!-- <input type="range" class="z-slider" min="1" max="100" value="1"/> -->
+        <app-slider-control
+          [min]="min"
+          [max]="max"
+          [step]="step"
+          [disabled]="disabled"
+          [prefix]="prefix"
+          (valuesChange)="valuesChange($event)"
+          [title]="titleActive">
+        </app-slider-control>
+
+      </div>
+    </div>
+
+
+   
+  </div>
