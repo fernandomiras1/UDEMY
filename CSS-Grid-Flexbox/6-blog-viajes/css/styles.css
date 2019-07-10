@@ -1,0 +1,162 @@
+body {
+    /* Si agregamos padin no afete al anoche de nuestros elementos */
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h2 {
+    /* 0: para que no crezca y una base del 100% */
+    flex: 0 1 100%;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+    font-weight: 700;
+}
+
+img {
+    /* esto va a ser que las imagenes sean responsive. */
+    max-width: 100%;
+}
+
+/* antes de mostrar 3 card, pasamos a mostrar 2 card */
+@media screen and (min-width: 480px) {
+    
+    .contenido-principal{
+        display: flex;
+        flex-wrap: wrap;
+        /* separacion en cada uno de nuestros card */
+        justify-content: space-between;
+    }
+    .entrada {
+        flex: 0 1 calc(50% - 1rem);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    
+    .entrada {
+        flex: 0 1 calc(33% - 1rem);
+    }
+}
+
+.entrada {
+    /* agregamos un poco de separacion */
+    margin-bottom: 1rem;
+}
+
+/* header */
+.hero {
+    background-image: url(../img/hero.jpg);
+    /* quiero que tome todo lo alto. Va a tomar toda la altura que tenga la pantalla*/
+    height: 100vh;
+    /* para que no se repita la imagen */
+    background-repeat: no-repeat;
+    /* para que quede centrada */
+    background-position: center center;
+    /* tomar todo el espacio disponible */
+    background-size: cover;
+    /* imagen fija para el scroll */
+    background-attachment: fixed;
+}
+
+.header {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    /* aliniar verticalemte */
+    /* align-items te sirve cuando tenes que centrar horizontalemte por ejemplo flexdireccion: row  */
+    justify-content: center;
+}
+
+.barra {
+    position: absolute;
+    background-color: #008fd1;
+    /* para que la barra tome todo el espacio */
+    width: 100%;
+    /* lo separamos un poco del marco de arriba */
+    top: 1rem;
+    padding: 1rem 0;
+}
+
+.barra .contenedor {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width:768px) {
+    .barra .contenedor {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.logo,
+.navegacion {
+    text-align: center;
+}
+
+.navegacion ul {
+    /* le quito los putos que me genera el ul */
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width:768px) {
+    .navegacion {
+        flex: 0 0 20rem;
+    }
+    .navegacion ul {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.navegacion ul li a {
+    color: white;
+    /* le quito la linea de abajo */
+    text-decoration: none;
+}
+
+.logo-img {
+    /* logo mas pequeño */
+    max-width: 20rem;
+}
+
+
+/* Contenido  */
+.contenido {
+    background-color: white;
+    text-align: center;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+
+.contenido span {
+    color: brown;
+}
+
+.contenido h3 {
+    font-size: .9rem;
+    line-height: 1.4rem;
+    text-transform: uppercase;
+}
+
+.boton {
+    background-color: #008fd1;
+    color: white;
+    padding: .6rem 3rem;
+    margin-top: 1rem;
+    display: inline-block;
+    text-decoration: none;
+}
