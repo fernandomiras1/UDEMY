@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <title>Zumo Styleguide</title>
+  <meta charset="UTF-8"> 
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./styleguide.css">
+</head>
+
+<body>
+
+  <div class="contenedor">  
+    <p class="z-hero center p-color"> Zumo styleguide </p>
+
+
+    <div class="card">
+      <p class="z-title p-color">Checkbox</p>
+      <div class="card-body">
+        <section class="left">
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <label class="z-chbx">
+                  <input type="checkbox"/><span></span>
+                  <p>Ejemplo 1</p>
+                </label>
+              </div>
+              <div>
+                <label class="z-chbx">
+                  <input type="checkbox"/><span></span>
+                  <p>Ejemplo 2</p>
+                </label>
+              </div>
+              <div>
+                <label class="z-chbx">
+                  <input type="checkbox"/><span></span>
+                  <p>Ejemplo 3</p>
+                </label>
+              </div>
+              <div>
+                <label class="z-chbx">
+                  <input type="checkbox" disabled/><span></span>
+                  <p>Ejemplo 4</p>
+                </label>
+              </div>
+            </div>
+        
+          </div>
+        </section>
+      </div>
+    </div>
+      
+
+    <div class="card">
+        <p class="z-title p-color">Button</p>
+            <div class="row">
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button primary</p>
+                <button class="z-button-primary ripple-white">Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button primary disabled</p>
+                <button class="z-button-primary" disabled>Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button primary loading</p>
+                <button class="z-button-primary">
+                  <div class="z-loader-white"></div>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button secondary</p>
+                <button class="z-button-secondary ripple-main">Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button secondary disabled</p>
+                <button class="z-button-secondary" disabled>Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button secondary loading</p>
+                <button class="z-button-secondary">
+                  <div class="z-loader-main"></div>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button sticky</p>
+                <button class="z-button-sticky ripple-white">Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button sticky disabled</p>
+                <button class="z-button-sticky" disabled>Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button sticky loading</p>
+                <button class="z-button-sticky">
+                  <div class="z-loader-white"></div>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button link</p>
+                <button class="z-button-link ripple-main">Boton</button>
+              </div>
+              <div class="col-md-4">
+                <p class="z-highlight-2 margin-top-32 margin-bottom-32">Button link disabled</p>
+                <button class="z-button-link" disabled>Boton</button>
+              </div>
+            </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Slider</p>
+        <div class="card-body">
+          <input type="range" class="e-range" min="1" max="100" value="1"/>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Radiobutton</p>
+        <div class="card-body">
+          <section class="left">
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <label class="z-radio">
+                    <input type="radio" name="radio-group"/><span></span>
+                    <p>Ejemplo 1</p>
+                  </label>
+                </div>
+                <div>
+                  <label class="z-radio">
+                    <input type="radio" name="radio-group"/><span></span>
+                    <p>Ejemplo 2</p>
+                  </label>
+                </div>
+                <div>
+                  <label class="z-radio">
+                    <input type="radio" name="radio-group"/><span></span>
+                    <p>Ejemplo 3</p>
+                  </label>
+                </div>
+                <div>
+                  <label class="z-radio">
+                    <input type="radio" name="radio-group" disabled/><span></span>
+                    <p>Ejemplo 4</p>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Select menu</p>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="z-select">
+                  <select class="select-box">
+                    <option hidden>Placeholder</option>
+                    <option>Ejemplo 1</option>
+                    <option>Ejemplo 2</option>
+                    <option>Ejemplo 3</option>
+                  </select>
+                  <i class="icon-angle-down icon-select size-16"></i>
+                </div>
+                <br>
+                <div class="z-select">
+                  <select class="select-box" disabled>
+                    <option hidden>Placeholder Disabled</option>
+                    <option>Ejemplo 1</option>
+                    <option>Ejemplo 2</option>
+                    <option>Ejemplo 3</option>
+                  </select>
+                  <i class="icon-angle-down icon-select size-16"></i>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card">
+        <p class="z-title p-color">Switch</p>
+        <div class="card-body">
+          <section class="left">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="z-switch-html">
+                  <input type="checkbox" id="switch"/>
+                  <label for="switch"></label>
+                </div>
+                <div class="z-switch-html">
+                  <input type="checkbox" id="switch2" disabled/>
+                  <label for="switch2"></label>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Snackbar</p>
+        <div class="card-body">
+          <div class="z-snack">
+            <label class="texto-snack">Texto del Snackbar.</label>
+            <div class="acciones-snack">
+            <a class="link-snack">Link del Snackbar</a>
+              <i class="icon-cross icono-snack size-16"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Alert</p>
+        <div class="card-body">
+          <p class="z-highlight-2">Alert success</p>
+          <div class="z-alert z-alert__success">
+            <div class="icon icono-alert">
+              <i class="icon-check-circle size-24"></i>
+            </div>
+            <label class="texto-alert">Texto del Alert.</label>
+          </div>
+
+          <p class="z-highlight-2">Alert warning</p>
+          <div class="z-alert z-alert__warning">
+            <div class="icon icono-alert">
+              <i class="icon-alert-circle size-24"></i>
+            </div>
+            <label class="texto-alert">Texto del Alert.</label>
+          </div>
+          
+          <p class="z-highlight-2">Alert error</p>
+          <div class="z-alert z-alert__error">
+            <div class="icon icono-alert">
+              <i class="icon-cross-circle size-24"></i>
+            </div>
+            <label class="texto-alert">Texto del Alert.</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Card</p>
+        <div class="card-body">
+          <div class="z-card-html ripple-card">
+            <div class="card-content">
+              <p>Texto de la card.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">List</p>
+        <div class="card-body">
+          <section class="margin-bottom-32">
+            <div class="z-card-html">
+              <ul>
+                <li class="z-list-html z-list-html__li-texto ripple-card">
+                  <div class="z-list-html__li-texto__primary">
+                    <p>Texto largo de ejemplo para probar que esto funcione súper bien y no se rompa al ser doble
+                      línea</p>
+                    <p class="z-list-html__li-texto__sub-title">Secundario</p>
+                  </div>
+                  <div class="z-list-html__li-texto__secondary">
+                    <p>$200</p>
+                    <p class="z-list-html__li-texto__sub-title">-$135,50</p>
+                  </div>
+                </li>
+                <li class=" z-list-html z-list-html__li-texto ripple-card">
+                  <div class="z-list-html__li-texto__primary">
+                    <p>Texto de ejemplo para probar que esto funcione</p>
+                    <p class="z-list-html__li-texto__sub-title">Secundario</p>
+                  </div>
+                  <div class="z-list-html__li-texto__secondary">
+                    <p>$200</p>
+                    <p class="z-list-html__li-texto__sub-title">-$135,50</p>
+                  </div>
+                </li>
+                <li class="z-list-html z-list-html__li-texto ripple-card">
+                  <div class="z-list-html__li-texto__primary">
+                    <p>Texto</p>
+                    <p class="z-list-html__li-texto__sub-title">Secundario</p>
+                  </div>
+                  <div class="z-list-html__li-texto__secondary">
+                    <p>$200</p>
+                    <p class="z-list-html__li-texto__sub-title">-$135,50</p>
+                  </div>
+                </li>
+                <li class="z-list-html z-list-html--disabled">
+                  <div class="z-list-html__li-texto__primary">
+                    <p>Texto</p>
+                    <p class="z-list-html__li-texto__sub-title">Secundario</p>
+                  </div>
+                  <div class="z-list-html__li-texto__secondary">
+                    <p>$200</p>
+                    <p class="z-list-html__li-texto__sub-title">-$135,50</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+      
+      <div class="card">
+        <p class="z-title p-color">Chips</p>
+        <div class="card-body">
+          <label class="z-chip ">
+            <input type="radio" name="radio-group"/>
+            <span class="ripple-chip"><p class="chip-text">$50</p></span>
+          </label>
+
+          <label class="z-chip">
+            <input type="radio" name="radio-group"/>
+            <span class="ripple-chip"><p class="chip-text">$150</p></span>
+          </label>
+
+          <label class="z-chip">
+            <input type="radio" name="radio-group" disabled/>
+            <span class="disabled"><p class="chip-text">$200</p></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Table</p>
+        <div class="card-body">
+          <table class="z-table">
+              <tr class="tr-header">
+                <th >Columna 1</th>
+                <td>Columna 2</td>
+              </tr>
+              <tr class="tr-content">
+                <th>Ejemplo</th>
+                <td>Ejemplo</td>
+              </tr>
+              <tr class="tr-content">
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+              </tr>
+              <tr class="tr-content">
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+              </tr>
+              <tr class="tr-content">
+                <td >Ejemplo</td>
+                <td >Ejemplo</td>
+              </tr>
+            </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="z-title p-color">Avatar Image</p>
+        <div class="avatar-body">
+
+          <p class="z-highlight-2 margin-top-96 margin-bottom-32 center">Avatar Image</p>
+          <div class="row">
+            <div class="z-avatar-html">
+              <img class="z-avatar-html__img z-avatar-html__extra-large" src="https://scontent-eze1-1.xx.fbcdn.net/v/t1.0-9/47108571_10218089231529103_7057558434803089408_n.jpg?_nc_cat=100&_nc_ht=scontent-eze1-1.xx&oh=f48495c2842942f1ad885d0af427dd18&oe=5D47DE2D">
+            </div>
+          
+            <div class="z-avatar-html">
+              <img class="z-avatar-html__img z-avatar-html__large" src="http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80">
+            </div>
+          
+            <div class="z-avatar-html">
+              <img class="z-avatar-html__img z-avatar-html__medium" src="https://scontent-eze1-1.xx.fbcdn.net/v/t1.0-9/28056701_10215580373290979_3123619428205998560_n.jpg?_nc_cat=101&_nc_ht=scontent-eze1-1.xx&oh=8a701981e26a77fb90ab029619333fcc&oe=5D40CA72">
+            </div>
+          
+            <div class="z-avatar-html">
+              <img class="z-avatar-html__img z-avatar-html__small" src="http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80">
+            </div>
+          </div>
+
+          <p class="z-highlight-2 margin-top-32 margin-bottom-32 center">Avatar Initials</p>
+          <div class="row">
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__char z-avatar-html__extra-large"><p class="z-avatar-html__char--initials">V</p></div>
+            </div>
+          
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__char z-avatar-html__large"> <p class="z-avatar-html__char--initials">K</p> </div>
+            </div>
+          
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__char z-avatar-html__medium"> <p class="z-avatar-html__char--initials">L</p> </div>
+            </div>
+          
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__char z-avatar-html__small"> <p class="z-avatar-html__char--initials">J</p> </div>
+            </div>
+          </div>
+
+          <p class="z-highlight-2 margin-top-32 margin-bottom-32 center">Avatar Default</p>
+          <div class="row">
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__icon z-avatar-html__extra-large">
+                <div class="icon"><p class="icon-user size-32"></p></div>
+              </div>
+            </div>
+          
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__icon z-avatar-html__large">
+                <div class="icon"><p class="icon-user size-24"></p></div>
+              </div>
+            </div>
+          
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__icon z-avatar-html__medium">
+                <div class="icon"><p class="icon-user size-16"></p></div>
+              </div>
+            </div>
+            
+            <div class="z-avatar-html">
+              <div class="z-avatar-html__icon z-avatar-html__small">
+                <div class="icon"><p class="icon-user size-12"></p></div>
+              </div>
+            </div>
+
+          </div>
+        </div> 
+      </div>
+  </div>
+
+
+</body>
+
+</html>
