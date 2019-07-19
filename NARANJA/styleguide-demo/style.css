@@ -39,21 +39,7 @@ body {
     flex-direction: column;
 }
 
-.avatar-body .row{
+.avatar-body .row {
     display: flex;
     justify-content: space-around;
 }
-
-/* .z-card-html p, ul, li {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-} */
-
-/* table {
-	border-collapse: collapse;
-	border-spacing: 0;
-} */
