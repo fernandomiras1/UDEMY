@@ -53,7 +53,7 @@ function manejoApiMensaje( cacheName, req) {
         }
     }).catch( err => {
         return caches.match( req );
-    })
+    });
 
 }
 

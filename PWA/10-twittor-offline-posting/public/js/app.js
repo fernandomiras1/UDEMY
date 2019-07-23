@@ -170,8 +170,8 @@ function getMensajes() {
             posts.forEach(post => {
 
                 crearMensajeHTML( post.mensaje, post.user);
-            })
+            });
         });
 }
 
-// getMensajes();
+getMensajes();

@@ -76,13 +76,13 @@ self.addEventListener('activate', e => {
 self.addEventListener( 'fetch', e => {
 
     let respuesta;
-
+    console.log(e.request.url);
     if ( e.request.url.includes('/api') ) {
         console.log('entro');
         respuesta = manejoApiMensaje( DYNAMIC_CACHE, e.request );
 
     } else {
-        console.log('no entro');
+        // console.log('no entro');
         respuesta = caches.match( e.request ).then( res => {
     
             if ( res ) {
