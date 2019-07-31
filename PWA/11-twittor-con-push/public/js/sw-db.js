@@ -7,9 +7,9 @@ function guardarMensaje( mensaje ) {
     mensaje._id = new Date().toISOString();
 
     return db.put( mensaje ).then( () => {
-
+        // Cuando tengas internet busca esta tarea aync y peticiona
         self.registration.sync.register('nuevo-post');
-
+        // Creamos una respuesta para decirle al FrontEnd que estamos en offline
         const newResp = { ok: true, offline: true };
 
         return new Response( JSON.stringify(newResp) );
@@ -23,10 +23,10 @@ function guardarMensaje( mensaje ) {
 function postearMensajes() {
 
     const posteos = [];
-
+    // barremos todos los documentos que tenemos en la base de datos IndexDB
     return db.allDocs({ include_docs: true }).then( docs => {
 
-
+        // recorremos cada una de las filas.
         docs.rows.forEach( row => {
 
             const doc = row.doc;
@@ -38,11 +38,11 @@ function postearMensajes() {
                 },
                 body: JSON.stringify( doc )
                 }).then( res => {
-
+                    // eliminamos el doc en IndexDB
                     return db.remove( doc );
 
                 });
-            
+            // lo incertamos en el array a cada una de las promesas.
             posteos.push( fetchPom );
 
 
