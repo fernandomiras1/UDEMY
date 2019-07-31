@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server/server.js",
         "dev": "node ./node_modules/nodemon/bin/nodemon.js server/server --ignore 'server/*.json' ",
-        "generate-vapid": "./node_modules/web-push/src/cli.js generate-vapid-keys --json > server/vapid.json"
+        "generate-vapid": "node ./node_modules/web-push/src/cli.js generate-vapid-keys --json"
     },
     "author": "",
     "license": "ISC",
@@ -15,7 +15,7 @@
         "body-parser": "^1.18.3",
         "express": "^4.16.3",
         "urlsafe-base64": "^1.0.0",
-        "web-push": "^3.3.3"
+        "web-push": "^3.3.5"
     },
     "devDependencies": {
         "nodemon": "^1.18.4"

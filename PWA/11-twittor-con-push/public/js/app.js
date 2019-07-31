@@ -221,6 +221,18 @@ isOnline();
 
 
 // Notificaciones
+function verificarSuscripcion( activadas ) {
+
+    if ( activadas ) {
+        btnActivadas.removeClass('oculto');
+        btnDesactivadas.addClass('oculto');
+    } else {
+        btnActivadas.addClass('oculto');
+        btnDesactivadas.removeClass('oculto');
+    }
+}
+
+verificarSuscripcion();
 
 function enviarNotificacion() {
     
@@ -260,5 +272,5 @@ function notificarme() {
     }
 }
 
-notificarme();
+// notificarme();
 

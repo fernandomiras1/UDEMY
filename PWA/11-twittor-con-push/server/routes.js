@@ -40,6 +40,27 @@ router.post('/', function (req, res) {
   });
 });
 
+// Almacenar la suscipcion
+router.post('/subscribe', function (req, res) {
+  
+  res.json( 'subscribe' );
+});
+
+// Almacenar el key
+router.get('/key', function (req, res) {
+  
+  res.json( 'key público' );
+});
+
+
+// Enviar una notificacion PUSH a las personas 
+// q nosotros queramos.
+// Es ALGO que se controla del lado del server
+router.post('/push', function (req, res) {
+  
+  res.json( 'key público' );
+});
+
 
 
 module.exports = router;
