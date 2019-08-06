@@ -1,0 +1,12 @@
+Crear un proyecto en Angular.
+$ tns create cursoApp --ng
+
+Instalamos sass
+$ npm i node-sass --save-dev
+
+Migramos versiones anteriores a la ultima version de Native
+$ tns migrate
+
+Correr la aplicacion:
+$ tns run android
+$ tns run ios

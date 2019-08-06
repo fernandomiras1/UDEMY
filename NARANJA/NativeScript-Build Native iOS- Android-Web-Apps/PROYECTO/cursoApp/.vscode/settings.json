@@ -1,0 +1,11 @@
+{
+    "xml.fileAssociations": [
+        {
+            "systemId": "c:\\FMiras\\GIT\\UDEMY_GIT\\NARANJA\\NativeScript-Build%20Native%20iOS-%20Android-Web-Apps\\PROYECTO\\cursoApp\\schema\\tns.xsd",
+            "pattern": "**/**/*.xml"
+        }
+    ],
+    "files.exclude": {
+        "schema": true
+    }
+}
