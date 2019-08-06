@@ -1,0 +1,11 @@
+{
+    "xml.fileAssociations": [
+        {
+            "systemId": "c:\\FMiras\\GIT\\UDEMY_GIT\\NARANJA\\NativeScript-Espanol\\PROYECTO\\food-app\\schema\\tns.xsd",
+            "pattern": "**/**/*.xml"
+        }
+    ],
+    "files.exclude": {
+        "schema": true
+    }
+}
