@@ -1,3 +1,53 @@
 <GridLayout>
     <GridLayout class="background"></GridLayout>
+
+    <!-- DockLayout: dividir contenedores y agrupalos o moverlos en diferentes posiciones -->
+    <!-- Lo usamos para separar los botones de la caja blanca de ingreso-->
+    <DockLayout style="padding: 25">
+        <!-- Agregamos la caja de inicio de session -->
+        <!-- StackLayout: Apila los elementos, por defecto verticalemtne -->
+        <!-- dock="top": Se usa en los StackLayout y es la posicion. En este caso arriba -->
+        <StackLayout dock="top">
+            <Label class="title" text="Sign In"></Label>
+            <!-- la caja blanca de login -->
+            <StackLayout marginTop="1%" class="white-box">
+                <!-- Imagen de la ensalada -->
+                <Image style="margin-top: -150;" src="res://salad"></Image>
+                <Label 
+                    class="title-login big"
+                    text="Welcome Back">
+                </Label>
+                <Label 
+                    class="title-login small"
+                    text="We Love to see you agian">
+                </Label>
+                <!-- autocapitalizationType: Todo en minuscula -->
+                <TextField
+                    class="tf-gray user"
+                    hint="Username Or Email Address"
+                    keyboardType="email"
+                    autocapitalizationType="none"
+                >
+                </TextField>
+                <TextField
+                    class="tf-gray password"
+                    hint="Password"
+                    secure="true"
+                >
+                </TextField>
+
+                <Button
+                    style="margin-bottom: 15; margin-top: 2;" 
+                    class="button arrow">
+                </Button>
+                
+            </StackLayout>
+        </StackLayout>
+
+
+        <GridLayout dock="bottom">
+            <Button></Button>
+            <Button></Button>
+        </GridLayout>
+    </DockLayout>
 </GridLayout>

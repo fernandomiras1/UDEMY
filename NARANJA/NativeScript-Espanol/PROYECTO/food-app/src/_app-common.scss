@@ -1,3 +1,50 @@
 // css que comparte en comun en todo el proyecto.
 
 @import './styles/login';
+
+.title {
+    font-size: 42;
+    color: white;
+    font-weight: bold;
+}
+
+.white-box {
+    border-radius: 10;
+    background-color: white;
+}
+
+.tf-gray {
+    margin: 0 10 0 10;
+    font-size: 16;
+    border-radius: 5;
+    padding-left: 25;
+    placeholder-color: $color_violet;
+    background-color: $color_gray_light;
+    opacity: 0.5;
+
+    &.user {
+        background-image: url('res://ic_user');
+        background-repeat: no-repeat;
+        background-position: 1% 50%;
+    }
+
+    &.password {
+        background-image: url('res://ic_password');
+        background-repeat: no-repeat;
+        background-position: 1% 50%;
+    }
+}
+
+.button {
+    width: 150;
+    height: 45;
+    border-radius: 12;
+    background-color: $color_violet;
+
+    &.arrow {
+        background-image: url('res://arrow');
+        background-repeat: no-repeat;
+        // 1er 50% lo centra en el boton
+        background-position: 50% 50%;
+    }
+}

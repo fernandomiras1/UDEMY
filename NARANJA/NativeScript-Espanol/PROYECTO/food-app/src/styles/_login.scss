@@ -1,3 +1,23 @@
 .background {
-    background-image: url('');
+    background-image: url('res://background_login');
+    background-repeat: no-repeat;
+    // extienda la imagen dependiendo el tamaño del tamaño
+    background-size: cover;
+    // centramos la imagen
+    background-position: center;
+}
+
+.title-login {
+    color: $color_violet;
+    text-align: center;
+
+    &.big {
+        font-size: 40;
+        font-weight: bold;
+    }
+
+    &.small {
+        font-weight: 300;
+        font-size: 14;
+    }
 }
