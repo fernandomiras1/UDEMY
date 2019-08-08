@@ -1,7 +1,9 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+// Module 
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-
 import { AppRoutingModule } from "./app-routing.module";
+
+// Component 
 import { AppComponent } from "./app.component";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
