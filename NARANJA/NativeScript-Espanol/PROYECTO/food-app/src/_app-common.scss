@@ -18,20 +18,29 @@
     font-size: 16;
     border-radius: 5;
     padding-left: 25;
-    placeholder-color: $color_violet;
     background-color: $color_gray_light;
     opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 1% 50%;
 
     &.user {
         background-image: url('res://ic_user');
-        background-repeat: no-repeat;
-        background-position: 1% 50%;
     }
 
     &.password {
         background-image: url('res://ic_password');
-        background-repeat: no-repeat;
-        background-position: 1% 50%;
+    }
+    
+    &.user-green {
+        background-image: url('res://ic_user_green');
+    }
+
+    &.password-green {
+        background-image: url('res://ic_pass_green');
+    }
+  
+    &.mail-green {
+        background-image: url('res://ic_mail_green');
     }
 }
 
@@ -39,10 +48,47 @@
     width: 150;
     height: 45;
     border-radius: 12;
-    background-color: $color_violet;
+
+    &.button-one {
+        color: white;
+        background-color: $color_violet;
+    }
+   
+    &.button-second {
+        background-color: $color_green;
+    }
+
+    &.button-three {
+        color: $color_green;
+        background-color: white;
+    }
 
     &.arrow {
         background-image: url('res://arrow');
+        background-repeat: no-repeat;
+        // 1er 50% lo centra en el boton
+        background-position: 50% 50%;
+    }
+}
+
+.button-outline {
+    border-width: 1;
+    border-radius: 5;
+    background-color: white;
+    width: 50;
+    height: 50;
+
+    &.google {
+        border-color: $color_pink;
+        background-image: url('res://ic_google');
+        background-repeat: no-repeat;
+        // 1er 50% lo centra en el boton
+        background-position: 50% 50%;
+    }
+  
+    &.face {
+        border-color: $color_blue;
+        background-image: url('res://ic_face');
         background-repeat: no-repeat;
         // 1er 50% lo centra en el boton
         background-position: 50% 50%;

@@ -1,6 +1,5 @@
-<GridLayout>
-    <GridLayout class="background"></GridLayout>
-
+<GridLayout class="background">
+ 
     <!-- DockLayout: dividir contenedores y agrupalos o moverlos en diferentes posiciones -->
     <!-- Lo usamos para separar los botones de la caja blanca de ingreso-->
     <DockLayout style="padding: 25">
@@ -17,6 +16,7 @@
                     class="title-login big"
                     text="Welcome Back">
                 </Label>
+                
                 <Label 
                     class="title-login small"
                     text="We Love to see you agian">
@@ -26,28 +26,36 @@
                     class="tf-gray user"
                     hint="Username Or Email Address"
                     keyboardType="email"
-                    autocapitalizationType="none"
-                >
+                    autocapitalizationType="none">
                 </TextField>
+
                 <TextField
                     class="tf-gray password"
                     hint="Password"
-                    secure="true"
-                >
+                    secure="true">
                 </TextField>
 
                 <Button
                     style="margin-bottom: 15; margin-top: 2;" 
-                    class="button arrow">
+                    class="button button-one arrow">
                 </Button>
                 
             </StackLayout>
         </StackLayout>
 
-
-        <GridLayout dock="bottom">
-            <Button></Button>
-            <Button></Button>
+        <!-- dos columnas con todo el espacio disponible -->
+        <GridLayout dock="bottom" columns="*,*">
+            <Button 
+                class="button button-one"
+                text="Sign In"
+                col="0">
+            </Button>
+            <Button 
+                class="button button-three"
+                text="Sign Up"
+                nsRouterLink="register"
+                col="1">
+            </Button>
         </GridLayout>
     </DockLayout>
 </GridLayout>
