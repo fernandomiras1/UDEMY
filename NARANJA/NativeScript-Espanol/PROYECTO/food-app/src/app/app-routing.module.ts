@@ -4,8 +4,12 @@ import { Routes } from "@angular/router";
 
 const routes: Routes = [
     { 
-        path: "",
+        path: '',
         loadChildren: './modules/auth/auth.module#AuthModule'
+    },
+    {
+        path: 'home',
+        loadChildren: './modules/home/home.module#HomeModule'
     }
 ];
 

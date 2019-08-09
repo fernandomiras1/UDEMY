@@ -1,0 +1,49 @@
+<GridLayout rows="*, 50">
+    <ng-content row="0"></ng-content>
+    <!-- Tabs -->
+    <FlexboxLayout row="1" class="bottom-bar-line">
+        <StackLayout width="25%" verticalAlignment="center">
+            <!-- para no estirar la imagen -->
+            <Image 
+                *ngIf="index != 0"
+                stretch="none"
+                horizontalAlignment="center"
+                src="res://ic_home">
+            </Image>
+            <StackLayout 
+                *ngIf="index == 0"
+                class="item-selected"
+                horizontalAlignment="center"
+                orientation="horizontal">
+
+                <label text="Home" style="color: white; margin-left: 6"></label>
+                <Image stretch="none"
+                style="margin-left: 6"
+                horizontalAlignment="center"
+                src="res://ic_home">
+                </Image>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout width="25%" verticalAlignment="center">
+            <!-- para no estirar la imagen -->
+            <Image stretch="none"
+                horizontalAlignment="center"
+                src="res://ic_wood">
+            </Image>
+        </StackLayout>
+        <StackLayout width="25%" verticalAlignment="center">
+            <!-- para no estirar la imagen -->
+            <Image stretch="none"
+                horizontalAlignment="center"
+                src="res://ic_bell">
+            </Image>
+        </StackLayout>
+        <StackLayout width="25%" verticalAlignment="center">
+            <!-- para no estirar la imagen -->
+            <Image stretch="none"
+                horizontalAlignment="center"
+                src="res://ic_user">
+            </Image>
+        </StackLayout>
+    </FlexboxLayout>
+</GridLayout>
