@@ -1,3 +1,18 @@
 <ns-bottomBar [index]="0">
-    <label text="hola 2"></label>
+    <!-- Esto es proyeccion de contenido a bottomBar -->
+
+    <GridLayout rows="250, *">
+        <StackLayout row="0" class="body">
+            
+        </StackLayout>
+        <!-- hay que poner que elemetos va a estar repitiendo -->
+        <RadListView row="1" [items]="data">
+            <ng-template let-item="item">
+               <CardView class="card" elevation="20" radius="5">
+                    <Label [text]="item.nombre"></Label>
+               </CardView>
+            </ng-template>
+        </RadListView>
+    </GridLayout>
+
 </ns-bottomBar>
