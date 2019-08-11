@@ -9,9 +9,24 @@
         <RadListView row="1" [items]="data">
             <ng-template let-item="item">
                <CardView class="card" elevation="20" radius="5">
-                    <Label [text]="item.nombre"></Label>
-               </CardView>
+                    <StackLayout>
+                        <!-- ocupe todo el alto y ancho stretch="fill" -->
+                        <Image height="100" stretch="fill" [src]="item.restaurant.thumb"></Image>
+                        <StackLayout padding="5">
+                            <!-- textWrap: toma todo el texto disponible -->
+                            <Label textWrap="true" [text]="item.restaurant.name"></Label>
+                            <Label class="address" textWrap="true" [text]="item.restaurant.location.address"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                </CardView>
             </ng-template>
+
+            <ListViewStaggeredLayout 
+                tkListViewLayout
+                scrollDirection="Vertical"
+                spanCount="2">
+
+            </ListViewStaggeredLayout>
         </RadListView>
     </GridLayout>
 
