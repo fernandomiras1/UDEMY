@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class RestaurantService {
     constructor(private http: HttpClient ) {}
 
-    public serach() {
-        return this.http.get('https://developers.zomato.com/api/v2.1/search?count=10',
+    public serach(query: string = '') {
+        // reemplazamos el espacio por %20
+        return this.http.get('https://developers.zomato.com/api/v2.1/search?count=10&q=' + query.replace(/ /g, '%20'),
         {
             headers: this.commonHeaders()
         });

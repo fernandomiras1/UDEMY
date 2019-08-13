@@ -1,9 +1,31 @@
 <ns-bottomBar [index]="0">
     <!-- Esto es proyeccion de contenido a bottomBar -->
 
-    <GridLayout rows="250, *">
+    <GridLayout rows="170, *">
         <StackLayout row="0" class="body">
-            
+            <label class="title" text="Home"></label>
+            <label class="title" text="Search Restaurant" fontSize='15'></label>
+            <StackLayout padding="10" marginTop="5" class="white-box">
+                <GridLayout columns="25, *,25">
+                    <Image col="0" horizontalAlignment="center"
+                        verticalAlignment="center"
+                        stretch="none"
+                        src="res://ic_search_violet">
+                    </Image>
+                    <!-- el tipo de boton que queremos en el teclado. en este caso done -->
+                    <TextField col="1" marginLeft="10"
+                        hint="Search restaurant"
+                        returnKeyType="done"
+                        (returnPress)="onReturnPress($event)"
+                        color="#78849E">
+                    </TextField>
+                    <Image col="2" horizontalAlignment="center"
+                        verticalAlignment="center"
+                        stretch="none"
+                        src="res://ic_filter">
+                    </Image>
+                </GridLayout>
+            </StackLayout>
         </StackLayout>
         <!-- hay que poner que elemetos va a estar repitiendo -->
         <RadListView row="1" [items]="data">
