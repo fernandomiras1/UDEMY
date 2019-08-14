@@ -1,0 +1,5 @@
+mapbox
+link: https://account.mapbox.com/auth/signup/
+user: fmiras
+mail: fernando.miras.pc@gmail.com
+pass: 36354931

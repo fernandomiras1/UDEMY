@@ -3,6 +3,7 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
 import { RestaurantService } from "./restaurants.service";
 import { Page } from "tns-core-modules/ui/page/page";
 import { TextField } from 'tns-core-modules/ui/text-field';
+import { RouterExtensions } from "nativescript-angular/router";
 @Component({
     moduleId: module.id,
     templateUrl: "./restaurants.component.html",
@@ -12,7 +13,9 @@ import { TextField } from 'tns-core-modules/ui/text-field';
 export class RestaurantsComponent implements OnInit {
     public data: ObservableArray<any>;
     
-    constructor(private restaurantService: RestaurantService, private page: Page) {
+    constructor(private restaurantService: RestaurantService,
+                private router: RouterExtensions,
+                private page: Page) {
             // Quitamos el accionBar ( el borde blanco del header )
             this.page.actionBarHidden = true;
         }
@@ -22,7 +25,7 @@ export class RestaurantsComponent implements OnInit {
     }
 
 
-    public getRestaurants(query: string = '') {
+    public getRestaurants(query = '') {
         this.data = new ObservableArray<any>([]);
         this.restaurantService.serach(query).subscribe(resu => {
             this.data.push(resu['restaurants']);
@@ -33,5 +36,13 @@ export class RestaurantsComponent implements OnInit {
         let textField = <TextField>args.object;
         // Accedemos al texto. textField.text;
         this.getRestaurants(textField.text);
+    }
+
+    public onNavigate(item) {
+        this.router.navigate(['/home/restaurant-detail'], {
+            queryParams: {
+                restaurant: JSON.stringify(item)
+            }
+        });
     }
 }

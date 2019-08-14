@@ -1,0 +1,39 @@
+
+<!-- Esto es proyeccion de contenido a bottomBar -->
+<StackLayout>
+    <StackLayout class="body" height="200" [backgroundImage]="restaurant.thumb">
+        <StackLayout height="100%" style="background-color: rgba(0,0,0,0.5)">
+            <label padding="10" [text]="restaurant.name" textWrap="true" class="title"></label>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout padding="10">
+        <Label textWrap="true"
+            [text]="restaurant.user_rating.rating_tool_tip">
+        </Label>
+        <Label style="color: gray;font-size: 12;" 
+            textWrap="true" 
+            [text]="restaurant.timing">
+        </Label>
+        <Label style="color: gray;font-size: 12;" 
+            textWrap="true" 
+            [text]="restaurant.cuisines">
+        </Label>
+        <Label style="font-size: 12;" 
+            textWrap="true" 
+            [text]="restaurant.location.address">
+        </Label>
+        <Label style="font-size: 12;" 
+            textWrap="true" 
+            [text]="restaurant.phone_numbers">
+        </Label>
+    </StackLayout>
+    <ContentView height="100%" width="100%">
+        <Mapbox
+            accessToken="pk.eyJ1IjoiZm1pcmFzIiwiYSI6ImNqemFpa2xzNzAweTUzb3BhYm1semYxeGMifQ.TDVOi8JOF-KYTtydm5EfoA"
+            [latitude]="restaurant.location.latitude"
+            [longitude]="restaurant.location.longitude"
+            zoomLevel="12"
+            (mapReady)="onMapReady($event, restaurant)">
+        </Mapbox>
+    </ContentView>
+</StackLayout>

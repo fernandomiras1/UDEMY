@@ -8,15 +8,21 @@ import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular/l
 // Component
 import { BottomBarComponent } from "./bottom-bar/bottom-bar.component";
 import { RestaurantsComponent } from "./restaurants/restaurants.component";
+import { RestaurantDetailComponent } from "./restaurant-detail/restaurant-detail.component";
 // Plugin
 import { registerElement } from 'nativescript-angular/element-registry';
 import { CardView } from 'nativescript-cardview';
 registerElement('CardView', () => CardView);
+registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView);
 
 const routes: Routes = [
     {
         path: 'restaurants',
         component: RestaurantsComponent
+    },
+    {
+        path: 'restaurant-detail',
+        component: RestaurantDetailComponent
     }
 ]
 
@@ -29,8 +35,8 @@ const routes: Routes = [
     ],
     declarations: [
         BottomBarComponent,
-        RestaurantsComponent
-    ],
+        RestaurantsComponent,
+        RestaurantDetailComponent    ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

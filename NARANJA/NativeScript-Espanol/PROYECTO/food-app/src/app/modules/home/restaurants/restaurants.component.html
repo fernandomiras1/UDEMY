@@ -30,7 +30,7 @@
         <!-- hay que poner que elemetos va a estar repitiendo -->
         <RadListView row="1" [items]="data">
             <ng-template let-item="item">
-               <CardView class="card" elevation="20" radius="5">
+               <CardView class="card" elevation="20" radius="5" (tap)="onNavigate(item)">
                     <StackLayout>
                         <!-- ocupe todo el alto y ancho stretch="fill" -->
                         <Image height="100" stretch="fill" [src]="item.restaurant.thumb"></Image>
