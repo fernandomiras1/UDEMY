@@ -3,6 +3,16 @@
 @import './styles/login';
 @import './styles/bottom-bar';
 
+// Cargamos todos los iconos
+.fa {
+    font-family: 'FontAwesome','fontawesome-webfont';
+}
+
+.fa-brands {
+    font-family: "fa-brands-400";
+    font-weight: 400;
+}
+
 .title {
     font-size: 42;
     color: white;

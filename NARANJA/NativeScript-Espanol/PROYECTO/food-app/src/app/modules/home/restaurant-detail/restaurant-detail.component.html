@@ -3,7 +3,12 @@
 <StackLayout>
     <StackLayout class="body" height="200" [backgroundImage]="restaurant.thumb">
         <StackLayout height="100%" style="background-color: rgba(0,0,0,0.5)">
-            <label padding="10" [text]="restaurant.name" textWrap="true" class="title"></label>
+            <!-- icono de fontAwesome -->
+            <!-- <Label class="fa" text="&#xf0c2;" style="color: white; font-size: 36;"></Label> -->
+            
+            <!-- Using fa-brands-400.ttf -->
+            <Label text="&#xf39e;" class="fa-brands"></Label>
+            <Label padding="10" [text]="restaurant.name" textWrap="true" class="title"></Label>
         </StackLayout>
     </StackLayout>
     <StackLayout padding="10">
