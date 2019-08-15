@@ -3,6 +3,7 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
 import { Page } from "tns-core-modules/ui/page/page";
 import { ActivatedRoute } from "@angular/router";
 import { MapboxViewApi } from 'nativescript-mapbox';
+import { RouterExtensions } from "nativescript-angular/router";
 @Component({
     moduleId: module.id,
     templateUrl: "./restaurant-detail.component.html",
@@ -13,7 +14,7 @@ export class RestaurantDetailComponent implements OnInit {
     public data: ObservableArray<any>;
     public restaurant: any;
     private map: MapboxViewApi;
-    constructor(private page: Page, private params: ActivatedRoute) {
+    constructor(private page: Page, private params: ActivatedRoute, private router: RouterExtensions) {
             // Quitamos el accionBar ( el borde blanco del header )
             this.page.actionBarHidden = true;
             this.restaurant = JSON.parse(this.params.snapshot.queryParams['restaurant']).restaurant;
@@ -33,5 +34,9 @@ export class RestaurantDetailComponent implements OnInit {
                 subtitle: restaurant.timings
             }
         ]);
+    }
+
+    public onBack(): void {
+        this.router.back();
     }
 }

@@ -104,4 +104,18 @@
         // 1er 50% lo centra en el boton
         background-position: 50% 50%;
     }
+
+    &.green {
+        color: $color_green;
+        border-color: $color_green;
+        width: 80%
+    }
+}
+
+.line {
+    height: 1;
+    background-color: #454F63;
+    width: 100%;
+    margin-top: 5;
+    margin-bottom: 5;
 }

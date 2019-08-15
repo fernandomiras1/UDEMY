@@ -1,0 +1,34 @@
+
+<!-- Esto es proyeccion de contenido a bottomBar -->
+<ns-bottomBar index="3">
+  
+    <GridLayout rows="250, *">
+        <StackLayout row="0" style="background-color: rgba(0,0,0,0.5)" >
+            <Label padding="10" text="PROFILE" textWrap="true" class="title"></Label>
+        </StackLayout>
+        <CardView margin="10"
+            marginTop="-100"
+            row="1"
+            ios:style= "background-color: white;"
+            radius="10">
+
+        <StackLayout backgroundColor="#F8F8F8" padding="15">
+            <StackLayout orientation="horizontal">
+                <TextField class="tf-gray user-green" hint="Name"></TextField>
+            </StackLayout>
+            <StackLayout class="line"></StackLayout>
+            <StackLayout marginTop="5%" orientation="horizontal">
+                <TextField class="tf-gray password-green" hint="Password"></TextField>
+            </StackLayout>
+            <StackLayout class="line"></StackLayout>
+            <StackLayout marginTop="5%" orientation="horizontal">
+                <TextField class="tf-gray mail-green" hint="Mail"></TextField>
+            </StackLayout>
+            <StackLayout class="line"></StackLayout>
+            
+            <Button marginTop="10%" class="button-outline green" text="Update"></Button>
+        </StackLayout>
+        </CardView>
+        
+    </GridLayout>
+</ns-bottomBar>
