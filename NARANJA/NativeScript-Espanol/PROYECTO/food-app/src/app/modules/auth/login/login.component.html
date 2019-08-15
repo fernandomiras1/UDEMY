@@ -23,6 +23,7 @@
                 </Label>
                 <!-- autocapitalizationType: Todo en minuscula -->
                 <TextField
+                    [(ngModel)]="email"
                     class="tf-gray user"
                     hint="Username Or Email Address"
                     keyboardType="email"
@@ -30,15 +31,14 @@
                 </TextField>
 
                 <TextField
+                    [(ngModel)]="password"
                     class="tf-gray password"
                     hint="Password"
                     secure="true">
                 </TextField>
 
                 <!-- clearHistory: no permite vovler atras una vez ingresado al home -->
-                <Button
-                    clearHistory="true"
-                    nsRouterLink="/home/restaurants"
+                <Button (tap)="onLogin()"
                     style="margin-bottom: 15; margin-top: 2;" 
                     class="button button-one arrow">
                 </Button>
@@ -48,7 +48,7 @@
 
         <!-- dos columnas con todo el espacio disponible -->
         <GridLayout dock="bottom" columns="*,*">
-            <Button 
+            <Button
                 class="button button-one"
                 text="Sign In"
                 col="0">

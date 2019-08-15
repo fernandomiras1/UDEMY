@@ -35,17 +35,19 @@
                     hint="Name">
                 </TextField>
                 <TextField
+                    [(ngModel)]="email"
                     class="tf-gray mail-green"
                     hint="Username Or Email Address"
                     keyboardType="email"
                     autocapitalizationType="none">
                 </TextField>
                 <TextField
+                    [(ngModel)]="password"
                     class="tf-gray password-green"
                     hint="Password"
                     secure="true">
                 </TextField>
-                <Button
+                <Button (tap)="onRegister()"
                 style="margin-bottom: 15; margin-top: 2;" 
                 class="button button-second arrow">
             </Button>
