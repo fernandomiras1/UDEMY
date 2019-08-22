@@ -41,7 +41,7 @@
     &.password {
         background-image: url('res://ic_password');
     }
-    
+
     &.user-green {
         background-image: url('res://ic_user_green');
     }
@@ -49,7 +49,7 @@
     &.password-green {
         background-image: url('res://ic_pass_green');
     }
-  
+
     &.mail-green {
         background-image: url('res://ic_mail_green');
     }
@@ -64,7 +64,7 @@
         color: white;
         background-color: $color_violet;
     }
-   
+
     &.button-second {
         background-color: $color_green;
     }
@@ -96,7 +96,7 @@
         // 1er 50% lo centra en el boton
         background-position: 50% 50%;
     }
-  
+
     &.face {
         border-color: $color_blue;
         background-image: url('res://ic_face');
@@ -108,6 +108,12 @@
     &.green {
         color: $color_green;
         border-color: $color_green;
+        width: 80%
+    }
+
+    &.gray {
+        color: gray;
+        border-color: gray;
         width: 80%
     }
 }

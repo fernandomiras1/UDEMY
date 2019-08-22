@@ -1,7 +1,7 @@
 
 <!-- Esto es proyeccion de contenido a bottomBar -->
 <ns-bottomBar index="3">
-  
+
     <GridLayout rows="250, *">
         <StackLayout row="0" style="background-color: rgba(0,0,0,0.5)" >
             <Label padding="10" text="PROFILE" textWrap="true" class="title"></Label>
@@ -25,11 +25,11 @@
                 <TextField class="tf-gray mail-green" hint="Mail"></TextField>
             </StackLayout>
             <StackLayout class="line"></StackLayout>
-            
+
             <Button marginTop="10%" class="button-outline green" text="Update"></Button>
-            <Button (tap)="onLogout()" marginTop="10%" class="button-outline green" text="Logout"></Button>
+            <Button (tap)="onLogout()" marginTop="10%" class="button-outline gray" text="Logout"></Button>
         </StackLayout>
         </CardView>
-        
+
     </GridLayout>
 </ns-bottomBar>
