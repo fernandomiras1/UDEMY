@@ -5,7 +5,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    
+
     constructor (private auth: AuthService, private route: RouterExtensions) {}
 
     canActivate() {
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
             return true;
         }
 
-        this.route.navigate(['/home/restaurants']);
+        this.route.navigate(['/home/menu']);
         return false;
     }
 

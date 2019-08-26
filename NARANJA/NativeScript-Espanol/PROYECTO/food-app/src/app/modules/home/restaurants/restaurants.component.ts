@@ -6,20 +6,21 @@ import { TextField } from 'tns-core-modules/ui/text-field';
 import { RouterExtensions } from "nativescript-angular/router";
 @Component({
     moduleId: module.id,
+    selector: 'ns-restaurants',
     templateUrl: "./restaurants.component.html",
     providers: [RestaurantService],
     styleUrls: ['./restaurants.component.scss']
 })
 export class RestaurantsComponent implements OnInit {
     public data: ObservableArray<any>;
-    
+
     constructor(private restaurantService: RestaurantService,
                 private router: RouterExtensions,
                 private page: Page) {
             // Quitamos el accionBar ( el borde blanco del header )
             this.page.actionBarHidden = true;
         }
-        
+
     ngOnInit(): void {
         this.getRestaurants();
     }

@@ -5,6 +5,7 @@ import { AuthService } from "../../auth/auth.service";
 
 @Component({
     moduleId: module.id,
+    selector: 'ns-profile',
     templateUrl: "./profile.component.html",
     providers: [AuthService],
     styleUrls: ['./profile.component.scss']
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit {
             // Quitamos el accionBar ( el borde blanco del header )
             this.page.actionBarHidden = true;
         }
-        
+
     ngOnInit(): void {
     }
 

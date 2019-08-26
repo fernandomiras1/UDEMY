@@ -20,7 +20,7 @@ export class LoginComponent {
         this.auth.login(this.email, this.password).subscribe((resu: any) => {
             // lo guardmaos en el localStrogage
             this.auth.setUser(resu);
-            this.router.navigate(['/home/restaurants'], { clearHistory: true });
+            this.router.navigate(['/home/menu'], { clearHistory: true });
         }, error => console.log(error));
     }
 }
