@@ -1,7 +1,7 @@
 
 var url = window.location.href;
 var swLocation = '/twittor/sw.js';
-
+var swReg;
 
 if ( navigator.serviceWorker ) {
 
@@ -10,8 +10,15 @@ if ( navigator.serviceWorker ) {
         swLocation = '/sw.js';
     }
 
+    // acemos el registro cuando la pagina ya esta cargada
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register( swLocation ).then( function(reg) {
 
-    navigator.serviceWorker.register( swLocation );
+            swReg = reg;
+            swReg.pushManager.getSubscription().then( verificarSuscripcion );
+        });
+    });
+
 }
 
 
@@ -189,7 +196,6 @@ function getMensajes() {
 getMensajes();
 
 
-
 // Detectar cambios de conexión
 function isOnline() {
 
@@ -222,7 +228,7 @@ isOnline();
 
 // Notificaciones
 function verificarSuscripcion( activadas ) {
-
+    console.log(activadas);
     if ( activadas ) {
         btnActivadas.removeClass('oculto');
         btnDesactivadas.addClass('oculto');
@@ -231,8 +237,6 @@ function verificarSuscripcion( activadas ) {
         btnDesactivadas.removeClass('oculto');
     }
 }
-
-verificarSuscripcion();
 
 function enviarNotificacion() {
     
@@ -273,4 +277,41 @@ function notificarme() {
 }
 
 // notificarme();
+
+// Get Key
+function getPublicKey() {
+
+    // fetch('api/key')
+    //     .then( res => res.text())
+    //     .then( console.log );
+
+    return fetch('api/key')
+        .then( res => res.arrayBuffer())
+        // retornar arreglo, pero como un Uint8array
+        .then( key => new Uint8Array(key) );
+}
+
+// getPublicKey().then( console.log );
+btnDesactivadas.on( 'click', function() {
+    if ( !swReg ) return console.log('No hay registro de SW');
+
+    getPublicKey().then( function( key ) {
+
+        swReg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: key
+        })
+        .then( res => res.toJSON())
+        .then( suscripcion => {
+            // console.log(suscripcion);
+            fetch('api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify( suscripcion )
+            })
+            .then( verificarSuscripcion )
+            .catch( console.log );
+        });
+    });
+})
 
