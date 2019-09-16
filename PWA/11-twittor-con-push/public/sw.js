@@ -1,3 +1,5 @@
+import { ClientHttp2Session } from "http2";
+
 // imports
 importScripts('https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js')
 
@@ -129,6 +131,84 @@ self.addEventListener('sync', e => {
         e.waitUntil( respuesta );
     }
 
+});
+
+// Escuchar PUSH
+self.addEventListener('push', e => {
+
+    console.log(e);
+    const data = JSON.parse(e.data.text());
+    console.log(data);
+
+    const title = data.titulo;
+    const options = {
+        body: data.cuerpo,
+        // icon: 'img/icons/icon-72x72.png'
+        icon: `img/avatars/${ data.usuario }.jpg`,
+        badge: 'img/favicon.ico',
+        image: 'https://cde.laprensa.e3.pe/ima/0/0/1/7/5/175423.jpg',
+        vibrate: [125,75,125,275,200,275,125,75,125,275,200,600,200,600],
+        openUrl: '/',
+        data: {
+            // url: 'https://google.com',
+            url: '/',
+            id: data.usuario
+        },
+        actions: [
+            {
+                action: 'thor-action',
+                title: 'Thor',
+                icon: 'img/avatar/thor.jpg'
+            },
+            {
+                action: 'ironman-action',
+                title: 'Ironman',
+                icon: 'img/avatar/ironman.jpg'
+            }
+        ]
+    };
+
+    e.waitUntil( self.registration.showNotification(title, options) );
+
+});
+
+// Escuchamos cuando una notificacion se cierra
+self.addEventListener('notificationclose', e => {
+
+    console.log('Notificacion cerrada', e);
+
+
+});
+
+// Escuchamos cuando se hace un click en la notificacion
+self.addEventListener('notificationclick', e => {
+
+    const notificacion = e.notification;
+    // el boton que la persona toco en la notificacion.action
+    const accion = e.action;
+
+    console.log(notificacion);
+    console.log(accion);
+
+    // Vamos a buscar todos los tap que este abierto en el navegador.
+    const respuesta = clients.matchAll().then( clientes => {
+        // Arreglo de todos los tap que estan abiertos
+        let cliente = clientes.find( c => {
+            return c.visibilityState === 'visible';
+        });
+
+        if ( cliente !== undefined ) {
+            cliente.navigate( notificacion.data.url );
+            cliente.focus();
+        } else {
+            // Abrimos una url cuando tocamos la notificacion
+            clients.openWindow( notificacion.data.url );
+        }
+
+        return notificacion.close();
+    });
+
+    e.waitUntil( respuesta );
 
 
 });
