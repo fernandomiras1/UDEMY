@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PaisesService } from 'src/app/services/paises.service';
+import { PaisInterface } from 'src/app/interface/pais.interface';
 
 @Component({
   selector: 'app-paises',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaisesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public paisesService: PaisesService) { }
+
+  paises: PaisInterface[] = [];
 
   ngOnInit() {
+    this.paisesService.getPaises().then(resu => {
+      console.log(resu);
+    });
   }
 
 }
