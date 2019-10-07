@@ -28,7 +28,8 @@ router.post('/', function (req, res) {
     mensaje: req.body.mensaje,
     user: req.body.user,
     lat: req.body.lat,
-    lng: req.body.lng
+    lng: req.body.lng,
+    foto: req.body.foto
   };
 
   mensajes.push( mensaje );

@@ -82,12 +82,14 @@ const camara = new Camara( $('#player')[0] );
 
 // ===== Codigo de la aplicación
 
-function crearMensajeHTML(mensaje, personaje, lat, lng) {
+function crearMensajeHTML(mensaje, personaje, lat, lng, foto) {
 
     // console.log(mensaje, personaje, lat, lng);
 
     var content =`
     <li class="animated fadeIn fast"
+        data-user="${ personaje }"
+        data-mensaje="${ mensaje }"
         data-tipo="mensaje">
 
 
@@ -246,7 +248,8 @@ postBtn.on('click', function() {
         mensaje: mensaje,
         user: usuario,
         lat: lat,
-        lng: lng
+        lng: lng,
+        foto: foto
     };
 
 
@@ -264,7 +267,7 @@ postBtn.on('click', function() {
     // camera.apagar();
     // contenedorCamara.addClass('oculto');
 
-    crearMensajeHTML( mensaje, usuario, lat, lng );
+    crearMensajeHTML( mensaje, usuario, lat, lng, foto );
     
     foto = null;
 });
@@ -519,11 +522,47 @@ btnPhoto.on('click', () => {
 btnTomarFoto.on('click', () => {
 
     console.log('Botón tomar foto');
+
+    foto = camara.tomarFoto();
+    console.log(foto);
+    camara.apagar();
     
 });
 
 
-// Share API
+// Share API ( Te sirve para compartir )
 
+if (navigator.share) {
+    console.log('Navegador lo sopaorta');
+} else {
+    console.log('Naavegador No lo soporta');
+}
+
+timeline.on('click', 'li', function () {
+
+    let tipo = $(this).data('tipo');
+    let lat = $(this).data('lat');
+    let lng = $(this).data('lng');
+    let mensaje = $(this).data('mensaje');
+    let user = $(this).data('user');
+
+    console.log({tipo, lat, lng, mensaje, user});
+
+    const shareOpts = {
+        title: user,
+        text: mensaje
+    }
+
+    if ( tipo === 'mapa') {
+        shareOpts.text = 'Mapa';
+        shareOpts.url = `https://wwww.google.com/maps/@${ lat },${ lng},15z`;
+    }
+    
+    navigator.share(shareOpts)
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+
+
+});
 
 
