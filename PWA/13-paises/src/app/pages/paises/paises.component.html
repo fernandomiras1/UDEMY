@@ -2,7 +2,9 @@
 <hr>
 
 <ul class="list-group">
-    <li class="list-group-item list-group-item-action animated fadeIn fast">
-        ABC
+    <li *ngFor="let pais of paises" 
+        [routerLink]="['/pais', pais.alpha3Code]"
+        class="list-group-item list-group-item-action animated fadeIn fast">
+        {{ pais.name }}
     </li> 
 </ul>

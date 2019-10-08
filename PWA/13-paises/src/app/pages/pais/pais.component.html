@@ -1,7 +1,38 @@
-<h1>...Pais</h1>
+<h1 *ngIf="pais"> {{ pais.name }} </h1>
 <hr>
-<div class="row animated fadeIn fast">
 
-    ....
+<div class="row animated fadeIn fast" *ngIf="pais">
+  <div class="col-7">
 
+    <h5>Datos</h5>
+
+    <ul class="list-group">
+      <li class="list-group-item">Poblacion: {{ pais.population | number }}</li>
+      <li class="list-group-item">Área: {{ pais.area | number }}</li>
+      <li class="list-group-item">Código Área: {{ pais.callingCodes }}</li>
+      <li class="list-group-item">TimeZone: {{ pais.timezones }}</li>
+    </ul>
+
+    <hr>
+    <h5>Fronteras</h5>
+    <ul class="list-group">
+      <li class="list-group-item"
+        *ngFor="let bordes of pais.borders">
+          {{ bordes }}
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="col-5">
+    <h5>Bandera</h5>
+
+    <img [src]="pais.flag" class="bandera" [alt]="pais.name">
+    <br>
+    <br>
+    <a class="btn btn-danger btn-block" routerLink="/">
+      Regresar
+    </a>
+
+  </div>
 </div>

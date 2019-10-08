@@ -14,8 +14,9 @@ export class PaisesComponent implements OnInit {
   paises: PaisInterface[] = [];
 
   ngOnInit() {
-    this.paisesService.getPaises().then(resu => {
-      console.log(resu);
+    this.paisesService.getPaises().then(paises => {
+      this.paises = paises;
+      console.log(paises);
     });
   }
 
