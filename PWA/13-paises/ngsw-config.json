@@ -15,7 +15,8 @@
           "/manifest.json"
         ],
         "urls": [
-          "https://stackpath.bootstrapcdn.com/**"
+          "https://stackpath.bootstrapcdn.com/**",
+          "https://restcountries.eu/data/**"
         ]
       }
     }, {
@@ -31,6 +32,15 @@
     }
   ],
   "dataGroups": [
-    {}
+    {
+      "name": "pais-api",
+      "urls": [],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "1h",
+        "timeout": "5s",
+        "strategy": "freshness"
+      }
+    }
   ]
 }
