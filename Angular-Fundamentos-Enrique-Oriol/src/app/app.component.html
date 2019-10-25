@@ -1,0 +1,10 @@
+<div style="text-align:center">
+  <h1 [ngStyle]="titleStyles">
+    Let's learn Angular
+  </h1>
+  <div [class.hidden]="helloComponent.inputName.length == 0">
+    Writting <span [ngClass]="updateNameClasses(helloComponent.inputName)">'{{helloComponent.inputName}}'</span> in HelloComponent
+  </div>
+  <br>
+  <custom-hello #helloComponent (sayHello)="onSayHello($event)"></custom-hello>
+</div>
