@@ -12,7 +12,7 @@
                     <a href="{{ course.fields.url }}" target="_blank">{{ course.fields.title }}</a>
                 </h5>
                 <p><i>{{ course.fields.author }}</i></p>
-                <div>{{ course.fields.description }}</div>
+                <div [innerHTML]="course.fields.description | mdToHtml"></div>
 
                 <a href="{{ course.fields.url }}" target="_blank" class="m-1 btn btn-success">Go to Course</a>
 

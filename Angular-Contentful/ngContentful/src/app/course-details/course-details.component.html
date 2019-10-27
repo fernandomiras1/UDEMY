@@ -8,8 +8,8 @@
 
     <i>by {{ course.fields.author }}</i>
     <br><br>
-    <div>{{ course.fields.description }}</div>
-    <div>{{ course.fields.longDescription }}</div>
+    <div [innerHTML]="course.fields.description | mdToHtml"></div>
+    <div [innerHTML]="course.fields.longDescription | mdToHtml"></div>
 
     <a href="{{ course.fields.url }}" target="_blank" class="btn btn-success">Go to Course</a>
 

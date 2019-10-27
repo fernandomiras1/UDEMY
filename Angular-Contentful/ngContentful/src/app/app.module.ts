@@ -8,12 +8,15 @@ import { CourseListComponent } from './course-list/course-list.component';
 // Services
 import { ContentfulService } from './contentful.service';
 import { CourseDetailsComponent } from './course-details/course-details.component';
+// pipe
+import { MdToHtmlPipe } from './md-to-html.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseListComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    MdToHtmlPipe
   ],
   imports: [
     BrowserModule,
