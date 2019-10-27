@@ -37,8 +37,7 @@ export class ContentfulService {
     }
 
     getCourse_hechoFER(courseId): Promise<Entry<any>> {
-      return this.client.getEntry(courseId)
-        .then( (res: any) => res.sys.id);
+      return this.client.getEntry(courseId);
     }
 
 }

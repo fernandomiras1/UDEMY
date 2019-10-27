@@ -13,7 +13,7 @@
                 </h5>
                 <p><i>{{ course.fields.author }}</i></p>
                 <div [innerHTML]="course.fields.description | mdToHtml"></div>
-
+                <!-- <div [appMdToHtml]="course.fields.description"></div> -->
                 <a href="{{ course.fields.url }}" target="_blank" class="m-1 btn btn-success">Go to Course</a>
 
                 <button (click)="goToCourseDetalsPage(course.sys.id)" 

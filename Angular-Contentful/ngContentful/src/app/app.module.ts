@@ -10,13 +10,15 @@ import { ContentfulService } from './contentful.service';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 // pipe
 import { MdToHtmlPipe } from './md-to-html.pipe';
+import { MdToHtmlDirective } from './md-to-html.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseListComponent,
     CourseDetailsComponent,
-    MdToHtmlPipe
+    MdToHtmlPipe,
+    MdToHtmlDirective
   ],
   imports: [
     BrowserModule,
