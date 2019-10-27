@@ -22,6 +22,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Dependencias necesarias para usar Contentful
+## Link donde saque el curso. https://www.youtube.com/watch?v=KhmjLjvlmyQ&t=704s
+1 - `npm install contentful`
+2 - `npm install marked`
+3 - `npm install bootstrap`
