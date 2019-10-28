@@ -24,7 +24,6 @@ h2 {
 
 .contenedor-flex {
     display:flex;
-    display: flex;
     border: 3px solid black;
 }
 
@@ -33,14 +32,30 @@ h2 {
     background-color: #E53935;
 }
 .elemento-flex:nth-child(1) {
-    order: 2;
+    /* order: 2; */
 }
 
 .elemento-flex:nth-child(2) {
+    /* order 1, para que se muestre primero */
+    /* si le ponemos el -1 eso va a poner automaticamente el elemento al pricipio y todos los demoas segun su order por defecto */
     order:-1;
     background-color: #8E24AA;
 }
 
 .elemento-flex:nth-child(3) {
+    /* order: 1; */
     background-color: #3F51B5;
+}
+
+/* esto funciona bie para las mediaquery. podemos usar en el celular que se vea el segudo primero */
+
+/* en una tablet el servicio 3 se muestre primero */
+@media screen and (min-width: 768px) {
+    .elemento-flex:nth-child(3) {
+        order: -1;
+    }
+
+    .elemento-flex:nth-child(2) {
+        order: 3;
+    }
 }

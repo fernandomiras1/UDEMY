@@ -31,13 +31,25 @@ h2 {
 .elemento-flex {
     padding: 10px;
     background-color: #E53935;
-    /* Crecer con Flex**/ 
+    /* se acomodan los 3 elementos en el contenedor. 
+    Tomando todo el espacio disponible*/
+    flex-grow: 1;
+    /* Crecer con Flex**/
+    /* flex: 1 1 auto; */
 }
 .elemento-flex:nth-child(1) {
-
+    /* Va a crecer el 50% y el resto en 1 si es que esta definido */
+    flex-basis: 50%;
 }
 
 .elemento-flex:nth-child(2) {
+    /* va a crecer un poco mas que el resto de los elementos */
+    flex-grow: 2;
+    /* Esta propiedad hace lo contrario a flex-grow */
+    /* elimina el flex-grow de los otros elementos, para usarlo hay que 
+    poner flex-grow: 0; */
+    flex-shrink: 0;
+
     background-color: #8E24AA;
 }
 
