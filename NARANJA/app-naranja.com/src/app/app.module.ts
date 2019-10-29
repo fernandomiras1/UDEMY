@@ -11,9 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DragComponent } from './drag/drag.component';
 import { PaisesComponent } from './paises/paises.component';
-import { from } from 'rxjs';
 import { GraficosTestComponent } from './graficos-test/graficos-test.component';
 import { ChartsModule } from 'ng2-charts';
+import { FormComponent } from './form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,11 @@ import { ChartsModule } from 'ng2-charts';
     VirtualComponent,
     DragComponent,
     PaisesComponent,
-    GraficosTestComponent
+    GraficosTestComponent,
+    FormComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     ScrollingModule,
     DragDropModule,

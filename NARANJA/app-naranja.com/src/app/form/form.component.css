@@ -1,0 +1,195 @@
+.seguros-y-asistencia-form__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.seguros-y-asistencia-form {
+    max-width: 490px;
+    width: 100%;
+}
+
+.seguros-y-asistencia__input-field {
+    position: relative;
+
+}
+
+.seguros-y-asistencia__input-field.selected .seguros-y-asistencia__label {
+    position: absolute;
+}
+
+.seguros-y-asistencia__input-field .seguros-y-asistencia__label {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.seguros-y-asistencia__input {
+    display: block;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #666666;
+    color: #666666;
+    font-size: 20px;
+    width: 100%;
+    padding: 25px 0 10px 0;
+    font-weight: 600;
+}
+
+.seguros-y-asistencia__label {
+    display: block;
+    position: relative;
+    color: #666666;
+}
+
+.seguros-y-asistencia__input.ng-valid + .seguros-y-asistencia__label {
+    top: 0;
+    left: 0;
+    font-size: 18px;
+    font-weight: 300;
+    transition: 200ms ease-in-out;
+}
+
+.seguros-y-asistencia__input-field.active .seguros-y-asistencia__label {
+    top: 0;
+    left: 0;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.seguros-y-asistencia__input:focus {
+    outline: none;
+    border-bottom: 2px solid red;
+}
+
+.seguros-y-asistencia__input:focus + .seguros-y-asistencia__label {
+    top: 0;
+    left: 0;
+    font-size: 18px;
+    font-weight: 300;
+    transition: 200ms ease-in-out;
+}
+
+.seguros-y-asistencia__input-feedback {
+    padding-top: 5px;
+}
+
+.seguros-y-asistencia__error-message {
+    color: #af0000;
+}
+.seguros-y-asistencia__info-message {
+    color: #000;
+}
+.seguros-y-asistencia__success-message {
+    color: green;
+}
+
+.cta-container {
+    text-align: center;
+}
+.seguros-y-asistencia-form .cta.cta-filled {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-progress-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    margin-top: 32px;
+    cursor: pointer;
+}
+
+.seguros-y-asistencia-checkbox__group {
+    display: flex;
+    flex-direction: column;
+}
+
+.seguros-y-asistencia-checkbox {
+    margin-top: 40px;
+}
+
+.seguros-y-asistencia-checkbox__label {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.seguros-y-asistencia-checkbox__label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.seguros-y-asistencia-checkbox__header {
+    margin-bottom: 20px;
+}
+.g-recaptcha-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .seguros-y-asistencia-form__container {
+        padding: 0 30px;
+    }
+}
+
+.notifiaction-modal.isOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notifiaction-modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 200ms ease-in-out;
+}
+
+.notifiaction-modal {
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    padding: 30px;
+    text-align: center;
+}
+
+.notifiaction-modal_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notifiaction-modal_icon {
+    margin-bottom: 32px;
+}
+
+.notifiaction-modal_title {
+    margin-bottom: 8px;
+}
+
+.notifiaction-modal_message {
+    margin-bottom: 10px;
+}
+
+.notifiaction-modal_cta {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 0;
+}

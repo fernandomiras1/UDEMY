@@ -1,0 +1,218 @@
+<div class="seguros-y-asistencia-form__container">
+    <form [formGroup]="myForm" (ngSubmit)="submit()" autocomplete="off" class="seguros-y-asistencia-form">
+
+
+        <div class="seguros-y-asistencia__input-container form-group">
+            <div class="seguros-y-asistencia__input-field">
+                <input class="seguros-y-asistencia__input form-control" type="text" name="name" formControlName="name"
+                       (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">Nombre</label>
+            </div>
+
+            <div class="seguros-y-asistencia__input-feedback">
+                <div *ngIf="(name.hasError('required') && name.touched) ||
+                    name.hasError('minlength') || name.hasError('maxlength')" class="seguros-y-asistencia__error-message">
+                    {{getErrorMessage(name.errors)}}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="seguros-y-asistencia__input-container form-group">
+            <div class="seguros-y-asistencia__input-field">
+                <input class="seguros-y-asistencia__input form-control" type="text" formControlName="lastName"
+                       (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">Apellido</label>
+            </div>
+            <div class="seguros-y-asistencia__input-feedback">
+                <div *ngIf="(lastName.hasError('required') && lastName.touched) ||
+                    lastName.hasError('minlength') || lastName.hasError('maxlength')" class="seguros-y-asistencia__error-message">
+                    {{getErrorMessage(lastName.errors)}}
+                </div>
+            </div>
+        </div>
+
+        <div class="seguros-y-asistencia__input-container form-group">
+            <div class="seguros-y-asistencia__input-field">
+                <input class="seguros-y-asistencia__input form-control" (keypress)="numberOnly($event)" type="text" formControlName="dni"
+                    (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">DNI</label>
+            </div>
+            <div class="seguros-y-asistencia__input-feedback">
+                <div *ngIf="(dni.hasError('required') && dni.touched) ||
+                    dni.hasError('minlength') || dni.hasError('maxlength')" class="seguros-y-asistencia__error-message">
+                    {{getErrorMessage(dni.errors)}}
+                </div>
+            </div>
+        </div>
+
+        <div class="seguros-y-asistencia__input-container form-group grid-container">
+            <div class="seguros-y-asistencia__input-field" style="margin-right: 12px;">
+                <input class="seguros-y-asistencia__input form-control" type="text"
+                    formControlName="areaCode" (keypress)="numberOnly($event)" (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">Area</label>
+
+                <div class="seguros-y-asistencia__input-feedback">
+                    <div *ngIf="(areaCode.hasError('required') && areaCode.touched) ||
+                        areaCode.hasError('minlength') || areaCode.hasError('maxlength')" class="seguros-y-asistencia__error-message">
+                        {{getErrorMessage(areaCode.errors)}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="seguros-y-asistencia__input-field" style="flex-basis: 100%">
+                <input class="seguros-y-asistencia__input form-control" (keypress)="numberOnly($event)" type="tel" formControlName="cel"
+                       (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">Telefono</label>
+
+                <div class="seguros-y-asistencia__input-feedback">
+                    <div *ngIf="(cel.hasError('required') && cel.touched) ||
+                        cel.hasError('minlength') || cel.hasError('maxlength')" class="seguros-y-asistencia__error-message">
+                        {{getErrorMessage(cel.errors)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seguros-y-asistencia__input-container form-group">
+            <div class="seguros-y-asistencia__input-field">
+                <input class="seguros-y-asistencia__input form-control" type="email" formControlName="email"
+                       (blur)="blur($event)">
+                <label class="seguros-y-asistencia__label">Email</label>
+            </div>
+
+            <div class="seguros-y-asistencia__input-feedback">
+                <div *ngIf="(email.hasError('required') && email.touched) ||
+                    email.hasError('pattern')" class="seguros-y-asistencia__error-message">
+                    {{getErrorMessage(email.errors)}}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div *ngIf="aseguradora" class="seguros-y-asistencia-checkbox form-group">
+            <div class="seguros-y-asistencia-checkbox__header">
+                <h3 class="title title-three">{{data.textoAseguradora}}</h3>
+                <p>{{data.descripcinAseguradora}}</p>
+            </div>
+            <div class="seguros-y-asistencia-checkbox__group"
+                 *ngFor="let aseguradora of data.aseguradora; let i = index">
+                <label *ngIf="aseguradora.fields.showCheckbox" class="seguros-y-asistencia-checkbox__label"
+                       formArrayName="aseguradora">
+                    <input type="checkbox" (change)="getselectedSegurosName()" [formControlName]="i"
+                           value={{aseguradora.fields.nombre}} name={{aseguradora.fields.nombre}} checked=0>
+                    {{aseguradora.fields.nombre}}
+                </label>
+            </div>
+        </div> -->
+<!--
+        <div class="g-recaptcha" data-sitekey="6LeOJKYUAAAAAKGK3Wvd51qFlJ-fL0B0vfnlV4Rx"></div> -->
+
+        <div class="cta-container">
+            <input type="submit" class="cta cta-filled g-recaptcha" value="Enviar">
+
+            <div *ngIf="sending" class="seguros-y-asistencia__info-message">
+                Estamos enviando el correo.
+            </div>
+            <div *ngIf="send" class="seguros-y-asistencia__success-message">
+                Correo enviado con éxito.
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<!-- <div class="notifiaction-modal" [ngClass]="{'isOpen': isModalOpen}">
+    <div class="notifiaction-modal_info notifiaction-modal_success">
+        <div class="notifiaction-modal_icon">
+            <svg *ngIf="modalType === 'success'" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80">
+                <defs>
+                    <circle id="oka" cx="40" cy="40" r="40" />
+                    <path id="okc"
+                          d="M18 33.879l22.932-22.94a1.5 1.5 0 0 1 2.122 2.122l-23.993 24a1.5 1.5 0 0 1-2.122 0l-12-12a1.5 1.5 0 0 1 2.122-2.122L18 33.88z" />
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <mask id="okb" fill="#fff">
+                        <use xlink:href="#oka" />
+                    </mask>
+                    <use fill="#FFF" fill-rule="nonzero" xlink:href="#oka" />
+                    <g fill="#00A67A" mask="url(#okb)">
+                        <path d="M0 0h80v80H0z" />
+                    </g>
+                    <g mask="url(#okb)">
+                        <g transform="translate(17 17)">
+                            <mask id="okd" fill="#fff">
+                                <use xlink:href="#okc" />
+                            </mask>
+                            <use fill="#000" fill-rule="nonzero" xlink:href="#okc" />
+                            <g mask="url(#okd)">
+                                <path fill="#FFF" d="M0 0h48v48H0z" />
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <svg *ngIf="modalType === 'error'" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80">
+                <defs>
+                    <circle id="erra" cx="40" cy="40" r="40" />
+                    <path id="errc"
+                          d="M24 21.879l16.94-16.94a1.5 1.5 0 0 1 2.12 2.122L26.122 24l16.94 16.94a1.5 1.5 0 0 1-2.122 2.12L24 26.122 7.06 43.061a1.5 1.5 0 0 1-2.12-2.122L21.878 24 4.939 7.06a1.5 1.5 0 1 1 2.122-2.12L24 21.878z" />
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <mask id="errb" fill="#fff">
+                        <use xlink:href="#erra" />
+                    </mask>
+                    <use fill="#FFF" fill-rule="nonzero" xlink:href="#erra" />
+                    <g fill="#D10000" mask="url(#errb)">
+                        <path d="M0 0h80v80H0z" />
+                    </g>
+                    <g mask="url(#errb)">
+                        <g transform="translate(16 16)">
+                            <mask id="errd" fill="#fff">
+                                <use xlink:href="#errc" />
+                            </mask>
+                            <use fill="#000" fill-rule="nonzero" xlink:href="#errc" />
+                            <g mask="url(#errd)">
+                                <path fill="#FFF" d="M0 0h48v48H0z" />
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <svg *ngIf="modalType === 'chat'" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80">
+                <defs>
+                    <circle id="chata" cx="40" cy="40" r="40" />
+                    <path id="chatc"
+                          d="M37.41 40.153l.005.004A20.915 20.915 0 0 1 24 45c-3.762 0-7.292-.989-10.346-2.721C12.55 42.593 9 43.5 3 45l2.686-10.715A20.905 20.905 0 0 1 3 24C3 12.402 12.402 3 24 3s21 9.402 21 21c0 4.331-1.311 8.356-3.558 11.7l-2.17-2.17A17.916 17.916 0 0 0 42 24c0-9.941-8.059-18-18-18S6 14.059 6 24c0 3.134.8 6.145 2.3 8.813l.587 1.042-1.759 7.015c3.066-.774 4.976-1.27 5.704-1.476l1.209-.345 1.093.62A17.894 17.894 0 0 0 24 42c4.272 0 8.196-1.488 11.283-3.974l.014.014a1.5 1.5 0 1 1 2.113 2.113zM12 22.5v-3h18v3H12zm0 6v-3h24v3H12z" />
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <mask id="chatb" fill="#fff">
+                        <use xlink:href="#chata" />
+                    </mask>
+                    <use fill="#FFF" fill-rule="nonzero" xlink:href="#chata" />
+                    <g fill="#FFBB19" mask="url(#chatb)">
+                        <path d="M0 0h80v80H0z" />
+                    </g>
+                    <g mask="url(#chatb)">
+                        <g transform="translate(16 16)">
+                            <mask id="chatd" fill="#fff">
+                                <use xlink:href="#chatc" />
+                            </mask>
+                            <use fill="#000" fill-rule="nonzero" xlink:href="#chatc" />
+                            <g mask="url(#chatd)">
+                                <path fill="#FFF" d="M0 0h48v48H0z" />
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <h2 class="notifiaction-modal_title title">¡Gracias por tu mensaje!</h2>
+        <p class="notifiaction-modal_message">En breve nos estaremos contactando con vos</p>
+        <div class="cta notifiaction-modal_cta" (click)="closeModal()">Volver a la página anterior</div>
+    </div>
+</div> -->
