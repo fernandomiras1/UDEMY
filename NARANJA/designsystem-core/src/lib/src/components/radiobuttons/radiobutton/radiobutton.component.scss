@@ -1,0 +1,71 @@
+@import "../../../styles/colors";
+@import "../../../styles/spaces";
+@import "../../../styles/typography";
+
+.z-container {
+  cursor: pointer;
+  display: flex;
+  margin-bottom: $space-16;
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &--disabled {
+    cursor: not-allowed;
+
+    .z-container__radio-check__checkmark {
+      border: solid $color-grayscale-300 2px;
+      cursor: not-allowed;
+    }
+
+    .z-container__radio-text {
+      color: $color-grayscale-400;
+      cursor: not-allowed;
+    }
+  }
+
+  &__radio-check {
+    cursor: pointer;
+    display: block;
+    height: 21px;
+    position: relative;
+    top: $space-2;
+    user-select: none;
+    width: 0;
+
+    > input {
+      height: 0;
+      opacity: 0;
+      position: absolute;
+      width: 0;
+
+      &:checked + .z-container__radio-check__checkmark {
+        border: 6px solid $color-brand-500;
+        height: 8px;
+        width: 8px;
+      }
+    }
+
+    &__checkmark {
+      border: solid $color-grayscale-800 2px;
+      border-radius: 14px;
+      height: 16px;
+      pointer-events: none;
+      position: absolute;
+      width: 16px;
+    }
+  }
+
+  &__radio-text {
+    color: $color-grayscale-800;
+    cursor: pointer;
+    font-family: $text-font-stack;
+    font-size: $space-16;
+    letter-spacing: 0.1px;
+    line-height: 1.5;
+    margin-left: 28px;
+
+    &--disabled {
+      color: $color-grayscale-400;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "../../lib/src/styles/vendor/reset";
+@import "../../lib/src/styles/vendor/flexboxgrid/flexboxgrid";
+
+// import color and layout
+$font-path: "/assets/fonts" !default;
+
+@import "../../lib/src/styles/colors";
+@import "../../lib/src/styles/variables";
+@import "../../lib/src/styles/typography";
+@import "../../lib/src/styles/spaces";
+@import "../../lib/src/styles/iconsFont";
+@import "../../lib/src/styles/animations";
+@import "../../lib/src/styles/html5";
+@import "../../lib/src/styles/modals";
+@import "./text";
+@import "./tables";
+
+
+.box-border {
+  align-items: center;
+  border-color: $color-grayscale-300;
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  height: 240px;
+  justify-content: center;
+  width: 100%;
+}
+
+body {
+
+  ::selection {
+    background: $color-brand-400;
+    color: $color-grayscale-100;
+
+  }
+  ::-moz-selection {
+    background: $color-brand-400;
+    color: $color-grayscale-100;
+  }
+
+}
+
+.line {
+  border-bottom: 1px solid $color-grayscale-300;
+}
+
+/* workaround to markdown font-family ubuntu-mono */
+/* pre[class*="language-"] * {
+  font-family: $primary-font-stack !important;
+} */
+
+@media only screen and (max-width:$screen-m-min) {
+
+  .main-menu {
+    display: none;
+  }
+
+}

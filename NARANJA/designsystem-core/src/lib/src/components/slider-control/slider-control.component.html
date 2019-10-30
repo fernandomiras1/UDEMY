@@ -1,0 +1,14 @@
+<div class="z-slider" [ngClass]="{'z-slider--disabled': disabled}">
+  <span class="z-slider__text-container__text" [ngClass]="{'z-slider__text-container--disabled': disabled}">{{ title }}</span>
+  <span [style.left.px]="posX" #label class="z-slider__text-container__label" 
+    [ngClass]="{'z-slider__text-container--disabled': disabled}">{{ prefix }}{{ valueRange }}
+  </span>
+
+  <div class="z-slider__container">
+    <input #range type="range" [ngClass]="{'z-slider__text-container--disabled': disabled}" 
+      (mouseup)="onMouseUp(range.value)" value="0" (input)="inputEvent(range.value)" [disabled]="disabled"
+      [step]="step" [min]="min" [max]="max">
+
+    <span class="z-slider__container__progressLine" [style.width.px]="posLineX"></span>
+  </div>
+</div>

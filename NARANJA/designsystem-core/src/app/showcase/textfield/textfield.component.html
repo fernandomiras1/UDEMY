@@ -1,0 +1,230 @@
+<dsn-container [title]="'Textfield'" [description]="description" [link]="link" [info]="info">
+  <ng-template #exampleContentTemplate>
+    <div class="container-fluid">
+      <div [formGroup]="formTextfield">
+        <div class="box-border">
+          <z-textfield text="Nombre" [id]="'name'" [formControl]="formTextfield.get('default')"
+            [menssagesHint]="'Como aparece en la tarjeta'">
+          </z-textfield>
+        </div>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Demo</h2>
+        </div>
+        <p class="z-highlight-2 margin-top-72">
+          Default validation (out focus)
+        </p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield text="Nombre" [id]="'nameDefault'" [formControl]="formTextfield.get('defaultName')"
+              [menssagesHint]="'Como aparece en la tarjeta'">
+            </z-textfield>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [formControl]="formTextfield.get('defaultDni')" [id]="'number'" text="DNI"></z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefault = !flagDefault"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefault">
+          <markdown [data]="documentation.defaultValidationHTML | language: 'html'"></markdown>
+          <markdown [data]="documentation.defaultValidationTS | language: 'ts'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-96">On focus validation</p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'numberOnFocus'" [formControl]="formTextfield.get('onFocusNumberCard')"
+              text="Número de tarjeta" [momentOfValidate]="'onFocus'" [menssagesHint]="'Como aparece en el plástico'">
+            </z-textfield>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'dni'" [formControl]="formTextfield.get('onFocusDni')" [momentOfValidate]="'onFocus'"
+              text="DNI"></z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultOnFocus = !flagDefaultOnFocus"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefaultOnFocus">
+          <markdown [data]="documentation.onfocusValidation | language: 'html'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-96">On submit validation</p>
+        <div class="row margin-top-8">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'numberTarjeta'" text="Número de tarjeta" [momentOfValidate]="'submit'"
+              [formControl]="formTextfield.get('onSubmitNumberCard')" [submit$]="submit$"
+              (handlerError)="handlerErrorEvent($event)" [menssagesHint]="'Como aparece en el plástico'"></z-textfield>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'numberDni'" [momentOfValidate]="'submit'" [submit$]="submit$"
+              [formControl]="formTextfield.get('onSubmitDni')" (handlerError)="handlerErrorEvent($event)" text="DNI">
+            </z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultOnSubmit = !flagDefaultOnSubmit"></z-container-icon>
+        </div>
+        <div class="row margin-top-24 margin-bottom-48">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <z-button text="Enviar" (clickButton)="onClickSubmit()"></z-button>
+          </div>
+        </div>
+
+        <div *ngIf="flagDefaultOnSubmit">
+          <markdown [data]="documentation.onSubmitValidation | language: 'html'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-96">Multiple error feedbacks</p>
+        <p class="z-body-text margin-top-8">
+          Luego de 3 errores cambia el mensaje de validación.
+        </p>
+        <div class="row margin-top-8">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'monto'" text="Monto" [menssagesHint]="'No puede ser mayor a $100'"
+              [menssagesError]="menssagesErrorMultiple" [momentOfValidate]="'submit'" [submit$]="submitMultiple$"
+              [formControl]="formTextfield.get('multipleerrorMonto')"
+              (handlerError)="handlerErrorEventMultiple($event)">
+            </z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultMultiError = !flagDefaultMultiError"></z-container-icon>
+        </div>
+        <div class="row margin-top-24 margin-bottom-48">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <z-button text="Enviar" (clickButton)="onClickSubmitMultiple()"></z-button>
+          </div>
+        </div>
+
+        <div *ngIf="flagDefaultMultiError">
+          <markdown [data]="documentation.multipleErrorFeedbacksHtml | language: 'html'"></markdown>
+          <markdown [data]="documentation.multipleErrorFeedbacksTs | language: 'ts'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+
+        <p class="z-highlight-2 margin-top-96">
+          Success validation with out focus
+        </p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'numberSuccess1'" [formControl]="formTextfield.get('successNumberCard')"
+              text="Número de tarjeta" [menssagesSuccess]="'El número es válido'"
+              [menssagesHint]="'Como aparece en el plástico'"></z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultSuccess = !flagDefaultSuccess"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefaultSuccess">
+          <markdown [data]="documentation.successValidation | language: 'html'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+
+        <p class="z-highlight-2 margin-top-96">
+          Success validation with on focus
+        </p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'numberSuccess2'" [formControl]="formTextfield.get('successNumberCard1')"
+              text="Número de tarjeta" [menssagesSuccess]="'El número es válido'" [momentOfValidate]="'onFocus'"
+              [menssagesHint]="'Como aparece en el plástico'"></z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultSuccessOnFocus = !flagDefaultSuccessOnFocus"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefaultSuccessOnFocus">
+          <markdown [data]="documentation.successValidationOnFocus | language: 'html'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+
+        <p class="z-highlight-2 margin-top-96">Texfield with checkbox</p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [id]="'checkbox'" text="Número" [disabled]="disabledTextfieldCheckbox"
+              [formControl]="formTextfield.get('checkboxNumberDom')">
+              <z-checkbox [checkbox]="checkbox" (checkboxChecked)="checkSelected()"></z-checkbox>
+            </z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultCheckbox = !flagDefaultCheckbox"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefaultCheckbox">
+          <markdown [data]="documentation.texfieldWithCheckbox | language: 'html'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-96">Password</p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield text="Contraseña" [type]="typePassword" [id]="'password'"
+              [formControl]="formTextfield.get('password')" (focus)="handleControlCustom($event)">
+              <z-container-icon *ngIf="formTextfield.get('password').value" [size]="'very-small'" [iconName]="nameIcon"
+                (clickEvent)="clickEventIconPass($event)">
+              </z-container-icon>
+              <div zControlMessages>
+                <z-control-messages *ngFor="let item of regExpList" [hidden]="!showCustomValidation"
+                  [validationMoment]="validationMoment$" [regExpresion]="item" [control]="formTextfield.get('password')"
+                  (handleControlCustom)="handleControlCustom($event)">
+                </z-control-messages>
+              </div>
+            </z-textfield>
+          </div>
+          <z-container-icon class="source-pass" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultPass = !flagDefaultPass"></z-container-icon>
+        </div>
+        <div class="row margin-top-24 margin-bottom-48">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <z-button text="Ingresar" (clickButton)="onClickIngresarPassword()"></z-button>
+          </div>
+        </div>
+
+        <div *ngIf="flagDefaultPass">
+          <markdown [data]="documentation.passwordHtml | language: 'html'"></markdown>
+          <markdown [data]="documentation.passwordTs | language: 'ts'"></markdown>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-96">Disabled</p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield [disabled]="true" [id]="'disabled'" text="Nombre y apellido"></z-textfield>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefaultDisabled = !flagDefaultDisabled"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefaultDisabled">
+          <markdown [data]="documentation.disabled | language: 'html'"></markdown>
+        </div>
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Inputs
+        </div>
+        <dsn-table [list]="documentation.inputsDocumentation"></dsn-table>
+
+        <p class="z-highlight-2 margin-top-96">
+          Validaciones / Mensaje de error
+        </p>
+        <p class="z-body-text margin-top-8">
+          Para reutilizar las funcionalidades del textfield, podemos consumirlas
+          de las siguiente manera.
+        </p>
+        <markdown [data]="documentation.tokens | language: 'ts'"></markdown>
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Outputs
+        </div>
+        <dsn-table [list]="documentation.outputsDocumentation"></dsn-table>
+      </div>
+    </div>
+  </ng-template>
+</dsn-container>

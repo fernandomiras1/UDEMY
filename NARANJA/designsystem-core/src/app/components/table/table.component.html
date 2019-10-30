@@ -1,0 +1,18 @@
+<div style="overflow-x: auto">
+  <table>
+    <tr class="grid-header">
+      <th class="col-xs">Name</th>
+      <th class="col-xs">Type</th>
+      <th class="col-xs">Description</th>
+      <th class="col-xs">Required</th>
+      <th class="col-xs">Default value</th>
+    </tr>
+    <tr class="grid-content" *ngFor="let item of list">
+      <td class="col-xs"><code class="code">{{item.name}}</code></td>
+      <td class="col-xs"><code class="code">{{item.type}}</code></td>
+      <td class="col-xs">{{item.description}}</td>
+      <td class="col-xs">{{item.required}}</td>
+      <td class="col-xs">{{item.value}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,29 @@
+<div class="z-slider-confirmation-box">
+  <div class="z-slider-confirmation-box__absolute">
+    <div class="z-slider-confirmation-box__absolute__spinner"
+      [ngClass]="{'z-slider-confirmation-box__absolute__spinner__loading': loading}">
+      <z-loading [type]="'primary'" [size]="'large'" [withBg]="true">
+        
+      </z-loading>
+    </div>
+    <div class="z-slider-confirmation-box__absolute__container">
+      <div class="z-slider-confirmation-box__absolute__container__background" (mouseup)="feedbackMov($event)"
+        [ngClass]="{'z-slider-confirmation-box__absolute__container__background__transition-arrow': loading, 'z-slider-confirmation-box__absolute__container__background__feedback': confirmAuxAnimation}"
+        [style.marginLeft.px]="PosX" zBrowser>
+        <div class="z-slider-confirmation-box__absolute__container__background__icon"
+          [ngClass]="{'z-slider-confirmation-box__absolute__container__background__icon__unloading-slider': loading}">
+          <div class="icon z-slider-confirmation-box__absolute__container__background__icon__arrow"
+            (panmove)="onPan($event)" (panend)="onPanStop($event)">
+            <div
+              class="icon-arrow-right z-slider-confirmation-box__absolute__container__background__icon__arrow__child size-24">
+            </div>
+          </div>
+        </div>
+        <div class="z-slider-confirmation-box__absolute__container__text" 
+        [ngClass]="{'z-slider-confirmation-box__absolute__container__text--feedback': confirmAuxAnimation}" zBrowser>
+          <p [style.paddingRight.px]="PosX * 0.40">{{text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

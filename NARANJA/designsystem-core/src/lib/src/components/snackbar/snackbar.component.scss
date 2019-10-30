@@ -1,0 +1,125 @@
+@import "../../styles/colors";
+@import "../../styles/typography";
+@import "../../styles/variables";
+@import "../../styles/animations";
+@import "../../styles/spaces";
+
+.z-snackbar {
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-name: z-fadein;
+  background-color: $color-grayscale-800;
+  border-radius: 4px;
+  bottom: 24px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 0 4px 0 rgba(0, 0, 0, 0.22);
+  display: flex;
+  justify-content: space-between;
+  left: 24px;
+  padding: 12px 16px;
+  position: fixed;
+  z-index: 1000;
+
+  &.browser-ie {
+
+    .z-snackbar__text {
+      top: 9px;
+    }
+
+    .z-snackbar__text--two-lines {
+      max-width: 448px;
+    }
+
+    .z-snackbar__actions {
+      padding-top: 16px;
+    }
+  }
+
+  &__text {
+    color: $color-grayscale-100;
+    line-height: 1.5;
+    max-width: 488px;
+    top: -1px;
+
+    &--two-lines {
+
+      &-without-event-name {
+        padding-bottom: 16px;
+      }
+    }
+  }
+
+  &__actions {
+    align-items: center;
+    display: flex;
+    line-height: 1.5;
+    padding-left: 16px;
+
+    &__link {
+      color: $color-brand-500;
+      cursor: pointer;
+      float: right;
+      font-family: $text-font-stack;
+      font-size: $space-16;
+      font-weight: bold;
+      letter-spacing: -0.2px;
+      padding-right: 16px;
+      text-decoration: none;
+    }
+  }
+
+  &--two-lines {
+    bottom: 8px;
+    flex-direction: column;
+    left: 8px;
+    max-width: 87%;
+    padding: 16px;
+
+    .z-snackbar__actions {
+      align-self: flex-end;
+      display: flex;
+    }
+
+    .icon-cross {
+      border-radius: 90px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  &--isTablet {
+    bottom: 24px;
+    left: 24px;
+    padding: 12px 16px;
+    width: 488px;
+  }
+
+  &--isMobile {
+    bottom: 8px;
+    left: 8px;
+    max-width: 87%;
+    padding: 12px 16px;
+    width: 100%;
+
+    .icon-cross {
+      border-radius: 90px;
+      color: white;
+      cursor: pointer;
+      margin: 0 0 0 16px;
+    }
+  }
+}
+
+.icon-cross {
+  border-radius: 90px;
+  color: white;
+  cursor: pointer;
+  float: right;
+  margin: 0 0 0 5.6px;
+}
+
+@media only screen and (max-width: $screen-m-min) {
+
+  .z-snackbar__actions__link {
+    padding-right: 0;
+  }
+}

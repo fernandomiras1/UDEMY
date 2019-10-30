@@ -1,0 +1,24 @@
+<div #Snackbar class="margin-top-40 row">
+
+  <!-- Single line -->
+  <div class="col-xs-6 col-md-3">
+    <z-button [type]="'link'" (clickButton)="displaySnackbar()" [text]="'Single line'">
+    </z-button>
+  </div>
+
+  <!-- Multiple lines -->
+  <div class="col-xs-6 col-md-3">
+    <z-button [type]="'link'" (clickButton)="displaySnackbarDos()" [text]="'Multiple lines'">
+    </z-button>
+  </div>
+
+  <!-- Single line action -->
+  <div class="col-xs-6 col-md-3">
+    <z-button [type]="'link'" (clickButton)="displaySnackbarTres()" [text]="'Single line with action'">
+    </z-button>
+  </div>
+  <!-- Multiple line action  -->
+  <div class="col-xs-6 col-md-3">
+    <z-button [type]="'link'" (clickButton)="displaySnackbarCuatro()" [text]="'Multiple line with action'"></z-button>
+  </div>
+</div>

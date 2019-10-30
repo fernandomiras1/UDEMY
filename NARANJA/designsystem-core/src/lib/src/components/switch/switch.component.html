@@ -1,0 +1,11 @@
+<div class="z-container"
+     [ngClass]="{'z-container--disabled': switch.disabled}">
+  <label *ngIf="switch.text || switch.text.length > 0" class="z-container__text"
+         (click)="switchSelected()"
+         [ngStyle]="typeSwitchAlign">{{switch.text}}</label>
+  <label class="z-container__switch">
+    <input type="checkbox" [checked]="switch.selected">
+    <span class="z-container__switch__slider" (click)="switchSelected()"
+          [ngClass]="{'z-container__switch__slider--checked': switch.selected}"></span>
+  </label>
+</div>

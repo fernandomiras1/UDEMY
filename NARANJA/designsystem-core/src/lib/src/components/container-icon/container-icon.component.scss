@@ -1,0 +1,52 @@
+@import "../../styles/colors";
+@import "../../styles/spaces";
+
+@mixin size-containet-icon($size) {
+  height: $size;
+  width: $size;
+}
+
+.z-container-icons {
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+
+  &__icon {
+    color: $color-grayscale-700;
+    margin: auto;
+
+    &.browser-ie {
+      margin: 18% 0 0 21%;
+    }
+  }
+}
+
+.extra-large {
+
+  @include size-containet-icon($space-80);
+
+}
+
+.large {
+
+  @include size-containet-icon($space-72);
+
+}
+
+.medium {
+
+  @include size-containet-icon($space-64);
+
+}
+
+.small {
+
+  @include size-containet-icon($space-56);
+
+}
+
+.very-small {
+
+  @include size-containet-icon($space-48);
+
+}

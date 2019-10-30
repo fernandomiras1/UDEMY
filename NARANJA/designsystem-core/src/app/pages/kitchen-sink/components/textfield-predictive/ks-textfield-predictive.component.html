@@ -1,0 +1,8 @@
+<div #PredictiveTextfield class="margin-top-40 row">
+  <div class="col-xs-12 col-sm-12 col-md-4">
+    <z-textfield-predictive [submit$]="submit$" [items]="itemsFilter"
+      [selectFormControl]="formTextfieldPredictive.get('select')" [id]="'predictiveDefault'" [text]="'Predictive'"
+      (handlerError)="handlerError($event)" (itemSelected)="itemSelected($event)">
+    </z-textfield-predictive>
+  </div>
+</div>

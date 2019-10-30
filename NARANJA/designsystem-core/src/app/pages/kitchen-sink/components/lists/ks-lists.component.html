@@ -1,0 +1,214 @@
+<div #Lists class="margin-top-40 row">
+
+  <!-- Simple list -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listTwo; let index=index">
+        <z-list [index]="index">
+          <div primaryTitle>
+            <div class="{{item.classTextPrimary}}">
+              {{item.textPrimary}}
+            </div>
+          </div>
+          <div primarySubtitle>
+            <div class="{{item.classSubTextPrimary}}">
+              {{item.subTextPrimary}}
+            </div>
+          </div>
+          <div secondaryTitle>
+            <div class="{{item.classTextSecondary}}">
+              {{item.textSecondary}}
+            </div>
+          </div>
+          <div secondarySubtitle>
+            <div class="{{item.classSubTextSecondary}}">
+              {{item.subTextSecondary}}
+            </div>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Simple list with meta icon -->
+
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listThree; let index=index">
+        <z-list [index]="index">
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+          <div right>
+            <div class="icon icon-example">
+              <div class="icon-angle-right size-16"></div>
+            </div>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Visual support list -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listOne; let index=index">
+        <z-list [index]="index">
+          <div left>
+            <z-avatar [size]="'large'" [urlImg]="item.urlAvatar"></z-avatar>
+          </div>
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Visual support list with meta icon -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listFour; let index=index">
+        <z-list [index]="index" [disabled]="item.disabled">
+          <div left>
+            <z-container-icon [size]="'very-small'" [iconName]="item.iconName" [disabled]="item.disabled">
+            </z-container-icon>
+          </div>
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+          <div right>
+            <div class="icon">
+              <div class="icon-angle-right size-16"></div>
+            </div>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Control (Radiobuton) -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listFive; let index=index">
+        <z-list [index]="index" (elementSelected)="radioSelected($event)" [disabled]="item.disabled">
+          <div class="title" primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+          <div right>
+            <z-radiobutton [radiobutton]="item.radiobutton" [index]="index"></z-radiobutton>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Control (checkbox) -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listSix; let index=index">
+        <z-list [index]="index" (elementSelected)="checkSelected($event)">
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+          <div right>
+            <z-checkbox [checkbox]="item.checkbox"></z-checkbox>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Control (switch) -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listSeven; let index=index">
+        <z-list [index]="index" (elementSelected)="switchSelected($event)">
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+          <div right>
+            <z-switch [switch]="item.switch" [type]="'left-align'"></z-switch>
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+  <!-- Informative -->
+  <div class="col-xs-12 col-md-6 margin-bottom-8">
+    <z-card>
+      <div *ngFor="let item of listTwo; let index=index">
+        <z-list [index]="index" [clickable]="false">
+          <div primaryTitle>
+            {{item.textPrimary}}
+          </div>
+          <div primarySubtitle>
+            {{item.subTextPrimary}}
+          </div>
+          <div secondaryTitle>
+            {{item.textSecondary}}
+          </div>
+          <div secondarySubtitle>
+            {{item.subTextSecondary}}
+          </div>
+        </z-list>
+      </div>
+    </z-card>
+  </div>
+
+</div>

@@ -1,0 +1,103 @@
+<dsn-container [title]="'Select'" [description]="description" [link]="link" [info]="info">
+    <ng-template #exampleContentTemplate>
+      <div class="container-fluid">
+        <div class="row box-border">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <z-select [items]="itemsDias" [dropUp]="false" [placeholderDefault]="'Día'"
+              [messagesHint]="messageHint" [messagesError]="'Seleccioná un día'">
+            </z-select>
+          </div>
+        </div>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Item seleccionado</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-32">
+            <z-select [items]="itemsProductos" [item]="itemsProductos[0]"
+                      [placeholderDefault]="'Producto'"
+                      [messagesError]="'Seleccioná un producto'">
+            </z-select>
+          </div>
+        </div>
+
+        <markdown [src]="'assets/markdown/select/sample-source-03.md'"></markdown>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Posición del Select Result</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="z-highlight-2 margin-bottom-16 margin-top-32">Posición por defecto</p>
+            <z-select [items]="data.consumptions.filters.cards" [dropUp]="true" [onlyDesktop]="true"
+                      [placeholderDefault]="'Producto'"
+                      [messagesError]="'Seleccioná un producto'">
+            </z-select>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <p class="z-highlight-2 margin-bottom-16 margin-top-32">Posición hacia abajo</p>
+            <z-select [items]="itemsProductos" [dropUp]="false"
+                      [placeholderDefault]="'Producto'"
+                      [messagesError]="'Seleccioná un producto'">
+            </z-select>
+          </div>
+        </div>
+        <br>
+
+        <markdown [src]="'assets/markdown/select/sample-source-04.md'"></markdown>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Demo</h2>
+        </div>
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-32">Enabled</p>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <z-select [items]="itemsProductos" [submit]="submitValidation"
+                      [placeholderDefault]="'Producto'"
+                      [messagesError]="'Seleccioná un producto'">
+            </z-select>
+          </div>
+        </div>
+
+        <div class="row margin-top-48 margin-bottom-48">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <z-button text="Enviar" (clickButton)="submit()"></z-button>
+          </div>
+        </div>
+
+        <markdown [src]="'assets/markdown/select/sample-source-02.md'"></markdown>
+
+       <div class="margin-top-32">
+         <p class="z-highlight-2 margin-bottom-16">Disabled</p>
+       </div>
+
+        <z-select [items]="itemsProductos" [placeholderDefault]="'Producto'" [disabled]="true">
+        </z-select>
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Inputs
+        </div>
+        <dsn-table [list]="inputsDocumentation"></dsn-table>
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Outputs
+        </div>
+        <dsn-table [list]="outputsDocumentation"></dsn-table>
+
+      </div>
+
+      <div class="margin-top-48 margin-bottom-16">
+        <h2 class="z-highlight-1">
+          Source code
+        </h2>
+      </div>
+
+      <markdown [src]="'assets/markdown/select/sample-source-01.md'"></markdown>
+
+    </ng-template>
+
+</dsn-container>

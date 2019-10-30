@@ -1,0 +1,33 @@
+<dsn-container title="Browser" [description]="description" [info]="info">
+        <ng-template #exampleContentTemplate>
+            <div class="container-fluid">
+                <div class="margin-top-48 margin-bottom-16">
+                    <h3 class="z-body-text">
+                        {{ demoExp }}
+                    </h3>
+                </div>
+                <div class="box-border">
+                    <z-card id="noHover" class="card card-opera" [clickable]="false" zBrowser>
+                        <p class="card-opera--text">Puede que nuestra página tenga algunos problemas con tu navegador. <span class="card-opera--text--secondary">Te recomendamos usar Google Chrome</span></p>
+                    </z-card>
+                    <z-card class="card" [clickable]="true">
+                        <h2 class="z-overline margin-bottom-8">NARANJA ONLINE</h2>
+                        <h1 class="tit" style="margin-bottom: 10px;">En tu computadora</h1>
+                        <p class="text-card margin-bottom-16">Con tu DNI y clave, hace todas tus operaciones en la sucursal virtual: pagá, consultá,
+                          simula compras y
+                          más.</p>
+                        <p class="link-doc">Ir a Naranja Online</p>
+                    </z-card>
+                </div>
+
+                <div class="margin-top-48 margin-bottom-16">
+                    <h2 class="z-highlight-1">
+                        Source code
+                    </h2>
+                </div>
+
+                <markdown [src]="'assets/markdown/browser/sample-source-01.md'"></markdown>
+            </div>
+        </ng-template>
+
+</dsn-container>

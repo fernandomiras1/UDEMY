@@ -1,0 +1,68 @@
+// --------------------------------------------------
+// FONTS
+// --------------------------------------------------
+
+// Main font stack
+$primary-font-stack: "URWGeometric", "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+
+// Text font stack
+$text-font-stack: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// --------------------------------------------------
+// RESPONSIVE BREAKPOINTS
+// --------------------------------------------------
+
+$screen-xxs: 0;
+$screen-xs: 360px;
+$screen-s: 576px;
+$screen-m: 768px;
+$screen-l: 1024px;
+$screen-xl: 1366px;
+
+$screen-xxs-min: $screen-xxs;
+$screen-xxs-max: $screen-xs - 1;
+
+$screen-xs-min: $screen-xs;
+$screen-xs-max: $screen-s - 1;
+
+$screen-s-min: $screen-s;
+$screen-s-max: $screen-m - 1;
+
+$screen-m-min: $screen-m;
+$screen-m-max: $screen-l - 1;
+
+$screen-l-min: $screen-l;
+$screen-l-max: $screen-xl - 1;
+
+$screen-xl-min: $screen-xl;
+$screen-xl-max: 100vh;
+
+$global-font-size: 16px;
+
+$space-0: 0;
+$space-2: 2px;
+$space-4: 4px;
+$space-8: 8px;
+$space-16: 16px;
+$space-24: 24px;
+$space-32: 32px;
+$space-40: 40px;
+$space-48: 48px;
+$space-56: 56px;
+$space-64: 64px;
+$space-72: 72px;
+$space-80: 80px;
+$space-96: 96px;
+
+// Displays
+$displays: block, flex, !default;
+
+*:focus {
+  // Removes Chrome blue outline for focusable items
+  outline: none;
+}
+
+html {
+  font-size: $global-font-size; // defined by UX team
+  height: 100%;
+}

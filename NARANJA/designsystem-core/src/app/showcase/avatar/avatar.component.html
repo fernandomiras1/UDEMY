@@ -1,0 +1,160 @@
+<dsn-container title="Avatar" [description]="description" [link]="link" [info]="info">
+    <ng-template #exampleContentTemplate>
+        <div class="container">
+            <div class="box-border center-md row">
+                <z-avatar class="padding-48" [size]="'extra-large'"
+                    [urlImg]="'https://media.licdn.com/dms/image/C4E03AQEp3pf0ULlLUg/profile-displayphoto-shrink_800_800/0?e=1567641600&v=beta&t=IE09HFhGbBluPNxFvJRznBAPj4AbeG68qIlrnKhjZ5o'">
+                </z-avatar>
+                <z-avatar class="padding-48" [size]="'extra-large'"
+                    [urlImg]="'https://media.licdn.com/dms/image/C4E03AQGUrnPB_4cxUg/profile-displayphoto-shrink_200_200/0?e=1567641600&v=beta&t=6t2m7zDM454NtA0HNccD6eH7ArkGiUk1r12LvVtruFQ'">
+                </z-avatar>
+                <z-avatar class="padding-48" [size]="'extra-large'"
+                    [urlImg]="'https://media.licdn.com/dms/image/C4D03AQEtu4lIMH2iKw/profile-displayphoto-shrink_800_800/0?e=1567641600&v=beta&t=Dq5dVbExrGSt4KNKIw3lX0zSqy8v5gCxAUJfe0Ssw3o'">
+                </z-avatar>
+                <z-avatar class="padding-48" [size]="'extra-large'"
+                    [urlImg]="'https://media.licdn.com/dms/image/C4E03AQErMIF64e9oFg/profile-displayphoto-shrink_800_800/0?e=1567641600&v=beta&t=cRQHRRzAODfUcnXakprK15jR9gfr9kVH40NWc7UZEpA'">
+                </z-avatar>
+            </div>
+
+            <div class="margin-top-80">
+                <h2 class="z-highlight-1">Demo</h2>
+            </div>
+
+            <p class="z-highlight-2 margin-bottom-16 margin-top-32">Image</p>
+            <div class="row">
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Small</p>
+                    <z-avatar [size]="'small'"
+                        [urlImg]="'http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Medium</p>
+                    <z-avatar [size]="'medium'"
+                        [urlImg]="'http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Large</p>
+                    <z-avatar [size]="'large'"
+                        [urlImg]="'http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Extra-large</p>
+                    <z-avatar [size]="'extra-large'"
+                        [urlImg]="'http://gravatar.com/avatar/953d4a723bed85b720fe14eba8084b43?s=80'">
+                    </z-avatar>
+                </div>
+            </div>
+
+
+            <p class="z-highlight-2 margin-bottom-16 margin-top-48">Initials</p>
+            <div class="row">
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Small</p>
+                    <z-avatar [size]="'small'" [initials]="'V'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Medium</p>
+                    <z-avatar [size]="'medium'" [initials]="'I'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Large</p>
+                    <z-avatar [size]="'large'" [initials]="'K'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Extra-large</p>
+                    <z-avatar [size]="'extra-large'" [initials]="'Y'">
+                    </z-avatar>
+                </div>
+            </div>
+
+            <p class="z-highlight-2 margin-bottom-16 margin-top-48">Default</p>
+            <div class="row">
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Small</p>
+                    <z-avatar [size]="'small'" [iconName]="'icon-user'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Medium</p>
+                    <z-avatar [size]="'medium'" [iconName]="'icon-user'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Large</p>
+                    <z-avatar [size]="'large'" [iconName]="'icon-user'">
+                    </z-avatar>
+                </div>
+                <div class="col-xs-3">
+                    <p class="z-body-text margin-bottom-16 margin-top-32">Extra-large</p>
+                    <z-avatar [size]="'extra-large'" [iconName]="'icon-user'">
+                    </z-avatar>
+                </div>
+            </div>
+
+            <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+                Inputs
+            </div>
+
+            <dsn-table [list]="inputsDocumentation"></dsn-table>
+
+            <div class="margin-top-48 margin-bottom-16">
+                <h2 class="z-highlight-1">
+                    Source code
+                </h2>
+            </div>
+
+            <markdown [src]="'assets/markdown/avatar/sample-source-01.md'"></markdown>
+
+            <div class="margin-top-96 line"></div>
+            <h1 class="title-demo margin-bottom-16 margin-top-96">
+                Pill
+            </h1>
+            <dsn-status [status]="'available'"></dsn-status>
+
+            <p class="z-highlight-2 margin-bottom-16 margin-top-32">Image</p>
+            <div class="row padding-left-16 margin-top-8">
+                <z-avatar-pill [name]="'Lucas Cargnelutti'">
+                    <z-avatar [size]="'small'"
+                        [urlImg]="'https://scontent-eze1-1.xx.fbcdn.net/v/t1.0-9/28056701_10215580373290979_3123619428205998560_n.jpg?_nc_cat=101&_nc_ht=scontent-eze1-1.xx&oh=8a701981e26a77fb90ab029619333fcc&oe=5D40CA72'">
+                    </z-avatar>
+                </z-avatar-pill>
+            </div>
+            <p class="z-highlight-2 margin-bottom-16 margin-top-48">Initials</p>
+            <div class="row padding-left-16 margin-top-8">
+                <z-avatar-pill [name]="'Kevin Roth'">
+                    <z-avatar [size]="'small'" [initials]="'K'">
+                    </z-avatar>
+                </z-avatar-pill>
+            </div>
+            <p class="z-highlight-2 margin-bottom-16 margin-top-32">Default</p>
+            <div class="row padding-left-16 margin-top-8">
+                <z-avatar-pill [name]="'Fernando Miras'">
+                    <z-avatar [size]="'small'" [iconName]="'icon-user'">
+                    </z-avatar>
+                </z-avatar-pill>
+            </div>
+
+            <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+                Inputs
+            </div>
+
+            <dsn-table [list]="inputsDocumentationPill"></dsn-table>
+
+            <div class="margin-top-48 margin-bottom-16">
+                <h2 class="z-highlight-1">
+                    Source code
+                </h2>
+            </div>
+
+            <markdown [data]="documentationPill | language : 'html'"></markdown>
+
+        </div>
+    </ng-template>
+
+</dsn-container>

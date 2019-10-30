@@ -1,0 +1,31 @@
+<div #box>
+  <div class="z-box-textfield" [ngClass]="{'z-box-textfield--custom': zControlMessagesProyection}">
+    <div class="z-box-textfield__inputs">
+      <div class="z-box-textfield__inputs__input" zBrowser>
+        <input (focus)="focusFunction()" id="{{id}}" [formControl]="formControl" [ngClass]="{'disabled': disabled}"
+          name="{{id}}" (focusout)="focusOutFunction($event)" type="{{typeInput}}">
+        <label [ngClass]="{'z-whitNotPlaceholder': formControl.value,
+                             'label-disabled': disabled}">{{ text }}</label>
+      </div>
+      <div class="icon z-box-textfield__inputs__icons"
+        [ngClass]="{'z-box-textfield__inputs__checkbox': zCheckboxProyection}">
+        <ng-content select="z-container-icon"></ng-content>
+        <ng-content select="z-checkbox"></ng-content>
+      </div>
+    </div>
+    <div class="z-box-textfield__lines" [ngClass]="{'z-box-textfield__lines--focus': isFocusLine,
+                                                    'z-box-textfield__lines--error': isErrorLine,
+                                                    'z-box-textfield__lines--errorFocus': isErrorLine && isFocusLine,
+                                                    'z-box-textfield__lines--success': isSuccessLine,
+                                                    'z-box-textfield__lines--successFocus': isSuccessLine && isFocusLine,
+                                                    'z-box-textfield__lines--disabled': disabled}">
+    </div>
+    <div *ngIf="!zControlMessagesProyection">
+      <z-control-messages (handleControl)="handleControl($event)" [validationMoment]="validationMoment$"
+      hint="{{menssagesHint}}" success="{{menssagesSuccess}}" alternativeError="{{menssagesError}}"
+      [control]="formControl">
+    </z-control-messages>
+  </div>
+</div>
+<ng-content select="[zControlMessages]"></ng-content>
+</div>

@@ -1,0 +1,51 @@
+@import "../../styles/base";
+
+.cmp {
+  h2 {
+    font-weight: bold;
+  }
+
+  ul {
+    margin: 15px 0;
+  }
+}
+
+.align-left {
+  margin-left: 0;
+}
+
+:host {
+  &::ng-deep .z-btn-sticky {
+    position: relative !important;
+  }
+
+  &::ng-deep .z-btn-sticky::before {
+    position: relative !important;
+  }
+
+  &::ng-deep .z-btn-sticky {
+    label {
+      position: relative !important;
+      z-index: -1;
+    }
+  }
+}
+
+@media only screen and (max-width: $screen-m) {
+  .margin-button-sm {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: $screen-s-min) {
+  .align-left {
+    margin-left: -11px;
+  }
+}
+
+@media only screen and (min-width: $screen-s-min) {
+  .align-left {
+    margin-left: -16px;
+  }
+}

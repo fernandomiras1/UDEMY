@@ -1,0 +1,69 @@
+<div #Buttons class="margin-top-40">
+  <!-- Primary -->
+  <div class="row margin-bottom-16 center-xs margin-bottom-8">
+    <div class="col-xs-6 col-md-4">
+      <z-button [text]="'Min'">
+      </z-button>
+    </div>
+
+    <div class="col-xs-6 col-md-4 center-xs margin-bottom-8">
+      <z-button [text]="'Medium length'" [isLoading]="isLoadingPrimaryWithSpinner"
+        (clickButton)="onClickPrimaryWithSpinner()">
+      </z-button>
+    </div>
+
+    <div class="col-xs-12 col-md-4 center-xs">
+      <z-button [widthButton]="'300px'" [text]="'Fixed width'" [disabled]="true">
+      </z-button>
+    </div>
+  </div>
+
+  <!-- Secondary -->
+  <div class="row margin-bottom-16 center-xs margin-bottom-8">
+    <div class="col-xs-6 col-md-4 margin-bottom-sm">
+      <z-button [text]="'Min'" [type]="'secondary'">
+      </z-button>
+    </div>
+    <div class="col-xs-6 col-md-4 center-xs margin-bottom-8">
+      <z-button [text]="'Medium length'" [type]="'secondary'" [isLoading]="isLoadingSecondaryWithSpinner"
+        (clickButton)="onClickSecondaryWithSpinner()">
+      </z-button>
+    </div>
+    <div class="col-xs-12 col-md-4 center-xs">
+      <z-button [widthButton]="'300px'" [text]="'Fixed width'" [type]="'secondary'" [disabled]="true">
+      </z-button>
+    </div>
+  </div>
+
+  <!-- Link -->
+  <div class="row margin-bottom-16">
+    <div class="col-xs-6 col-md-4 center-xs">
+      <z-button class="align-left" [text]="text" [type]="'link'">
+      </z-button>
+    </div>
+    <div class="col-xs-6 col-md-4 center-xs">
+      <z-button class="align-left" [text]="textDisabled" [type]="'link'" [disabled]="true">
+      </z-button>
+    </div>
+  </div>
+
+  <!-- Sticky -->
+  <div class="row margin-bottom-16">
+    <div class="col-xs-6 col-md-4 center-xs margin-bottom-8">
+      <z-button [text]="text" [type]="'sticky'">
+      </z-button>
+    </div>
+
+    <div class="col-xs-6 col-md-4 center-xsmargin-bottom-8">
+      <z-button [text]="textStickyWithSpinner" [type]="'sticky'" [isLoading]="isLoadingStickyWithSpinner"
+        (clickButton)="onClickStickyWithSpinner()">
+      </z-button>
+    </div>
+
+    <div class="col-xs-12 col-md-4 center-xs">
+      <z-button [text]="textDisabled" [type]="'sticky'" [disabled]="true">
+      </z-button>
+    </div>
+  </div>
+
+</div>

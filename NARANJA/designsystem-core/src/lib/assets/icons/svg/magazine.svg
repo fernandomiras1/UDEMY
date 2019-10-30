@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>magazine_32x32</title>
+    <desc>Created with Sketch.</desc>
+    <g id="magazine_32x32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M30,15 C30,15.5522847 29.5522847,16 29,16 C28.4477153,16 28,15.5522847 28,15 L28,8 L20,8 C18.3431458,8 17,9.34314575 17,11 L17,23.9996338 C17.8356605,23.3719448 18.8743941,23 20,23 L28,23 L28,20 L30,20 L30,24 L30,25 L20,25 C18.3431458,25 17,26.3431458 17,28 L15,28 C15,26.3431458 13.6568542,25 12,25 L4,25 L2,25 L2,8 L2,6 L12,6 C13.635599,6 15.0877712,6.7853431 16,7.99951255 C16.9122288,6.7853431 18.364401,6 20,6 L30,6 L30,8 L30,15 Z M12,8 L4,8 L4,23 L12,23 C13.1256059,23 14.1643395,23.3719448 15,23.9996338 L15,11 C15,9.34314575 13.6568542,8 12,8 Z" id="Path" fill="#000000"></path>
+    </g>
+</svg>

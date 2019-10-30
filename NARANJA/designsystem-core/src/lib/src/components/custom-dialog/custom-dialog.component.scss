@@ -1,0 +1,78 @@
+@import "../../styles/animations";
+@import "../../styles/colors";
+
+.z-custom-modal-dialog {
+
+  &__content {
+    align-items: center;
+    animation-duration: 0.5s;
+    animation-name: z-fadein;
+
+    &__header {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 16px;
+
+      &--border-finish {
+        border-bottom: 1px solid $color-grayscale-300;
+      }
+
+      &__title {
+        margin-top: 40px;
+        padding-left: 24px;
+
+        &__text {
+          background-color: $color-grayscale-100;
+          width: 392px;
+          z-index: 10;
+
+          &--finish {
+            margin-top: -5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &--mobile {
+            width: 200px;
+
+            &--finish {
+              margin-top: -3px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      &__icon {
+        margin-top: 4px;
+      }
+
+      .icon {
+        cursor: pointer;
+        width: 24px;
+      }
+    }
+
+    &__body {
+      max-height: 410px;
+      overflow-y: auto;
+      padding: 0 24px 24px 24px;
+
+      &::-webkit-scrollbar {
+        height: 3.2px;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 0 transparent;
+        height: 3.2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+      }
+    }
+  }
+}

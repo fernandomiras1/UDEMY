@@ -1,0 +1,101 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "desingsystem-core.fullname" . }}
+  labels:
+    app: {{ template "desingsystem-core.name" . }}
+    chart: {{ template "desingsystem-core.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "desingsystem-core.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "desingsystem-core.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.deployment.registry }}/{{ template "desingsystem-core.name" . }}:{{ template "desingsystem-core.name" . }}-{{ .Values.deployment.environment }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          {{- range $value := .Values.deployment.ports }}
+          {{- if eq $value.type "port" }}
+            {{- range $key := $value.keys }}
+              {{- $envKey := $key }}
+            - name: {{ $envKey.name }}
+              containerPort: {{$envKey.port}}
+              protocol: {{$envKey.protocol}}
+            {{- end }}
+          {{- end }}
+          {{- if eq $value.type "liveness" }}
+            {{- range $key := $value.keys }}
+              {{- $envKey := $key }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ $envKey }}
+            {{- end }}
+          {{- end }}
+          {{- if eq $value.type "readiness" }}
+            {{- range $key := $value.keys }}
+              {{- $envKey := $key }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ $envKey }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+          env:
+        {{- range $value := .Values.deployment.values }}
+          {{- if eq $value.type "env" }}
+            {{- range $key := $value.keys }}
+              {{- $envKey := $key }}
+            - name: {{ $envKey.name }}
+              value: '{{$envKey.value}}'
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- range $secret := .Values.deployment.secrets }}
+          {{- if eq $secret.type "env" }}
+            {{- range $key := $secret.keys }}
+              {{- $envKey := $key }}
+            - name: {{ $envKey.name }}
+              valueFrom:
+                secretKeyRef:
+                   name: {{ $secret.name }}
+                   key: {{ $envKey.name }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- range $secret := .Values.deployment.secrets_env }}
+          {{- if eq $secret.type "env" }}
+            {{- range $key := $secret.keys }}
+              {{- $envKey := $key }}
+            - name: {{ $envKey.name }}
+              valueFrom:
+                secretKeyRef:
+                   name: {{ $secret.name }}
+                   key: {{ $envKey.name }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+

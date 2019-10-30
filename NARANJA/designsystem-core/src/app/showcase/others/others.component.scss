@@ -1,0 +1,46 @@
+@import "../../styles/_base";
+
+
+.sub-title {
+  color: $color-grayscale-500;
+  font-size: 14px;
+}
+
+.sub-title-suport-title {
+  color: $color-grayscale-500;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-left: 22px;
+}
+
+.sub-title-suport-subtitle {
+  color: $color-grayscale-500;
+  font-size: 14px;
+  margin-top: -4px;
+}
+
+.title {
+    color: $color-grayscale-800;
+    font-size: 16px;
+}
+
+.doble {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.contenedor {
+  width: 100%;
+}
+
+
+:host {
+  &::ng-deep .z-message {
+      padding: 0 !important;
+  }
+
+  &::ng-deep .z-message__container {
+      display: block !important;
+  }
+}

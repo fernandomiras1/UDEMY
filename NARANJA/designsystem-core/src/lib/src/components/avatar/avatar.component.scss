@@ -1,0 +1,58 @@
+@import "../../styles/colors";
+@import "../../styles/spaces";
+
+.z-avatar-content {
+  border-radius: 100%;
+  color: $color-grayscale-100;
+  display: flex;
+  font-family: URWGeometric;
+  font-weight: bold;
+  line-height: 1.6;
+
+  &__icon {
+    color: $color-grayscale-700;
+    margin: auto;
+
+    &.browser-ie {
+      margin: 20% 0 0 25%;
+    }
+  }
+
+  &__char {
+    margin: auto;
+
+    &--initials {
+      line-height: 1.7;
+    }
+  }
+
+}
+
+img {
+  border-radius: 100%;
+}
+
+.banner {
+  height: $space-80;
+  width: $space-80;
+}
+
+.extra-large {
+  height: $space-64;
+  width: $space-64;
+}
+
+.large {
+  height: $space-48;
+  width: $space-48;
+}
+
+.medium {
+  height: $space-32;
+  width: $space-32;
+}
+
+.small {
+  height: $space-24;
+  width: $space-24;
+}

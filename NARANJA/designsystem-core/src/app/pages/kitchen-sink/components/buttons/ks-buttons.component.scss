@@ -1,0 +1,18 @@
+@import "../../../../styles/base";
+
+:host{
+  &::ng-deep .z-btn-sticky{
+     position:relative!important;
+ }
+
+  &::ng-deep .z-btn-sticky::before{
+     position:relative!important;
+ }
+
+  &::ng-deep .z-btn-sticky{
+   label{
+     position: relative!important;
+     z-index: -1;
+   }
+  }
+ }

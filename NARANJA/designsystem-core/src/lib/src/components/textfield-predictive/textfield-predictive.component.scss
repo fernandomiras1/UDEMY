@@ -1,0 +1,49 @@
+@import "../../styles/colors";
+@import "../../styles/variables";
+@import "../../styles/spaces";
+
+.z-container {
+  min-width: 80px;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100%;
+
+  &__messages {
+    position: absolute;
+    width: 100%;
+  }
+
+  &__overlay {
+    min-width: 100%;
+    position: absolute;
+    top: 60px;
+    width: auto;
+    z-index: 110;
+  }
+}
+
+.container-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__textfield {
+    flex-grow: 1;
+    padding: 34px 16px 0 16px;
+  }
+
+  &__modal-body {
+    flex-grow: 3;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &__img {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: auto;
+  }
+
+}

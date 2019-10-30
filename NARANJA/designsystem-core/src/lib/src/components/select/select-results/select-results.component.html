@@ -1,0 +1,15 @@
+<ul #selectResults class="z-container" zOuterClick (clickOutside)="clickOutside()"
+    [ngClass]="{'z-container--mobile': isMobile}">
+  <li zHover [isHover]="true" *ngIf="defaultValue" [stylesEnter]="hoverStylesEnter" [stylesLeave]="hoverStylesLeave"
+      class="z-container__results"
+      (click)="selectedItem(null)">
+    <p class="z-container__results__text" >{{defaultValue.text}}</p>
+  </li>
+  <ng-container  *ngFor="let item of selectedItems; let i = index">
+    <li zHover [isHover]="!item.disabled ? true : false" [ngClass]="{'z-container__results--disabled': item.disabled}"
+        [stylesEnter]="hoverStylesEnter" [stylesLeave]="hoverStylesLeave"
+        class="z-container__results" (click)="selectedItem(item)">
+      <p class="z-container__results__text">{{item.text}}</p>
+    </li>
+  </ng-container>
+</ul>

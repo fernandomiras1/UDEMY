@@ -1,0 +1,35 @@
+@import "../../styles/_base";
+
+.cmp {
+  h2 {
+    font-weight: bold;
+  }
+
+  h3 {
+    padding: 3px;
+  }
+
+  ul {
+    margin: 15px 0;
+  }
+}
+
+.source {
+  margin: auto 0;
+}
+
+.source-pass {
+  margin: 35px 0;
+}
+
+.textfield-demos {
+  width: 300px;
+}
+
+:host {
+  &::ng-deep .z-container-icons {
+    &:hover {
+      box-shadow: 0 3px 6px 0 transparentize($color-brand-500, 0.4);
+    }
+  }
+}

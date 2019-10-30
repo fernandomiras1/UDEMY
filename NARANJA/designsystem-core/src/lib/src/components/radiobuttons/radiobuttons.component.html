@@ -1,0 +1,5 @@
+<label class="z-text" *ngIf="text">{{text}}</label>
+<z-radiobutton *ngFor="let radio of listRadioButtons; let i = index"
+               [radiobutton]="radio" [index]="i" (radioSelected)="radioSelected($event)">
+
+</z-radiobutton>

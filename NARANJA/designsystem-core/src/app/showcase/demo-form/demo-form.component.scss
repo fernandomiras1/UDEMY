@@ -1,0 +1,45 @@
+@import "../../styles/base";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card-title {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.card-subtitle {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: $color-grayscale-700;
+  font-family: "Roboto";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.button-container {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 48px;
+}
+
+.button-primary {
+  position: absolute;
+  height: 48px;
+  right: 0;
+}
+
+.margin-container {
+  margin-bottom: 24px;
+}
+
+@media only screen and (max-width:768px) {
+  .padding-sm {
+   padding-left:0px;
+   padding-right:0px;
+  }
+}

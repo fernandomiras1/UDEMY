@@ -1,0 +1,16 @@
+<div class="z-accordion-container" [ngClass]="{'z-accordion-container--notLine': isNotLine}">
+
+  <section class="z-accordion-container__button" (click)="onClick()"
+    [ngClass]="{'z-accordion-container__button--visible': isOpen, 'z-accordion-container__button--collapsed': !isOpen}">
+
+    <p class="z-accordion-container__button__title">{{ title }}</p>
+
+    <div class="z-accordion-container__button__icon"
+      [ngClass]="{'icon-angle-down size-16': !isOpen, 'icon-angle-up size-16': isOpen}"></div>
+
+  </section>
+
+  <div *ngIf="isOpen" [style.background-color]="backgroundColor" @collapseExpand>
+    <ng-content></ng-content>
+  </div>
+</div>

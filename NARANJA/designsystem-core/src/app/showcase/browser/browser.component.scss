@@ -1,0 +1,88 @@
+@import "../../styles/base";
+
+.box-border {
+    align-items: center;
+    border-color: $color-grayscale-300;
+    border-style: solid;
+    border-width: 1px;
+    height: 100%;
+    justify-content: center;
+    padding: 32px 0;
+}
+
+.subtitle-lvl-3 {
+    color: $color-grayscale-700;
+    font-family: $text-font-stack;
+}
+
+:host{
+    &::ng-deep .z-card {
+        padding: 24px!important;
+    }
+    &::ng-deep #noHover > .z-card:hover {
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+    }
+}
+
+.card {
+    width: 406px;
+    margin: 10px;
+}
+
+.card-opera{
+    display: none;
+}
+
+.card-opera {
+    &.browser-opera {
+        display: block;
+    }
+}
+
+.link-doc {
+    color: $color-brand-500;;
+    font-family: $primary-font-stack;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: initial;
+    cursor:pointer;
+  }
+
+.text-card {
+    color: $color-grayscale-700;
+    font-family: $text-font-stack;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.text {
+    height: 100%;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.tit {
+    color: $color-grayscale-800;
+    font-family: $primary-font-stack;
+    font-size: 27px;
+    font-weight: bold;
+    letter-spacing: -0.3px;
+    line-height: 1.12;
+    padding: 0;
+}
+
+.card-opera {
+    &--text {
+    color: $color-error-700;
+    font-family: $text-font-stack;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+    &--text--secondary {
+    color: $color-grayscale-700;
+    font-family: $text-font-stack;
+    font-size: 16px;
+    line-height: 1.5;
+}
+}

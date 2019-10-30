@@ -1,0 +1,28 @@
+@import "../../styles/base";
+
+.card {
+    width: 352px;
+}
+
+
+:host{
+    &::ng-deep .z-card {
+        padding: 24px!important;
+   }
+}
+
+.card--text {
+    color: $color-grayscale-700;
+    font-family: $text-font-stack;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.card--number {
+    font-family: $text-font-stack;
+    color: $color-grayscale-700;
+    font-size: 48px;
+    text-align: center;
+}

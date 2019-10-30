@@ -1,0 +1,77 @@
+@import "../../styles/colors";
+@import "../../styles/animations";
+
+.z-modal-dialog {
+
+  &__content {
+    align-items: center;
+    animation-duration: 0.5s;
+    animation-name: z-fadein;
+    background-color: $color-grayscale-100;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: space-around;
+
+    &--without-container {
+      height: auto;
+
+      .z-modal-dialog__content__body {
+        padding: 40px 32px 40px 32px;
+      }
+
+      .z-modal-dialog__content__footer {
+        height: auto;
+      }
+    }
+
+    &__header {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 40px 32px 32px;
+      width: 79%;
+    }
+
+    &__body {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      justify-content: center;
+      padding: 0 32px 40px 32px;
+      width: 79%;
+
+      &__title {
+        font-weight: 600;
+        margin-bottom: 8px;
+
+        &--mobile {
+          margin-bottom: 4px;
+        }
+      }
+
+      &__paragraph {
+        line-height: 1.5;
+      }
+
+      &__title,
+      &__paragraph {
+        text-align: center;
+      }
+    }
+
+    &__footer {
+      align-items: center;
+      border-top: 1px solid $color-grayscale-300;
+      display: flex;
+      height: auto;
+      justify-content: flex-end;
+      width: 100%;
+
+      &__action {
+        padding: 8px 8px 8px 0;
+      }
+    }
+  }
+}

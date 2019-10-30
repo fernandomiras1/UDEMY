@@ -1,0 +1,16 @@
+<section class="tab-container">
+
+  <div class="header">
+    <div class="title-demo" *ngFor="let tab of tabs" (click)="onTabHeaderSelected(tab)" [ngClass]="{ 'selected' : isSelected(tab) }">
+
+      <h3>{{ tab.title }}</h3>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab" *ngFor="let tab of tabs" [ngClass]="{ 'selected' : isSelected(tab) }">
+      <ng-container *ngIf="tab.template" [ngTemplateOutlet]="tab.template"></ng-container>
+    </div>
+  </div>
+
+</section>

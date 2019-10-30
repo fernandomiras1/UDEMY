@@ -1,0 +1,97 @@
+@import '../../styles/base';
+
+$color-box-shadow: #cccccc;
+
+.container-fuild {
+  font-family: 'Verdana';
+
+  .card {
+    background-color: $color-grayscale-200;
+    height: 100%;
+    padding: 2rem 3rem 0 3rem;
+
+    .example {
+      padding: 1em;
+    }
+  }
+
+  .content {
+    margin-top: 1rem;
+  }
+
+  .header {
+    background-color: $color-grayscale-200;
+    padding: 1rem;
+
+    h2 {
+      color: grey;
+      margin: 0;
+      text-align: left;
+    }
+
+    h3 {
+      color: grey;
+      margin: 0;
+      text-align: left;
+    }
+
+    .description {
+      color: grey;
+      font-size: 14px;
+      margin: 1rem;
+      padding: 1em 0;
+      text-align: left;
+    }
+  }
+}
+
+.container {
+  margin-bottom: 3rem;
+}
+
+.link-doc {
+  color: $color-brand-500;
+  font-family: "Roboto";
+  text-decoration: initial;
+}
+
+.description {
+  margin: 0;
+  padding: 1em 0;
+}
+
+.navbar {
+  padding: 0 20px 0 20px;
+}
+
+.align-left {
+  margin-left: -16px;
+}
+
+@media only screen and (max-width:$screen-m-min) {
+
+  .navbar {
+    position: absolute;
+  }
+
+  .main-menu {
+    display: none;
+  }
+
+}
+
+@media only screen and (min-width: $screen-l-min) {
+
+  .navbar {
+    padding: 0 20px 0 $space-40;
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: $screen-xl-min) {
+
+  .navbar {
+    padding: 0 20px 0 60px;
+    width: 15%;
+  }
+}

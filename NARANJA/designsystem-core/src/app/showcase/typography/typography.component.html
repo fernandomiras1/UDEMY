@@ -1,0 +1,50 @@
+<dsn-container [title]="'Tipografía'" [description]="description" [link]="link" [info]="info">
+    <ng-template #exampleContentTemplate>
+      <div class="container-fluid">
+
+        <p class="z-hero margin-top-32">
+          Hero
+        </p>
+        <markdown [data]="documentation.heroText | language : 'html'"></markdown>
+
+        <p class="z-title margin-top-32">
+          Title
+        </p>
+        <markdown [data]="documentation.titleText | language : 'html'"></markdown>
+
+        <p class="z-subtitle margin-top-32">
+          Subtitle
+        </p>
+        <markdown [data]="documentation.subTitleText | language : 'html'"></markdown>
+
+        <p class="z-highlight-1 margin-top-32">
+          Highlight 1
+        </p>
+        <markdown [data]="documentation.higlight1Text | language : 'html'"></markdown>
+
+        <p class="z-highlight-2 margin-top-32">
+          Highlight 2
+        </p>
+        <markdown [data]="documentation.higlight2Text | language : 'html'"></markdown>
+
+        <p class="z-overline margin-top-32">
+          Overline
+        </p>
+        <markdown [data]="documentation.overLineText | language : 'html'"></markdown>
+
+        <p class="z-body-text margin-top-32">
+          Body text
+        </p>
+        <markdown [data]="documentation.bodyText | language : 'html'"></markdown>
+
+        <p class="z-legal margin-top-32">
+          Legal
+        </p>
+        <markdown [data]="documentation.legalText | language : 'html'"></markdown>
+
+
+      </div>
+
+    </ng-template>
+
+</dsn-container>

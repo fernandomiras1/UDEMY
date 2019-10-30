@@ -1,0 +1,16 @@
+@media only screen and (max-width:768px) {
+  .margin-button-sm {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .align-left {
+    margin-left: -4px;
+  }
+}
+
+@media only screen and (min-width:768px) {
+  .align-left {
+    margin-left: -16px;
+  }
+}

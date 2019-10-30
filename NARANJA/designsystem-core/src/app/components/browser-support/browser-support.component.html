@@ -1,0 +1,28 @@
+<div *ngIf="versionNumber && visualSupport && functionalSupport">
+  <h2 class="z-highlight-1 margin-bottom-16 margin-top-48">Browser Support</h2>
+  <div style="overflow-x: auto;">
+
+    <table>
+      <tr class="grid-header">
+        <th class="col-xs">Browser</th>
+        <td class="col-xs logos" *ngFor="let b of browsers;"><img id="logo" [src]="b.image"></td>
+      </tr>
+      <tr class="grid-content">
+        <th class="col-xs">Nombre</th>
+        <td class="col-xs" *ngFor="let name of browserName">{{name}}</td>
+      </tr>
+      <tr class="grid-content">
+        <td class="col-xs">Version</td>
+        <td class="col-xs" *ngFor="let ver of versionNumber">{{ver}}</td>
+      </tr>
+      <tr class="grid-content">
+        <td class="col-xs">Soporte Funcional</td>
+        <td class="col-xs" *ngFor="let funSupport of functionalSupport">{{funSupport}}</td>
+      </tr>
+      <tr class="grid-content">
+        <td class="col-xs">Optimizado visualmente</td>
+        <td class="col-xs" *ngFor="let visSupport of visualSupport">{{visSupport}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

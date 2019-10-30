@@ -1,0 +1,10 @@
+<div class="z-message" [ngClass]="getAlertClassBy(typeColor)">
+ <div class="z-message__container" [ngClass]="{'z-message__container--two-lines': isTwoLines}">
+   <div class="z-message__container__icon icon">
+     <p class="size-24" [ngClass]="{'icon-check-circle': typeColor === 'success',
+                                    'icon-alert-circle': typeColor === 'warning',
+                                    'icon-cross-circle': typeColor === 'error'}"></p>
+   </div>
+   <p class="z-message__container__text" #textMessage>{{text}}</p>
+ </div>
+</div>

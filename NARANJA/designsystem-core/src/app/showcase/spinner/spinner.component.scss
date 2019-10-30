@@ -1,0 +1,12 @@
+@import "../../styles/_base";
+
+.cmp {
+  > div {
+    align-items: center;
+    margin: 10px;
+  }
+}
+
+.demo{
+  display: inline;
+}

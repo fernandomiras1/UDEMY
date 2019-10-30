@@ -1,0 +1,11 @@
+<div class="z-tabs-content" #tabContent zBrowser>
+  <div class="z-tabs-content__tab" [ngClass]="{'z-tabs-content__tab--active': tab.isActive,
+    'z-tabs-content__tab--disabled': tab.disabled}" *ngFor="let tab of tabs; let index=index"
+    (click)="selectTab(tab, index)">
+    <div class="z-tabs-content__tab-text" [ngClass]="{'z-tabs-content__tab-text--active': tab.isActive,
+    'z-tabs-content__tab-text--disabled': tab.disabled}">
+      {{tab.title}}</div>
+  </div>
+</div>
+
+<ng-content></ng-content>

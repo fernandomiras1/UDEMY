@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>angle-left_32x32</title>
+    <desc>Created with Sketch.</desc>
+    <g id="angle-left_32x32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M22.7071068,4.70710678 L11.4140852,16.0001283 L22.7072351,27.2973787 C23.0976885,27.6879739 23.0975736,28.3211388 22.7069784,28.7115922 C22.3163832,29.1020456 21.6832183,29.1019307 21.2927649,28.7113355 L9.29276488,16.7069784 C8.90236159,16.3164334 8.90241905,15.6833674 9.29289322,15.2928932 L21.2928932,3.29289322 C21.6834175,2.90236893 22.3165825,2.90236893 22.7071068,3.29289322 C23.0976311,3.68341751 23.0976311,4.31658249 22.7071068,4.70710678 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>

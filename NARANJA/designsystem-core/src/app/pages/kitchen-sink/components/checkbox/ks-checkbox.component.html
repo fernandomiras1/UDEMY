@@ -1,0 +1,12 @@
+<div #Checkbox class="margin-top-40 row">
+
+  <!-- caso: Con Form-->
+  <div [formGroup]="form" class="col-xs-6 col-md-4">
+    <z-checkboxs formControlName="checkboxs"></z-checkboxs>
+  </div>
+
+  <div class="col-xs-6 col-md-4">
+    <z-checkboxs [listCheckboxs]="listCheckboxsEnabled"></z-checkboxs>
+  </div>
+
+</div>

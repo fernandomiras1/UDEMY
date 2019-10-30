@@ -1,0 +1,29 @@
+@import "../../styles/base";
+
+.box-border {
+  align-items: center;
+  border-color: $color-grayscale-300;
+  border-style: solid;
+  border-width: 1px;
+  height: 240px;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.link-doc {
+  color: $color-brand-500;;
+  font-family: "URWGeometric";
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: initial;
+}
+
+a {
+  text-decoration: none;
+}
+
+:host {
+  &::ng-deep #noHover > .z-card:hover {
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  }
+}

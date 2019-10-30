@@ -1,0 +1,12 @@
+<div zRippleEffect [backgroundColor]="'rgba(0, 0, 0, 0.16)'" [isClickable]="clickable"
+  [style.cursor]="clickable ? 'pointer' : 'initial'" [style.position]="clickable ? 'relative' : 'initial'" [ngClass]="{'z-card--notHover': isNotHover, 
+                 'z-card__default': !defaultStyles && breakpointMinWithoutStyles >= widthViewport,
+                 'z-card--notShadow': isNotShadow}" [ngStyle]="(widthViewport > breakpointMinWithoutStyles)
+      || (widthViewport <= breakpointMinWithoutStyles && defaultStyles) ? styleList : styleListMobile" class="z-card" zBrowser
+  (click)="onCardClicked()">
+
+  <div class="z-card-body" [ngStyle]="(widthViewport > breakpointMinWithoutStyles)
+    || (widthViewport <= breakpointMinWithoutStyles && defaultStyles) ? styleListBody : styleListBodyMobile">
+    <ng-content></ng-content>
+  </div>
+</div>

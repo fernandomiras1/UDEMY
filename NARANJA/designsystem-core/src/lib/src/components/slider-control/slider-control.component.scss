@@ -1,0 +1,56 @@
+@import "../../styles/colors";
+@import "../../styles/typography";
+@import "../../styles/variables";
+
+.z-slider {
+  display: flex;
+  flex-direction: column;
+  height: 102px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100%;
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+
+  &__container {
+    align-items: center;
+    display: flex;
+    width: 100%;
+
+    &__progressLine {
+      background: $color-brand-500;
+      height: 2px;
+      position: absolute;
+    }
+  }
+
+  &__text-container {
+
+    &__text {
+      color: $color-grayscale-600;
+      font-family: $text-font-stack;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+
+    &__label {
+      color: $color-grayscale-800;
+      font-family: $text-font-stack;
+      font-size: 1.25rem;
+      height: 1rem;
+      line-height: 0.4;
+      margin-top: 1.25rem;
+      position: relative;
+      width: fit-content;
+
+      @supports (-ms-ime-align:auto) {
+        display: table;
+      }
+    }
+
+    &--disabled {
+      color: $color-grayscale-400;
+    }
+  }
+}

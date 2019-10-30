@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>check_32x32</title>
+    <desc>Created with Sketch.</desc>
+    <g id="check_32x32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M11.9999007,21.5856872 L27.2883026,6.29299249 C27.6787721,5.90241338 28.311937,5.9023245 28.7025161,6.29279397 C29.0930952,6.68326343 29.0931841,7.31642841 28.7027147,7.70700751 L12.707206,23.7070075 C12.3166978,24.0976254 11.6834563,24.0976698 11.2928932,23.7071068 L3.29289322,15.7071068 C2.90236893,15.3165825 2.90236893,14.6834175 3.29289322,14.2928932 C3.68341751,13.9023689 4.31658249,13.9023689 4.70710678,14.2928932 L11.9999007,21.5856872 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>

@@ -1,0 +1,67 @@
+<dsn-container title="Spinner" [description]="description" [link]="link" [info]="info">
+    <ng-template #exampleContentTemplate>
+      <div class="container-fluid">
+
+        <div class="box-border">
+          <z-loading type="primary" size="extra-large"></z-loading>
+        </div>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Demo</h2>
+        </div>
+
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-32">Extra-large</p>
+        <div class="row">
+          <div class="col-xs-2">
+            <z-loading class="demo" type="primary" size="extra-large"></z-loading>
+          </div>
+        </div>
+
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-48">Large</p>
+        <div class="row">
+          <div class="col-xs-2">
+            <z-loading class="demo" type="primary" size="large"></z-loading>
+          </div>
+        </div>
+
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-48">Medium</p>
+        <div class="row">
+          <div class="col-xs-2">
+            <z-loading class="demo" type="primary" size="medium"></z-loading>
+          </div>
+        </div>
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-48">Small</p>
+        <div class="row">
+          <div class="col-xs-2">
+            <z-loading class="demo" type="primary" size="small"></z-loading>
+          </div>
+        </div>
+
+        <p class="z-highlight-2 margin-bottom-16 margin-top-48">Very-small</p>
+        <div class="row">
+          <div class="col-xs-2">
+            <z-loading class="demo" type="primary" size="very-small"></z-loading>
+          </div>
+        </div>
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Inputs
+        </div>
+        <dsn-table [list]="inputsDocumentation"></dsn-table>
+
+        <div class="margin-top-48 margin-bottom-16">
+          <h2 class="z-highlight-1">
+            Source code
+          </h2>
+        </div>
+
+        <markdown [src]="'assets/markdown/spinner/sample-source-01.md'"></markdown>
+      </div>
+
+    </ng-template>
+
+</dsn-container>

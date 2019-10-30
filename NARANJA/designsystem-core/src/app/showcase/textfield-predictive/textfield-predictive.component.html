@@ -1,0 +1,62 @@
+<dsn-container [title]="'Textfield predictive'" [description]="description" [link]="link" [info]="info">
+  <ng-template #exampleContentTemplate>
+    <div class="container-fluid">
+      <div [formGroup]="formTextfieldPredictive">
+        <div class="box-border">
+          <z-textfield-predictive [submit$]="submit$" [items]="items" [id]="'predictive'"
+            [urlImg]="'../../assets/images/seguros-caja@2x.png'"
+            [selectFormControl]="formTextfieldPredictive.get('select')" [text]="'Días'"
+            (handlerError)="handlerError($event)" (itemSelected)="itemSelected($event)">
+          </z-textfield-predictive>
+        </div>
+
+        <div class="margin-top-80">
+          <h2 class="z-highlight-1">Demo</h2>
+        </div>
+        <p class="z-highlight-2 margin-top-72">
+          Default
+        </p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield-predictive [submit$]="submitDefault$" [urlImg]="'../../assets/images/seguros-caja@2x.png'"
+              [id]="'predictiveDefault'" [items]="itemsDefault" [minLength]="3" [timeFilter]="1000"
+              [selectFormControl]="formTextfieldPredictive.get('selectDefault')" [text]="'Desarrolladores'"
+              (handlerError)="handlerErrorDefault($event)" (itemSelected)="itemSelectedDefault($event)">
+            </z-textfield-predictive>
+          </div>
+          <z-container-icon class="source" [size]="'very-small'" [iconName]="'icon-code-signs'"
+            (clickEvent)="flagDefault = !flagDefault"></z-container-icon>
+        </div>
+
+        <div *ngIf="flagDefault" class="row">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <markdown [data]="documentation.defaultHTML | language: 'html'"></markdown>
+            <markdown [data]="documentation.defaultTS | language: 'ts'"></markdown>
+          </div>
+        </div>
+        <div class="margin-top-96 line"></div>
+
+        <p class="z-highlight-2 margin-top-72">
+          Disabled
+        </p>
+        <div class="row margin-top-8 margin-bottom-48">
+          <div class="col-xs-12 col-sm-12 col-md-4 margin-top-24">
+            <z-textfield-predictive [disabled]="true" [submit$]="submit$" [items]="itemsFilter"
+              [selectFormControl]="formTextfieldPredictive.get('selectDisabled')" [text]="'Predictive'"
+              (handlerError)="handlerError($event)" (itemSelected)="itemSelected($event)">
+            </z-textfield-predictive>
+          </div>
+        </div>
+
+        <markdown [data]="documentation.disabledHTML | language: 'html'"></markdown>
+        <div class="margin-top-96 line"></div>
+
+
+        <div class="z-highlight-1 margin-top-80 margin-bottom-16">
+          Inputs
+        </div>
+        <dsn-table [list]="documentation.inputsDocumentation"></dsn-table>
+      </div>
+    </div>
+  </ng-template>
+</dsn-container>

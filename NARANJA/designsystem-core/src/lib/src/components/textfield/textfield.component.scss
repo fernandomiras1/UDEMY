@@ -1,0 +1,136 @@
+@import "../../styles/variables";
+@import "../../styles/colors";
+
+label {
+  color: $color-grayscale-600;
+  font-family: $text-font-stack;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.78;
+  pointer-events: none;
+  position: absolute;
+  top: 18px;
+  transition: 0.2s;
+
+  &.z-whitNotPlaceholder {
+    font-size: 16px;
+    line-height: 1;
+    top: -1px;
+  }
+
+  &.label-disabled {
+    color: $color-grayscale-400;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+  background: transparent;
+  border: none;
+  color: $color-grayscale-800;
+  display: block;
+  font-family: $text-font-stack;
+  font-size: 18px;
+  height: 40px;
+  line-height: 15px;
+  margin-top: 13px;
+  width: 100%;
+
+  &.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &:focus ~ label {
+    font-size: 16px;
+    line-height: 1;
+    top: -1px;
+  }
+}
+
+.z-box-textfield {
+  display: flex;
+  flex-direction: column;
+  height: 88px;
+  max-width: 640px;
+  min-width: 80px;
+
+  &--custom {
+    height: 56px;
+    padding-bottom: 12px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    &__input {
+      display: flex;
+      flex-grow: 1;
+      margin: auto;
+      transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &.browser-ie {
+        display: inline;
+      }
+    }
+
+    &__icons {
+      color: $color-grayscale-600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      margin: auto;
+
+      &--disabled {
+        pointer-events: none;
+      }
+    }
+
+    &__checkbox {
+      display: flex;
+      flex-grow: 2;
+      padding: 15px 0 0 0;
+      position: relative;
+      top: 7px;
+    }
+  }
+
+  &__lines {
+    border-bottom: 1px solid $color-grayscale-500;
+    height: 2px;
+    position: relative;
+
+    &--focus {
+      border-bottom: 2px solid $color-grayscale-800;
+    }
+
+    &--disabled {
+      border-bottom: 1px dashed $color-grayscale-300;
+      cursor: not-allowed;
+    }
+
+    &--error {
+      border-bottom: 1px solid $color-error-700;
+    }
+
+    &--errorFocus {
+      border-bottom: 2px solid $color-error-700;
+    }
+
+    &--success {
+      border-bottom: 1px solid $color-success-700;
+    }
+
+    &--successFocus {
+      border-bottom: 2px solid $color-success-700;
+    }
+  }
+}

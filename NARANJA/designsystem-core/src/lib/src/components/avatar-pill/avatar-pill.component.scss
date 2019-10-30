@@ -1,0 +1,18 @@
+@import "../../styles/colors";
+@import "../../styles/spaces";
+
+.z-pill-content {
+  background-color: $color-grayscale-200;
+  border-radius: 36px;
+  display: flex;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.375;
+  padding: 4px;
+
+  &__text {
+    color: $color-grayscale-700;
+    margin: auto;
+    padding: 0 12px 1px 12px;
+  }
+}

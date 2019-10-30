@@ -1,0 +1,6 @@
+<button zRippleEffect [isClickable]="!isRadio" [backgroundColor]="!chip.selected ? 'rgba(255, 157, 92, 0.4)' : 'rgba(170, 170, 170, 0.32)'"
+        class="z-chip" (click)="checkChip()" [disabled]="chip.disabled"
+        [ngClass]="{'z-chip--selected': chip.selected, 'z-chip--last': isLast, 'z-chip--selected--notHover': isRadio }">
+  <label class="z-chip__text">{{chip.text}}</label>
+</button>
+

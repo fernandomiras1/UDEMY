@@ -1,0 +1,54 @@
+@import '../../styles/base';
+
+ .tab-container {
+   margin: 1em 0;
+
+   .header {
+     border-bottom: 1px solid $illustrations-green;
+
+     .title-demo {
+       display: inline-block;
+       padding: 0 1em;
+
+       h3 {
+         margin: 0;
+         padding: 0.5em;
+         color: black;
+       }
+
+       &:hover {
+         background-color: $illustrations-light-sky-blue;
+         color: white;
+         cursor: pointer;
+
+         h3 {
+           color: white;
+         }
+       }
+
+       &.selected {
+         background-color: $illustrations-sky-blue;
+         color: white;
+
+         h3 {
+           color: white;
+         }
+       }
+     }
+   }
+
+
+
+   .tabs {
+     padding: 0.5em 1em;
+     background-color: $color-grayscale-300;
+     .tab {
+       display: none;
+
+       &.selected {
+         display: inline-block;
+         width: 100%;
+       }
+     }
+   }
+ }

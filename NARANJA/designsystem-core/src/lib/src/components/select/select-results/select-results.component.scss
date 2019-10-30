@@ -1,0 +1,62 @@
+@import "../../../styles/colors";
+@import "../../../styles/variables";
+@import "../../../styles/spaces";
+
+:host {
+
+  .z-container {
+    background-color: $color-grayscale-100;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    margin-top: 8px;
+    max-height: calc(48vh);
+    min-width: 80px;
+    overflow-y: auto;
+
+    &--mobile {
+      max-height: calc(68vh);
+      width: 84vw;
+    }
+
+    &__results {
+      border-bottom: 1px solid $color-grayscale-300;
+      height: 64px;
+      overflow: hidden;
+      padding-left: 16px;
+
+      &--disabled {
+        cursor: not-allowed;
+
+        .z-container__results__text {
+          color: $color-grayscale-400;
+          cursor: not-allowed;
+        }
+      }
+
+      &__text {
+        color: $color-grayscale-800;
+        font-family: $text-font-stack;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+        line-height: 4;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+}

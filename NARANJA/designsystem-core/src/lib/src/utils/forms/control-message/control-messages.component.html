@@ -1,0 +1,26 @@
+<div zBrowser>
+  <div class="z-control-messages-error" *ngIf="control.invalid && visible && !regExpresion">
+    <div *ngIf="message" class="z-control-messages-margin">{{message}}</div>
+    <div *ngIf="message" class="icon z-control-messages-margin">
+      <div class="icon-alert-circle"></div>
+    </div>
+  </div>
+  <div class="z-control-messages-success" *ngIf="control.valid && control.dirty && visible && !regExpresion">
+    <div *ngIf="message" class="z-control-messages-margin">{{message}}</div>
+    <div *ngIf="message" class="icon z-control-messages-margin">
+      <div class="icon-check-circle"></div>
+    </div>
+  </div>
+
+  <div *ngIf="!regExpresion && !visible" class="z-control-messages-hint">
+    <div *ngIf="hint" class="z-control-messages-margin">{{hint}}</div>
+  </div>
+
+  <div *ngIf="regExpresion" class="z-control-messages-hint-custom"
+    [ngClass]="{'z-control-messages-hint-custom-success': regExpresion.validate, 'z-control-messages-hint-custom-error': !regExpresion.validate && errorCustom}">
+    <div class="z-control-messages-margin-custom">{{hint}}</div>
+    <div class="icon z-control-messages-margin">
+      <div class="icon-circle size-10"></div>
+    </div>
+  </div>
+</div>

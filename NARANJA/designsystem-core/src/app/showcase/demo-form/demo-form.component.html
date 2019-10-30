@@ -1,0 +1,105 @@
+<dsn-container [title]="'Forms'" [description]="description" [link]="link">
+  <ng-template #exampleContentTemplate>
+    <div class="container-fluid">
+      <div class="margin-top-80">
+        <h2 class="z-highlight-1">Demo</h2>
+      </div>
+
+      <p class="z-highlight-2 margin-bottom-16 margin-top-32">
+        Listo para cargar datos
+      </p>
+
+      <div [formGroup]="form">
+        <z-card
+          [isNotHover]="true"
+          [styleList]="styleArrayForm">
+          <div class="row">
+            <div class="col-md-12">
+              <title class="card-title z-title">Averiguá sin compromiso</title>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+              <h2 class="card-subtitle">
+                Completá este formulario y mirá en el acto que tarjetas y
+                límites podrías tener. Después podés decidir si las querés
+              </h2>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12"></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 margin-container">
+              <z-textfield
+                text="Nombre"
+                [formControl]="form.get('name')"
+                [id]="'name'"
+                (handlerError)="error($event)"
+                [momentOfValidate]="momentOfValidate"
+                [submit$]="submit$"></z-textfield>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 margin-container">
+              <z-textfield
+                text="Apellido"
+                [id]="'lastName'"
+                [formControl]="form.get('lastName')"
+                (handlerError)="error($event)"
+                [momentOfValidate]="momentOfValidate"
+                [submit$]="submit$"></z-textfield>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 margin-container">
+              <z-textfield
+                [formControl]="form.get('email')"
+                [id]="'email'"
+                [momentOfValidate]="momentOfValidate"
+                (handlerError)="error($event)"
+                text="Email"
+                [submit$]="submit$"></z-textfield>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-xs-12 margin-container">
+              <z-textfield
+                [id]="'phone'"
+                [formControl]="form.get('phone')"
+                [momentOfValidate]="momentOfValidate"
+                (focus)="error($event)"
+                (handlerError)="error($event)"
+                [menssagesError]="varError"
+                text="Celular"
+                [submit$]="submit$"></z-textfield>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 margin-container">
+              <z-textfield-predictive
+                [submit$]="submit$"
+                [items]="itemsFilter"
+                [selectFormControl]="form.get('select')"
+                [text]="'Predictive'"
+                (handlerError)="handlerError($event)"
+                (itemSelected)="itemSelected($event)">
+              </z-textfield-predictive>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+              <div class="button-container">
+                <z-button
+                  class="button-primary"
+                  (clickButton)="onClickPrimaryWithSpinner()"
+                  [text]="'Enviar'">
+                </z-button>
+              </div>
+            </div>
+          </div>
+        </z-card>
+      </div>
+      <markdown
+        [src]="'assets/markdown/demo-form/sample-source-01.md'"
+      ></markdown>
+    </div>
+  </ng-template>
+</dsn-container>

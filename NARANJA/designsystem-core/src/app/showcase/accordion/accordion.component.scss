@@ -1,0 +1,31 @@
+@import "../../styles/base";
+
+
+.container {
+
+  &__box-border {
+    align-items: center;
+    border: 1px solid $color-grayscale-300;
+    border-width: 1px;
+    display: flex;
+    height: 400px;
+    justify-content: center;
+    width: 80%;
+
+    &__demo {
+      height: 100px;
+      width: 350px;
+    }
+
+    &__link {
+      color: $color-brand-500;
+      cursor: pointer;
+      font-family: $text-font-stack;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: -0.2px;
+      text-decoration: none;
+    }
+  }
+
+}
