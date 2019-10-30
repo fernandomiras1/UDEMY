@@ -1,0 +1,24 @@
+<div class="contact">
+  <div class="contact-header">
+    <img class="contact-header-image" [src]="contact.picture">
+    <h1 class="contact-header-name">{{contact.name}}</h1>
+  </div>
+  
+  <div class="contact-detail">
+      <div class="contact-detail-phone">
+          <h2>Phones</h2>
+          <p *ngFor="let phone of contact.phones">
+            <span class="contact-detail-phone-type">({{phone.type}}) - </span>
+            <span class="contact-detail-phone-number">{{phone.number}}</span>
+          </p>
+        </div>
+        <div class="contact-detail-email">
+          <h2>Email</h2>
+          <p>{{contact.email}}</p>
+        </div>
+        <div class="contact-detail-address">
+          <h2>Direction</h2>
+          <p>{{contact.direction}}</p>
+        </div>
+  </div>
+</div>

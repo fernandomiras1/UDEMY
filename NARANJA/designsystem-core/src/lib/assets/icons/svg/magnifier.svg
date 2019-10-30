@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>magnifier_32x32</title>
-    <desc>Created with Sketch.</desc>
-    <g id="magnifier_32x32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M19.301676,17.9289443 L25.7048056,24.2905995 L24.2951944,25.7094005 L17.8822384,19.3379825 C16.5313772,20.3801099 14.8380801,21 13,21 C8.581722,21 5,17.418278 5,13 C5,8.581722 8.581722,5 13,5 C17.418278,5 21,8.581722 21,13 C21,14.8593263 20.3656966,16.5705032 19.301676,17.9289443 Z M13,19 C16.3137085,19 19,16.3137085 19,13 C19,9.6862915 16.3137085,7 13,7 C9.6862915,7 7,9.6862915 7,13 C7,16.3137085 9.6862915,19 13,19 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
-    </g>
-</svg>

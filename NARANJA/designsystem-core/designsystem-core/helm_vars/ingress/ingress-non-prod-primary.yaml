@@ -1,9 +1,0 @@
-# Default values for ingress for node-rest-osb-adapter-template.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-ingress:
-  annotations: 
-    ingress.bluemix.net/ALB-ID: public-cr2a28d0434eaa4994ad04dbd8fcfe8997-alb1 
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"

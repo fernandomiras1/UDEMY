@@ -1,8 +1,0 @@
-<div class="z-container" (click)="checkRadioButton()"
-     [ngClass]="{'z-container--disabled': radiobutton.disabled}">
-  <label class="z-container__radio-check">
-    <input type="radio" [checked]="radiobutton.selected">
-    <span class="z-container__radio-check__checkmark"></span>
-  </label>
-  <label *ngIf="radiobutton.text" class="z-container__radio-text">{{radiobutton.text}}</label>
-</div>
