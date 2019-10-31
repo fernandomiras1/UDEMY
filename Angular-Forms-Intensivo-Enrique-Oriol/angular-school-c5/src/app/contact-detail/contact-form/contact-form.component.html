@@ -1,2 +1,33 @@
-<p>create contact form</p>
-<button>Add new contact</button>
+<form (submit)="addContact()">
+     <div class="form-item">
+         <label for="name">Name:</label>
+         <!-- tiene que ir asociado en ngmodel con el atributo name -->
+         <input type="text" name="name" [(ngModel)]="model.name" id="name" required>
+     </div>
+     <div class="form-group">
+         <p>Phones:</p>
+         <div class="form-item" *ngFor="let phone of model.phones; index as i">
+             <label for="phone-type">Phone</label>
+            <!-- el name tiene que se identificador unico, para que angular lo pueda diferenciar. ES MUY IMPORTATNE -->
+             <select id="phone-type" [(ngModel)]="model.phones[i].type" name="phone-{{i}}-type">
+                 <option [value]="type" *ngFor="let type of phoneTypes">{{ type }}</option> 
+             </select>
+             <input type="tel" id="phone-number" [(ngModel)]="model.phones[i].number" name="phone-{{i}}-number">
+         </div>
+         <p class="form-action" (click)="addNewPhoneToModel()">Add Phone +</p>
+     </div>
+     <div class="form-item">
+         <label for="email">Email:</label>
+         <input type="text" name="email" [(ngModel)]="model.email" id="email">
+     </div>
+     <div class="form-item">
+         <label for="address">Address:</label>
+         <input type="text" name="address" [(ngModel)]="model.direction" id="address">
+     </div>
+    <button class="form-button" type="submit">Add Contact</button>
+</form>
+
+<pre>{{ model | json }}</pre>
+
+<p>sin el pre</p>
+{{ model | json }}
