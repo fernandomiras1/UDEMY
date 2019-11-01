@@ -50,3 +50,25 @@ app-header{
         }
     }
 }
+
+// le agregamos un selector para que no se lo aplicque a los elementos de tipo form
+.ng-invalid:not(form).ng-touched {
+    background-color: red;
+}
+
+// cuando el campo sea valido y para cuando tenga el atribute required
+.ng-valid:not(form)[required] {
+    background: url("assets/check.png");
+    // posicion a la derecha
+    background-position: right;
+    // que no se repita
+    background-repeat: no-repeat;
+}
+
+.error-message {
+    color:#E13526;
+    position: absolute;
+    padding-top: 8px;
+    font-size: 0.9em;
+    right: 0;
+}

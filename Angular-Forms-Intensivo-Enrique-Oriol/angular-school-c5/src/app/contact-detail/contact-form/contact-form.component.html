@@ -6,7 +6,18 @@
      <div class="form-item">
          <label for="name">Name:</label>
          <!-- tiene que ir asociado en ngmodel con el atributo name -->
-         <input type="text" name="name" [(ngModel)]="model.name" id="name" required>
+         <!-- a demas ngModel te permite saber si el usario a tocado ese campo o si se cambio el contenido 
+         o si el contendio es invalido. Mediante cases  de css en funcion de ese estado. -->
+
+
+         <!--Template Reference Variable: Podemos decirle que no haga referencia del input si no del ngModel del formulario -->
+         <input #nameControl="ngModel" minlength="2" type="text" name="name" [(ngModel)]="model.name" id="name" required>
+         
+         <ng-container *ngIf="!nameControl.valid && nameControl.touched">
+             <p *ngIf="nameControl.errors.required" class="error-message" >Este campo es requerido</p>
+             <p *ngIf="nameControl.errors.minlength" class="error-message" >el minimo es 2 caracteres</p>
+         </ng-container> 
+         
      </div>
      <div class="form-group">
          <p>Phones:</p>
@@ -33,5 +44,12 @@
 
 <pre>{{ model | json }}</pre>
 
-<p>sin el pre</p>
-{{ model | json }}
+<!-- agregamos estilos dependiendo de estas clases - style.scss  -->
+ng-untouched : siguinifica que todavia no he visitado para nada este campo
+ng-pristine : indica que nunca he cambiado el valor del campo
+ng-invalid : el valor del campo es invalido
+ng-valid : el valor del campo es valido
+ng-touched : he tocado el campo, ha detecatdo una visita a este elemento.
+ng-dirty : indica que he cambiado el valor inicial
+
+<!-- <p>{{ nameControl.className }}</p> -->
