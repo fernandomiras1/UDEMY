@@ -8,6 +8,9 @@
     </div>
 </div>
 
+<!-- Usamos una Pipe para trasformar la primera
+letra en Mayuscula y todas las demas en minuscula -->
+
 <p *ngFor="let item of namesList; index as i" (click)="onClick()">
     {{i}} - Hello {{item | upperCapital}}!
 </p>
