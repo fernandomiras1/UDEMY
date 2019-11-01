@@ -8,6 +8,8 @@ import { ContactDetailShellComponent } from './contact-detail-shell/contact-deta
 import { ContactDetailResolverService } from './contact-detail-resolver.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+// Directive
+import { StartsWithCapitalValidatorDirective } from '../directives/startsWithCapital.directive';
 
 const contactDetailRoutes: Routes = [
     { path: 'contact-detail', component: ContactDetailShellComponent, data: {title: 'Contact detail'},
@@ -30,7 +32,8 @@ const contactDetailRoutes: Routes = [
     declarations: [
         ContactDetailComponent,
         ContactDetailShellComponent,
-        ContactFormComponent
+        ContactFormComponent,
+        StartsWithCapitalValidatorDirective
     ]
 
 })

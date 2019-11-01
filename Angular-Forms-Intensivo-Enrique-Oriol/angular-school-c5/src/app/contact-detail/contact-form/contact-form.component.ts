@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact, PhoneType } from 'src/app/contact.model';
 import { ContactsService } from 'src/app/contacts.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-form',
@@ -13,6 +14,9 @@ export class ContactFormComponent implements OnInit {
   public model: Contact = new Contact (0, '', 'assets/default-user.png', []);
   // no quiero modificar esta propiedad. Va almacenar todos los valores del enum PhoneTypes.
   public readonly phoneTypes: string[] = Object.values(PhoneType);
+  @ViewChild('contactForm') contactForm: NgForm;
+
+
   constructor(private contactService: ContactsService) { }
 
   ngOnInit() {
@@ -21,6 +25,7 @@ export class ContactFormComponent implements OnInit {
   addContact() {
     this.contactService.addContact(this.model);
     this.model = new Contact(0, '', 'assets/default-user.png', []);
+    this.contactForm.reset();
   }
 
   addNewPhoneToModel() {

@@ -1,4 +1,4 @@
-<form (submit)="addContact()">
+<form (submit)="addContact()" #contactForm="ngForm">
     <div class="form-item-image">
       <img [src]="model.picture">
       <input type="file" accept=".jpg, .png, .jpeg" (change)="addImage($event)">
@@ -11,11 +11,12 @@
 
 
          <!--Template Reference Variable: Podemos decirle que no haga referencia del input si no del ngModel del formulario -->
-         <input #nameControl="ngModel" minlength="2" type="text" name="name" [(ngModel)]="model.name" id="name" required>
+         <input #nameControl="ngModel" [startsWithCapital]="true" minlength="2" type="text" name="name" [(ngModel)]="model.name" id="name" required>
          
          <ng-container *ngIf="!nameControl.valid && nameControl.touched">
              <p *ngIf="nameControl.errors.required" class="error-message" >Este campo es requerido</p>
              <p *ngIf="nameControl.errors.minlength" class="error-message" >el minimo es 2 caracteres</p>
+             <p *ngIf="nameControl.errors.startsWithCapital" class="error-message" >The name should start with capital letter !!</p>
          </ng-container> 
          
      </div>
@@ -27,19 +28,24 @@
              <select id="phone-type" [(ngModel)]="model.phones[i].type" name="phone-{{i}}-type">
                  <option [value]="type" *ngFor="let type of phoneTypes">{{ type }}</option>
              </select>
-             <input type="tel" id="phone-number" [(ngModel)]="model.phones[i].number" name="phone-{{i}}-number">
+
+
+             <!-- pattern: tiene que tener el sibolo + seguido de digitos que se repiten en 1 a 3 veces.
+             luego tiene que a ver un - , y lo que quiero es el numero de telefono. entre los numero 0-9. y se va a repetir entre 8 y 12 veces -->
+             <input type="tel" id="phone-number" [(ngModel)]="model.phones[i].number"
+             pattern="[+][0-9]{1,3}[-][0-9]{8,12}" name="phone-{{i}}-number" placeholder="+XXX-XXXXXXXX">
          </div>
          <p class="form-action" (click)="addNewPhoneToModel()">Add Phone +</p>
      </div>
      <div class="form-item">
          <label for="email">Email:</label>
-         <input type="text" name="email" [(ngModel)]="model.email" id="email">
+         <input type="text" name="email" [(ngModel)]="model.email" id="email" email>
      </div>
      <div class="form-item">
          <label for="address">Address:</label>
          <input type="text" name="address" [(ngModel)]="model.direction" id="address">
      </div>
-    <button class="form-button" type="submit">Add Contact</button>
+    <button class="form-button" type="submit" [disabled]="!contactForm.valid">Add Contact</button>
 </form>
 
 <pre>{{ model | json }}</pre>
