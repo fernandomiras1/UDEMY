@@ -1,4 +1,8 @@
 <form (submit)="addContact()">
+    <div class="form-item-image">
+      <img [src]="model.picture">
+      <input type="file" accept=".jpg, .png, .jpeg" (change)="addImage($event)">
+    </div>
      <div class="form-item">
          <label for="name">Name:</label>
          <!-- tiene que ir asociado en ngmodel con el atributo name -->
@@ -10,7 +14,7 @@
              <label for="phone-type">Phone</label>
             <!-- el name tiene que se identificador unico, para que angular lo pueda diferenciar. ES MUY IMPORTATNE -->
              <select id="phone-type" [(ngModel)]="model.phones[i].type" name="phone-{{i}}-type">
-                 <option [value]="type" *ngFor="let type of phoneTypes">{{ type }}</option> 
+                 <option [value]="type" *ngFor="let type of phoneTypes">{{ type }}</option>
              </select>
              <input type="tel" id="phone-number" [(ngModel)]="model.phones[i].number" name="phone-{{i}}-number">
          </div>
