@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent implements OnInit {
+  // no quiero modificar esta propiedad. Va almacenar todos los valores del enum PhoneTypes.
   public readonly phoneTypes:string[] = Object.values(PhoneType);
   public contactForm:FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -36,8 +37,10 @@ export class ContactFormComponent implements OnInit {
   addImage(event){
     const file = event.target.files[0];
     var reader = new FileReader();
+    // Cargamos la ruta en base 64
     reader.readAsDataURL(file);
     reader.onload = (evt) => {
+       //  cuando se pase a base 64 la pasamos al model del objeto
       this.contactForm.patchValue({
         picture:reader.result
       });
