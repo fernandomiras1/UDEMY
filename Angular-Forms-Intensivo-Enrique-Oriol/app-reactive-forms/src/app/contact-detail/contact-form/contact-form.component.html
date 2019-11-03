@@ -1,0 +1,42 @@
+<form [formGroup]="contactForm">    
+    <!-- image field -->
+    <div class="form-item-image">
+        <img [src]="contactForm.value.picture">
+        <input type="file" accept=".png,.jpg,.jpeg" (change)=addImage($event)>
+    </div>
+
+    <!-- name field -->
+    <div class="form-item">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+    </div>
+
+    <!-- phones field -->
+    <div class="form-item" formGroupName="phone">
+        <label for="phone-type">Phone</label>
+        <select id="phone-type" formControlName="type">
+            <option [value]="type" *ngFor="let type of phoneTypes">{{type}}</option>
+        </select>
+        <input type="tel" id="phone-number" formControlName="number">
+        <!-- <p class="form-action" (click)="addNewPhoneToModel()">Add phone +</p> -->
+    </div>
+
+    <!-- email field -->
+    <div class="form-item">
+        <label for="email">Email:</label>
+        <input type="text" id="email" formControlName="email">
+    </div>
+
+    <!-- address field -->
+    <div class="form-item">
+        <label for="address">Adress:</label>
+        <input type="text" id="address" formControlName="address">
+    </div>
+
+    <!-- submit button -->
+    <button class="form-button" type="submit">
+        Add contact
+    </button>
+    
+</form>
+<pre>{{contactForm.value | json }}</pre>
