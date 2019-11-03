@@ -13,10 +13,10 @@ import { tap, filter, map } from 'rxjs/operators';
 })
 export class ContactFormComponent implements OnInit {
   // no quiero modificar esta propiedad. Va almacenar todos los valores del enum PhoneTypes.
-  public readonly phoneTypes:string[] = Object.values(PhoneType);
+  public readonly phoneTypes: string[] = Object.values(PhoneType);
 
   // PODEMOS BORRAR contactFormOld ya que se crea con FormGroup. ( Lo dejo a modo de visual. Entre FormGroup y FormBuilder)
-  public contactFormOld:FormGroup = new FormGroup({
+  public contactFormOld: FormGroup = new FormGroup({
     // startsWithCapitalValidator() tenemos que ejecutar la funcion para que me devuela los validadoes. Ya que es una factoria
     name: new FormControl('', [Validators.required, Validators.minLength(2), startsWithCapitalValidator()]),
     picture: new FormControl('assets/default-user.png'),
@@ -45,10 +45,10 @@ export class ContactFormComponent implements OnInit {
     ]),
     email: [''],
     direction: ['']
-  })
+  });
 
 
-  constructor(private contactsService:ContactsService, private fb: FormBuilder) { }
+  constructor(private contactsService: ContactsService, private fb: FormBuilder) { }
 
   ngOnInit() {
 
@@ -60,7 +60,7 @@ export class ContactFormComponent implements OnInit {
       // Limpiamos los phones del Formulario. Ya que vamos agregar los que estan en el localStorage
       this.phones.clear();
       // iteramos sobre el array de telefonos y creamos el nuevo FormArray
-      for ( let phone of contactJSON.phones) {
+      for ( const phone of contactJSON.phones) {
         this.addNewPhoneToModel();
       }
       // Usamos setValue para actualizar todo el contendio de este contactForm.
@@ -68,7 +68,8 @@ export class ContactFormComponent implements OnInit {
     }
 
     // Necesito almacenar el estado y el valor del formulario. Combiamos estos dos eventos con la funcion zip
-    // zip: lo que hace es combianar de forma ordenada los eventos de varios observables. Va a estar escuchado cambios de esos operadoes. en la posicion 0 y 1 
+    // zip: lo que hace es combianar de forma ordenada los eventos de varios observables.
+    // Va a estar escuchado cambios de esos operadoes. en la posicion 0 y 1
     zip(this.contactForm.statusChanges, this.contactForm.valueChanges).pipe(
       // Filtarmos solo el estatus Valido. Que lo que nos interesa.
       filter( ([state, value]) => state === 'VALID'),
@@ -82,7 +83,7 @@ export class ContactFormComponent implements OnInit {
     });
   }
 
-  addContact(){
+  addContact() {
     // tenemos un servicio para guardar el contacto
     this.contactsService.addContact(this.contactForm.value);
     // Limpiamos el FormArray de los phones
@@ -97,7 +98,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   // Añadimos nuevos telefonos en el FormArray
-  addNewPhoneToModel(){
+  addNewPhoneToModel() {
     // Accedemos al geter phones.
     this.phones.push(
       this.fb.group({
@@ -112,26 +113,26 @@ export class ContactFormComponent implements OnInit {
     );
   }
 
-  addImage(event){
+  addImage(event) {
     const file = event.target.files[0];
-    var reader = new FileReader();
+    const reader = new FileReader();
     // Cargamos la ruta en base 64
     reader.readAsDataURL(file);
     reader.onload = (evt) => {
        //  cuando se pase a base 64 la pasamos al model del objeto
-       // patchValue: actualizo el formulario cuando se carga la imagen. 
+       // patchValue: actualizo el formulario cuando se carga la imagen.
        // Si queremos modificar alguna de las propiedades del formulario usamos patchValue.
        // setValue( tendriamos que modificar todo el objeto completo, ya que Formularios reactivos son inmutables.)
       this.contactForm.patchValue({
-        picture:reader.result
+        picture: reader.result
       });
-    }
+    };
   }
 
   get name() {
     return this.contactForm.get('name');
   }
-  
+
   get phones() {
     // Hay que especifiar que va a ser de tipo Array ya que en el template no me va a dejar iterar.
     return this.contactForm.get('phones') as FormArray;
