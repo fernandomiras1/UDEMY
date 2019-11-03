@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact, PhoneType } from 'src/app/contact.model';
 import { ContactsService } from 'src/app/contacts.service';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { startsWithCapitalValidator } from 'src/app/directives/startsWithCapital.directive';
 import { zip } from 'rxjs';
 import { tap, filter, map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-contact-form',
@@ -15,8 +14,9 @@ import { tap, filter, map } from 'rxjs/operators';
 export class ContactFormComponent implements OnInit {
   // no quiero modificar esta propiedad. Va almacenar todos los valores del enum PhoneTypes.
   public readonly phoneTypes:string[] = Object.values(PhoneType);
-  // Creamos el esqueleto del conjunto de controles 
-  public contactForm:FormGroup = new FormGroup({
+
+  // PODEMOS BORRAR contactFormOld ya que se crea con FormGroup. ( Lo dejo a modo de visual. Entre FormGroup y FormBuilder)
+  public contactFormOld:FormGroup = new FormGroup({
     // startsWithCapitalValidator() tenemos que ejecutar la funcion para que me devuela los validadoes. Ya que es una factoria
     name: new FormControl('', [Validators.required, Validators.minLength(2), startsWithCapitalValidator()]),
     picture: new FormControl('assets/default-user.png'),
@@ -32,8 +32,23 @@ export class ContactFormComponent implements OnInit {
     direction: new FormControl('')
   });
 
+  // FormBuilder: lo creamos con FormBuilder ya que simplifica la sintasis de la creacion del Fomulario. Mas ordenado
+  // El plantamiento es el mimsmo pero mas compacto
+  public contactForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(2), startsWithCapitalValidator()]],
+    picture: ['assets/default-user.png'],
+    phones: this.fb.array([
+      this.fb.group({
+        type: [null],
+        number: ['']
+      })
+    ]),
+    email: [''],
+    direction: ['']
+  })
 
-  constructor(private contactsService:ContactsService) { }
+
+  constructor(private contactsService:ContactsService, private fb: FormBuilder) { }
 
   ngOnInit() {
 
@@ -85,10 +100,15 @@ export class ContactFormComponent implements OnInit {
   addNewPhoneToModel(){
     // Accedemos al geter phones.
     this.phones.push(
-      new FormGroup({
-        type: new FormControl(null),
-        number: new FormControl('')
+      this.fb.group({
+        type: [null],
+        number: ['']
       })
+      // forma vieja con FormGroup
+      // new FormGroup({
+      //   type: new FormControl(null),
+      //   number: new FormControl('')
+      // })
     );
   }
 
