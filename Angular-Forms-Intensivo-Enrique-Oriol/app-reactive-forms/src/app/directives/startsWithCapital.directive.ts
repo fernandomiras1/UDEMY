@@ -1,7 +1,7 @@
 import { ValidatorFn, AbstractControl, ValidationErrors, NG_VALIDATORS, Validator } from '@angular/forms';
 import { Directive, Input } from '@angular/core';
 
-
+// En reactive Forms lo que necesitamos es la funcion Sola, No la Directiva.
 export function startsWithCapitalValidator():ValidatorFn {
     // ValidatorFn: debe retornar un validatorError o null
     // AbstractControl: un control de Formulario

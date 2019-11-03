@@ -1,24 +1,43 @@
-<form [formGroup]="contactForm">    
+<!-- formGroup: Te permite agrupar un conjunto de campos de entrada -->
+<form [formGroup]="contactForm" (submit)="addContact()">    
     <!-- image field -->
     <div class="form-item-image">
         <img [src]="contactForm.value.picture">
         <input type="file" accept=".png,.jpg,.jpeg" (change)=addImage($event)>
     </div>
 
-    <!-- name field -->
+    <!-- name field con Validaciones en Formularios Reactivos -->
     <div class="form-item">
         <label for="name">Name:</label>
         <input type="text" id="name" formControlName="name">
+        <ng-container *ngIf="!name.valid && name.touched">
+            <p *ngIf="name.errors.required" class="error-message">
+                This field is required !!
+            </p>
+            <p *ngIf="name.errors.minlength" class="error-message">
+                This needs at least 2 characters !!
+            </p>
+            <p *ngIf="name.errors.startsWithCapital && !name.errors.minlength" class="error-message">
+                The name should start with capital letter !!
+            </p>
+        </ng-container>
+        
     </div>
 
     <!-- phones field -->
-    <div class="form-item" formGroupName="phone">
-        <label for="phone-type">Phone</label>
-        <select id="phone-type" formControlName="type">
-            <option [value]="type" *ngFor="let type of phoneTypes">{{type}}</option>
-        </select>
-        <input type="tel" id="phone-number" formControlName="number">
-        <!-- <p class="form-action" (click)="addNewPhoneToModel()">Add phone +</p> -->
+
+    <!-- formArrayName: Viculamos mi array creado en el FormArray en el tempalte -->
+    <div class="form-group" formArrayName="phones">
+        <p>Phones:</p>
+        <!-- formGroupName: de por si es unico -->
+        <div *ngFor="let phone of phones.controls; let i=index" class="form-item" [formGroupName]="i">
+            <label for="phone-type">Phone</label>
+            <select id="phone-type" formControlName="type">
+                <option [value]="type" *ngFor="let type of phoneTypes">{{type}}</option>
+            </select>
+            <input type="tel" id="phone-number" formControlName="number">
+        </div>
+        <p class="form-action" (click)="addNewPhoneToModel()">Add phone +</p>
     </div>
 
     <!-- email field -->
@@ -30,11 +49,11 @@
     <!-- address field -->
     <div class="form-item">
         <label for="address">Adress:</label>
-        <input type="text" id="address" formControlName="address">
+        <input type="text" id="address" formControlName="direction">
     </div>
 
     <!-- submit button -->
-    <button class="form-button" type="submit">
+    <button class="form-button" type="submit" [disabled]="contactForm.invalid">
         Add contact
     </button>
     
