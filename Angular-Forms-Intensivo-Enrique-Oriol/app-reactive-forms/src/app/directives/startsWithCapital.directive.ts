@@ -2,19 +2,19 @@ import { ValidatorFn, AbstractControl, ValidationErrors, NG_VALIDATORS, Validato
 import { Directive, Input } from '@angular/core';
 
 // En reactive Forms lo que necesitamos es la funcion Sola, No la Directiva.
-export function startsWithCapitalValidator():ValidatorFn {
+export function startsWithCapitalValidator(): ValidatorFn {
     // ValidatorFn: debe retornar un validatorError o null
     // AbstractControl: un control de Formulario
     return (control: AbstractControl): ValidationErrors | null => {
-        if(!control.value){
+        if (!control.value) {
             // si no hay contendio, desactivo el validador cono si no hubiera ningun error
             return null;
         }
         // El primero elemento entre la A y la Z Mayusculas y luego uso el test para compararlo con control.value
         const valid = /^[A-Z]/.test(control.value);
         // si no se cumple devolvemos un objeto con el nombre del error. y la info que quiero mostar
-        return valid ? null : {'startsWithCapital':{value:control.value}};
-    }
+        return valid ? null : {startsWithCapital: {value: control.value}};
+    };
 }
 
 
@@ -29,7 +29,7 @@ export class StartsWithCapitalValidatorDirective implements Validator {
     @Input('startsWithCapital') isActive: boolean;
 
     // Te obliga a usar el metodo validate cuando hacemos un implements Validator
-    validate(control:AbstractControl):(ValidationErrors | null){
+    validate(control: AbstractControl): (ValidationErrors | null) {
         return !this.isActive ? null : startsWithCapitalValidator()(control);
     }
 }

@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick(){
+  onClick() {
     this.clicked.emit(this.contact.id);
   }
 
