@@ -35,6 +35,10 @@ app.get('*.*', express.static(distFolder, {
     maxAge: '1y'
 }));
 
+app.get('*', (req, res) => {
+    // especificamos que queremos ver en el render
+    res.render('index', {req});
+});
 
 app.listen(9000, () => {
     console.log(`Angular Universal Node Express server listening on http://localhost:9000`);

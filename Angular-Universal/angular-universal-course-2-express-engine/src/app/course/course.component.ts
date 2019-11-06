@@ -19,30 +19,37 @@ import {Meta, Title} from '@angular/platform-browser';
 export class CourseComponent implements OnInit {
 
 
-    course:Course;
+    course: Course;
 
     dataSource: MatTableDataSource<Lesson>;
 
-    displayedColumns= ["seqNo", "description", "duration"];
+    displayedColumns= ['seqNo', 'description', 'duration'];
 
 
     constructor(
         private route: ActivatedRoute,
+        private title: Title,
+        private meta: Meta,
         private coursesService: CoursesService) {
-
     }
 
 
 
     ngOnInit() {
 
-        this.course = this.route.snapshot.data["course"];
+    this.course = this.route.snapshot.data['course'];
 
-        this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource([]);
 
-        this.coursesService.findAllCourseLessons(this.course.id)
-            .subscribe(lessons => this.dataSource.data = lessons);
-        }
+    this.coursesService.findAllCourseLessons(this.course.id)
+        .subscribe(lessons => this.dataSource.data = lessons);
+
+    // seteamos el titulo en google Crhome
+    this.title.setTitle(this.course.description);
+    // Agregamos los meta tag para el posicionamiento con google
+    this.meta.addTag({ name: 'description', content: this.course.description });
+    }
+
 
 
 }
