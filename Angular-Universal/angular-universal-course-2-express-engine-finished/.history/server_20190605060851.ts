@@ -37,8 +37,8 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(7000, () => {
-    console.log(`Angular Universal Node Express server listening TERMINADO on http://localhost:7000`);
+app.listen(9000, () => {
+    console.log(`Angular Universal Node Express server listening on http://localhost:9000`);
 });
 
 

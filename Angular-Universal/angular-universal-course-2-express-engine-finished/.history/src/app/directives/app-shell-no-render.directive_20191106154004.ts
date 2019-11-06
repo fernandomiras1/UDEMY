@@ -2,10 +2,9 @@ import {Directive, Inject, OnInit, PLATFORM_ID, TemplateRef, ViewContainerRef} f
 import {isPlatformServer} from '@angular/common';
 
 /**
- * Esta directiva aplicada en un elemento indica que queremos renderizar
- * el elemento solo si el renderizado se realiza del lado del cliente
- * (NO forma parte del Shell, que se genera del lado del servidor).
- * Si el renderizado ocurre en el lado del servidor, el elemento no se dibuja.
+ * This directive applied on an element indicate that we want to render
+ * the element only if the rendering is done client-side (NOT part of the Shell, which is generated server-side).
+ * If the rendering happens server-side, the element is not drawn.
  */
 
 @Directive({

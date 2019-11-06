@@ -5,7 +5,7 @@ import {isPlatformServer} from '@angular/common';
  * Esta directiva aplicada en un elemento indica que queremos renderizar
  * el elemento solo si el renderizado se realiza del lado del cliente
  * (NO forma parte del Shell, que se genera del lado del servidor).
- * Si el renderizado ocurre en el lado del servidor, el elemento no se dibuja.
+ * If the rendering happens server-side, the element is not drawn.
  */
 
 @Directive({
