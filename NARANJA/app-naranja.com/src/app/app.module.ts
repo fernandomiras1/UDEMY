@@ -15,25 +15,33 @@ import { GraficosTestComponent } from './graficos-test/graficos-test.component';
 import { ChartsModule } from 'ng2-charts';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    VirtualComponent,
-    DragComponent,
-    PaisesComponent,
-    GraficosTestComponent,
-    FormComponent
-  ],
-  imports: [
-    ReactiveFormsModule,
-    BrowserModule,
-    ScrollingModule,
-    DragDropModule,
-    HttpClientModule,
-    ChartsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      VirtualComponent,
+      DragComponent,
+      PaisesComponent,
+      GraficosTestComponent,
+      FormComponent,
+      HomeComponent,
+      FooterComponent,
+      HeaderComponent
+   ],
+   imports: [
+      ReactiveFormsModule,
+      BrowserModule,
+      ScrollingModule,
+      DragDropModule,
+      HttpClientModule,
+      ChartsModule
+   ],
+   providers: [],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }
