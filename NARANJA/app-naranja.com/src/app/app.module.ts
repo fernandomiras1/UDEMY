@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { LazysizesDirective } from './lazysizes.directive';
 
 @NgModule({
    declarations: [
@@ -29,7 +30,8 @@ import { HeaderComponent } from './header/header.component';
       FormComponent,
       HomeComponent,
       FooterComponent,
-      HeaderComponent
+      HeaderComponent,
+      LazysizesDirective
    ],
    imports: [
       ReactiveFormsModule,

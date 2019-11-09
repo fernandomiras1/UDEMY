@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
       <div class="four columns">
-          <img src="assets/img/logo.jpg" id="logo">
+          <img [appDatasrc]="imgLogo" class="lazyload" id="logo">
       </div>
       <div class="two columns u-pull-right">
           <ul>
               <li class="submenu">
-                      <img src="assets/img/cart.png" id="img-carrito">
+                      <img [appDatasrc]="imgCard" class="lazyload" id="img-carrito">
                       <div id="carrito">
                               
                               <table id="lista-carrito" class="u-full-width">
