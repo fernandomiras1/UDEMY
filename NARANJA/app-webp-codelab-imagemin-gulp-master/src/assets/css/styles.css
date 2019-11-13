@@ -1,0 +1,19 @@
+/*
+Copyright 2018 Google LLC.
+SPDX-License-Identifier: Apache-2.0
+*/
+body {
+	text-align: center;
+}
+
+img {
+	border: 1px solid black;
+}
+.wrapper {
+	margin-bottom: 24px;
+}
+
+.wrapper .price{
+	font-size: 24px;
+
+}
