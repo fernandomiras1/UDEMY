@@ -1,0 +1,74 @@
+<!--
+Copyright 2018 Google LLC.
+SPDX-License-Identifier: Apache-2.0
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Imagemin Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>
+        Foobar Flowershop
+      </h1>
+      <p>We sell the best flowers!</p>
+    </header>
+    <div class="wrapper">
+      <hr>
+      <p>imagen flower1 en jpg normal</p>
+      <img src="assets/imgs/flower1.jpg" alt="">
+      <hr>
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower1.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower1.jpg">
+        <img src="assets/imgs/flower1.jpg" alt="">
+      </picture>
+      <div class="price">Violet bouquet- $9</div>
+    </div>
+    <div class="wrapper">
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower2.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower2.jpg">
+        <img src="assets/imgs/flower2.jpg" alt="">
+      </picture>
+      <div class="price">Cream bouquet - $5</div>
+    </div>
+    <div class="wrapper">
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower3.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower3.png">
+        <img src="assets/imgs/flower3.png" alt="">
+      </picture>
+      <div class="price">Light pink bouquet - $6</div>
+    </div>
+    <div class="wrapper">
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower4.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower4.png">
+        <img src="assets/imgs/flower4.png" alt="">
+      </picture>
+      <div class="price">Yellow bouquet - $8</div>
+    </div>
+    <div class="wrapper">
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower5.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower5.jpg">
+        <img src="assets/imgs/flower5.jpg" alt="">
+      </picture>
+      <div class="price">Polka dot bouquet - $11</div>
+    </div>
+    <div class="wrapper">
+      <picture>
+        <source type="image/webp" srcset="assets/imgs/flower6.webp">
+        <source type="image/jpeg" srcset="assets/imgs/flower6.jpg">
+        <img src="assets/imgs/flower6.jpg" alt="">
+      </picture>
+      <div class="price">Burgandy bouquet - $7</div>
+    </div>
+  </body>
+</html>

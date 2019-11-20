@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./contacts-list.component.scss']
 })
 export class ContactsListComponent implements OnInit {
-  public contacts$:Observable<Contact[]>;
+  public contacts$: Observable<Contact[]>;
   constructor(
-    public contactsService:ContactsService, 
+    public contactsService: ContactsService,
     public router: Router
   ) { }
 

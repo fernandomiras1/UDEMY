@@ -17,6 +17,7 @@ export function startsWithCapitalValidator(): ValidatorFn {
     };
 }
 
+
 @Directive({
   selector: '[startsWithCapital]',
   // useExisting: Le indicamos que tiene que usar la intancia concrea del validador en ves de la clase

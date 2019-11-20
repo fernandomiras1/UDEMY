@@ -8,20 +8,20 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  constructor(private router:Router, private authService:AuthService) { }
-  
+
+  constructor(private router: Router, private authService: AuthService) { }
+
   ngOnInit() {
   }
 
-  login(){
+  login() {
     this.authService.login().subscribe(user => {
-      if(user != null){
-        const destination = this.authService.redirectUrl ? 
+      if (user != null) {
+        const destination = this.authService.redirectUrl ?
         this.router.parseUrl(this.authService.redirectUrl) : '';
         this.router.navigateByUrl(destination);
       }
-    })
+    });
   }
 
 }

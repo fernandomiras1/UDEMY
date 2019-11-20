@@ -8,9 +8,9 @@ import { TitleService } from '../title.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public titleService:TitleService){ }
+  constructor(public titleService: TitleService) { }
 
   ngOnInit() {
-  } 
+  }
 
 }

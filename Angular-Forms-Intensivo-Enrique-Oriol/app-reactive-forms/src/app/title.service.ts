@@ -7,22 +7,22 @@ import { map, filter, switchMap, mapTo, tap } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class TitleService {
-    private titleSubject:Subject<string> = new Subject();
-    public title$:Observable<string> = this.titleSubject.asObservable();
+    private titleSubject: Subject<string> = new Subject();
+    public title$: Observable<string> = this.titleSubject.asObservable();
 
     constructor(
-        private router:Router,
-        private activatedRoute:ActivatedRoute
-    ){ 
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+    ) {
         this.init();
     }
 
-    init(){
+    init() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             mapTo(this.activatedRoute),
             switchMap(route => route.firstChild.data),
-            tap(data => console.log("DATA: ", data)),
+            tap(data => console.log('DATA: ', data)),
             map(data => data.title)
         ).subscribe(title => this.titleSubject.next(title));
     }
