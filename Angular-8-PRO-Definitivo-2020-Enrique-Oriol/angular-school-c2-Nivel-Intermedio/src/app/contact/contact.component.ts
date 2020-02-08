@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../contact.model';
-import { ContactsListComponent } from '../contacts-list/contacts-list.component';
 
 @Component({
   selector: 'app-contact',
@@ -10,16 +9,21 @@ import { ContactsListComponent } from '../contacts-list/contacts-list.component'
 export class ContactComponent implements OnInit {
 
   @Input() contact: Contact;
-  @Input() expanded: boolean = false;
+  @Input() expanded = false;
   @Output() clicked: EventEmitter<number> = new EventEmitter();
+  @Output() clickedService: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onClick(){
+  onClick() {
     this.clicked.emit(this.contact.id);
+  }
+
+  onServiceClick() {
+    this.clickedService.emit(this.contact.id);
   }
 
 }
