@@ -1,3 +1,11 @@
 <ng-container *ngIf="contactsService.selectedContact">
-  <app-contact [contact]="contactsService.selectedContact" [expanded]="true"></app-contact>
+  <div>
+    <app-contact
+      [openCard]="false"
+      [appHighlight]="true"
+      [color]="'#e9ccf9'"
+      [contact]="contactsService.selectedContact"
+      [expanded]="true">
+    </app-contact>
+  </div>
 </ng-container>

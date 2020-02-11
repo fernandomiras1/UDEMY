@@ -10,6 +10,7 @@ export class ContactComponent implements OnInit {
 
   @Input() contact: Contact;
   @Input() expanded = false;
+  @Input() openCard = true;
   @Output() clicked: EventEmitter<number> = new EventEmitter();
   @Output() clickedService: EventEmitter<number> = new EventEmitter();
 

@@ -7,7 +7,7 @@
     flex-direction: row;
     align-items: center;
     width: 300px;
-
+    cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.2s;
 
@@ -26,7 +26,7 @@
 
     &-detail{
         &-phone{
-            margin-top: -20px;            
+            margin-top: -20px;
             &-type{
                 color: gray;
                 font-weight: 600;
