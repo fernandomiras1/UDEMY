@@ -6,6 +6,7 @@ import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { HighlightDirective } from './highlight.directive';
+import { StickyBarComponent } from './sticky-bar/sticky-bar.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { HighlightDirective } from './highlight.directive';
     ContactsListComponent,
     ContactComponent,
     ContactDetailComponent,
-    HighlightDirective
+    HighlightDirective,
+    StickyBarComponent
   ],
   imports: [
     BrowserModule

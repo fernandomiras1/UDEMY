@@ -1,0 +1,31 @@
+.container{
+  height: 60px;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons{
+  display: flex;
+  align-items: center;
+}
+// ng-deep es una palabra recerbada de angular.
+// permite aplicar estilos a algo que viene desde afuera en este caso a la proyeccion de contenido
+// para que traspase la encasulacion de estilos del propio componente
+::ng-deep h1{
+  margin-top: 4px;
+  color: green;
+}
+
+.sticky-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ccc6c6;
+  margin: 0;
+  padding-left: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
