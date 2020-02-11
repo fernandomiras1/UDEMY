@@ -3,7 +3,7 @@
 <div class="container" [style.margin-top.px]="isStickyHeader ? 80 : 0">
 
     <div class="contacts-list">
-        <app-contact *ngFor="let contact of contacts"
+        <app-contact [appHighlight]="contactsService.selectedContact?.id == contact.id" *ngFor="let contact of contacts"
             [contact]="contact"
             (clicked)="onContactSelected($event)"
             (clickedService)="onContactSelectedService($event)">
