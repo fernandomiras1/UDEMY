@@ -8,7 +8,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 })
 export class VirtualComponent implements OnInit {
 
-  @ViewChild( CdkVirtualScrollViewport ) viewPort: CdkVirtualScrollViewport; 
+  @ViewChild(CdkVirtualScrollViewport, { static: true }) viewPort: CdkVirtualScrollViewport; 
 
   // Genero un array de 500 item con 0
   personas = Array(500).fill(0);
