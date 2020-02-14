@@ -1,4 +1,8 @@
 <div class="container" [class.sticky-header]="isSticky">
   <!-- Usamos proyeccion de contenido -->
   <ng-content></ng-content>
+
+  <div class="buttons">
+    <ng-content select="app-bar-button"></ng-content>
+  </div>
 </div>

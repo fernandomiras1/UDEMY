@@ -22,7 +22,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  // width: 100%;
+  width: calc(100% - 16px);
   background: #ccc6c6;
   margin: 0;
   padding-left: 8px;
