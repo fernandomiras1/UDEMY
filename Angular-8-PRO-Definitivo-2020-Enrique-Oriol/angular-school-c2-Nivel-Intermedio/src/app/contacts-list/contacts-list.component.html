@@ -1,8 +1,8 @@
 <!-- Pryeccion de contenido. -->
 <app-sticky-bar #stickybar>
-  <h1>Contacts</h1>
-  <button>Add</button>
-  <button>Search</button>
+  <h1 #barHeader>Contacts</h1>
+  <app-bar-button>Add</app-bar-button>
+  <app-bar-button>Search</app-bar-button>
 </app-sticky-bar>
 
 <div class="container" [style.margin-top.px]="stickybar.isSticky ? 80 : 0">

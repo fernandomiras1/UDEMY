@@ -1,0 +1,8 @@
+<app-header title="Contacts"></app-header>
+
+<div class="container">
+    <div class="contacts-list">
+        <app-contact *ngFor="let contact of contacts"
+        [contact]="contact" (clicked)="onContactSelected($event)"></app-contact>
+    </div>
+</div>

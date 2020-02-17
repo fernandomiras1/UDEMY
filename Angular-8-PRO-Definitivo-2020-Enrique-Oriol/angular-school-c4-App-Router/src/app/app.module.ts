@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
-import { HighlightDirective } from './highlight.directive';
-import { StickyBarComponent } from './sticky-bar/sticky-bar.component';
-import { BarButtonComponent } from './bar-button/bar-button.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -15,9 +15,9 @@ import { BarButtonComponent } from './bar-button/bar-button.component';
     ContactsListComponent,
     ContactComponent,
     ContactDetailComponent,
-    HighlightDirective,
-    StickyBarComponent,
-    BarButtonComponent
+    HeaderComponent,
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule
