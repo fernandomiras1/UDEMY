@@ -19,3 +19,4 @@ npm install -g npm-check-updates
 luego poner este comando. 
 ncu   
 
+https://www.vvzixun.com/index.php/code/5ab76bf3f7a548430ee37fec3efecb33
