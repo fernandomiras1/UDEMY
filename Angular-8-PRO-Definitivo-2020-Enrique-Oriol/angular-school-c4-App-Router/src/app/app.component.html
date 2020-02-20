@@ -1,4 +1,9 @@
-<app-contacts-list></app-contacts-list>
-<!-- <app-contact-detail></app-contact-detail> -->
-<!-- <app-login></app-login> -->
-<!-- <app-not-found></app-not-found> -->
+<app-header>
+  <!-- routerLinkActive: Activa una clase especifica -->
+  <a routerLink="/contacts" routerLinkActive="active-link">Contacts</a>
+  <a routerLink="/contact-detail" routerLinkActive="active-link">Contact detail</a>
+  <a routerLink="/login" routerLinkActive="active-link">Login</a>
+</app-header>
+
+
+<router-outlet></router-outlet>

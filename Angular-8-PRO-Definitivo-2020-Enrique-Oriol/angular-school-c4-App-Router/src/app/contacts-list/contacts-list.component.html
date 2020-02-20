@@ -1,8 +1,11 @@
-<app-header title="Contacts"></app-header>
-
 <div class="container">
     <div class="contacts-list">
-        <app-contact *ngFor="let contact of contacts"
-        [contact]="contact" (clicked)="onContactSelected($event)"></app-contact>
+      <!-- routerLink: Lo mismo que hacemos en el metodo onContactSelected, lo podemos hacer en el template -->
+      <!-- (clicked)="onContactSelected($event)" -->
+      <app-contact *ngFor="let contact of contacts"
+        [contact]="contact"
+        [routerLink]="['/contact-detail', contact.id, {foo: 'bar'}]"
+        [queryParams]="{param1: true, param2: 'hola'}">
+      </app-contact>
     </div>
 </div>
