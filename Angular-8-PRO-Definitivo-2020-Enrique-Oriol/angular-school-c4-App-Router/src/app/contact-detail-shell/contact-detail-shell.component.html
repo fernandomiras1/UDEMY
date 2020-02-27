@@ -1,0 +1,5 @@
+<!-- de esta forma sabemos si el router outel tiene infrmacion para mostrar o no -->
+<h2 *ngIf="!childRoute.isActivated">
+  Please, select a contact first
+</h2>
+<router-outlet #childRoute="outlet"></router-outlet>

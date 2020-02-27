@@ -22,8 +22,9 @@ h1{
 .sticky-header{
     position: fixed;
     left: 0;
+    top: 0;
     width: calc(100% - 16px);
-    background: white;
+    background:#e7e1ff;
     margin: 0;
     padding-left: 8px;
     padding-top: 2px;
