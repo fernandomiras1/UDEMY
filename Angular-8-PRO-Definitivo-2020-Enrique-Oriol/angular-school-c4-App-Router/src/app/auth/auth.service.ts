@@ -15,12 +15,15 @@ export class AuthService {
   public user: User = null;
   // Guardamo la ultima ruta que estuvo el user.
   public redirectUrl: string = null;
-  constructor() { }
+  constructor() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+  }
 
   login(): Observable<User> {
     return of({name: 'Peter', email: 'peter@gmail.com'}).pipe(
       delay(750),
-      tap(user => this.user = user)
+      tap(user => this.user = user),
+      tap(user => localStorage.setItem('user', JSON.stringify(user)))
     );
   }
 

@@ -18,14 +18,16 @@ export class ContactDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+   // obtenemo los datos del resolver
+   this.route.data.subscribe(data => this.contact = data.contact);
     // Buscamos el parameto de la UR
-    this.route.paramMap.pipe(
-      tap(params => console.log('Sarasa', params.get('sarasa'))),
-      map(params => Number(params.get('id')))
-    )
-    .subscribe(id => {
-      this.contact = this.contactsService.getContactById(id);
-    });
+    // this.route.paramMap.pipe(
+    //   tap(params => console.log('Sarasa', params.get('sarasa'))),
+    //   map(params => Number(params.get('id')))
+    // )
+    // .subscribe(id => {
+    //   this.contact = this.contactsService.getContactById(id);
+    // });
 
     // Obtenemos los queryParams
     this.route.queryParamMap.subscribe(params => {
