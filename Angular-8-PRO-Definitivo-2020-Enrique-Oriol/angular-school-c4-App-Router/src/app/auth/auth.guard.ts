@@ -16,6 +16,13 @@ export class AuthGuard implements CanActivate {
     return this.checkLogin(state.url);
   }
 
+  // Para manejar routas con lasyLoad. Para que cuando no tenga permisos para navegar a esa ruta.
+  // Que no descage los modulos.
+  // canLoad(route: Route, segments: UrlSegment[]): boolean {
+  //   const url = segments.map(item => item.path).join('/');
+  //   return this.checkLogin(url);
+  // }
+
   checkLogin(url: string) {
     if (this.authService.user != null) {
       return true;
