@@ -3,7 +3,11 @@
   <a routerLink="/contacts" routerLinkActive="active-link">Contacts</a>
   <a routerLink="/contact-detail" routerLinkActive="active-link">Contact detail</a>
   <a routerLink="/login" routerLinkActive="active-link">Login</a>
+  <!-- usamos la rutas secundara con el objeto llamado outlets. -->
+  <!-- lo que estamos haciendo, es cargame el compoenete asociado al componete log-out a un oulter llamado popup -->
+  <a [routerLink]="[{ outlets: { popup: ['logout'] } }]">Logout</a>
 </app-header>
 
 
 <router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>

@@ -13,7 +13,8 @@ interface User {
 export class AuthService {
 
   public user: User = null;
-
+  // Guardamo la ultima ruta que estuvo el user.
+  public redirectUrl: string = null;
   constructor() { }
 
   login(): Observable<User> {

@@ -10,13 +10,17 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ContactDetailShellComponent } from './contact-detail-shell/contact-detail-shell.component';
+import { LogOutComponent } from './log-out/log-out.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
-  {path: 'contacts', component: ContactsListComponent, data: {title: 'Contacts'}},
+  {path: 'contacts', component: ContactsListComponent, data: {title: 'Contacts'}, canActivate: [AuthGuard]},
   {path: 'contact-detail', component: ContactDetailShellComponent, data: {title: 'Contact detail'}, children: [
     { path: ':id', component: ContactDetailComponent }
-  ]},
+  ], canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
+  // le ponemos el outlet con el nombre del name de routeroutlet
+  {path: 'logout', component: LogOutComponent, outlet: 'popup', canActivate: [AuthGuard]},
   {path: 'not-found', component: NotFoundComponent, data: {title: 'Not Found - 404'}},
   {path: '', redirectTo: '/contacts', pathMatch: 'full'},
   // Para cualquier otra cosa ** que carge NotFoundComponent. <siempre tiene que ir al final>
@@ -31,7 +35,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     LoginComponent,
     NotFoundComponent,
-    ContactDetailShellComponent
+    ContactDetailShellComponent,
+    LogOutComponent
   ],
   imports: [
     BrowserModule,
