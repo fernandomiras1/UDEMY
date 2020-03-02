@@ -20,6 +20,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LazysizesDirective } from './lazysizes.directive';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -34,6 +36,7 @@ import { LazysizesDirective } from './lazysizes.directive';
       LazysizesDirective
    ],
    imports: [
+      BrowserAnimationsModule,
       ReactiveFormsModule,
       BrowserModule,
       ScrollingModule,
