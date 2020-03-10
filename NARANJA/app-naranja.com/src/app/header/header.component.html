@@ -1,4 +1,7 @@
-<nav #nav class="nav nav-aberta" [@homeState]="showHeader ? 'hide': 'show'">
+
+<!-- De esta forma usamos Angular Animation, lo unico malo es que baja la performance en SEO con SSR -->
+<!-- <nav #nav class="nav nav-aberta" [@homeState]="showHeader ? 'hide': 'show'"> -->
+<nav #nav class="nav nav-aberta" [ngClass]="{'showHeader': showHeader, 'hideHeader': !showHeader}">
 	<div class="wrap">
 			<ul class="listaNav">
 					<li><a href="#">Item 1</a></li>
