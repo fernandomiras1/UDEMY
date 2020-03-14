@@ -1,0 +1,10 @@
+<div class="contact" (click)="onClick()">
+  <img class="contact-image" [src]="contact.picture">
+  <div class="contact-detail">
+    <h1 class="contact-detail-name">{{contact.name}}</h1>
+    <p class="contact-detail-phone" *ngIf="contact.phones?.length">
+      <span class="contact-detail-phone-type">({{contact.phones[0].type}}) - </span>
+      <span class="contact-detail-phone-number">{{contact.phones[0].number}}</span>
+    </p>
+  </div>
+</div>

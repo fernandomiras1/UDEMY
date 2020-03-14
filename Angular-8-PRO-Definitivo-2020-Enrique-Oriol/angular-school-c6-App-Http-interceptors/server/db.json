@@ -1,0 +1,165 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Peter",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "work",
+          "number": 93200621621
+        },
+        {
+          "type": "home",
+          "number": 93444001100
+        },
+        {
+          "type": "mobile",
+          "number": 629304050
+        }
+      ],
+      "email": "peter@email.com",
+      "address": "Paseo de Gracia 20, 08002, Barcelona"
+    },
+    {
+      "id": 2,
+      "name": "Melissa",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "mobile",
+          "number": 600112233
+        }
+      ],
+      "email": "meli@sa.com",
+      "address": "Plaza Cataluña 1, 08002, Barcelona"      
+    },
+    {
+      "id": 3,
+      "name": "Mark",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "home",
+          "number": 98765432
+        },
+        {
+          "type": "mobile",
+          "number": 111111122
+        }
+      ],
+      "email": "mark@email.com",
+      "address": "Raval 30, 08020, Barcelona"
+    },
+    {
+      "id": 4,
+      "name": "Laura",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "mobile",
+          "number": 515151515
+        }
+      ],
+      "email": "lauri@email.com",
+      "address": "Paseo San Juan 12, 08021, Barcelona"
+    },
+    {
+      "id": 5,
+      "name": "Beckie",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "mobile",
+          "number": 111223344
+        }
+      ],
+      "email": "beckie@email.com",
+      "address": "Paseo Marítimo 32, 08003, Barcelona"
+    },
+    {
+      "id": 6,
+      "name": "Johan",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "home",
+          "number": 123456789
+        },
+        {
+          "type": "mobile",
+          "number": 111111122
+        }
+      ],
+      "email": "johan@email.com",
+      "address": "Raval 7, 08020, Barcelona"
+    },
+    {
+      "id": 7,
+      "name": "Martin",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "work",
+          "number": 222334455
+        },
+        {
+          "type": "mobile",
+          "number": 222222222
+        }
+      ],
+      "email": "martin@email.com",
+      "address": "Boquería 12, 08021, Barcelona"
+    },
+    {
+      "id": 8,
+      "name": "Samantha",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "work",
+          "number": 931224455
+        },
+        {
+          "type": "home",
+          "number": 934122233
+        },
+        {
+          "type": "mobile",
+          "number": 662113344
+        }
+      ],
+      "email": "samantha@email.com",
+      "address": "Plaza Pau Vila 1, 08039, Barcelona"
+    },
+    {
+      "id": 9,
+      "name": "Kaycee",
+      "picture": "http://localhost:3000/img/default-user.png",
+      "phones": [
+        {
+          "type": "mobile",
+          "number": 939876655
+        }
+      ],
+      "email": "kaycee@email.com",
+      "address": "Arago 356, 08032, Barcelona"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Bruce",
+      "email": "bwillis@universal.com",
+      "token": "insecuretoken",
+      "password": "pass1"
+    },
+    {
+      "id": 2,
+      "name": "Jhonny",
+      "email": "jdeep@universal.com",
+      "token": "1234567890",
+      "password": "pass2"
+    }
+  ]
+}

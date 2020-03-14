@@ -1,0 +1,17 @@
+.container{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+input{
+    height: 1.5em;
+    & + input{
+        margin-top: 4px;
+    }
+
+    &:last-of-type{
+        margin-bottom: 20px;
+    }
+}

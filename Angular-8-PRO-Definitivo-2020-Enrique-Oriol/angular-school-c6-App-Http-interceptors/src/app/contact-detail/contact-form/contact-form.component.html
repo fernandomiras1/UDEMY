@@ -1,0 +1,55 @@
+<form [formGroup]="contactForm" (ngSubmit)="submitForm()">    
+    <!-- image field -->
+    <div class="form-item-image">
+        <img [src]="contactForm.value.picture">
+        <input type="file" accept=".png,.jpg,.jpeg" (change)=addImage($event)>
+    </div>
+
+    <!-- name field -->
+    <div class="form-item">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+        <ng-container *ngIf="!name.valid && name.touched">
+            <p *ngIf="name.errors.required" class="error-message">
+                This field is required!!
+            </p>
+            <p *ngIf="name.errors.minlength" class="error-message">
+                A name needs at least 2 characters!!
+            </p>
+            <p *ngIf="name.errors.startsWithCapital && !name.errors.minlength" class="error-message">
+                The name should start with capital letter!!
+            </p>
+        </ng-container>
+    </div>
+
+    <!-- phones field -->
+    <div class="form-group" formArrayName="phones">
+        <p>Phones:</p>
+        <div class="form-item" *ngFor="let phone of phones.controls; let i=index" [formGroupName]="i">
+            <label for="phone-type">Phone</label>
+            <select id="phone-type" formControlName="type">
+                <option [value]="type" *ngFor="let type of phoneTypes">{{type}}</option>
+            </select>
+            <input type="tel" id="phone-number" formControlName="number">
+        </div>
+        <p class="form-action" (click)="addNewPhoneToModel()">Add phone +</p>
+    </div>
+
+    <!-- email field -->
+    <div class="form-item">
+        <label for="email">Email:</label>
+        <input type="text" id="email" formControlName="email">
+    </div>
+
+    <!-- address field -->
+    <div class="form-item">
+        <label for="address">Adress:</label>
+        <input type="text" id="address" formControlName="address">
+    </div>
+
+    <!-- submit button -->
+    <button class="form-button" type="submit" [disabled]="contactForm.invalid">
+        <ng-content></ng-content>
+    </button>
+    
+</form>

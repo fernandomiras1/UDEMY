@@ -1,0 +1,9 @@
+<app-header title="My contacts app">
+    <a routerLink="/contacts" routerLinkActive="active-link">Contacts</a>
+    <a routerLink="/contact-detail" routerLinkActive="active-link">Contact detail</a>
+    <a routerLink="/login" *ngIf="!authService.user" routerLinkActive="active-link">Login</a>
+    <a *ngIf="authService.user" [routerLink]="[{ outlets: { popup: ['logout'] } }]">Logout</a>
+</app-header>
+
+<router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>
