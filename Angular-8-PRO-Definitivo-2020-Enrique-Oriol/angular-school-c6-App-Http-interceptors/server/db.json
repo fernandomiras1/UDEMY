@@ -1,42 +1,8 @@
 {
   "contacts": [
     {
-      "id": 1,
-      "name": "Peter",
-      "picture": "http://localhost:3000/img/default-user.png",
-      "phones": [
-        {
-          "type": "work",
-          "number": 93200621621
-        },
-        {
-          "type": "home",
-          "number": 93444001100
-        },
-        {
-          "type": "mobile",
-          "number": 629304050
-        }
-      ],
-      "email": "peter@email.com",
-      "address": "Paseo de Gracia 20, 08002, Barcelona"
-    },
-    {
-      "id": 2,
-      "name": "Melissa",
-      "picture": "http://localhost:3000/img/default-user.png",
-      "phones": [
-        {
-          "type": "mobile",
-          "number": 600112233
-        }
-      ],
-      "email": "meli@sa.com",
-      "address": "Plaza Cataluña 1, 08002, Barcelona"      
-    },
-    {
       "id": 3,
-      "name": "Mark",
+      "name": "Mark 3",
       "picture": "http://localhost:3000/img/default-user.png",
       "phones": [
         {
@@ -49,7 +15,8 @@
         }
       ],
       "email": "mark@email.com",
-      "address": "Raval 30, 08020, Barcelona"
+      "address": "Raval 30, 08020, Barcelona",
+      "pictureFile": null
     },
     {
       "id": 4,
@@ -160,6 +127,18 @@
       "email": "jdeep@universal.com",
       "token": "1234567890",
       "password": "pass2"
+    },
+    {
+      "email": "test2@test.com",
+      "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+      "token": "a8qiv625ys",
+      "id": 3
+    },
+    {
+      "email": "test2@test.com",
+      "password": "5f4dcc3b5aa765d61d8327deb882cf99",
+      "token": "xd0k6tvetu",
+      "id": 4
     }
   ]
 }

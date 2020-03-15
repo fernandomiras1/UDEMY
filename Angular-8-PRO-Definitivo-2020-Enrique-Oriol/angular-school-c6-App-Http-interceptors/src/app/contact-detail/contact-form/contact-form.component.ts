@@ -13,12 +13,12 @@ import { zip } from 'rxjs';
 })
 export class ContactFormComponent implements OnInit {
 
-  @Input() contact:Contact;
-  @Output() submitContact:EventEmitter<Contact> = new EventEmitter();
-  @Output() valueChanges:EventEmitter<Contact> = new EventEmitter();
-  
-  public readonly phoneTypes:string[] = Object.values(PhoneType);
-  private pictureFile:File = null;
+  @Input() contact: Contact;
+  @Output() submitContact: EventEmitter<Contact> = new EventEmitter();
+  @Output() valueChanges: EventEmitter<Contact> = new EventEmitter();
+
+  public readonly phoneTypes: string[] = Object.values(PhoneType);
+  private pictureFile: File = null;
 
   public contactForm = this.fb.group({
     name: ['', [ Validators.required, Validators.minLength(2), startsWithCapitalValidator() ]],
@@ -33,14 +33,15 @@ export class ContactFormComponent implements OnInit {
     address: ['']
   });
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit(){
-    //init contact from input, if exists
-    if(this.contact)
+  ngOnInit() {
+    // init contact from input, if exists
+    if (this.contact) {
       this.setContact(this.contact);
+    }
 
-    //emit value changes only when status is valid
+    // emit value changes only when status is valid
     zip(this.contactForm.statusChanges, this.contactForm.valueChanges).pipe(
       filter( ([state, value]) => state == 'VALID' ),
       map(([state, value]) => value),
@@ -49,32 +50,32 @@ export class ContactFormComponent implements OnInit {
     });
   }
 
-  submitForm(){
-    //emit submission
-    this.submitContact.emit({...this.contactForm.value, pictureFile:this.pictureFile});
-    //reset form
+  submitForm() {
+    // emit submission
+    this.submitContact.emit({...this.contactForm.value, pictureFile: this.pictureFile});
+    // reset form
     this.contactForm.reset({
-      picture:'assets/default-user.png',
+      picture: 'assets/default-user.png',
     });
-    //and clear structure
+    // and clear structure
     this.phones.clear();
     this.addNewPhoneToModel();
   }
 
-  //update contact form values from input contact
-  private setContact(contact){
+  // update contact form values from input contact
+  private setContact(contact) {
     this.contactForm.reset();
     this.phones.clear();
-    for(let i=0; i< contact.phones.length; i++){
+    for (let i = 0; i < contact.phones.length; i++) {
       this.addNewPhoneToModel();
     }
-    //extract picture file from contact, so there's no missmatch with form structure
+    // extract picture file from contact, so there's no missmatch with form structure
     const {pictureFile, ...cleanContact} = contact;
     this.contactForm.setValue(cleanContact);
   }
 
-  //add new phone to the phones array
-  addNewPhoneToModel(){
+  // add new phone to the phones array
+  addNewPhoneToModel() {
     this.phones.push(
       this.fb.group({
         type: [null],
@@ -83,24 +84,24 @@ export class ContactFormComponent implements OnInit {
     );
   }
 
-  //add image to the form, from file input
-  addImage(event){
+  // add image to the form, from file input
+  addImage(event) {
     const file = event.target.files[0];
     this.pictureFile = file;
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (evt) => {
       this.contactForm.patchValue({
-        picture:reader.result
+        picture: reader.result
       });
-    }
+    };
   }
 
-  get name(){
+  get name() {
     return this.contactForm.get('name');
   }
 
-  get phones(){
+  get phones() {
     return this.contactForm.get('phones') as FormArray;
   }
 

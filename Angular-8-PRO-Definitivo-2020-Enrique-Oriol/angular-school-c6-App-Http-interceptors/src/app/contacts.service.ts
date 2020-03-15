@@ -11,38 +11,45 @@ import { AuthService } from './auth/auth.service';
 })
 export class ContactsService {
     private resourceUrl = environment.apiUrl + '/contacts';
-    
-    constructor(private http:HttpClient, private auth:AuthService) { 
+
+    constructor(private http: HttpClient, private auth: AuthService) {
     }
 
-    getContacts(){
+    getContacts() {
         return this.http.get<Contact[]>(this.resourceUrl);
     }
 
-    getContactById(id){
+    getContactById(id) {
         return this.http.get<Contact>(`${this.resourceUrl}/${id}`);
     }
 
-    public addContact(contact:Contact){
+    public addContact(contact: Contact) {
+        // una vez q agregamos el contacto, sumimos la foto
         return this.http.post(this.resourceUrl, contact).pipe(
-            mergeMap( (res:Contact) => this.updateContactImage(res, contact.pictureFile) )
+            // usamos mergeMap: porq permite lanzar un nuevo obsevavle en el interior de otro observavle. y subscribice al resultado
+            mergeMap((res: Contact) => this.updateContactImage(res, contact.pictureFile))
         );
     }
 
-    public updateContact(contact:Contact){
-        return this.http.patch(`${this.resourceUrl}/${contact.id}`, contact).pipe( mergeMap( (res:Contact) => this.updateContactImage(res, contact.pictureFile) ));
+    public updateContact(contact: Contact) {
+        // put: reemplaza el objeto completo por el que le pasas.
+        // patch: solo reemplaza los campos que les envias, mientras q el restro los maniene
+        return this.http.patch(`${this.resourceUrl}/${contact.id}`, contact).pipe(
+            mergeMap( (res: Contact) => this.updateContactImage(res, contact.pictureFile))
+        );
     }
 
-    private updateContactImage(contact:Contact, file:File){
-        if(!file){
+    // permite subir la imagen por separado sacandolo en base 64 y pasando a un path donde se va alojar la imagen en el srv
+    private updateContactImage(contact: Contact, file: File) {
+        if (!file) {
             return of(contact);
         }
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append('picture', file, file.name);
         return this.http.patch(`${this.resourceUrl}/${contact.id}`, formData);
     }
 
-    public removeContact(contact:Contact){
+    public removeContact(contact: Contact) {
         return this.http.delete(`${this.resourceUrl}/${contact.id}`);
     }
 

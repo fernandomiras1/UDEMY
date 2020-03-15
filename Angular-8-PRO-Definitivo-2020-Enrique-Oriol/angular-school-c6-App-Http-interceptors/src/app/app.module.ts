@@ -15,7 +15,6 @@ import { ContactDetailModule } from './contact-detail/contact-detail.module';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptor } from './auth/token-interceptor';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +32,8 @@ import { TokenInterceptor } from './auth/token-interceptor';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
+  // usamos interceptor
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

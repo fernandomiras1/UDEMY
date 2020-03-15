@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router'; 
+import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactDetailComponent } from './contact-detail.component';
 import { ContactDetailShellComponent } from './contact-detail-shell/contact-detail-shell.component';
@@ -11,18 +11,18 @@ import { StartsWithCapitalValidatorDirective } from '../directives/startsWithCap
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 
-const contactDetailRoutes:Routes = [
-    { path: 'contact-detail', component: ContactDetailShellComponent, data:{title: "Contact detail"},
+const contactDetailRoutes: Routes = [
+    { path: 'contact-detail', component: ContactDetailShellComponent, data: {title: 'Contact detail'},
     children: [
-      { path: '', component:AddContactComponent },
-      { path: 'edit/:id', component:EditContactComponent, 
-        resolve:{ contact:ContactDetailResolverService } 
+      { path: '', component: AddContactComponent },
+      { path: 'edit/:id', component: EditContactComponent,
+        resolve: { contact: ContactDetailResolverService }
       },
-      { path: ':id', component:ContactDetailComponent, 
-        resolve:{ contact:ContactDetailResolverService }
+      { path: ':id', component: ContactDetailComponent,
+        resolve: { contact: ContactDetailResolverService }
       }
     ],
-    canActivate: [ AuthGuard ] 
+    canActivate: [ AuthGuard ]
   },
 ];
 
@@ -32,7 +32,7 @@ const contactDetailRoutes:Routes = [
         RouterModule.forChild(contactDetailRoutes),
         ReactiveFormsModule
     ],
-    declarations:[
+    declarations: [
         ContactDetailComponent,
         ContactDetailShellComponent,
         ContactFormComponent,

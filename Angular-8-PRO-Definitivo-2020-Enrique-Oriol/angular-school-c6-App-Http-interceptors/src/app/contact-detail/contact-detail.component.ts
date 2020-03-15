@@ -11,11 +11,11 @@ import { Contact } from '../contact.model';
 })
 export class ContactDetailComponent implements OnInit {
 
-  public contact:Contact;
+  public contact: Contact;
 
   constructor(
-    public contactsService:ContactsService, 
-    public route:ActivatedRoute
+    public contactsService: ContactsService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit() {

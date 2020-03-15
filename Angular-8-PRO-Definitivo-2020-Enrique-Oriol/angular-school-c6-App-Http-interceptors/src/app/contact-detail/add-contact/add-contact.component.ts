@@ -5,20 +5,20 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-contact',
-  template: `<app-contact-form 
-                [contact]="contact" 
+  template: `<app-contact-form
+                [contact]="contact"
                 (valueChanges)="saveInLocalStorage($event)"
                 (submitContact)="addContact($event)">
                 Add contact
               </app-contact-form>`
 })
 export class AddContactComponent implements OnInit {
-  
+
   public contact: Contact;
-  
+
   constructor(
     private contactsService: ContactsService,
-    private router:Router
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class AddContactComponent implements OnInit {
   }
 
   addContact(contact) {
-    this.contactsService.addContact(contact).subscribe(response =>{
+    this.contactsService.addContact(contact).subscribe(response => {
       localStorage.removeItem('contact');
       this.router.navigate(['/']);
     });

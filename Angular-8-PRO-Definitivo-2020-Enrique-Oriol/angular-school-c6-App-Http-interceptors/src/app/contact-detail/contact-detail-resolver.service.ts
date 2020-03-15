@@ -10,11 +10,11 @@ import { catchError } from 'rxjs/operators';
 })
 export class ContactDetailResolverService implements Resolve<Contact> {
     constructor(
-        private contactsService:ContactsService, 
-        private router:Router
-    ){ }
+        private contactsService: ContactsService,
+        private router: Router
+    ) { }
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<Contact>{
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Contact> {
         const id = Number(route.paramMap.get('id'));
         return this.contactsService.getContactById(id)
         .pipe(
