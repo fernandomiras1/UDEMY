@@ -1,0 +1,44 @@
+.contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+
+    &-header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        &-image{
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            margin: 8px 16px;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        h1{
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+
+
+    &-detail{
+        width: calc(100% - 40px);
+        padding:20px;
+
+        h2{
+            margin-top: 40px;
+        }
+
+        &-phone{            
+            &-type{
+                color: gray;
+                font-weight: 600;
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+.contacts-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 368px;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.list-item{
+    display: flex;
+}
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: -52px;
+}
+
+.action{
+    width: 42px;
+    height: 42px;
+    background-size: 24px !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    &:hover{
+        background-size: 28px !important;
+    }
+}
+
+.edit{
+    background-image: url('/assets/pen.svg');
+}
+
+.delete{
+    background-image: url('/assets/garbage.svg');
+}
