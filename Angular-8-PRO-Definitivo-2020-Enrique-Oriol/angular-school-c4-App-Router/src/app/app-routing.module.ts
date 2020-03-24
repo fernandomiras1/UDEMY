@@ -8,7 +8,6 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 // Guard
 import { AuthGuard } from './auth/auth.guard';
-import { AuthService } from './auth/auth.service';
 
 const appRoutes: Routes = [
   {
@@ -19,7 +18,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'contact-detail',
-    canActivate: [ AuthService ],
+    canActivate: [AuthGuard],
     loadChildren: './contact-detail/contact-detail.module#ContactDetailModule'
     // en angular 9.
     // loadChildren: () => import('./contact-detail/contact-detail.module').then(m => m.ContactDetailModule),
