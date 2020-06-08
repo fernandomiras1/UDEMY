@@ -1,0 +1,12 @@
+WEB https://ionicframework.com/
+
+---Instalacion------
+Instalación Global.
+
+❯ npm i -g ionic
+
+Creacion de un Proyecto con taps
+
+$ ionic start myApp tabs
+
+Run your app: ionic serve
