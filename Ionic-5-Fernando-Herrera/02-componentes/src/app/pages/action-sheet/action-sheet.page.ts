@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-action-sheet',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionSheetPage implements OnInit {
 
-  constructor() { }
+  constructor(public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
