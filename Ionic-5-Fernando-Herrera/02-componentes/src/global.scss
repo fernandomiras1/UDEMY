@@ -24,3 +24,8 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+// .sc-ion-action-sheet-md: es la clase del icono del basusero para que se pinte en rojo
+.rojo span, .rojo .sc-ion-action-sheet-md {
+    color: red !important;
+}
