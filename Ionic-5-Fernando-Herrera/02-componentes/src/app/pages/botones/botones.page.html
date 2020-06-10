@@ -1,0 +1,77 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Botones</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary"> 
+        <ion-icon name="star"></ion-icon>
+      </ion-button>
+
+      <ion-button color="primary"> 
+        <ion-icon name="heart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Botones normales -->
+  <ion-button size="small" expand="full">Small</ion-button>
+  <ion-button size="default" expand="full">Default</ion-button>
+  <ion-button size="large" expand="full">Large</ion-button>
+
+  <!-- Navegaion con Botones -->
+  <ion-button class="top-20"
+    routerLink="/avatar"
+    color="tertiary"
+    expand="full">Navegacion
+  </ion-button>
+
+  <!-- ion-row + ion-col -->
+  <ion-row class="top-20">
+    <ion-col>
+      <ion-button 
+        routerLink="/avatar"
+        color="tertiary"
+        expand="full">Avatar
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button 
+        routerLink="/alert"
+        color="tertiary"
+        expand="full">Alert
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- Fill -->
+  <ion-button class="top-20" fill="clear">Clear</ion-button>
+  <ion-button class="top-20" fill="outline">Outline</ion-button>
+  <ion-button class="top-20" fill="solid">Solid</ion-button>
+
+  <!-- Round -->
+  <ion-button shape="round">Round Button</ion-button>
+
+
+  <!-- Colors -->
+  <ion-button color="primary">Primary</ion-button>
+  <ion-button color="secondary">Secondary</ion-button>
+  <ion-button color="tertiary">Tertiary</ion-button>
+  <ion-button color="success">Success</ion-button>
+  <ion-button color="warning">Warning</ion-button>
+  <ion-button color="danger">Danger</ion-button>
+  <ion-button color="light">Light</ion-button>
+  <ion-button color="medium">Medium</ion-button>
+  <ion-button color="dark">Dark</ion-button>
+
+  <ion-button>
+    Right Icon
+    <ion-icon slot="end" name="star"></ion-icon>
+  </ion-button>
+
+</ion-content>
