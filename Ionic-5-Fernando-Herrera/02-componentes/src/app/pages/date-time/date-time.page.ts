@@ -10,12 +10,13 @@ export class DateTimePage implements OnInit {
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
   customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
   customPickerOptions: any;
+  fechaNaci: Date = new Date();
 
   constructor() {
     this.customPickerOptions = {
       buttons: [{
         text: 'Save',
-        handler: () => console.log('Clicked Save!')
+        handler: (evento) => console.log('Clicked Save!', evento)
       }, {
         text: 'Log',
         handler: () => {
@@ -27,6 +28,11 @@ export class DateTimePage implements OnInit {
   }
   
   ngOnInit() {
+  }
+
+  cambioFecha(event) {
+    console.log('ionChange', event);
+    console.log('Date', new Date(event.detail.value));
   }
 
 }

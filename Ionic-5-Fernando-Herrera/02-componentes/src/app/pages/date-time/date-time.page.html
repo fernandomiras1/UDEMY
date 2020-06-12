@@ -10,7 +10,12 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Fecha de Nacimiento</ion-label>
-      <ion-datetime></ion-datetime>
+      <ion-datetime placeholder="Nacimiento"
+                    displayFormat="YYYY MMMM DD"
+                    cancelText="Cancelar !!!"
+                    [ngModel]="fechaNaci.toISOString()"
+                    (ionChange)="cambioFecha($event)">
+      </ion-datetime>
     </ion-item>
 
   </ion-list>
@@ -51,7 +56,7 @@
   </ion-item>
   
   <ion-item>
-    <ion-label position="floating">MM/DD/YYYY</ion-label>
+    <ion-label position="floating">Min y Max MM/DD/YYYY</ion-label>
     <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
   </ion-item>
   
