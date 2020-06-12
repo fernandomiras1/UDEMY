@@ -1,5 +1,33 @@
-<app-header titulo="Gird"></app-header>
+<app-header titulo="Gird Row"></app-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <!-- fixed: me va adicionar un margen a los lados en web -->
+  <ion-grid fixed>
+
+    <!-- <ion-row>
+      <ion-col *ngFor="let c of [1,1,1,1,1,1,1,1,1,1,1,1]; let i=index">
+        Hola, item {{ i + 1}}
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
+        *ngFor="let c of [1,1,1,1,1,1,1,1,1,1,1,1]">
+        <ion-card>
+          <ion-img src="/assets/shapes.svg"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            <ion-card-title>Card Title</ion-card-title>
+          </ion-card-header>
+          
+          <ion-card-content>
+            This is content, without any paragraph or header tags,
+            within an ion-card-content element.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>
