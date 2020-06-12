@@ -18,7 +18,8 @@ const routes: Routes = [
   {
     path: 'action-sheet',
     loadChildren: () => import('./pages/action-sheet/action-sheet.module').then( m => m.ActionSheetPageModule)
-  },  {
+  },
+  {
     path: 'avatar',
     loadChildren: () => import('./pages/avatar/avatar.module').then( m => m.AvatarPageModule)
   },
@@ -42,6 +43,10 @@ const routes: Routes = [
     path: 'fab',
     loadChildren: () => import('./pages/fab/fab.module').then( m => m.FabPageModule)
   },
+  {
+    path: 'grid',
+    loadChildren: () => import('./pages/grid/grid.module').then( m => m.GridPageModule)
+  }
 
 ];
 
