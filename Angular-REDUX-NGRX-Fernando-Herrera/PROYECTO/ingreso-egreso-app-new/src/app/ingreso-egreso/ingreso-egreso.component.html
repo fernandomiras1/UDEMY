@@ -7,20 +7,22 @@
               Especifique el monto y el tipo
             </p>
 
-            <form>
-              
+            <form [formGroup]="ingresoForm" (ngSubmit)="guardar()">
+
               <div class="form-group">
                 <label>Descripción</label>
-                <input type="text" 
-                       class="form-control" 
+                <input type="text"
+                       class="form-control"
+                       formControlName="descripcion"
                        placeholder="Descripción"
                        name="descripcion">
               </div>
 
               <div class="form-group">
                   <label>Monto</label>
-                  <input type="number" 
-                         class="form-control" 
+                  <input type="number"
+                         class="form-control"
+                         formControlName="monto"
                          placeholder="Monto"
                          name="monto">
                     <p>
@@ -31,23 +33,24 @@
               <div class="form-group">
                   <label>Tipo</label>
                   <br>
-                  <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-                  <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+                  <button *ngIf="tipo === 'ingreso'" type="button" (click)="tipo = 'egreso'" class="btn btn-primary btn-block">Ingreso</button>
+                  <button *ngIf="tipo === 'egreso'" type="button" (click)="tipo = 'ingreso'" class="btn btn-warning btn-block">Egreso</button>
               </div>
 
               <hr>
-              <button type="button" class="btn btn-success mr-2">
-                <i class="fa fa-save"></i>
-                Agregar
+              <button type="submit"
+                *ngIf="!cargando"
+                [disabled]="ingresoForm.invalid"
+                class="btn btn-success mr-2">
+                  <i class="fa fa-save"></i>
+                  Agregar
               </button>
 
-              <!-- 
-                <button disabled class="btn btn-success mr-2">
-                  <i class="fa fa-spin fa-sync"></i>
-                  Espere por favor...
-                </button> 
-              -->
-              
+              <button disabled *ngIf="cargando"  class="btn btn-success mr-2">
+                <i class="fa fa-spin fa-sync"></i>
+                Espere por favor...
+              </button>
+
               <button type="reset" class="btn btn-light">Cancelar</button>
 
             </form>
@@ -55,4 +58,3 @@
         </div>
       </div>
 </div>
-          
