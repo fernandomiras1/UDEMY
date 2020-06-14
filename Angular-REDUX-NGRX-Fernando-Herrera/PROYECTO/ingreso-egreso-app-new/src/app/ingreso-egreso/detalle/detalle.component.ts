@@ -33,7 +33,9 @@ export class DetalleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ingresosSubs.unsubscribe();
+    if (this.ingresosSubs) {
+      this.ingresosSubs.unsubscribe();
+    }
   }
 
 }
