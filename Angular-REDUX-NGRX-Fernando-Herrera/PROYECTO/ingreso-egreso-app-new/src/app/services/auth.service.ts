@@ -9,6 +9,7 @@ import { Usuario } from '../models/usuario.model';
 // Ngrx
 import { Store } from '@ngrx/store';
 import * as authActions from '../auth/auth.actions';
+import * as ingresoEgresoActions from '../ingreso-egreso/ingreso-egreso.actions';
 import { AppState } from '../app.reducer';
 import { Subscription } from 'rxjs';
 @Injectable({
@@ -37,6 +38,7 @@ export class AuthService {
             const user = Usuario.fromFirebase(firestoreUser);
             this._user = user;
             this.store.dispatch( authActions.setUser({ user }) )
+            this.store.dispatch( ingresoEgresoActions.unSetItems() );
           })
       } else {
         // no existe

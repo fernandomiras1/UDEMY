@@ -11,3 +11,7 @@ pass: fer123
 ## devtools para que ande en Google Crhome
 
 npm install @ngrx/store-devtools --save
+
+ng2-charts 
+npm install --save ng2-charts
+npm install --save chart.js
