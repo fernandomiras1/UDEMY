@@ -7,5 +7,8 @@
         ]
       }
     }
+  },
+  "projects": {
+    "default": "ingreso-egreso-app-8dec0"
   }
 }
