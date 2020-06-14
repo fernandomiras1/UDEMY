@@ -10,6 +10,9 @@ import { IngresoEgresoComponent } from '../ingreso-egreso/ingreso-egreso.compone
 import { EstadisticaComponent } from '../ingreso-egreso/estadistica/estadistica.component';
 import { DetalleComponent } from '../ingreso-egreso/detalle/detalle.component';
 import { OrdenIngresoPipe } from '../pipes/orden-ingreso.pipe';
+// Ngrx
+import { StoreModule } from '@ngrx/store';
+import { ingresoEgresoReducer } from './ingreso-egreso.reducer';
 
 
 @NgModule({
@@ -22,6 +25,8 @@ import { OrdenIngresoPipe } from '../pipes/orden-ingreso.pipe';
   ],
   imports: [
     CommonModule,
+    // forFeature: Carga el store de forma lazyLoad
+    StoreModule.forFeature('ingresosEgresos', ingresoEgresoReducer),
     ReactiveFormsModule,
     DashboardRoutesModule,
     ChartsModule,
