@@ -1,15 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Componentes</ion-title>
+    <ion-buttons slot="start">
+
+      <!-- <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button> -->
+      <ion-menu-button color="primary" menu="primerMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">Componentes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list *ngFor="let c of componentes">
+  <ion-list *ngFor="let c of componentes | async">
     <!-- detail: en material desaing le decimos q este elemento puede hacer click para q aparesca la flecha -->
     <ion-item [routerLink]="c.redirectTo" detail>
-      <ion-icon slot="start" [name]="c.icon"></ion-icon>
+      <ion-icon slot="start" color="primary" [name]="c.icon"></ion-icon>
       <ion-label>{{ c.name }}</ion-label>
     </ion-item>
   </ion-list>
