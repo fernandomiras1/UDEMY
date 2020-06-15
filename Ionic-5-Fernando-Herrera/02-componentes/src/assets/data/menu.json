@@ -68,5 +68,35 @@
     "icon": "refresh-circle",
     "name": "Loading",
     "redirectTo": "/loading"
+  },
+  {
+    "icon": "phone-portrait",
+    "name": "Modal",
+    "redirectTo": "/modal"
+  },
+  {
+    "icon": "tablet-portrait",
+    "name": "Popover",
+    "redirectTo": "/popover"
+  },
+  {
+    "icon": "code-working",
+    "name": "ProgressBar y Range",
+    "redirectTo": "/progress-bar"
+  },
+  {
+    "icon": "arrow-down-circle-outline",
+    "name": "Refresher",
+    "redirectTo": "/refresher"
+  },
+  {
+    "icon": "search",
+    "name": "Searchbar",
+    "redirectTo": "/searchbar"
+  },
+  {
+    "icon": "copy",
+    "name": "segment",
+    "redirectTo": "/segment"
   }
 ]

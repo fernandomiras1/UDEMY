@@ -1,0 +1,24 @@
+<app-header titulo="segment"></app-header>
+
+<ion-toolbar>
+
+  <ion-segment #segment (ionChange)="segmentChanged($event)"
+                color="tertiary">
+    <ion-segment-button value="todos">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="DC Comics">
+      <ion-label>DC Comics</ion-label>
+    </ion-segment-button>
+  
+    <ion-segment-button value="Marvel Comics">
+      <ion-label>Marvel Comics</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content>
+
+
+
+</ion-content>
