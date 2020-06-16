@@ -1,4 +1,25 @@
 <ion-app>
-  <app-menu></app-menu>
-  <ion-router-outlet id="main"></ion-router-outlet>
+  <!-- ion-split-pane muestra el menu cuando es en aplicaciones destok y tablet -->
+  <ion-split-pane contentId="main" when="md">
+    <ion-menu side="start" menuId="primerMenu" contentId="main">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Menú Principal</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <!-- para que se muestre el menu abierto en una table: autoHide="false" -->
+          <ion-menu-toggle autoHide="false" *ngFor="let c of componentes  | async">
+            <ion-item [routerLink]="c.redirectTo">
+              <ion-icon slot="start" [name]="c.icon"></ion-icon>
+              <ion-label>{{ c.name }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>
