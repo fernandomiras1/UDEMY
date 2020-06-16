@@ -98,5 +98,15 @@
     "icon": "copy",
     "name": "segment",
     "redirectTo": "/segment"
+  },
+  {
+    "icon": "filter-outline",
+    "name": "Skeleton Text",
+    "redirectTo": "/skeleton-text"
+  },
+  {
+    "icon": "albums",
+    "name": "Slides",
+    "redirectTo": "/slides"
   }
 ]
