@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+// Estilos propios
+
+.text-primary {
+    color: var(--ion-color-primary);
+}
+
+.noticia-source-name {
+    font-size: 12px;
+    color: lightgray;
+}
