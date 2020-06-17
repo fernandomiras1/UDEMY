@@ -25,7 +25,13 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/zumo/assets/fonts/",
+                "output": "assets/fonts/",
+                "ignore": ["**/URWGeometric*.*"]
+              }
             ],
             "styles": [
               "src/styles.scss"
