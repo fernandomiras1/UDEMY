@@ -7,10 +7,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<!-- 
+  <ng-container >
+    No hay fgfff
+  </ng-container> -->
 
+  <ion-slides [options]="slideOpts" *ngIf="dataLocalService.noticias.length === 0">
+    <ion-slide>
+      <ion-label>No hay Favoritos</ion-label>
+    </ion-slide>
+  </ion-slides>
+
+  <app-noticias *ngIf="dataLocalService.noticias"
+                [enFavoritos]="true" 
+                [noticias]="dataLocalService.noticias">
+  </app-noticias>
+  
 </ion-content>
