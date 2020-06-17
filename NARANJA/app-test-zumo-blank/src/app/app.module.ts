@@ -11,7 +11,7 @@ import { NGZButtonModule } from 'zumo';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NGZButtonModule
+    NGZButtonModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
