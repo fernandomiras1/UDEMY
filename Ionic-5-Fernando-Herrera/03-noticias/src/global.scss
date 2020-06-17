@@ -36,3 +36,8 @@
     font-size: 12px;
     color: lightgray;
 }
+
+// podemos poner clases solo en ios o andorid. en este caso el share en ios no quiero que tena los iconos.
+.ios .action-sheet-icon {
+    display: none;
+}
