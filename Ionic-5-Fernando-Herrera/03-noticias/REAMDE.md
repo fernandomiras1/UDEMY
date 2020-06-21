@@ -9,23 +9,14 @@ pass: fernando123456
 
 Your API key is : 89937fd3672b4349aa1486f1c80d1189
 
-### `https://newsapi.org/`
+### `Crear una PWA en IONIC - Deploying a Progressive Web App`
 
-### Plugin para manejar elementos nativos del celular. 
+link: https://ionicframework.com/docs/angular/pwa
 
-Para abrir el navegador por defecto necesiamos instalar el plugin correspondiente 
+## instalaciones
 
-ionic cordova plugin add cordova-plugin-inappbrowser
-npm install @ionic-native/in-app-browser
+`ng add @angular/pwa`
 
-### Plugin para manejar Compartir noticia en redes sociales y Whatsapp: Social Sharing
+hacer el build, para luego subirlo a firebase hosting. 
 
-ionic cordova plugin add cordova-plugin-x-socialsharing
-npm install @ionic-native/social-sharing
-
-
-### Data Storage ( ionic Storage )
-leer: https://ionicframework.com/docs/angular/storage
-
-ionic cordova plugin add cordova-sqlite-storage
-npm install --save @ionic/storage
+ionic build --prod --service-worker

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../../models/interface';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 
 // Plugin
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -21,6 +21,7 @@ export class NoticiaComponent implements OnInit {
   constructor(private iab: InAppBrowser,
               private actionSheetCtrl: ActionSheetController,
               private socialSharing: SocialSharing,
+              private platform: Platform,
               private dataLocalService: DataLocalService) { }
 
   ngOnInit() {
@@ -56,12 +57,7 @@ export class NoticiaComponent implements OnInit {
         text: 'Compartir',
         icon: 'share',
         handler: () => {
-          this.socialSharing.share(
-            this.noticia.title,
-            this.noticia.source.name,
-            '',
-            this.noticia.url
-          );
+          this.compartirNoticia();
         }
       },
       guardarBorrarBtn,
@@ -76,6 +72,31 @@ export class NoticiaComponent implements OnInit {
     });
 
     await actionSheet.present();
+  }
+
+
+  compartirNoticia() {
+    // Si puedo utilizar cordova
+    if (this.platform.is('cordova')) {
+      this.socialSharing.share(
+        this.noticia.title,
+        this.noticia.source.name,
+        '',
+        this.noticia.url
+      );
+    } else {
+      if (navigator['share']) {
+        navigator['share']({
+          title: this.noticia.title,
+          text: this.noticia.description,
+          url: this.noticia.url
+        })
+        .then(() => console.log('noticia share'))
+        .catch((err) => console.log('Error', err))
+      } else {
+        console.log('no soporta el share el navegador');
+      }
+    }
   }
 
 }
