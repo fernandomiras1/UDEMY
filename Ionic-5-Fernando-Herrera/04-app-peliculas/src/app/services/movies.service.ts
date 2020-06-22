@@ -8,11 +8,39 @@ import { RespuestaMDB } from '../models/interfaces/interfaces';
 })
 export class MoviesService {
 
-  api_key= environment.apiKey
+  apiKey= environment.apiKey
+  URL = environment.url;
   constructor(private http: HttpClient) { }
 
-  getFeature() {
-    return this.http.get<RespuestaMDB>(`https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31&api_key=9f3b844fce4277406695a3f819f02fb9&language=es&include_image_language =es`)
 
+  private ejecutarQuery<T>(query: string) {
+    query = this.URL + query;
+    query += `&api_key=${this.apiKey}&language=es&include_image_language =es`;
+
+    return this.http.get<T>(query);
+  }
+
+  getFeature() {
+    const hoy  = new Date();
+    // la fecha del ultimo dia del mes.
+    const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
+    const mes = hoy.getMonth() + 1;
+    let mesString;
+
+    if ( mes < 10) {
+      mesString = '0' + mes;
+    } else {
+      mesString = mes;
+    }
+
+    const inicio = `${hoy.getFullYear()}-${ mesString }-01`;
+    const fin = `${hoy.getFullYear()}-${ mesString }-${ ultimoDia }`;
+
+    return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`);
+  }
+
+  getPopulares() {
+    const query = '/discover/movie?sort_by=popularity.desc';
+    return this.ejecutarQuery<RespuestaMDB>(query);
   }
 }

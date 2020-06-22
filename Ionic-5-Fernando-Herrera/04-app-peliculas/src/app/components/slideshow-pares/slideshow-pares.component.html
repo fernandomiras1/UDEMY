@@ -1,0 +1,12 @@
+<ion-slides [options]="slideOpts">
+  <ion-slide *ngFor="let pares of peliculas | pares">
+    <ion-row>
+      <ion-col size="12" *ngFor="let pelicula of pares">
+        <ion-card>
+          <img class="poster" [src]="pelicula.poster_path | imagen">
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-slide>
+</ion-slides>
+
