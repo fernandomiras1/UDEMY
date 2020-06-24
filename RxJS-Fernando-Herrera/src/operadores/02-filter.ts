@@ -32,7 +32,7 @@ const personajes: Personaje[] = [
     },
 ];
 
-
+//from: funcion para generar arreglos
 from( personajes ).pipe(
     filter( p => p.tipo !== 'heroe' )
 ).subscribe( console.log );

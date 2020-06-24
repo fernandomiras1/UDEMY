@@ -2,11 +2,10 @@ import { range } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 
-
 const numeros$ = range(1,5);
 
-
 numeros$.pipe(
+    // muestra el flujo actual.
     tap( x => {
         console.log('antes', x);
         return 100;
@@ -18,9 +17,5 @@ numeros$.pipe(
     })
 )
 .subscribe( val => console.log('subs', val ));
-
-
-
-
 
 
