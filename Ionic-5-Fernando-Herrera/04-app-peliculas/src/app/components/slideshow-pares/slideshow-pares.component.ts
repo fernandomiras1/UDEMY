@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from '../../models/interfaces/interfaces';
 
 @Component({
@@ -9,7 +9,7 @@ import { Pelicula } from '../../models/interfaces/interfaces';
 export class SlideshowParesComponent implements OnInit {
 
   @Input() peliculas: Pelicula[] = [];
-
+  @Output() cargarMas: EventEmitter<void> = new EventEmitter();
   slideOpts = {
     // se va a ver un slide y un poquito del otro
     slidesPerView: 3.3,
@@ -20,5 +20,9 @@ export class SlideshowParesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+  
+  onClick() {
+    this.cargarMas.emit();
+  }
 
 }
