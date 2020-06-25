@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
 import { PeliculaDetalle, Cast } from '../../models/interfaces/interfaces';
 import { ModalController } from '@ionic/angular';
+import { DataLocalService } from '../../services/data-local.service';
 
 @Component({
   selector: 'app-detalle',
@@ -13,6 +14,7 @@ export class DetalleComponent implements OnInit {
   @Input() id: number;
   pelicula: PeliculaDetalle;
   actores: Cast[] = [];
+  estrellaName= 'star-outline';
   // va a tener 150 caracteres el texto
   cortarTexto = 150;
 
@@ -23,9 +25,14 @@ export class DetalleComponent implements OnInit {
     spaceBetween: -5
   };
   constructor(private moviesService: MoviesService,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              private dataLocal: DataLocalService) { }
 
   ngOnInit() {
+    this.dataLocal.existePelicula(this.id).then(existe => {
+      this.estrellaName = (existe) ? 'star' : 'star-outline';
+    });
+
     this.moviesService.getPeliculaDetalle(this.id).subscribe(resu => {
       this.pelicula = resu;
     });
@@ -39,4 +46,10 @@ export class DetalleComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  favorito() {
+    this.dataLocal.guardarPelicula(this.pelicula).subscribe(existe => {
+      console.log('existe', existe);
+      this.estrellaName = (existe) ? 'star' : 'star-outline';
+    });
+  }
 }

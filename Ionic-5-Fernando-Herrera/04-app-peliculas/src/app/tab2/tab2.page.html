@@ -19,7 +19,7 @@
 <ion-content [fullscreen]="true">
 
   <!-- spiner -->
-  <ion-grid fixed>
+  <ion-grid *ngIf="buscando" fixed>
     <ion-row>
       <ion-col class="ion-text-center">
         <ion-spinner name="crescent"></ion-spinner>
@@ -41,7 +41,7 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6" *ngFor="let pelicula of peliculas">
-        <ion-card color="primary">
+        <ion-card (click)="verDetalle(pelicula.id)" color="primary">
           <img [src]="pelicula.poster_path | imagen" >
           <ion-card-header>
             <ion-card-subtitle>{{ pelicula.release_date }}</ion-card-subtitle>
