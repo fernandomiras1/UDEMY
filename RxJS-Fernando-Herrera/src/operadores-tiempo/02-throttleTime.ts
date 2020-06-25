@@ -16,9 +16,9 @@ document.querySelector('body').append( input );
 const input$ = fromEvent( input, 'keyup' );
 
 input$.pipe(
-    throttleTime(400, asyncScheduler, {
-        leading: false,
-        trailing: true
+    throttleTime(400, asyncScheduler, { // va a emitir si o si en 4 mil seg
+        leading: false, //primer elemento
+        trailing: true  // ultimo elemento
     }),
     pluck('target','value'),
     distinctUntilChanged()
