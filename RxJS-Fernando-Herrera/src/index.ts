@@ -1,15 +1,17 @@
-import { interval, fromEvent } from 'rxjs';
-import { sample } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+import { auditTime, tap, map } from 'rxjs/operators';
+
+// el auditTime lo que hace es emitir el último valor que ha sido emitido por él observado
+
+// en un periodo de tiempo determinado.
 
 
-// el operador sample emite el último valor emitido por El Observador
-// hasta que el otro observa lo que tenemos dentro del operador sample emita un valor.
-
-const interval$ = interval(500);
-const click$    = fromEvent( document, 'click' );
+const click$ = fromEvent<MouseEvent>( document, 'click');
 
 
 
-interval$.pipe(
-    sample(click$)
+click$.pipe(
+    map( ({ x }) => x ),
+    tap(val => console.log('tap', val) ),
+    auditTime(5000)
 ).subscribe( console.log );
