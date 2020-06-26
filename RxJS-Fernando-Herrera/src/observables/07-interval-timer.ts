@@ -1,5 +1,8 @@
 import { interval, timer } from 'rxjs';
 
+// interval: crea un observable que emite una secuencia de números en un intervalo de tiempo especificado. Comenzando en 0
+
+// timer: ejecutamos esta función timer 2000 milisegundos. Lo que estamos diciendo es que después de dos segundos va a emitir el primer valor y se va a completar
 const observer = {
     next: val => console.log('next:', val),
     complete: () => console.log('complete'),
