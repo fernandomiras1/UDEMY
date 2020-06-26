@@ -2,7 +2,7 @@ import { of, from } from 'rxjs';
 
 /**
  * of = toma argumentos y genera una secuencia
- * from = array, promise, iterable, observable
+ * from = crea un observable en base a un array, promise, iterable, observable
  */
 
 const observer = {
@@ -35,14 +35,14 @@ from( miIterable ).subscribe( observer );
 
 const source$ = from(  fetch('https://api.github.com/users/klerith') );
 
-// source$.subscribe( async(resp) => {
+source$.subscribe( async(resp) => {
 
-//     console.log( resp );
+    console.log( resp );
 
-//     const dataResp = await resp.json();
-//     console.log(dataResp);
+    const dataResp = await resp.json();
+    console.log(dataResp);
 
-// });
+});
 
 
 // source$.subscribe( observer );
