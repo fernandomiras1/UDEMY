@@ -19,8 +19,8 @@ const intervalo$ = new Observable<number>( subs => {
 
 });
 
-/**
- * 1- Casteo múltiple
+/** Caracteristicas de Subject
+ * 1- Casteo múltiple ( me sirve para dar la misma informacion )
  * 2- También es un observer
  * 3- Next, error y complete
  */
