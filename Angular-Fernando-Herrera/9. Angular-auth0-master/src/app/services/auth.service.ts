@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-// import * as config from '../../../auth_config.json';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -13,8 +12,8 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "strider.auth0.com",
-      client_id: "JaeWH01OBrXsxHSFBY4wdAz6Rj9cthOZ",
+      domain: 'fernandomiras1.us.auth0.com',
+      client_id: '1hSu0Ucy20NkeDmDAJjaAnFDuUSPgnxO',
       redirect_uri: `${window.location.origin}/callback`
     })
   ) as Observable<Auth0Client>).pipe(
@@ -38,7 +37,13 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    // On initial load, check authentication state with authorization server
+    // Set up local auth streams if user is already authenticated
+    this.localAuthSetup();
+    // Handle redirect from Auth0 login
+    this.handleAuthCallback();
+  }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -49,7 +54,7 @@ export class AuthService {
     );
   }
 
-  localAuthSetup() {
+  private localAuthSetup() {
     // This should only be called on app initialization
     // Set up local authentication streams
     const checkAuth$ = this.isAuthenticated$.pipe(
@@ -63,11 +68,7 @@ export class AuthService {
         return of(loggedIn);
       })
     );
-    checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
-      // If authenticated, response will be user object
-      // If not authenticated, response will be 'false'
-      this.loggedIn = !!response;
-    });
+    checkAuth$.subscribe();
   }
 
   login(redirectPath: string = '/') {
@@ -83,30 +84,32 @@ export class AuthService {
     });
   }
 
-  handleAuthCallback() {
-    // Only the callback component should call this method
+  private handleAuthCallback() {
     // Call when app reloads after user logs in with Auth0
-    let targetRoute: string; // Path to redirect to after login processsed
-    const authComplete$ = this.handleRedirectCallback$.pipe(
-      // Have client, now call method to handle auth callback redirect
-      tap(cbRes => {
-        // Get and set target redirect route from callback results
-        targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
-      }),
-      concatMap(() => {
-        // Redirect callback complete; get user and login status
-        return combineLatest(
-          this.getUser$(),
-          this.isAuthenticated$
-        );
-      })
-    );
-    // Subscribe to authentication completion observable
-    // Response will be an array of user and login status
-    authComplete$.subscribe(([user, loggedIn]) => {
-      // Redirect to target route after callback processing
-      this.router.navigate([targetRoute]);
-    });
+    const params = window.location.search;
+    if (params.includes('code=') && params.includes('state=')) {
+      let targetRoute: string; // Path to redirect to after login processsed
+      const authComplete$ = this.handleRedirectCallback$.pipe(
+        // Have client, now call method to handle auth callback redirect
+        tap(cbRes => {
+          // Get and set target redirect route from callback results
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+        }),
+        concatMap(() => {
+          // Redirect callback complete; get user and login status
+          return combineLatest([
+            this.getUser$(),
+            this.isAuthenticated$
+          ]);
+        })
+      );
+      // Subscribe to authentication completion observable
+      // Response will be an array of user and login status
+      authComplete$.subscribe(([user, loggedIn]) => {
+        // Redirect to target route after callback processing
+        this.router.navigate([targetRoute]);
+      });
+    }
   }
 
   logout() {
@@ -114,7 +117,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "JaeWH01OBrXsxHSFBY4wdAz6Rj9cthOZ",
+        client_id: '1hSu0Ucy20NkeDmDAJjaAnFDuUSPgnxO',
         returnTo: `${window.location.origin}`
       });
     });
