@@ -17,7 +17,7 @@ export class SlideshowBackdropComponent implements OnInit {
     slidesPerView: 1.1,
     freeMode: true
   };
-  
+
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {

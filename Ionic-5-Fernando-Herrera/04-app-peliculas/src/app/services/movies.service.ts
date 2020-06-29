@@ -1,3 +1,4 @@
+import { Genre } from './../models/interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -8,9 +9,11 @@ import { RespuestaMDB, PeliculaDetalle, RespuestaCredits } from '../models/inter
 })
 export class MoviesService {
 
-  apiKey= environment.apiKey
+  apiKey = environment.apiKey;
   URL = environment.url;
   private popularesPage = 0;
+  generos: Genre[] = [];
+
   constructor(private http: HttpClient) { }
 
 
@@ -45,7 +48,7 @@ export class MoviesService {
     const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
     return this.ejecutarQuery<RespuestaMDB>(query);
   }
- 
+
   getPeliculaDetalle(id: number) {
     return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?a=1`);
   }
@@ -56,5 +59,14 @@ export class MoviesService {
 
   buscarPelicula(texto: string) {
     return this.ejecutarQuery<RespuestaCredits>(`/search/movie?query=${texto}`);
+  }
+
+  cargarGeneros(): Promise<Genre[]> {
+    return new Promise( resolve => {
+      this.ejecutarQuery(`/genre/movie/list?a=1`).subscribe((resp: any) => {
+        this.generos = resp.genres;
+        resolve(this.generos);
+      });
+    });
   }
 }
