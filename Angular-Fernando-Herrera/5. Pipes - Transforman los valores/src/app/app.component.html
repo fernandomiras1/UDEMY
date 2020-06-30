@@ -47,13 +47,16 @@
 
         <tr>
           <td> {{ PI }} </td>
-          <td> number:'3.0-0' </td>
-          <td> {{ PI | number:'3.0-0' }} </td>
+          <td> number:'1.0-0' </td>
+          <!-- un digito y que no tenga decimales -->
+          <td> {{ PI | number:'1.0-0' }} </td>
         </tr>
 
         <tr>
           <td> {{ PI }} </td>
           <td> number:'.0-2' </td>
+          <!-- remuevo la parte entera, me va a traer todos los numeos enteros  -->
+          <!-- pero en la parte decimal le vamos a decir que valla de 0 hasta 2  -->
           <td> {{ PI | number:'.0-2' }} </td>
         </tr>
 
@@ -66,6 +69,7 @@
         <tr>
           <td> {{ porcentaje }} </td>
           <td> percent:'2.2-2' </td>
+          <!-- Personalizado: dos posiciones enteras y que que tenga dos decimales -->
           <td> {{ porcentaje | percent:'2.2-2' }} </td>
         </tr>
 
@@ -119,8 +123,8 @@
 
         <tr>
           <td> {{ fecha }} </td>
-          <td>  
-            date:'MMMM - dd':'':'{{ idioma }}' 
+          <td>
+            date:'MMMM - dd':'':'{{ idioma }}'
             <br>
             <button (click)="idioma='es'" class="mr-1 btn btn-primary">Español</button>
             <button (click)="idioma='en'" class="mr-1 btn btn-secondary">Inglés</button>
@@ -131,7 +135,7 @@
 
         <tr>
           <td> {{ nombre }} </td>
-          <td>  
+          <td>
             contrasena:{{ activar }}
             <br>
             <button (click)="activar = !activar"
@@ -177,11 +181,11 @@
 <div class="row mb-5">
   <div class="col">
 
-    <iframe width="560" 
-            height="315" 
-            [src]="videoUrl | domseguro" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+    <iframe width="560"
+            height="315"
+            [src]="videoUrl | domseguro"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
     </iframe>
 
