@@ -5,9 +5,9 @@ a = 30;
 
 console.log({ a, b });
 
-
+// en javascipr todos losd objetos son pasados por referencia
 let juan = { nombre: 'Juan' };
-let ana  = { ...juan };
+let ana  = { ...juan }; // rompemos la referencia que hay en javascript
 ana.nombre = 'Ana';
 
 console.log({ juan, ana });
