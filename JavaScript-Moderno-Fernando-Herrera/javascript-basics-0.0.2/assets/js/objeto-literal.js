@@ -33,18 +33,18 @@ console.log('Última película', personaje['ultima-pelicula'] );
 
 // Más detalles
 
-delete personaje.edad;
+delete personaje.edad; // Eliminar un elemento de un objeto
 console.log( personaje );
 
 personaje.casado =  true;
 
 
-const entriesPares = Object.entries( personaje );
+const entriesPares = Object.entries( personaje ); // Convertir el objeto en un Array.
 console.log( entriesPares );
 
 // personaje = true;
 
-Object.freeze( personaje );
+Object.freeze( personaje ); // Frizea el objeto.
 
 personaje.dinero = 10000000000;
 personaje.casado = false;
