@@ -1,0 +1,191 @@
+
+<h1 class="mt-3">Pipes <small>Angular</small> </h1>
+<hr>
+
+<div class="row">
+  <div class="col">
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th> Variable </th>
+          <th> Pipe </th>
+          <th> Salida </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td> {{ nombre2 }} </td>
+          <td> capitalizado </td>
+          <td> {{ nombre2 | capitalizado  }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ nombre }} </td>
+          <td> uppercase </td>
+          <td> {{ nombre | uppercase }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ nombre }} </td>
+          <td> lowercase </td>
+          <td> {{ nombre | lowercase }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ nombre }} </td>
+          <td> slice:2 </td>
+          <td> {{ nombre | slice:2 }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ nombre }} </td>
+          <td> slice:0:4 </td>
+          <td> {{ nombre | slice:0:4 }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ PI }} </td>
+          <td> number:'3.0-0' </td>
+          <td> {{ PI | number:'3.0-0' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ PI }} </td>
+          <td> number:'.0-2' </td>
+          <td> {{ PI | number:'.0-2' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ porcentaje }} </td>
+          <td> percent </td>
+          <td> {{ porcentaje | percent }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ porcentaje }} </td>
+          <td> percent:'2.2-2' </td>
+          <td> {{ porcentaje | percent:'2.2-2' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ salario }} </td>
+          <td> currency </td>
+          <td> {{ salario | currency }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ salario }} </td>
+          <td> currency:'EUR' </td>
+          <td> {{ salario | currency:'EUR' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ salario }} </td>
+          <td> currency:'CAD':'symbol-narrow':'.0-0' </td>
+          <td> {{ salario | currency:'CAD':'symbol-narrow':'.0-0' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ valorPromesa }} </td>
+          <td> async </td>
+          <td> {{ valorPromesa | async }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ fecha }} </td>
+          <td> date </td>
+          <td> {{ fecha | date }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ fecha }} </td>
+          <td>  date:'medium' </td>
+          <td> {{ fecha | date:'medium' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ fecha }} </td>
+          <td>  date:'short' </td>
+          <td> {{ fecha | date:'short' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ fecha }} </td>
+          <td>  date:'MMMM - dd' </td>
+          <td> {{ fecha | date:'MMMM - dd' }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ fecha }} </td>
+          <td>  
+            date:'MMMM - dd':'':'{{ idioma }}' 
+            <br>
+            <button (click)="idioma='es'" class="mr-1 btn btn-primary">Español</button>
+            <button (click)="idioma='en'" class="mr-1 btn btn-secondary">Inglés</button>
+            <button (click)="idioma='fr'" class="mr-1 btn btn-success">Francés</button>
+          </td>
+          <td> {{ fecha | date:'MMMM - dd':'':idioma }} </td>
+        </tr>
+
+        <tr>
+          <td> {{ nombre }} </td>
+          <td>  
+            contrasena:{{ activar }}
+            <br>
+            <button (click)="activar = !activar"
+                    class="btn btn-outline-primary">
+              Activar/Desactiviar
+            </button>
+          </td>
+          <td> {{ nombre | contrasena:activar }} </td>
+        </tr>
+
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+
+<h3>Slice  <small>slice:1:4</small> </h3>
+<hr>
+<ul class="list-group">
+  <li *ngFor="let personaje of personajes | slice:1:4"
+      class="list-group-item"> {{ personaje }} </li>
+</ul>
+
+<h3>JSON </h3>
+<hr>
+<div class="row mb-5">
+  <div class="col">
+
+    <pre>
+      {{ heroe | json }}
+    </pre>
+
+  </div>
+</div>
+
+
+<h3 class="mt-4">Domseguro</h3>
+<hr>
+
+<div class="row mb-5">
+  <div class="col">
+
+    <iframe width="560" 
+            height="315" 
+            [src]="videoUrl | domseguro" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+    </iframe>
+
+
+  </div>
+</div>
+
