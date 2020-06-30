@@ -22,7 +22,7 @@ const imprimeArgumentos2 = ( edad, ...args ) => {
 const [ casado, vivo, nombre, saludo ] = imprimeArgumentos2(10, true, false, 'Fernando', 'Hola');
 console.log({ casado, vivo, nombre, saludo });
 
-
+// podemos cambiar el nombre.
 const { apellido: nuevoApellido } = crearPersona( 'Fernando', 'Herrera' );
 console.log({ nuevoApellido });
 
