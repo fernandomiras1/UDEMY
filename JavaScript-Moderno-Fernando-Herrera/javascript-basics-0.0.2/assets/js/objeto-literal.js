@@ -52,6 +52,8 @@ personaje.direccion.ubicacion = 'Costa Rica';
 console.log( personaje );
 
 
+// ESTO ES MUY UTIL (CONVERTIS UN OBJETO EN UN ARRAY)
+// obtenemos de forma de array por un lado las propiedades y por otro lado los valores
 const propiedades = Object.getOwnPropertyNames( personaje );
 const valores     = Object.values( personaje );
 console.log({ propiedades, valores });
