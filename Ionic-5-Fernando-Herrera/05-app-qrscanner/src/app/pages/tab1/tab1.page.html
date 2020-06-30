@@ -1,7 +1,14 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-slides [options]="slidesOptions">
+    <ion-slide>
+      <ion-button expad="full"
+                  (click)="scan()"
+                  size="large"
+                  fill="outline">
+          ScanCode
+      </ion-button>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
