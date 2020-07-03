@@ -40,8 +40,8 @@ export class Tab1Page implements OnInit {
 
     }).catch(err => {
          console.log('Error', err);
-        this.dataLocal.guardarRegistro( 'QRCode', 'https://fernando-herrera.com' );
-        // this.dataLocal.guardarRegistro( 'QRCode', 'geo:40.73151796986687,-74.06087294062502' );
+        // this.dataLocal.guardarRegistro( 'QRCode', 'https://fernando-herrera.com' );
+        this.dataLocal.guardarRegistro( 'QRCode', 'geo:40.73151796986687,-74.06087294062502' );
 
     });
 

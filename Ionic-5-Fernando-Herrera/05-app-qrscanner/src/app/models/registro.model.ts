@@ -31,7 +31,7 @@ export class Registro {
 
             case 'geo:':
                 this.type = 'geo';
-                this.icon = 'pin';
+                this.icon = 'map-outline';
             break;
 
             default:
