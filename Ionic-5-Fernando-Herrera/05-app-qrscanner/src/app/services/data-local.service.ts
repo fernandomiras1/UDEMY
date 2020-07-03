@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Registro } from '../models/registro.model';
-// import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
-// import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 // import { File } from '@ionic-native/file/ngx';
 // import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
@@ -13,11 +13,9 @@ export class DataLocalService {
 
   guardados: Registro[] = [];
 
-
-  constructor( 
-    // private storage: Storage,
-               private navCtrl: NavController,
-              //  private inAppBrowser: InAppBrowser,
+  constructor(private storage: Storage,
+              private navCtrl: NavController,
+              private inAppBrowser: InAppBrowser,
               //  private file: File,
               //  private emailComposer: EmailComposer 
                ) {
@@ -26,19 +24,20 @@ export class DataLocalService {
   }
 
   async cargarStorage() {
-    // this.guardados = await this.storage.get('registros') || [];
+    this.guardados = await this.storage.get('registros') || [];
   }
 
 
   async guardarRegistro( format: string, text: string ) {
 
+    // traemos primero los datos del stroage. para luego cargar el nuevo. 
     await this.cargarStorage();
 
     const nuevoRegistro = new Registro( format, text );
-    this.guardados.unshift( nuevoRegistro );
+    this.guardados.unshift( nuevoRegistro ); // al principio del array
 
     console.log(this.guardados);
-    this.storage.set('registros', this.guardados);
+    this.storage.set('registros', this.guardados); // save en localStroage
 
     this.abrirRegistro( nuevoRegistro );
 
@@ -46,12 +45,14 @@ export class DataLocalService {
 
   abrirRegistro( registro: Registro ) {
 
+    // se puede hacer con el router o navCtrl, vamos a navegar a la ruta del historial.
     this.navCtrl.navigateForward('/tabs/tab2');
 
     switch ( registro.type ) {
 
       case 'http':
-        // this.inAppBrowser.create( registro.text, '_system' );
+        // abrir el navegador web por defecto.
+        this.inAppBrowser.create( registro.text, '_system' );
       break;
 
       case 'geo':
