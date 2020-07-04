@@ -1,0 +1,9 @@
+<p class="z-subtitle center-xxs margin-top-32 margin-bottom-32">  {{ 'PAGES.ABOUT.TITLE' | translate }} </p>
+<div class="row center-xxs">
+  {{ data }}
+</div>
+<div class="example-lazysizes" *ngFor="let item of [].constructor(12); let i=index" style="height: 600px;">
+  <picture>
+    <img [appDatasrc]="'https://placeimg.com/500/480/people/grayscale/?' + i" class="lazyload" alt="prueba"/>
+  </picture>
+</div>

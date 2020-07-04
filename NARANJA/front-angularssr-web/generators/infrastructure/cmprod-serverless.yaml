@@ -1,0 +1,9 @@
+#######################################################################
+# Stack: Serverless
+# Tipo de repo: CMPROD
+# Descripción: El pipeline esta en construcción, default k8.
+#######################################################################
+include:
+  - project: 'ops-templates/templates'
+    ref: master
+    file: 'evoluciondigital/.gitlab-ci-front-golden.yml'

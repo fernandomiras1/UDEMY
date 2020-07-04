@@ -1,0 +1,9 @@
+#######################################################################
+# Stack: Wiru 2.0
+# Tipo de repo: CMPROD
+# Descripción:
+#######################################################################
+include:
+  - project: 'ops-templates/templates'
+    ref: master
+    file: 'evoluciondigital/.gitlab-ci-front-golden.yml'

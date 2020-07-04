@@ -1,0 +1,105 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: \{{ template "app_chart.fullname" . }}
+  labels:
+    app: \{{ template "app_chart.name" . }}
+    chart: \{{ template "app_chart.chart" . }}
+    release: \{{ .Release.Name }}
+    heritage: \{{ .Release.Service }}
+spec:
+  replicas: \{{ .Values.front.minReplicas }}
+  selector:
+    matchLabels:
+      app: \{{ template "app_chart.name" . }}
+      release: \{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: \{{ template "app_chart.name" . }}
+        release: \{{ .Release.Name }}
+      annotations:
+        ad.datadoghq.com/\{{ .Chart.Name }}.check_names: '["nginx"]'
+        ad.datadoghq.com/\{{ .Chart.Name }}.init_configs: '[{},{}]'
+        ad.datadoghq.com/\{{ .Chart.Name }}.instances: '[{"host": "%%host%%", "port": "80"}]'
+        ad.datadoghq.com/\{{ .Chart.Name }}.logs: '[{"source":"nginx","service":"nginx"}]'
+    spec:
+      containers:
+        - name: \{{ .Chart.Name }}
+          image: \{{ .Values.front.image.repository }}:\{{ .Values.front.image.tag }}
+          imagePullPolicy: \{{ .Values.front.image.pullPolicy }}
+          ports:
+          \{{- range $value := .Values.front.deployment.ports }}
+          \{{- if eq $value.type "port" }}
+            \{{- range $key := $value.keys }}
+              \{{- $envKey := $key }}
+            - name: \{{ $envKey.name }}
+              containerPort: \{{$envKey.port}}
+              protocol: \{{$envKey.protocol}}
+            \{{- end }}
+          \{{- end }}
+          \{{- if eq $value.type "liveness" }}
+            \{{- range $key := $value.keys }}
+              \{{- $envKey := $key }}
+          livenessProbe:
+            tcpSocket:
+              port: \{{ $envKey }}
+            \{{- end }}
+          \{{- end }}
+          \{{- if eq $value.type "readiness" }}
+            \{{- range $key := $value.keys }}
+              \{{- $envKey := $key }}
+          readinessProbe:
+            tcpSocket:
+              port: \{{ $envKey }}
+            \{{- end }}
+          \{{- end }}
+        \{{- end }}
+          env:
+        \{{- range $value := .Values.front.deployment.values }}
+          \{{- if eq $value.type "env" }}
+            \{{- range $key := $value.keys }}
+              \{{- $envKey := $key }}
+            - name: \{{ $envKey.name }}
+              value: '\{{$envKey.value}}'
+            \{{- end }}
+          \{{- end }}
+        \{{- end }}
+        \{{- range $secret := .Values.front.deployment.secrets }}
+          \{{- if eq $secret.type "env" }}
+            \{{- range $key := $secret.keys }}
+              \{{- $envKey := $key }}
+            - name: \{{ $envKey.name }}
+              valueFrom:
+                secretKeyRef:
+                   name: \{{ $secret.name }}
+                   key: \{{ $envKey.name }}
+            \{{- end }}
+          \{{- end }}
+        \{{- end }}
+        \{{- range $secret := .Values.front.deployment.secrets_env }}
+          \{{- if eq $secret.type "env" }}
+            \{{- range $key := $secret.keys }}
+              \{{- $envKey := $key }}
+            - name: \{{ $envKey.name }}
+              valueFrom:
+                secretKeyRef:
+                   name: \{{ $secret.name }}
+                   key: \{{ $envKey.name }}
+            \{{- end }}
+          \{{- end }}
+        \{{- end }}
+          resources:
+\{{ toYaml .Values.front.resources | indent 12 }}
+    \{{- with .Values.front.nodeSelector }}
+      nodeSelector:
+\{{ toYaml . | indent 8 }}
+    \{{- end }}
+    \{{- with .Values.front.affinity }}
+      affinity:
+\{{ toYaml . | indent 8 }}
+    \{{- end }}
+    \{{- with .Values.front.tolerations }}
+      tolerations:
+\{{ toYaml . | indent 8 }}
+    \{{- end }}

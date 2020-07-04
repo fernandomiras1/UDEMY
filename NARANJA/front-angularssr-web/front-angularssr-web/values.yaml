@@ -1,0 +1,48 @@
+# Default values for node-rest-osb-adapter-template-desa
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ingress:
+  enabled: true
+
+front:
+  minReplicas: 1
+  image:
+    pullPolicy: Always
+  imageCredentials:
+      name: aws-key
+  service:
+    type: ClusterIP
+    port: 80
+  secrets:
+    enabled: false
+  deployment:
+    ports:
+      - type: port
+        keys:
+        - containerPort:
+          name: http
+          port: 80
+          protocol: TCP
+      - type: liveness
+        keys:
+          - 80
+      - type: readiness
+        keys:
+          - 80
+  hpa:
+    enabled: true
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+varnish:
+  image: tripviss/varnish
+  tag: latest
+  pullPolicy: IfNotPresent
+  serviceType: ClusterIP
+  servicePort: 80
+  containerPort: 6081
+  minReplicas: 1
+  hpa:
+    enabled: true

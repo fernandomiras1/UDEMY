@@ -1,0 +1,12 @@
+version: "2.4"
+
+services:
+  naranja-ssr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: naranja/ssr
+    container_name: naranja-ssr
+    ports:
+      - 4200:4200
+    tty: true

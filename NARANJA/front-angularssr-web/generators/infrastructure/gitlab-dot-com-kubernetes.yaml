@@ -1,0 +1,43 @@
+#######################################################################
+# Stack: Wiru 3.0
+# Tipo de repo: gitlab.com
+# Descripción:
+#######################################################################
+include:
+  - project: 'Naranja-Digital/Wiru/templates'
+    ref: wiru3
+    file: 'evoluciondigital/pipeline_templates/.gitlab-ci-front-golden.yml'
+
+stages:
+  - init
+  - static_code_analysis
+  - test
+  - lint
+  - build_code
+  - build_image
+  - deploy
+  - notify
+
+security retire:
+  script:
+    - echo
+  variables:
+    DISABLED: "true"
+
+complexity:
+  script:
+    - echo
+  variables:
+    DISABLED: "true"
+
+functional test:
+  script:
+    - echo
+  variables:
+    DISABLED: "true"
+
+report dast:
+  script:
+    - echo
+  variables:
+    DISABLED: "true"

@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~zumo/vendor/reset";
+@import "~zumo/colors";
+@import "~zumo/variables";
+@import "~zumo/typography";
+@import "~zumo/spaces";
+@import "~zumo/iconsFont";
+@import "~zumo/animations";
+@import "~zumo/vendor/flexboxgrid/flexboxgrid";
+
+html {
+  font-size: $global-font-size; // defined by UX team
+}

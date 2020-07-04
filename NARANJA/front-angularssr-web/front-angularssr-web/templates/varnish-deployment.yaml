@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "app_chart.fullname" . }}-varnish-proxy
+  labels:
+    app: {{ template "app_chart.fullname" . }}-varnish-proxy
+    chart: {{ template "app_chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.varnish.minReplicas }}
+  selector:
+    matchLabels:
+      app: {{ template "app_chart.fullname" . }}-varnish-proxy
+      release: {{ .Release.Name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ template "app_chart.fullname" . }}-varnish-proxy
+        release: {{ .Release.Name }}
+      annotations:
+        date: "`date +'%s'`"
+    spec:
+      volumes:
+        - name: varnish-config
+          configMap:
+            name: {{ template "app_chart.fullname" . }}-varnish-config
+            items:
+              - key: default.vcl
+                path: default.vcl
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.varnish.image }}:{{ .Values.varnish.tag }}
+          imagePullPolicy: Always
+          env:
+            - name: VARNISH_VCL
+              value: /etc/varnish/default.vcl
+            - name: VARNISH_MEMORY
+              value: "3072M"
+          volumeMounts:
+            - name: varnish-config
+              mountPath: /etc/varnish/
+          ports:
+            - containerPort: {{ .Values.varnish.containerPort }}
+              name: http
+              protocol: TCP
+          resources:
+{{ toYaml .Values.varnish.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.varnish.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.varnish.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
