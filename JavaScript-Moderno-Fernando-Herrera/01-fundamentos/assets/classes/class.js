@@ -2,6 +2,14 @@
 
 class Persona {
 
+
+    /**
+
+    Las propiedades estáticas como los métodos estáticos básicamente nos permiten a nosotros poder utilizar
+    dichos métodos y propiedades sin necesidad de instanciar esta clase.
+     
+   */
+
     static _conteo = 0;
     static get conteo() {
         return Persona._conteo + ' instancias';
@@ -23,14 +31,17 @@ class Persona {
         this.nombre = nombre;
         this.codigo = codigo;
         this.frase  = frase;
-
+        // vamos a saber cuantas intancias tengo de mi clase Persona
         Persona._conteo++;
     }
 
+    // set: se usa para establcer un valor. (es importante poner el argumento que recibe)
     set setComidaFavorita( comida ) {
         this.comida = comida.toUpperCase();
     }
+    // get: es para recuperar un valor 
     get getComidaFavorita() {
+        // es imporatnte que en get siempre retorne alto
         return `La comida favorita de ${ this.nombre } es ${ this.comida }`;
     }
 
@@ -56,6 +67,7 @@ const ironman   = new Persona( 'Tony Stark', 'Ironman', 'Yo soy Ironman' );
 spiderman.miFrase();
 // ironman.miFrase();
 
+// el set se llama como en una propiedad
 spiderman.setComidaFavorita = 'El pie de cereza de la tía May';
 // spiderman.comida = 'Duende Verde';
 
