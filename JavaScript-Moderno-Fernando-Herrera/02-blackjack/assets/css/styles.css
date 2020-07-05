@@ -14,6 +14,7 @@ html, body {
 }
 
 .carta {
+    /* relative para que las cartas esten una ariba de la otra */
     position: relative;
     width: 150px;
     left: 100px;
