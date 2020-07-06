@@ -49,6 +49,7 @@ class Heroe extends Persona{
     clan = 'sin clan';
 
     constructor(nombre, codigo, frase) {
+        // llamamos el contructor del padre ( Persona )
         super(nombre, codigo, frase);
 
         this.clan = 'Los Avengers';
@@ -56,7 +57,7 @@ class Heroe extends Persona{
 
     quienSoy() {
         console.log(`Soy ${ this.nombre }, ${ this.clan }`);
-        super.quienSoy();
+        super.quienSoy(); // acceso directo al un metodo del padre. (Persona)
     }
 
 }

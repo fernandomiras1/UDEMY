@@ -1,13 +1,13 @@
-
-
+// Singleton: es una instacia unica de mi clase 
 class Singleton {
 
     static instancia; // undefined
     nombre = '';
 
     constructor( nombre = '' ) {
-   
+        // comprobamos si no existe. trabajamos con el valor boleano cuando es undefinded. equivale a false
         if ( !!Singleton.instancia ) {
+            // si existe una instancia devolvemos esa misa intancia. 
             return Singleton.instancia;
         }
 

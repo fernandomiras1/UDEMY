@@ -2,6 +2,9 @@
 
 class Rectangulo {
 
+    // Solo funciona en Google Crhome ( es algo muy nuevo )
+    // https://caniuse.com/#feat=mdn-javascript_classes_private_class_fields
+    // propiedad pribada para que no sea modificada fuera de esta clase
     #area = 0;
 
     constructor(base = 0, altura = 0) {
