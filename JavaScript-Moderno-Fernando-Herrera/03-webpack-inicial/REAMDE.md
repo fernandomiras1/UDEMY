@@ -32,3 +32,23 @@ Tenemos que agregar el scpir en pacakage.json
 
 ### este paquete nos va a permitir realizaer movimitos de carpetas
 9 npm i -D copy-webpack-plugin
+
+
+### QUE ES BABEL 
+
+link: https://babeljs.io/setup#installation
+
+run npm install --save-dev babel-loader @babel/core
+
+Nos ayuda a usar caracteritas del ES6/7/8 moderno y pasarlos o traducirlos a código de JavaScript compatible con navegadores web viejos.
+
+## tenemos que crear en la raiz .babelrc y installar este paquete 
+npm i -D babel-preset-minify
+## deja el main en una sola linea y ofuscado
+npm i -D babel-minify-webpack-plugin
+## este cambia de const a var. y otras cosas para navegadores mas viejos
+npm install @babel/preset-env --save-dev
+
+# Esto es un Plus ( Como eliminar la carpeta dist con webpack )
+
+npm i -D clean-webpack-plugin
