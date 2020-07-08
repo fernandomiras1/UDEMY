@@ -21,6 +21,7 @@ export class TodoList {
     }
 
     borrarCompletado() {
-        
+        // necesito todos lo que no esten completado ( false )
+        this.todos = this.todos.filter(todo => !todo.completado);
     }
 }

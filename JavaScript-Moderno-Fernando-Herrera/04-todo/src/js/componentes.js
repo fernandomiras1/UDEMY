@@ -4,6 +4,7 @@ import { todoList } from '../index';
 //Referencias en el HTML
 const divTodoList = document.querySelector('.todo-list');
 const txtInput    = document.querySelector('.new-todo'); 
+const btnBorrarAll    = document.querySelector('.clear-completed'); 
 
 
 export const crearTodoHtml = (todo) => {
@@ -53,9 +54,19 @@ divTodoList.addEventListener('click', (event) => {
         // agregamos o quitamos la clase completed
         todoElemento.classList.toggle('completed');
     } else if (nombreElemento.includes('button')) { // hay que borar el usuario
-        
+
         todoList.borrarTodo(todoId);
         divTodoList.removeChild(todoElemento); // elminimaos un elemento en html
     } 
 
-})
+});
+
+btnBorrarAll.addEventListener('click', () => {
+   
+    todoList.borrarCompletado();
+    // vamos a comenzar de abajo hacia arriba
+    for (let i = divTodoList.children.length -1; i>=0; i-- ) {
+        // const elemento = divTodoList
+    }
+
+});
