@@ -1,6 +1,13 @@
-const { saludar } = require("./js/componentes");
+const { saludar, crearTodoHtml } = require("./js/componentes");
 import './styles.css';
 
-const nombre = 'Fernando'
+import {  Todo, TodoList } from './classes';
 
-saludar(nombre);
+const tarea = new Todo('Aprender');
+export const todoList = new TodoList();
+
+console.log(todoList);
+
+
+crearTodoHtml(tarea);
+
