@@ -6,21 +6,25 @@ describe( 'Pruebas de clase', () => {
     // const jugador = new Jugador();
     let jugador: Jugador;
 
+    // se va a ejecutar antes que todas las pruebas
     beforeAll( () => {
         // console.warn('BeforeAll');
         // jugador.hp = 100;
     });
 
+    // se va a ejecutar antes de cada prueba
     beforeEach( () => {
         // console.warn('BeforeEach');
         // jugador.hp = 100;
         jugador = new Jugador();
     });
 
+    // se va a ejecutar cuando todas las pruebas finalizen
     afterAll( () => {
         // console.warn('AfterAll');
     });
 
+    // se va a ejecutar cada vez que termina cada una de estas pruebas
     afterEach( () => {
         // console.warn('AfterEach');
         // jugador.hp = 100;
