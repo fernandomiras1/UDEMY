@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "firestore-grafica-4990a": {
+      "hosting": {
+        "goty-firebase": [
+          "firestore-grafica-4990a"
+        ]
+      }
+    }
+  }
+}

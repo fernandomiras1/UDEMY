@@ -2,26 +2,33 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
 
-## Development server
+## Documentacion sobre las Graficas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Fuentes
 
-## Code scaffolding
+1 - https://github.com/swimlane/ngx-charts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2 - https://stackblitz.com/edit/vertical-bar-chart?embed=1&file=app/app.component.ts
 
-## Build
+3 - https://swimlane.github.io/ngx-charts/#/ngx-charts/bar-vertical
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Documentacion 
 
-## Running unit tests
+https://swimlane.gitbook.io/ngx-charts/installing
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Instalar ngx-charts 
 
-## Running end-to-end tests
+npm i @angular/cdk
+npm install @swimlane/ngx-charts --save
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+sweetalert2
 
-## Further help
+https://sweetalert2.github.io/
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+npm install sweetalert2
+
+### Angular Fire 
+
+https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md
+
+ng add @angular/fire

@@ -117,8 +117,13 @@
               "devServerTarget": "goty-firebase:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "goty-firebase"
 }
