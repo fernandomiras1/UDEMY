@@ -5,6 +5,7 @@ import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@ang
 import { startsWithCapitalValidator } from 'src/app/directives/startsWithCapital.directive';
 import { zip } from 'rxjs';
 import { tap, filter, map } from 'rxjs/operators';
+import { conditionalValidator } from '../../conditionalValidator';
 
 @Component({
   selector: 'app-contact-form',
@@ -44,7 +45,10 @@ export class ContactFormComponent implements OnInit {
       })
     ]),
     email: [''],
-    direction: ['']
+    myCheckbox: [''],
+    direction: ['', conditionalValidator(() => this.contactForm.get('myCheckbox').value, 
+      Validators.required,
+      )]
   });
 
 
@@ -80,6 +84,10 @@ export class ContactFormComponent implements OnInit {
     ).subscribe( formValue => {
       // Guardamos el value del formulario en el localStorage
       localStorage.setItem('contact', JSON.stringify(formValue));
+    });
+
+    this.contactForm.get('myCheckbox').valueChanges.subscribe(value => {
+        this.contactForm.get('direction').updateValueAndValidity();
     });
   }
 
@@ -131,6 +139,10 @@ export class ContactFormComponent implements OnInit {
 
   get name() {
     return this.contactForm.get('name');
+  }
+
+  get direction() {
+    return this.contactForm.get('direction');
   }
 
   get phones() {

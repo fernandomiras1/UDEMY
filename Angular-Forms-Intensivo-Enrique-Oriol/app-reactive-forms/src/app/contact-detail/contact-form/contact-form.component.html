@@ -46,10 +46,15 @@
         <input type="text" id="email" formControlName="email">
     </div>
 
+
     <!-- address field -->
+    Marque Adress requerido <input formControlName="myCheckbox" type="checkbox">
     <div class="form-item">
         <label for="address">Adress:</label>
         <input type="text" id="address" formControlName="direction">
+        <p *ngIf="direction.hasError('required')" class="error-message">
+            La direccion el requerida !!
+        </p>
     </div>
 
     <!-- submit button -->
@@ -58,4 +63,10 @@
     </button>
     
 </form>
-<pre>{{contactForm.value | json }}</pre>
+
+<ul>
+	<li>Is my form  valid? {{contactForm.valid}}</li>
+	<li><pre>My email field errors: {{contactForm.controls.direction.errors| json}}</pre></li>
+    <li><pre>My form errors: {{contactForm.errors| json}}</pre></li>
+    <li><pre>Form value: {{contactForm.value | json }}</pre></li>
+</ul>
