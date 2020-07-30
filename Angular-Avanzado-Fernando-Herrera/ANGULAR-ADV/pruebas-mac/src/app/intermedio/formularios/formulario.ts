@@ -12,7 +12,5 @@ export class FormularioLogin {
       password: ['', Validators.required]
     });
 
-    
-
   }
 }

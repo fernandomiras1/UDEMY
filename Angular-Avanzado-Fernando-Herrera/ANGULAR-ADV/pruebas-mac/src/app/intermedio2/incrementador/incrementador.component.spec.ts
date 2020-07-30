@@ -2,7 +2,6 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { IncrementadorComponent } from './incrementador.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { exec } from 'child_process';
 
 
 describe('Incremendator Component', () => {
