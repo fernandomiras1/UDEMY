@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DevFLix</title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- tiene un lugo a la izquierda -->
+    <header class="site-header">
+        <img src="img/logo.svg" alt="logotipo" class="logotipo">
+    </header>
+
+    <!-- formulario centrado -->
+    <main class="formulario-login contenedor">
+        <form action="#">
+            <legend>Inicia sesión</legend>
+            <div class="campo">
+                <input type="text" id=usuario>
+                <label>Email o número de teléfono</label>
+            </div>
+           
+            <div class="campo">
+                <input type="password" id=password>
+                <label>Contraseña</label>
+                <span>Mostrar</span>
+            </div>
+
+            <div class="submit">
+                <input type="submit" value="Iniciar sesión">
+            </div>
+
+            <div class="acciones">
+                <div class="recuerdame">
+                    <input type="checkbox">
+                    <label>Recuérdame</label>
+                </div>
+
+                <div class="ayuda">
+                    <a href="#">¿Necesitas ayuda?</a>
+                </div>
+           </div> <!-- acciones -->
+
+        </form>
+
+
+        <div class="contenido-inferior">
+            <a href="#">Iniciar sesión con facebook</a>
+            <p class="nuevo-usuario">
+                ¿Primera vez en Netflix? <a href="#" >Suscríbete ya</a>
+            </p>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="contenedor">
+            <p>¿Preguntas? Llama al 800-345-1375</p>
+
+            <nav class="menu-footer">
+                <a href="#">Términos de las tarjetas de regalo</a>
+                <a href="#">Términos de uso</a>
+                <a href="#">Declaración de privacidad</a>
+            </nav>
+
+            <select class="lenguaje">
+                <option value="eng">English</option>
+                <option value="esp">Español</option>
+            </select>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

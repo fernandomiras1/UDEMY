@@ -1,0 +1,222 @@
+@import 'variables';
+@import 'mixins';
+
+//border-box: es ideal para que un paddin o un margen cambie el tamaño de un elemento
+html {
+    @include box-sizing(border-box);
+}
+*,
+*:after,
+*:before {
+    @include box-sizing(inherit);
+}
+
+body {
+    background-color: $negro;
+    font-family: $fuentePrincipal;
+    color: $gris2;
+
+    @include tablet {
+        background-color: unset; 
+        background-image: url(../img/bg.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom center;
+    }
+}
+
+a {
+    color: $gris2;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.contenedor {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.alerta {
+    color: $secundario;
+    display: block;
+    margin-bottom: .2rem;
+    padding: .5rem;
+    font-size: .8rem;
+    text-align: center;
+}
+
+input.no-valido {
+    border-bottom: 2px solid $secundario !important;
+}
+
+.logotipo {
+    margin-top: .5rem;
+    max-width: 180px;
+
+    @include tablet {
+        margin-top: .8rem;
+        margin-left: 2%;
+    }
+}
+
+.formulario-login {
+    @include tablet {
+        background-color: rgba(0,0,0, 0.85);
+        max-width: 450px;
+        padding: 2rem 4rem;
+        margin: 1rem auto 4rem auto;
+    }
+}
+
+form {
+    legend {
+        color: $blanco;
+        font-size: 2rem;
+        margin: 2rem 0;
+        font-weight: bold;
+    }
+
+    .campo {
+        display: flex;
+        position: relative;
+        margin-bottom: .8rem;
+        span {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            text-transform: uppercase;
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        label {
+            position: absolute;
+            top: 1.1rem; 
+            left: 1rem; 
+        
+            transition: font-size .2s ease, top .2s ease;
+
+            &.valido {
+                font-size: .6rem;
+                top: .5rem;
+            }
+        }
+        input {
+            
+            flex: 1;
+            padding: 1.3rem 1rem .7rem 1rem;
+            border: none;
+            background-color: $gris;
+            border-radius: $radius;
+            color: $blanco;
+         
+            &:focus {
+                background-color: $gris3;
+                outline: none;
+
+                + label {
+                    font-size: .6rem;
+                    top: .5rem;
+                }
+
+            }
+        }
+    }
+
+    .submit {
+        display: flex;
+        margin-top: 2rem;
+
+        input[type="submit"] {
+            @include boton($primario, $blanco);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .acciones {
+        display: flex;
+        justify-content: space-between;
+        padding: .5rem 0;
+        margin: .5rem 0 8rem 0;
+
+        label, a {
+            font-size: .8rem;
+            text-decoration: none;
+        }
+    }
+}
+
+.contenido-inferior {
+    padding-bottom: 2rem;
+    @include tablet {
+        padding-bottom: 0;
+    }
+
+    a {
+        font-size: .8rem;
+    }
+
+    .nuevo-usuario {
+        font-size: 1rem;
+        margin-top: 1rem;
+        display: flex;
+
+        a {
+            font-size: 1rem;
+            color: $blanco;
+            margin-left: .5rem;
+        }
+    }
+}
+
+.site-footer {
+    border-top: 1px solid $gris2;
+    padding: 2rem 0 4rem 0;
+    @include tablet {
+        border-top: unset;
+        background-color: rgba(0,0,0, 0.85);
+        padding: 1rem 0 3rem 0;
+    }
+    .contenedor {
+        @include tablet {
+            max-width: 50%;
+        }
+    }
+
+    .menu-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @include desktop {
+            max-width: 60%;
+        }
+
+        a {
+            flex: 0 0 auto;
+            font-size: .8rem;
+            margin-right: 2rem;
+            padding: .5rem 0;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+
+    select {
+        margin-top: 2rem;
+        appearance: none;
+        padding: 1rem 3rem;
+        border: 1px solid $gris3;
+        border-radius: $radius;
+        font-size: .8rem;
+        background-color: $negro;
+        color: $gris2;
+    }
+}

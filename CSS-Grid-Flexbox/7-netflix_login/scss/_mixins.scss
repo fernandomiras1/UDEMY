@@ -1,0 +1,40 @@
+// aca es donde van a estar las funciones para reutilizar muchas veces en todo el proyecto.
+
+// Media queries ( resposive )
+
+@mixin telefono {
+    @media (min-width: #{$telefono}) {
+        @content; // proyeccion de contendio           
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$tablet}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin box-sizing($box-model) {
+    box-sizing: $box-model;
+}
+
+@mixin boton($bgColor, $color) {
+    background-color: $bgColor;
+    color: $color;
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: $radius;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 1rem 0;
+}
+
