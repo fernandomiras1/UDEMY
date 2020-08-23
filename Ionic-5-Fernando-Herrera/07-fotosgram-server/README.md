@@ -1,3 +1,9 @@
+INSTALACIONES NECESARIAS
+
+npm install -g typescript
+
+-------
+
 Levantar la BD
 
 docker-compose up -d

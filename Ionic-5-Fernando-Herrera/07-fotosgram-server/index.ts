@@ -1,6 +1,8 @@
 import Server from './classes/server';
 import mongoose from 'mongoose';
 
+import cors from 'cors';
+
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 
@@ -17,6 +19,10 @@ server.app.use( bodyParser.json() );
 
 // FileUpload
 server.app.use( fileUpload({ useTempFiles: true }) );
+
+// CORS
+server.app.use(cors({ origin: true, credentials: true }));
+
 
 
 // Rutas de mi app
