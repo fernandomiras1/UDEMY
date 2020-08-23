@@ -4,5 +4,12 @@ docker-compose up -d
 
 Levantar el server.
 
+nvm use 10
+
 run nodemon dist/
 
+// POSTAM 
+
+podemos poner toda la coleccion en postam. Importando ese archivo.
+
+fotosgram-ionic.postman_collection.json

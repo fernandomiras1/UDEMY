@@ -1,6 +1,6 @@
 
 
-
+// Es el tipo de archivo que voy a subir.
 export interface FileUpload {
     name: string;
     data: any;

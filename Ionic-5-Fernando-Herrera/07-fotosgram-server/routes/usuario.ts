@@ -100,6 +100,7 @@ userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
         avatar: req.body.avatar || req.usuario.avatar
     }
 
+    // encontramos el id y lo actualizamos.
     Usuario.findByIdAndUpdate( req.usuario._id, user, { new: true }, (err, userDB) => {
 
         if ( err ) throw err;
@@ -129,7 +130,7 @@ userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
 });
 
 
-
+// Verficar si el Token es correcto y regresar el info del usuario. (Gurad de Angular)
 userRoutes.get('/', [ verificaToken ], ( req: any, res: Response ) => {
 
     const usuario = req.usuario;

@@ -9,6 +9,7 @@ const postSchema = new Schema({
     mensaje: {
         type: String
     },
+    // una coleccion de imagenes en Array
     imgs: [{
         type: String
     }],
@@ -16,14 +17,15 @@ const postSchema = new Schema({
         type: String   // -13.313123, 12.3123123
     },
     usuario: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario',
+        type: Schema.Types.ObjectId, // mantenenmos la referencia a la tabla usuario.
+        ref: 'Usuario', // referencia de la tabla usuario.
         required: [ true, 'Debe de existir una referencia a un usuario' ]
     }
 });
 
+// pre. antes del guardado (save).
 postSchema.pre<IPost>('save', function( next ) {
-    this.created = new Date();
+    this.created = new Date(); // hacemos que la fecha se genere automaticamene cada vez que haga un posteo.
     next();
 });
 

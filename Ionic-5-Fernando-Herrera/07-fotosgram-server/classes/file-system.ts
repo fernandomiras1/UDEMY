@@ -41,15 +41,16 @@ export default class FileSystem {
         const nombreArr = nombreOriginal.split('.');
         const extension = nombreArr[ nombreArr.length - 1 ];
 
+        // generamos id Unicos. (random)
         const idUnico = uniqid();
 
 
         return `${ idUnico }.${ extension }`;
     }
 
-
+    // cramos el path en la caprteta uploads con el id del usuario.
     private crearCarpetaUsuario( userId: string ) {
-
+        // __dirname: es toda la direccion de mi maquina hasta donde esta mi proyecto
         const pathUser = path.resolve(  __dirname, '../uploads/', userId );
         const pathUserTemp = pathUser + '/temp';
         // console.log(pathUser);
@@ -80,6 +81,7 @@ export default class FileSystem {
 
         const imagenesTemp = this.obtenerImagenesEnTemp( userId );
 
+        // movemos a la carpeta post.
         imagenesTemp.forEach( imagen => {
             fs.renameSync( `${ pathTemp }/${ imagen }`, `${ pathPost }/${ imagen }` )
         });
@@ -91,7 +93,7 @@ export default class FileSystem {
     private obtenerImagenesEnTemp( userId: string ) {
 
         const pathTemp = path.resolve(  __dirname, '../uploads/', userId, 'temp' );
-
+        // regresarias todas la imagenes que hay con ese id usuario.
         return fs.readdirSync( pathTemp ) || [];
 
     }
@@ -106,6 +108,7 @@ export default class FileSystem {
         // Si la imagen existe
         const existe = fs.existsSync( pathFoto );
         if ( !existe ) {
+            // regresamos una imagen por defecto.
             return path.resolve( __dirname, '../assets/400x250.jpg' );
         }
 

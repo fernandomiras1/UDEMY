@@ -43,6 +43,7 @@ userRoutes.post('/login', (req, res) => {
 });
 // Crear un usuario
 userRoutes.post('/create', (req, res) => {
+    // extraemos la informacion que viene del posteo.
     const user = {
         nombre: req.body.nombre,
         email: req.body.email,
@@ -74,6 +75,7 @@ userRoutes.post('/update', autenticacion_1.verificaToken, (req, res) => {
         email: req.body.email || req.usuario.email,
         avatar: req.body.avatar || req.usuario.avatar
     };
+    // encontramos el id y lo actualizamos.
     usuario_model_1.Usuario.findByIdAndUpdate(req.usuario._id, user, { new: true }, (err, userDB) => {
         if (err)
             throw err;
@@ -95,6 +97,7 @@ userRoutes.post('/update', autenticacion_1.verificaToken, (req, res) => {
         });
     });
 });
+// Verficar si el Token es correcto y regresar el info del usuario. (Gurad de Angular)
 userRoutes.get('/', [autenticacion_1.verificaToken], (req, res) => {
     const usuario = req.usuario;
     res.json({

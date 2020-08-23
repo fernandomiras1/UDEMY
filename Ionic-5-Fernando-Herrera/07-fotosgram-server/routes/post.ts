@@ -12,17 +12,16 @@ const fileSystem = new FileSystem();
 // Obtener POST paginados
 postRoutes.get('/', async (req: any, res: Response) => {
 
-    let pagina = Number(req.query.pagina) || 1;
+    let pagina = Number(req.query.pagina) || 1; // obtenemos el numero de pagina
     let skip = pagina - 1;
     skip = skip * 10;
 
     const posts = await Post.find()
-                            .sort({ _id: -1 })
-                            .skip( skip )
-                            .limit(10)
-                            .populate('usuario', '-password')
-                            .exec();
-
+                            .sort({ _id: -1 }) // ordenamos de forma desc. (el ultimo primero)
+                            .skip( skip ) // Quiero que se salte n registros. que van a ser de 10 en 10. (paginacion)
+                            .limit(10) // solo 10 registros
+                            .populate('usuario', '-password') // muestra la info del usuario sin password.
+                            .exec(); // ejecuta la consulta.
 
     res.json({
         ok: true,
@@ -45,8 +44,11 @@ postRoutes.post('/', [ verificaToken ], (req: any, res: Response) => {
     body.imgs = imagenes;
 
 
+    // Guardamos en la base de datos. 
     Post.create( body ).then( async postDB => {
 
+        // que devuela todo el objeto del usaurio, menos su password.
+        // populate: obtiene la relacion del modelo 
         await postDB.populate('usuario', '-password').execPopulate();
 
         res.json({
@@ -62,9 +64,10 @@ postRoutes.post('/', [ verificaToken ], (req: any, res: Response) => {
 
 
 
-// Servicio para subir archivos
+// Servicio para subir archivos ( Cualquier tipo de archivos nos sirver este codigo)
 postRoutes.post( '/upload', [ verificaToken ], async (req: any, res: Response) => {
     
+    // Si no exite en la requesq de tipo files. No se mando nada de tipo file.
     if ( !req.files ) {
         return res.status(400).json({
             ok: false,
@@ -72,6 +75,7 @@ postRoutes.post( '/upload', [ verificaToken ], async (req: any, res: Response) =
         });
     }
 
+    // obtenemos el archivo
     const file: FileUpload = req.files.image;
 
     if ( !file ) {
@@ -81,6 +85,7 @@ postRoutes.post( '/upload', [ verificaToken ], async (req: any, res: Response) =
         });
     }
 
+    // verificamos que solo sea imagenes.
     if ( !file.mimetype.includes('image') ) {
         return res.status(400).json({
             ok: false,
@@ -98,7 +103,7 @@ postRoutes.post( '/upload', [ verificaToken ], async (req: any, res: Response) =
 });
 
 
-
+// para poder mostrar las imagenes.
 postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
 
     const userId = req.params.userid;
@@ -106,6 +111,7 @@ postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
 
     const pathFoto = fileSystem.getFotoUrl( userId, img );
 
+    // mandamos la imagen. 
     res.sendFile( pathFoto );
 
 });

@@ -9,8 +9,9 @@ export const verificaToken = ( req: any, res: Response, next: NextFunction  ) =>
     Token.comprobarToken( userToken )
         .then(  (decoded: any) => {
             console.log('Decoded', decoded );
+            // le agregamos la info del usuario.
             req.usuario = decoded.usuario;
-            next();
+            next(); // mi token es correcro. llamaos puede continucar con el siguiente paso.
         })
         .catch( err => {
 

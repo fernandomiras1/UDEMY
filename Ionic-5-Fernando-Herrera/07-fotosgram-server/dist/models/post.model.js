@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Post = void 0;
 const mongoose_1 = require("mongoose");
 const postSchema = new mongoose_1.Schema({
     created: {
@@ -8,6 +9,7 @@ const postSchema = new mongoose_1.Schema({
     mensaje: {
         type: String
     },
+    // una coleccion de imagenes en Array
     imgs: [{
             type: String
         }],
@@ -20,8 +22,9 @@ const postSchema = new mongoose_1.Schema({
         required: [true, 'Debe de existir una referencia a un usuario']
     }
 });
+// pre. antes del guardado (save).
 postSchema.pre('save', function (next) {
-    this.created = new Date();
+    this.created = new Date(); // hacemos que la fecha se genere automaticamene cada vez que haga un posteo.
     next();
 });
 exports.Post = mongoose_1.model('Post', postSchema);

@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "2704ea7a-f5e4-4932-a9bd-28334a95ecd4",
+		"name": "fotosgram-ionic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "Fernando",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fernando.miras.pc@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "fer12366",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "fernando.miras.pc@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "fer12366",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualiza Usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjVmNDFjYTc0ZjNlMjRiMmQ2MTUyYTUxOSIsIm5vbWJyZSI6IkZlcm5hbmRvIiwiZW1haWwiOiJmZXJuYW5kby5taXJhcy5wY0BnbWFpbC5jb20iLCJhdmF0YXIiOiJhdi0xLnBuZyJ9LCJpYXQiOjE1OTgxOTU2NzQsImV4cCI6MTYwMDc4NzY3NH0.C7IFUI_GA9AAniRiKis0IT19l_sincF86F_xeO_czh0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "Fernando Miras",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "av-1.png",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un nuevo POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjVmNDFjYTc0ZjNlMjRiMmQ2MTUyYTUxOSIsIm5vbWJyZSI6IkZlcm5hbmRvIE1pcmFzIiwiZW1haWwiOiJmZXJuYW5kby5taXJhcy5wY0BnbWFpbC5jb20iLCJhdmF0YXIiOiJhdi0xLnBuZyJ9LCJpYXQiOjE1OTgxOTc3NDIsImV4cCI6MTYwMDc4OTc0Mn0.l7M_q-_p06s079x_PUSMzZq4yIevjlxC-QDvpxyTNAw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "mensaje",
+							"value": "Mensaje 22",
+							"type": "text"
+						},
+						{
+							"key": "coords",
+							"value": "14,14",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/posts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los Posts Paginados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/posts/?pagina=1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						""
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subir archivo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjVmNDFjYTc0ZjNlMjRiMmQ2MTUyYTUxOSIsIm5vbWJyZSI6IkZlcm5hbmRvIE1pcmFzIiwiZW1haWwiOiJmZXJuYW5kby5taXJhcy5wY0BnbWFpbC5jb20iLCJhdmF0YXIiOiJhdi0xLnBuZyJ9LCJpYXQiOjE1OTgxOTc3NDIsImV4cCI6MTYwMDc4OTc0Mn0.l7M_q-_p06s079x_PUSMzZq4yIevjlxC-QDvpxyTNAw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/fernando/Imágenes/24799390_1859498040746104_2636912545511915980_o.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/posts/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener imagen URL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/posts/imagen/5f41ca74f3e24b2d6152a519/1gfzhambke7chdti.jpg",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"imagen",
+						"5f41ca74f3e24b2d6152a519",
+						"1gfzhambke7chdti.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener usuario por token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjVmNDFjYTc0ZjNlMjRiMmQ2MTUyYTUxOSIsIm5vbWJyZSI6IkZlcm5hbmRvIE1pcmFzIiwiZW1haWwiOiJmZXJuYW5kby5taXJhcy5wY0BnbWFpbC5jb20iLCJhdmF0YXIiOiJhdi0xLnBuZyJ9LCJpYXQiOjE1OTgxOTc3NDIsImV4cCI6MTYwMDc4OTc0Mn0.l7M_q-_p06s079x_PUSMzZq4yIevjlxC-QDvpxyTNAw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

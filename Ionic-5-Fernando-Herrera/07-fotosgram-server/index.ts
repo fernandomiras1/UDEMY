@@ -16,12 +16,12 @@ server.app.use( bodyParser.json() );
 
 
 // FileUpload
-// server.app.use( fileUpload({ useTempFiles: true }) );
+server.app.use( fileUpload({ useTempFiles: true }) );
 
 
 // Rutas de mi app
 server.app.use('/user', userRoutes );
-// server.app.use('/posts', postRoutes );
+server.app.use('/posts', postRoutes );
 
 
 // Conectar DB

@@ -30,10 +30,13 @@ class FileSystem {
         // 6.copy.jpg
         const nombreArr = nombreOriginal.split('.');
         const extension = nombreArr[nombreArr.length - 1];
+        // generamos id Unicos. (random)
         const idUnico = uniqid_1.default();
         return `${idUnico}.${extension}`;
     }
+    // cramos el path en la caprteta uploads con el id del usuario.
     crearCarpetaUsuario(userId) {
+        // __dirname: es toda la direccion de mi maquina hasta donde esta mi proyecto
         const pathUser = path_1.default.resolve(__dirname, '../uploads/', userId);
         const pathUserTemp = pathUser + '/temp';
         // console.log(pathUser);
@@ -54,6 +57,7 @@ class FileSystem {
             fs_1.default.mkdirSync(pathPost);
         }
         const imagenesTemp = this.obtenerImagenesEnTemp(userId);
+        // movemos a la carpeta post.
         imagenesTemp.forEach(imagen => {
             fs_1.default.renameSync(`${pathTemp}/${imagen}`, `${pathPost}/${imagen}`);
         });
@@ -61,6 +65,7 @@ class FileSystem {
     }
     obtenerImagenesEnTemp(userId) {
         const pathTemp = path_1.default.resolve(__dirname, '../uploads/', userId, 'temp');
+        // regresarias todas la imagenes que hay con ese id usuario.
         return fs_1.default.readdirSync(pathTemp) || [];
     }
     getFotoUrl(userId, img) {
@@ -69,6 +74,7 @@ class FileSystem {
         // Si la imagen existe
         const existe = fs_1.default.existsSync(pathFoto);
         if (!existe) {
+            // regresamos una imagen por defecto.
             return path_1.default.resolve(__dirname, '../assets/400x250.jpg');
         }
         return pathFoto;
