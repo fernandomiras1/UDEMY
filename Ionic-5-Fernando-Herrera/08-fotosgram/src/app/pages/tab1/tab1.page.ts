@@ -10,14 +10,35 @@ import { Post } from '../../models/interfaces';
 export class Tab1Page implements OnInit {
 
   posts: Post[] = [];
+  habilitado = false;
 
   constructor(private postsService: PostsService) {}
 
   ngOnInit() {
-    this.postsService.getPosts().subscribe(resp => {
+    this.siguientes();
+  }
+
+  recargar(event) {
+    this.posts = [];
+    this.habilitado = false;
+    this.siguientes(event, true);
+  }
+
+  siguientes(event?, pull: boolean = false) {
+    // si pull es true: traemos todos los registros de la pagina 1
+    this.postsService.getPosts(pull).subscribe(resp => {
       console.log(resp);
       this.posts.push(...resp.posts);
+
+      if (event) {
+        event.target.complete();
+        if (resp.posts.length === 0) {
+          this.habilitado = true;
+        }
+      }
+
     });
+
   }
 
 }

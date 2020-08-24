@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 import { IonicModule } from '@ionic/angular';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
   imports: [
     IonicModule,
-    CommonModule
+    CommonModule,
+    PipesModule
   ],
   declarations: [
     PostsComponent,
