@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +8,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  @ViewChild('slidesMain') slidesMain: IonSlides;
 
   avatars = [
     {
@@ -47,10 +50,16 @@ export class LoginPage implements OnInit {
     slidesPerView: 3.5
   };
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
+  ionViewDidEnter(){
+    // Bloqueamos el Slider principal, ya q lo vamos a manejar con los botones ( login y registro )
+    this.slidesMain.lockSwipes(true);
+   }
 
   login( fLogin: NgForm ) {
     console.log('valido', fLogin.valid);
@@ -63,6 +72,18 @@ export class LoginPage implements OnInit {
   seleccionarAvatar(avatar) {
     this.avatars.forEach(avatar => avatar.seleccionado = false);
     avatar.seleccionado = true;
+  }
+
+  mostrarLogin() {
+    this.slidesMain.lockSwipes(false);
+    this.slidesMain.slideTo(0);
+    this.slidesMain.lockSwipes(true);
+  }
+
+  mostrarRegistro() {
+    this.slidesMain.lockSwipes(false);
+    this.slidesMain.slideTo(1);
+    this.slidesMain.lockSwipes(true);
   }
 
 }
