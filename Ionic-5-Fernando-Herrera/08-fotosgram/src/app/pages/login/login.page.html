@@ -23,6 +23,7 @@
                     <ion-label>Email</ion-label>
                     <ion-input name="email"
                                 type="email"
+                                [(ngModel)]="loginUser.email"
                                 required></ion-input>
                   </ion-item>
 
@@ -30,6 +31,7 @@
                     <ion-label>Password</ion-label>
                     <ion-input name="password"
                                 type="password"
+                                [(ngModel)]="loginUser.password"
                                 required></ion-input>
                   </ion-item>
 
@@ -59,24 +61,8 @@
       
       <ion-grid fixed>
 
-            <ion-row>
-            <ion-col>
-                <h3>Seleccione Avatar</h3>
-            </ion-col>
-            </ion-row>
-
-            <ion-row>
-            <ion-col>
-                <ion-slides [options]="avatarSlide">
-                <ion-slide *ngFor="let avatar of avatars">
-                    <ion-img class="pick-avatar"
-                            [class.pick-avatar-seleccionado]="avatar.seleccionado"
-                            src="/assets/avatars/{{ avatar.img }}"
-                            (click)="seleccionarAvatar(avatar)"></ion-img>
-                </ion-slide>
-                </ion-slides>
-            </ion-col>
-            </ion-row>
+           <!-- Avatar Selector -->
+           <app-avatar-selector (avatarSelected)="registerUser.avatar = $event"></app-avatar-selector>
         
             <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
                 <ion-row>
@@ -88,6 +74,7 @@
                             <ion-label>Email</ion-label>
                             <ion-input name="email" 
                                         type="email"
+                                        [(ngModel)]="registerUser.email"
                                         required></ion-input>
                             </ion-item>
 
@@ -95,6 +82,7 @@
                             <ion-label>Nombre</ion-label>
                             <ion-input name="nombre"
                                         type="text"
+                                        [(ngModel)]="registerUser.nombre"
                                         required></ion-input>
                             </ion-item>
 
@@ -102,6 +90,7 @@
                             <ion-label>Password</ion-label>
                             <ion-input name="password"
                                         type="password"
+                                        [(ngModel)]="registerUser.password"
                                         required></ion-input>
                             </ion-item>
 

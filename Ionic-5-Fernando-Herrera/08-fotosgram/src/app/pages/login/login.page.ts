@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
+import { UsuarioService } from '../../services/usuario.service';
+import { AlertService } from '../../services/alert.service';
+import { Usuario } from '../../models/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -11,46 +14,20 @@ export class LoginPage implements OnInit {
 
   @ViewChild('slidesMain') slidesMain: IonSlides;
 
-  avatars = [
-    {
-      img: 'av-1.png',
-      seleccionado: true
-    },
-    {
-      img: 'av-2.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-3.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-4.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-5.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-6.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-7.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-8.png',
-      seleccionado: false
-    },
-  ];
-
-  avatarSlide = {
-    slidesPerView: 3.5
+  loginUser = {
+    email: 'fernando.miras.pc@gmail.com',
+    password: 'fer12366'
   };
 
-  constructor() {
+  registerUser: Usuario = {
+    email: 'test1@test.com',
+    password: '123456',
+    nombre: 'Test'
+  };
+
+  constructor(private usuarioService: UsuarioService,
+              private navCtrl: NavController,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -61,17 +38,31 @@ export class LoginPage implements OnInit {
     this.slidesMain.lockSwipes(true);
    }
 
-  login( fLogin: NgForm ) {
-    console.log('valido', fLogin.valid);
+  async login( fLogin: NgForm ) {
+    if (fLogin.valid) {
+      const valido = await this.usuarioService.login(this.loginUser.email, this.loginUser.password);
+      if ( valido ) {
+        // navegar al tabs
+        this.navCtrl.navigateRoot('main/tabs/tab1', { animated: true });
+      } else {
+        // mostrar alerta de usuario y contraseña
+        this.alertService.presentToast('Usuario y contraseña no son correctos.');
+      }
+    }
   }
 
-  registro( fRegistro: NgForm ) {
+  async registro( fRegistro: NgForm ) {
     console.log('valido', fRegistro.valid);
-  }
-
-  seleccionarAvatar(avatar) {
-    this.avatars.forEach(avatar => avatar.seleccionado = false);
-    avatar.seleccionado = true;
+    if (fRegistro.valid) {
+      const valido = await this.usuarioService.registro(this.registerUser);
+      if ( valido ) {
+        // navegar al tabs
+        this.navCtrl.navigateRoot('main/tabs/tab1', { animated: true });
+      } else {
+        // mostrar alerta de usuario y contraseña
+        this.alertService.presentToast('Ese correo electronio ya existe.');
+      }
+    }
   }
 
   mostrarLogin() {
