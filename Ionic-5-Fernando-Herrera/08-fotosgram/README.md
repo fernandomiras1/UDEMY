@@ -1,5 +1,14 @@
 ![Imgur](https://i.imgur.com/MksBQJt.png)
 
+
+
+link: https://account.mapbox.com/
+user : fernandomiras1
+email : fernando.miras.pc@gmail.com
+passs: map36354931
+Usuario: Miras
+Contraseña: Fernando31456
+
 ```
 npx cap add android
 npx cap open ios

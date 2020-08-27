@@ -20,7 +20,6 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "@capacitor/core": "2.4.0",
-    "@ionic-native/geolocation": "^5.28.0",
     "@ionic/angular": "^5.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
