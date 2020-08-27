@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { RespuestaPosts } from '../models/interfaces';
-
+import { RespuestaPosts, Post } from '../models/interfaces';
+import { UsuarioService } from './usuario.service';
 
 const URL = environment.url;
 
@@ -12,7 +12,11 @@ const URL = environment.url;
 export class PostsService {
 
   paginaPosts = 0;
-  constructor(private http: HttpClient) { }
+
+  newPost = new EventEmitter<Post>();
+
+  constructor(private http: HttpClient,
+              private usuarioService: UsuarioService) { }
 
   getPosts(pull: boolean = false) {
 
@@ -22,5 +26,22 @@ export class PostsService {
 
     this.paginaPosts ++;
     return this.http.get<RespuestaPosts>(`${URL}/posts/?pagina=${this.paginaPosts}`);
+  }
+
+
+  crearPost(post) {
+    const headers = new HttpHeaders({
+      'x-token': this.usuarioService.token
+    });
+
+    return new Promise(resolve => {
+      this.http.post(`${ URL }/posts`, post, { headers })
+        .subscribe( (resp: {ok: boolean, post: Post}) => {
+          // emitir cada vex que hago un nuevo post.
+          this.newPost.emit(resp.post);
+          resolve(true);
+        });
+    });
+
   }
 }

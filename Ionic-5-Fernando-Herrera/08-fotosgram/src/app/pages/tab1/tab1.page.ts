@@ -15,7 +15,14 @@ export class Tab1Page implements OnInit {
   constructor(private postsService: PostsService) {}
 
   ngOnInit() {
+    console.log('ngOnInit');
     this.siguientes();
+
+    // estar pendiente cada vex que se crea un nuvo post
+    this.postsService.newPost.subscribe(post => {
+      this.posts.unshift(post);
+    });
+
   }
 
   recargar(event) {
