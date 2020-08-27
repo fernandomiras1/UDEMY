@@ -6,7 +6,7 @@
 
     <ion-buttons slot="end">
       <ion-button (click)="crearPost()"
-                  [disabled]="post.mensaje.length < 1"
+                  [disabled]="post.mensaje.length < 1 || cargandoGeo"
                   color="primary">
         Compartir
       </ion-button>

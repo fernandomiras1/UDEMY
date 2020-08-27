@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
+import { Plugins } from '@capacitor/core';
 
+const { Geolocation } = Plugins;
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -34,13 +36,23 @@ export class Tab2Page {
   }
 
   getGeo() {
-    this.cargandoGeo = true;
-    if ( this.post.posicion ) {
+    if ( !this.post.posicion ) {
       this.post.coords = null;
       return;
     }
+    this.cargandoGeo = true;
 
-    console.log(this.post);
+    this.getCurrentPosition().then(resp => {
+      this.cargandoGeo = false;
+      const coords = `${resp.coords.latitude},${resp.coords.longitude}`;
+      console.log(coords);
+      this.post.coords = coords;
+    });
+
+  }
+
+  getCurrentPosition() {
+    return Geolocation.getCurrentPosition();
   }
 
 }
