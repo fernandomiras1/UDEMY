@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-declare var window: any;
+import { Capacitor, Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
 const { Geolocation, Camera } = Plugins;
 
@@ -75,9 +74,13 @@ export class Tab2Page {
     var imageUrl = image.webPath;
     // Can be set to the src of an image now
     // console.log(image.base64String);
-    const img = window.Ionic.WebView.convertFileSrc( imageUrl );
-    console.log(img);
-    // this.postsService
+    const img = Capacitor.convertFileSrc( imageUrl );
+    console.log(image);
+    this.postsService.uploadImage(image.webPath).subscribe(resu => {
+      console.log('resu de imagen');
+      console.log(JSON.stringify(resu));
+    });
+
     this.tempImages.push( img );
   }
 

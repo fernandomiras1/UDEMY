@@ -49,6 +49,7 @@ export class AppModule {}
 
 ```
 ng build --prod
+ionic build
 npx cap copy
 npx cap open android
 npx cap open ios

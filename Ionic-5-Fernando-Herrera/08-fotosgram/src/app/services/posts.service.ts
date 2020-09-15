@@ -45,22 +45,15 @@ export class PostsService {
 
   }
   
-  uploadImageFile(img: string) {
-    const headers = new HttpHeaders({
-      'filekey': 'image',
-      'x-token': this.usuarioService.token
-    });
-    return this.http.post(`${URL}/posts/upload`, headers);
-  }
-
   uploadImage(img: string) {
+    console.log(img);
     const headers = new HttpHeaders({
       'x-token': this.usuarioService.token
     });
     const formData = new FormData();
-    formData.append('file', img);
-    formData.append('name', 'image');
+    formData.append('files', img);
+    formData.append('fileKey', 'image');
  
-    return this.http.post(`${URL}/posts/upload`, headers);
+    return this.http.post(`${URL}/posts/upload`, formData, { headers });
   }
 }
