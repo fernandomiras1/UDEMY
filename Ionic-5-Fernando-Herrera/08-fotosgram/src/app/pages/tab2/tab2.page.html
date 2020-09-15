@@ -40,6 +40,7 @@
   <ion-row>
     <ion-col size="6">
       <ion-button expand="full"
+                  (click)="takePicture()"
                   shape="round">
         <ion-icon slot="start" name="camera"></ion-icon>
         Cámara
@@ -55,9 +56,11 @@
   </ion-row>
 
   <ion-row>
-    <ion-col size="3" *ngFor="let image of tempImages">
+    <!-- *ngFor="let image of tempImages" -->
+    <ion-col size="3">
       <ion-card>
-        <img src="">
+        <img [src]="imaggg" />
+        <!-- <img [src]="image"> -->
       </ion-card>
     </ion-col>
   </ion-row>
