@@ -56,11 +56,9 @@
   </ion-row>
 
   <ion-row>
-    <!-- *ngFor="let image of tempImages" -->
-    <ion-col size="3">
+    <ion-col size="3" *ngFor="let image of tempImages">
       <ion-card>
-        <img [src]="imaggg" />
-        <!-- <img [src]="image"> -->
+        <img [src]="image">
       </ion-card>
     </ion-col>
   </ion-row>

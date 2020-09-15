@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { AnyTxtRecord } from 'dns';
+import {  DomSanitizer } from '@angular/platform-browser';
+declare var window: any;
 
 const { Geolocation, Camera } = Plugins;
 
@@ -14,8 +14,7 @@ const { Geolocation, Camera } = Plugins;
 })
 export class Tab2Page {
 
-  imgage: SafeResourceUrl;
-  imaggg: any;
+
   tempImages: string[] = [];
   cargandoGeo = false;
   post = {
@@ -65,9 +64,9 @@ export class Tab2Page {
 
   async takePicture() {
     const image = await Camera.getPhoto({
-      quality: 75,
+      quality: 60,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl,
+      resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       correctOrientation: true
     });
@@ -76,11 +75,11 @@ export class Tab2Page {
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
     var imageUrl = image.webPath;
-    this.imaggg = image.webPath;
-    console.log(imageUrl);
     // Can be set to the src of an image now
     // console.log(image.base64String);
-    this.imgage = this.domSanitizer.bypassSecurityTrustResourceUrl(image && image.dataUrl);
+    const img = window.Ionic.WebView.convertFileSrc( imageUrl );
+    console.log(img);
+    this.tempImages.push( img );
   }
 
 }
