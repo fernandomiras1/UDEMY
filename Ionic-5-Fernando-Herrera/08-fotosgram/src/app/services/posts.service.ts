@@ -44,4 +44,23 @@ export class PostsService {
     });
 
   }
+  
+  uploadImageFile(img: string) {
+    const headers = new HttpHeaders({
+      'filekey': 'image',
+      'x-token': this.usuarioService.token
+    });
+    return this.http.post(`${URL}/posts/upload`, headers);
+  }
+
+  uploadImage(img: string) {
+    const headers = new HttpHeaders({
+      'x-token': this.usuarioService.token
+    });
+    const formData = new FormData();
+    formData.append('file', img);
+    formData.append('name', 'image');
+ 
+    return this.http.post(`${URL}/posts/upload`, headers);
+  }
 }

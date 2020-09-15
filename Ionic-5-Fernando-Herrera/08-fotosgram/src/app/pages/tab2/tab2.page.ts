@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import {  DomSanitizer } from '@angular/platform-browser';
 declare var window: any;
 
 const { Geolocation, Camera } = Plugins;
@@ -26,7 +25,6 @@ export class Tab2Page {
   @ViewChild('imageElement') imageElement: any;
 
   constructor(private postsService: PostsService,
-    private domSanitizer: DomSanitizer,
               private route: Router) {}
 
 
@@ -62,12 +60,12 @@ export class Tab2Page {
     return Geolocation.getCurrentPosition();
   }
 
-  async takePicture() {
+  async takePicture(mode: string) {
     const image = await Camera.getPhoto({
       quality: 60,
       allowEditing: true,
       resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
+      source: CameraSource[mode],
       correctOrientation: true
     });
     // image.webPath will contain a path that can be set as an image src.
@@ -79,6 +77,7 @@ export class Tab2Page {
     // console.log(image.base64String);
     const img = window.Ionic.WebView.convertFileSrc( imageUrl );
     console.log(img);
+    // this.postsService
     this.tempImages.push( img );
   }
 

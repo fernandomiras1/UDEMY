@@ -11,6 +11,7 @@ Contraseña: Fernando31456
 
 ```
 npx cap add android
+npx cap add ios
 npx cap open ios
 ```
 
