@@ -48,5 +48,34 @@ arreglo1.sort(function(x,y) {
 });
 
 console.log( arreglo1 );
+// Busca un elemento repetido en un lista. array
+/**  remove-duplicates-from-array-of-objects-
+ * 
+ Before filtering:
+ {"thing":[{"place":"here","name":"stuff"},{"place":"there","name":"morestuff"},{"place":"there2","name":"morestuff"}]}
+ After filtering:
+ [{"place":"here","name":"stuff"},{"place":"there","name":"morestuff"}]
+ * 
+ */
 
+
+const things = new Object();
+
+things.thing = new Array();
+
+things.thing.push({place:"here", name:"stuff"});
+things.thing.push({place:"there", name:"morestuff"});
+things.thing.push({place:"there2", name:"morestuff"});
+
+console.log(things);
+appDiv.innerHTML += `<div>Before filtering:</div>`;
+appDiv.innerHTML += `<pre>${ JSON.stringify(things) }</pre>`;
+const uniqueArray = things.thing.filter((thing, index) => {
+  return index === things.thing.findIndex(obj => {
+    return obj.name === thing.name;
+  });
+});
+
+
+console.log(uniqueArray);
 //console.log(meses);
