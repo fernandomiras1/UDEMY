@@ -6,7 +6,7 @@ import { VirtualComponent } from './virtual/virtual.component';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 
 
 import { DragComponent } from './drag/drag.component';

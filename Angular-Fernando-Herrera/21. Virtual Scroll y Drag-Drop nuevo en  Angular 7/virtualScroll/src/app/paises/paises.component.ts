@@ -11,13 +11,13 @@ export class PaisesComponent implements OnInit {
 
   paises: any = [];
 
-  constructor( private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
-    this.http.get(`https://restcountries.eu/rest/v2/lang/es`).subscribe(resu => { 
-      console.log( resu );
-      this.paises = resu;
-    });
+    // this.http.get(`https://restcountries.eu/rest/v2/lang/es`).subscribe(resu => { 
+    //   console.log( resu );
+    //   this.paises = resu;
+    // });
   }
 
   drop(evento: CdkDragDrop<any>) {
