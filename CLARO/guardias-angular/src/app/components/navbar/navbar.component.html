@@ -1,0 +1,96 @@
+<mat-toolbar class="box-shadow-b bg-color-claro" [ngClass]="{'p-detail-container': detailGroup, 'grid-2': optionsRoutesPage == 2, 'grid-3': optionsRoutesPage == 3}" style="height: 70px;">
+	<div class="container-flex w-100">
+		<img [routerLink]="['/home']" alt="claro-logo" [ngClass]="{'c-pointer': optionsRoutesPage >= 2}" src="../assets/imgs/claro_logo.svg" class="img-claro" *ngIf="!detailGroup"/>
+		<div class="container-flex align-items-center txt-white" *ngIf="detailGroup && !plantillas">
+			<mat-icon class="c-pointer" aria-hidden="false" [routerLink]="['/home']">arrow_back_ios</mat-icon>
+			<mat-icon aria-hidden="false" class="ml-10p" *ngIf="nombreGroup != 'Perfil'">place</mat-icon>
+			<span class="fs-24 ml-10p">{{nombreGroup}}</span>
+		</div>
+    <div class="grid-plantilla w-100 align-items-center txt-white" *ngIf="plantillas">
+	  <ng-container *ngIf="action; else defaultTemplate">
+        <ng-container [ngSwitch]="action">
+          <ng-template [ngSwitchCase] ="'modificar'">
+            <div class="align-middle">
+              <mat-icon class="c-pointer" aria-hidden="false" [routerLink]="['/home']">arrow_back_ios</mat-icon>
+              <span class="fs-24 ml-10p">Plantillas de rangos de horarios</span>
+            </div>
+            <div class="text-end"></div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="'agregar'">
+            <div>
+              <span class="fs-24 ml-10p">Nueva Plantilla</span>
+            </div>
+            <div class="text-end"></div>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+      <ng-template #defaultTemplate>
+        <div>
+          <span class="fs-24 ml-10p">Selección de plantilla horaria</span>
+        </div>
+        <div class="text-end">
+          <button class="txt-white btn-plantilla txt-bold c-pointer mr-1" (click)="cancelPlantillas.emit()">CANCELAR</button>
+          <button class="txt-white btn-plantilla txt-bold c-pointer" (click)="savePlantillas.emit()">GUARDAR CAMBIOS</button>
+        </div>
+      </ng-template>
+		</div>
+		<div class="container-flex" *ngIf="optionsRoutesPage >= 3">
+			<label class="txt-white fs-14 ml-3">Ver por</label>
+			<app-select-time style="z-index: 20;"></app-select-time>
+			<mat-checkbox *ngIf="userCanSeeCheckbox" #checkbox [checked]="onlyMyGroups" (change)='toggleMyGroups(checkbox.checked)' color="accent" class="txt-white fs-14 checkCalendar">Ver sólo mis grupos</mat-checkbox>
+		</div>
+	</div>
+	<div *ngIf="optionsRoutesPage >= 3" class="text-center">
+		<input matInput [matDatepicker]="picker" [(ngModel)]="selectDay" (ngModelChange)="selectedDay()" style="visibility: hidden; position: absolute; top: 2rem;">
+		<mat-datepicker #picker color="warn"></mat-datepicker>
+		<button mat-button class="fs-24 btn-calendar txt-white" (click)="picker.open()">
+			{{selectDay | date: 'MMMM yyyy' | titlecase}}
+			<mat-icon class="icon-options">arrow_drop_down</mat-icon>
+		</button>
+	</div>
+	<div *ngIf="optionsRoutesPage >= 2" class="text-end">
+
+		<span *ngIf="userCanJoinToGroup">
+			<button *ngIf="!userIsJoined" (click)="joinToGroup(1)" class="btn-join in mr-1" mat-button>
+				UNIRME AL GRUPO
+			</button>
+
+			<button *ngIf="userIsJoined" (click)="joinToGroup(0)" class="btn-join out mr-1" mat-button>
+				SALIR DEL GRUPO
+			</button>
+		</span>
+
+		<button mat-button [matMenuTriggerFor]="appMenu"
+		[ngClass]="{'btn-open-menu': isOpenMenu}"
+		class="txt-bold btn-options txt-white mr-2"
+		(menuOpened)="menuOpened()" (menuClosed)="menuClosed()">
+			Opciones
+			<mat-icon aria-hidden="false" class="icon-options">arrow_drop_down</mat-icon>
+		</button>
+		<button mat-mini-fab class="bg-white2" (click)="goPage(optionsRoutesPage)" *ngIf="calendar">
+			<mat-icon aria-hidden="false" class="txt-color-claro icon-calendar" *ngIf="optionsRoutesPage == 2">calendar_today</mat-icon>
+			<mat-icon aria-hidden="false" class="txt-color-claro icon-calendar" *ngIf="optionsRoutesPage >= 3">format_list_bulleted</mat-icon>
+		</button>
+	</div>
+</mat-toolbar>
+<mat-menu #appMenu="matMenu" isOpen="open-menu" class="min-width-menu menu-options">
+	<ng-container *ngIf="user">
+		<label mat-menu-item disabled class="txt-black txt-bold option-fullname">{{(user.nombre + " " + user.apellido) | titlecase}}</label>
+		<label mat-menu-item disabled class="txt-black option-legajo">{{user.legajo_corpo}}</label>
+		<button *ngIf="userCanSeeCheckbox" mat-menu-item [routerLink]="['/perfil',user.id_usuario]">Perfil</button>
+		<button mat-menu-item *ngIf="user.grupo_remedy === 'ARG-MV-GESTION Y SOPORTE OPERATIVO'" [routerLink]="['/plantilla/listar']">Plantillas</button>
+		<button [disabled]="!allowedRole" mat-menu-item (click)="serverValidacionTelefonica($event)">
+			<mat-checkbox [disabled]="!allowedRole" 
+				(click)="$event.preventDefault()"
+				class="option-checked"
+				color="primary"
+				[disableRipple]="true"
+				[checked]="validateSigosActive == 1">
+			</mat-checkbox>
+			Validación telefónica
+		</button>
+		<button mat-menu-item (click)="logout()">Cerrar Sesión</button>
+	</ng-container>
+</mat-menu>
+
+<app-chatbot></app-chatbot>

@@ -1,0 +1,36 @@
+<mat-toolbar class="box-shadow-b bg-color-claro" style="height: 70px;">
+	<div class="container-flex w-100">
+		<img alt="claro-logo" src="../assets/imgs/claro_logo.svg" class="img-claro"/>
+	</div>
+</mat-toolbar>
+<div class="container-flex justify-content-center" style="padding-top: 3rem; padding-bottom: 2rem;">
+	<strong class="fs-24">Iniciar Sesión</strong>
+</div>
+<div class="container-flex justify-content-center mt-2">
+	<form (ngSubmit)="login()">
+		<div class="col box-shadow align-items-center div-login text-center">
+			<div class="col align-items-end">
+				<div class="row align-items-center">
+					<input [disabled]="isLogin" name="legajo" type="text" placeholder="Legajo" class="input-login mt-1" [ngClass]="{'border-error': showError.legajo}" [(ngModel)]="user.legajo"/>
+				  <img alt="warning-icon" src="../assets/imgs/Warning-icon@2x.png" class="error-icon-login" *ngIf="showError.legajo" style="margin-top: 25px"/>
+				</div>
+			  	<label class="error-msg-login txt-color-claro" *ngIf="showError.legajo">Completar los campos marcados</label>
+			</div>
+			<div class="col align-items-end">
+				<div class="row align-items-center">
+					<input [disabled]="isLogin" autocomplete="on" name="password" [type]="imgShowPass.type" placeholder="Contraseña" class="input-login mt-10p" [ngClass]="{'border-error': showError.password}" [(ngModel)]="user.password"/>
+					<img alt="warning-icon" src="../assets/imgs/Warning-icon@2x.png" class="error-icon-login" *ngIf="showError.password" style="margin-top: 20px"/>
+				</div>
+				<label class="error-msg-login txt-color-claro" *ngIf="showError.password">Completar los campos marcados</label>
+			</div>
+			<button mat-raised-button class="bg-color-claro txt-white btn-claro mt-1">
+				<span *ngIf="!isLogin">ACCEDER</span>
+				<mat-spinner *ngIf="isLogin" color="accent" diameter="25" style="position: absolute;margin-top: -12px;margin-left: 52px;"></mat-spinner>
+			</button>
+		</div>
+	</form>
+	<button aria-label="Login" mat-mini-fab class="btn-show-pass mat-elevation-z0 txt-black bg-white" [ngStyle]="{'margin-top': showError.legajo ? '110px' : '89px' }" (click)="showPass()">
+		<img alt="show-pass" [src]="imgShowPass.path + imgShowPass.url + '.png'" class="img-show-pass"/>
+	</button>
+</div>
+

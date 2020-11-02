@@ -1,0 +1,40 @@
+app-card{
+    display: block;
+}
+
+section {
+    display: flex;
+    flex-direction: row;
+}
+
+article {
+    width: 60%;
+    margin-left: 16.85%;
+}
+
+.sigos {
+    height: 365px;
+    width: 15%;
+    padding: 0 15px;
+    align-self: flex-end;
+    overflow-wrap: break-word;
+}
+
+form { width: 100% }
+
+.grid-2 {
+    display: grid!important;
+    grid-template-columns: calc(100%/2) calc(100%/2);
+}
+
+
+.button-disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+#button-save{
+    width: 190px;
+    padding:5px;
+}
+

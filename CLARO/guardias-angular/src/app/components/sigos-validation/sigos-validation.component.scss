@@ -1,0 +1,12 @@
+
+.validation {
+  height: 260px;
+  background: #F6F6F6;
+  overflow-y: scroll;
+
+  & p {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+}

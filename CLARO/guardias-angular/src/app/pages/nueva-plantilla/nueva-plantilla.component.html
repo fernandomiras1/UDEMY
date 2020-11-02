@@ -1,0 +1,166 @@
+
+<mat-toolbar class="bg-color-claro">
+  <div class="grid-toolbar row">
+      <span class="nuevaPlantilla-menuTitle">Nueva Plantilla</span>
+      <div class="row-end">
+        <button
+          class="btn btn-navbar mr-1"
+          (click)="goToModificar()"
+        >CANCELAR</button>
+        <button
+          class="confirm-plantilla btn btn-navbar"
+          (click)="onAddPlantilla()"
+        >CONFIRMAR</button>
+      </div>
+  </div>
+</mat-toolbar>
+
+<div class="p-detail-container flex-column">
+  <form id="nuevaPlantillaForm" [formGroup]="nuevaPlantillaForm" class="form-plantilla">
+    <div class="form-group mt-1">
+      <div class="left-column">
+        <label class="form-label" for="nombre_tipo_de_guardia">Nombre de plantilla</label>
+        <input
+          class="form-input"
+          type="text"
+          name="nombre_tipo_de_guardia"
+          placeholder="p. ej. 'Guardia Activa'"
+          formControlName="nombre_tipo_de_guardia"
+          aria-describedby="Name"
+          [ngClass]="{ 'is-invalid': isNuevaPlantillaSubmitted && f.nombre_tipo_de_guardia.errors }"
+        />
+      </div>
+      <div class="right-column">
+        <label class="form-label" for="hora_inicial">Hora de inicio de la plantilla</label>
+        <div class="hour-block">
+          <i
+            id="hourMore"
+            class="c-pointer chevron chevron--left"
+            (click)="setTime('down')"
+            role="button"
+            aria-roledescription="button"
+          ></i>
+          <input
+            id="set-hour"
+            name="hora_inicio"
+            type="text"
+            class="hour-input"
+            formControlName="hora_inicio"
+            (keydown)="onTimeKeyPress($event)"
+            aria-describedby="Hora inicio"
+            readonly
+          />
+          <span class="day-cycle">{{ dayCycle }}</span>
+          <i
+            id="hourLess"
+            class="c-pointer chevron chevron--right"
+            (click)="setTime('up')"
+            role="button"
+            aria-roledescription="button"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-1">
+      <label class="form-label">Seleccione cuantos bloques de guardia o cortes horarios tendrá su plantilla</label>
+      <div class="plantilla-duracion">
+        <ng-container *ngFor="let hora of this.setTemplates; let i = index">
+          <div
+            id="hora_{{hora.valueTime}}"
+            class="c-pointer block-hours"
+            [ngClass]="{'activeBlock': i === blockIndex}"
+            (click)="onSelectBlockHours($event, hora.cssContainer.size.length)"
+            (keydown.enter)="onSelectBlockHours($event, hora.cssContainer.size.length)"
+            role="button"
+            tabindex="0"
+          >
+            <div class="block-size-hours">
+              <div
+               class="block-size"
+               *ngFor="let block of hora.cssContainer.size"
+              ></div>
+            </div>
+            <p class="plantilla-horas">{{hora.cssContainer.size.length}} bloque{{ (1 < hora.cssContainer.size.length) ? 's' : '' }}</p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group mt-1">
+      <label class="form-label">Indique la hora de inicio y finalización de cada bloque. La duración del último bloque se ajustará automáticamente para sumar 24hs en total.</label>
+      <div class="plantilla-horarios">
+        <div
+          class="plantilla-block-hora"
+          *ngFor="let blockHora of nuevaPlantillaForm.get('rango_horario').value | keyvalue"
+        >
+          <h4 class="plantilla-block-title">{{ printBlockDescription(blockHora.key)  }}</h4>
+          <div class="plantilla-block-start">
+            <h5 class="plantilla-hora-title">Hora de inicio</h5>
+            <div class="hour-block">
+              <i
+                class="c-pointer chevron chevron--left"
+                (click)="setTimeRango('down', blockHora.key)"
+                role="button"
+                aria-roledescription="button"
+              ></i>
+              <input
+                name="hora_inicio"
+                type="text"
+                class="hour-input"
+                [value]="blockHora.value.horario_desde"
+                (keydown)="onTimeKeyPress($event, blockHora.key)"
+                aria-describedby="Hora inicio"
+                readonly
+              />
+              <span class="day-cycle">{{ printAMPM(blockHora.value.horario_desde) }}</span>
+              <i
+                class="c-pointer chevron chevron--right"
+                (click)="setTimeRango('up', blockHora.key)"
+                role="button"
+                aria-roledescription="button"
+              ></i>
+            </div>
+          </div>
+          <div class="plantilla-block-end">
+            <h5 class="plantilla-hora-title">Hora de finalización</h5>
+            <div class="hour-block">
+              <i
+                class="c-pointer chevron chevron--left"
+                (click)="setTimeRango('down', blockHora.key, 'end')"
+                role="button"
+                aria-roledescription="button"
+              ></i>
+              <input
+                name="hora_inicio"
+                type="text"
+                class="hour-input"
+                [value]="blockHora.value.horario_hasta"
+                (keydown)="onTimeKeyPress($event, blockHora.key)"
+                aria-describedby="Hora finalizacion"
+                readonly
+              />
+              <span class="day-cycle">{{ printAMPM(blockHora.value.horario_hasta) }}</span>
+              <i
+                class="c-pointer chevron chevron--right"
+                (click)="setTimeRango('up', blockHora.key, 'end')"
+                role="button"
+                aria-roledescription="button"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p class="guardias-hours">Así se verá su plantilla</p>
+  <div class="plantillas-block-hours fw-100">
+    <div class="plantillas-rango-horas" *ngFor="let rangohora of nuevaPlantillaForm.get('rango_horario').value | keyvalue">
+      <h5 class="plantillas-rango-title">{{ rangohora.value.horario_desde }} {{ printAMPM(rangohora.value.horario_desde) }}</h5>
+      <div class="plantilla-rango-blocks rango-block-{{rangohora.key * 1 + 1}}">
+        <ng-container *ngFor="let item of getRangoHoras(rangohora.key); let i = index">
+          <div class="plantilla-rango-block"></div>
+        </ng-container>
+      </div>
+      <div class="plantillas-rango-block-desc">{{ printBlockDescription(rangohora.key) }}</div>
+    </div>
+  </div>
+</div>

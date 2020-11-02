@@ -1,0 +1,334 @@
+@import '../../../scss/variables';
+
+// Navbar
+mat-toolbar .row {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
+mat-toolbar .row span {
+  font-size: 24px;
+  color: #fff;
+}
+
+mat-toolbar .row-end {
+  margin-left: auto;
+}
+
+mat-toolbar .grid-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+mat-toolbar .icon-btn-next {
+  position: absolute;
+  top: 25px;
+  font-size: 12px;
+  right: 51px;
+}
+
+.btn {
+  font-size: 14px;
+  font: 600 14px/20px Roboto, "Helvetica Neue", sans-serif;
+  border: none;
+  background: inherit;
+  height: 40px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  outline: none;
+}
+
+.btn-default {
+  color: #acafb0;
+}
+
+.btn-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+}
+
+.btn-navbar {
+  color: #fff;
+}
+
+.btn-danger {
+  color: $red;
+  float: right;
+}
+
+.btn-danger:hover {
+  background: rgba(255, 0, 0, 0.08);
+}
+
+.btn-disabled, .btn-disabled:hover {
+  opacity: 0.5;
+  cursor: default;
+  background: transparent;
+}
+.p-detail-container {
+  padding-left: 12rem;
+  padding-right: 12rem;
+  user-select: none;
+}
+.panel-default {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+  min-height: 259px;
+}
+
+
+// Fin Navbar
+
+
+.form-plantilla .form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.form-plantilla .form-input {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #828282;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  color: #222;
+  width: 100%;
+  height: 25px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.left-column,
+.right-column {
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 5%;
+  width: 45%;
+}
+
+.hour-block {
+  padding-left: .25rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hour-block i {
+  display: inline-block;
+  margin: .5rem auto;
+  position: relative;
+  top: .5rem;
+}
+
+.hour-block i:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -3px;
+  bottom: 0;
+  left: -8px;
+  right: 0;
+  height: 1.5rem;
+  width: 2rem;
+  transform: rotate(-45deg);
+}
+
+.plantilla-duracion {
+  margin-top: .5rem;
+}
+
+.block-hours {
+  border: 2px solid transparent;
+  border-radius: 5%;
+  display: inline-block;
+  margin: 0 25px 0 0;
+  padding: .5rem;
+  text-align: center;
+  width: 8%;
+}
+
+.block-hours:hover,
+.block-hours:focus {
+  border-color: $red;
+}
+
+.block-hours:hover .block-size-hours > div,
+.block-hours:focus .block-size-hours > div {
+  background-color: $red;
+}
+
+.block-size {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+}
+
+.block-full {
+  height: 100%;
+  width: 100%;
+}
+
+.block-size-hours {
+  display: flex;
+  justify-content: center;
+  padding: 5px 15px;
+}
+
+.block-size-hours > div {
+  background: #acafb0;
+  margin: 0 2px;
+}
+
+.activeBlock {
+  border: 2px solid $red;
+}
+
+.activeBlock > .block-size-hours > div {
+  background: $red;
+}
+
+.nuevaPlantilla-menuTitle {
+  margin-left: 8.85rem;
+}
+
+.plantilla-horarios {
+  margin-top: .5rem;
+  user-select: none;
+}
+
+.plantilla-block-hora {
+  border: 2px solid $red;
+  border-radius: 5px;
+  margin-right: 3em;
+  text-align: center;
+  width: 12em;
+}
+
+.plantilla-block-title {
+  background-color: $red;
+  color: #fff;
+  font-weight: normal;
+}
+
+.plantilla-block-end {
+  margin-bottom: 1em;
+}
+
+.plantilla-hora-title {
+  text-align: center;
+  margin: .5em 0 .25em;
+}
+
+.plantilla-horarios div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.plantilla-horarios.noSelectTime {
+  margin-top: 3em;
+  margin-bottom: 1.7em;
+}
+
+.plantillas-block-hours {
+  margin-top: .5rem;
+  display: flex;
+}
+
+.plantilla-horas {
+  color: #acafb0;
+  margin-bottom: 0;
+}
+
+.activeBlock .plantilla-horas {
+  color: $red;
+}
+
+.plantilla-rango-blocks {
+  display: flex;
+}
+
+.plantillas-rango-horas {
+  width: auto;
+}
+
+.plantillas-rango-title {
+  margin-bottom: 0;
+}
+
+.plantilla-rango-block {
+  border: .05em solid #fff;
+  height: 2.75em;
+  width: 2.75em;
+}
+
+.rango-block-1 .plantilla-rango-block {
+  background-color:#a20004;
+}
+
+.rango-block-2 .plantilla-rango-block {
+  background-color: #c51417;
+}
+
+.rango-block-3 .plantilla-rango-block {
+  background-color:#e25f62;
+}
+
+.rango-block-4 .plantilla-rango-block {
+  background-color: #ffc0cb;
+}
+
+.day-cycle {
+  margin-left: -30px;
+  padding-right: 10px;
+  position: relative;
+}
+
+.hour-input {
+  border: 1px solid #828282;
+  border-radius: 3px;
+  width: 57px;
+  height: 35px;
+  margin: 2px;
+  padding: 0 5px;
+  text-align: left;
+}
+
+.chevron {
+  border-right:  2px solid #828282;
+  border-bottom: 2px solid #828282;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+
+.chevron--left {
+  transform: rotate(-225deg);
+}
+
+.chevron--right {
+  transform: rotate(-45deg);
+}
+
+.guardias-hours {
+  margin: 2.25em 0 .25em;
+  font-weight: bold;
+}

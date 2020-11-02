@@ -1,0 +1,25 @@
+<app-modal title="SALIR DEL GRUPO"
+    textBtnLeft="CANCELAR"
+    textBtnRight="CONFIRMAR"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="closeModal()"
+    (onClickBtnRight)="confirm()">
+
+    <div class="text-center">
+        <p class="mt-1">
+            <b style="font-size: 16px;">
+                Está a punto de salir del grupo 
+                <br>
+                "{{ data.group }}"
+            </b>
+            
+            <br><br>
+
+            Serás desasociado de {{ data.quantity }} {{ data.type }}
+            <br>
+            Tus turnos programados serán eliminados.
+        </p>
+    </div>
+
+</app-modal>
+

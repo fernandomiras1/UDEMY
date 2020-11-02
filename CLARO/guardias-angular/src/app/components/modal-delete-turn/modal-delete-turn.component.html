@@ -1,0 +1,15 @@
+<app-modal title="Quitar Turno"
+    textBtnLeft="NO"
+    textBtnRight="Sí, QUITAR"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="closeModal()"
+    (onClickBtnRight)="deleteTurn()">
+
+    <h2>¿Está seguro que desea eliminar este turno?</h2>
+</app-modal>
+
+<!--Modal Eliminando datos-->
+<app-loading-modal
+  [showLoadingModal]="showLoadingModal">
+  message="Eliminando.."
+</app-loading-modal>

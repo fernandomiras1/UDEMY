@@ -1,0 +1,20 @@
+<app-navbar [detailGroup]="true" [plantillas]="true" [action]="'modificar'"></app-navbar>
+
+
+<div class="pt-3 pl-5 pb-1">
+    <button *ngIf="user.grupo_remedy === role.ADMIN"
+      mat-raised-button
+      class="ml-5 mat-focus-indicator bg-color-claro txt-white btn-claro mat-raised-button mat-button-base"
+      tabindex="0"
+      [routerLink]="['/plantilla/crear']"
+    >
+      <span class="mat-button-wrapper">
+        <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true">add</mat-icon>
+        <label class="c-pointer">NUEVA PLANTILLA</label>
+      </span>
+    </button>
+
+    <div class="pl-5 pr-5 pt-1">
+      <app-templates [mode]="modeTemplate.LIST"></app-templates>
+    </div>
+</div>

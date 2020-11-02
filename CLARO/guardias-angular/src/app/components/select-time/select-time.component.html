@@ -1,0 +1,6 @@
+<select #option (change)="changedValue(option.value)" 
+    [(ngModel)]="selectTime" class="select-time-container divide c-pointer">
+        <option value="fourDays">4 días</option>
+        <option value="twoWeeks">2 semanas</option>
+</select>
+

@@ -1,0 +1,54 @@
+<!--Modal Misma Plantilla-->
+<modal #htmlInsideModal >
+  <ng-template #modalBody>
+    <div style="
+        padding: 12px 40px 12px 40px;
+        background-color: #fff;
+        width: 400px;
+        margin-top: -6rem;
+        border-radius: 8px;
+        text-align: center;">
+      <span class="txt-color-claro fw-300">
+        <span class="material-icons fs-16" style="position: relative;top: 2px;">error_outline</span>
+        No puede agregar otra plantilla con el mismo rango horario, debe tener distinta hora de inicio.
+      </span>
+    </div>
+  </ng-template>
+</modal>
+<div class="mt-1">
+  <ng-container *ngFor="let plantilla of setTemplates;let blockIndex = index">
+    <span class="fs-24 txt-bold" *ngIf="plantilla.allValues?.length > 0">{{plantilla.title}}</span>
+    <div class="mt-1 container-panel" *ngIf="plantilla.values">
+      <swiper [config]="config" class="swipper-carousel">
+        <div class="swiper-button-prev bg-circle"></div>
+        <div class="swiper-wrapper">
+          <div *ngFor="let template of plantilla.allValues; let templateIndex = index" 
+            class="swiper-slide panel-default" [ngClass]="{'border-seleted': template.selected}">
+              <app-card-template
+                [template]="template"
+                [templateIndex]="templateIndex"
+                [blockIndex]="blockIndex"
+                [mode]="mode"
+                [cssTemplates]="plantilla.cssContainer"
+                [timeTile]="plantilla.timeTile"
+                [verifiedDesactivarPlantillas]="verifiedDesactivarPlantillas"
+                (clicked)="onCardSelected($event)"
+                (clickedMenuOpened)="onMenuCardOpened($event)"
+                (clickedDisabledTemplate)="onDisabledTemplate($event)">
+              </app-card-template>
+          </div>
+          <div *ngIf="(plantilla.allValues?.length > 0) && showAddTemplateOption"
+            class="swiper-slide panel-default c-pointer plantilla-block-plus"
+            (click)="onNuevaPlantilla(blockIndex)">
+          </div>
+        </div>
+        <div class="swiper-button-next bg-circle"></div>
+      </swiper>
+    </div>
+  </ng-container>
+</div>
+
+<app-loading-modal
+  [showLoadingModal]="isLoading">
+</app-loading-modal>
+

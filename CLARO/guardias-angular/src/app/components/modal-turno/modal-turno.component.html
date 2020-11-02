@@ -1,0 +1,141 @@
+<ng-container [ngSwitch]="typeModal">
+    <app-modal *ngSwitchCase="'customized'"
+        [title]="data.name"
+        textBtnLeft="Cancelar"
+        [textBtnRight]="data.OKButtonName | uppercase"
+        (onClickClose)="closeModal()"
+        (onClickBtnLeft)="closeModal()"
+        (onClickBtnRight)="data.OKCallback()">
+
+        <p [innerHTML]="data.content"></p>
+    </app-modal>
+
+    <app-modal *ngSwitchCase="'basic'"
+        [title]="data.name"
+        textBtnLeft="CERRAR"
+        (onClickClose)="closeModal()"
+        (onClickBtnLeft)="closeModal()">
+
+        <p [innerHTML]="data.content"></p>
+        <button mat-button [routerLink]="['/home']" (click)="closeModal()">Interrumpir</button>
+    </app-modal>
+
+    <app-modal *ngSwitchCase="'asignar-turno'"
+        [title]="data.name | uppercase"
+        class="asignTurn-modal"
+        textBtnLeft="CERRAR"
+        (onClickClose)="closeModal()"
+        (onClickBtnLeft)="closeModal()">
+
+        <span class="fs-12 txt-bold">Elija una persona</span>
+        <mat-form-field appearance="outline">
+            <mat-select [disabled]="selectDisabled" (selectionChange)="selectGuardChange()" [(ngModel)]="dataGuardTurnModal.guard" [formControl]="guardCtrl" placeholder="Elija una persona..." #singleSelect >
+                <mat-option>
+                <ngx-mat-select-search  [formControl]="guardFilterCtrl"
+                                        placeholderLabel="Elija una persona..."
+                                        noEntriesFoundLabel="'No se encontró a la persona'"
+                ></ngx-mat-select-search>
+                </mat-option>
+                <mat-option [ngClass]="guard['statusClass'] ? guard['statusClass'] : ''" [disabled]="guard.active == 'disable' || guard.active == 'license'"  *ngFor="let guard of filteredGuards | async;" [value]="guard">
+                    {{guard.apellido_usuario + ", " + guard.nombre_usuario | titlecase}}
+                </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="errorsMessage.guard" class="fs-12 txt-color-claro mt-1">*Debe seleccionar una persona</mat-hint>
+        </mat-form-field>
+        <div class="container-flex mt-1">
+            <div class="flex-column" style="flex: 1.4;">
+                <span class="fs-12 txt-bold">Dia seleccionado</span>
+                <span class="fs-16 fw-300">{{fechaPlantilla | date: 'EEEE d' | titlecase}}</span>
+
+            </div>
+            <div class="flex-column" style="flex: 1;">
+                <span class="fs-12 txt-bold">Plantilla seleccionada</span>
+                <span class="fs-16 fw-300">{{nombrePlantilla}}</span>
+            </div>
+        </div>
+        <div class="flex-column mt-1">
+            <span class="fs-12 txt-bold">Turno seleccionado</span>
+            <div class="container-flex asignTurn-container-rango">
+                <div *ngFor="let rango of rangosHorarios; let first = first; let last = last;"
+                    [ngClass]="{'txt-white bg-color-claro': rango.selected,
+                                'asignTurn-first-rango': first,
+                                'asignTurn-last-rango': last,
+                                'span-disabled': !rango.selected}">
+                    <span class="fs-12 txt-bold">{{rango.horario_desde + " - " + rango.horario_hasta}}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="dataGuardTurnModal.guard" class="flex-column mt-22p">
+            <div class="container-flex">
+                <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repetición</span>
+                <mat-form-field appearance="outline" style="flex: 2.5;">
+                    <mat-select [disabled]="partialEdition" [(ngModel)]="dataGuardTurnModal.idOptsDropDown" (selectionChange)="selectTypeRepeat($event)">
+                        <mat-option *ngFor="let option of optsDropDownAsignation;" [value]="option.id_dropdown">
+                            {{option.nombre_dropdown}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="dataGuardTurnModal.idOptsDropDown === '4'" class="mt-1">
+                <mat-radio-group color="primary" [(ngModel)]="dataGuardTurnModal.footerRepeatDaysMonth.value" aria-label="Select an option" class="flex-column">
+                    <mat-radio-button color="primary" [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayNumber">
+                        <span class="fw-400 fs-14">{{dataGuardTurnModal.footerRepeatDaysMonth.dayNumber}}</span>
+                    </mat-radio-button>
+                    <mat-radio-button class="mt-10p"  [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayTxt" color="primary">
+                        <span class="fw-400 fs-14">{{dataGuardTurnModal.footerRepeatDaysMonth.dayTxt}}</span>
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div *ngIf="dataGuardTurnModal.idOptsDropDown === '5'" class="container-flex mt-19p">
+                <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repite cada</span>
+                <div>
+                    <mat-form-field appearance="outline" style="max-width: 86px; margin-right: 14px">
+                        <mat-select [(ngModel)]="dataGuardTurnModal.personalizado_cada[0].cada">
+                            <mat-option *ngFor="let cada of ['2','3','4','5','6','7','8','9','10']" [value]="cada">
+                                {{cada}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="max-width: 136px;">
+                        <mat-select [(ngModel)]="dataGuardTurnModal.personalizado_cada[0].tipo" (selectionChange)="pushDayRepetition($event)">
+                            <mat-option *ngFor="let tipo of ['días', 'semanas']" [value]="tipo">
+                                {{tipo}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div *ngIf="dataGuardTurnModal.idOptsDropDown == '2' || dataGuardTurnModal.idOptsDropDown == '3' || (dataGuardTurnModal.idOptsDropDown == '5' && dataGuardTurnModal.personalizado_cada[0].tipo === 'semanas')" class="mt-1 container-flex justify-content-space-b">
+                <div  (click)="changeDayActive(day)"
+                      [ngClass]="{'circle-day-color-disabled': !day.active, 'bg-color-claro': day.active}"
+                      class="asignTurn-container-circle-day c-pointer" *ngFor="let day of daysBtns">
+                    <b class="fs-12 fw-500 c-pointer">{{day.txt}}</b>
+                </div>
+            </div>
+            <div *ngIf="dataGuardTurnModal.idOptsDropDown != '1'" class="container-flex mt-22p">
+                <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repite hasta</span>
+                <div class="flex-column">
+                    <div class="asignTurn-container-datepicker c-pointer" style="flex: 2.1;"  (click)="openDatePicker(picker)">
+                        <input [(ngModel)]="dataGuardTurnModal.selectDayCalendar" (ngModelChange)="showErrorDate()" matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="dateFilter" style="width: 1px; visibility: hidden;">
+                        <div [ngClass]="{'c-pointer':dataGuardTurnModal.dias_repeticion.length > 0}" class="asignTurn-container-datepicker-icon">
+                            <mat-icon aria-hidden="false" class="txt-muted">calendar_today</mat-icon>
+                        </div>
+                        <mat-datepicker [dateClass]="dateClass" #picker color="warn"></mat-datepicker>
+                        <span class="ml-10p fs-14 fw-300 c-default" *ngIf="dataGuardTurnModal.selectDayCalendar">{{(dataGuardTurnModal.selectDayCalendar | date: 'd')+ " de " + (dataGuardTurnModal.selectDayCalendar | date: 'MMMM - yyyy' | titlecase)}}</span>
+                    </div>
+                    <mat-hint *ngIf="errorsMessage.date" class="fs-12 txt-color-claro">*Debe seleccionar una fecha</mat-hint>
+                </div>
+            </div>
+        </div>
+        <button [ngClass]="{'disabled-btn-effect c-default': !errorsMessage.general || !dataGuardTurnModal.guard}"
+            mat-button class="fs-16 txt-color-claro txt-bold" (click)="confirmAsingGuard()">
+            CONFIRMAR
+        </button>
+    </app-modal>
+
+</ng-container>
+
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="showLoadingModal">
+</app-loading-modal>

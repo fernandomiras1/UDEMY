@@ -1,0 +1,55 @@
+<div *ngFor="let planning of groupPlanning" class="container-template-line container-flex container-turnos-overflow-x"
+      [ngStyle]="{'min-width': widthScreen + 'px',
+                  'max-width': widthScreen + 'px'}">
+  <div class="flex-column container-detail-turns"
+        [ngStyle]="{'min-width': columnBtnLicence + 'px',
+                    'max-width': columnBtnLicence + 'px'}">
+    <span class="fs-12 txt-bold">
+      {{planning.type_guardia.nombre_tipo_de_guardia}}
+    </span>
+    <span class="mt-1 fs-12 fw-400">
+      {{planning.type_guardia.horario.horario.split('HORAS')[0] + "hs"}}
+    </span>
+    <span class="fs-12 fw-400">
+      Comienza a las
+      <span class="txt-bold">{{planning.type_guardia.hora_inicio}}</span>
+    </span>
+  </div>
+  <div  class="container-flex align-self-center bg-transparent"  style="position: relative;"
+        [ngStyle]="{'min-width': columnsDays + 'px',
+                    'max-width': columnsDays + 'px',
+                    'left': planning.turnos[0].desplazar + 'px'}">
+        <div  class="container-turnos"
+              [ngStyle]="{'min-width': turno.ancho + 'px',
+                          'max-width': turno.ancho + 'px'}"
+              *ngFor="let turno of planning.turnos; let last = last; let first = first;">
+              <div  [ngStyle]="{ 'width': (turno.ancho - 6) + 'px', 'background-color': backgroundColor(turno)}"
+                    dndDropzone
+                    [ngClass]="{'turno': userRol !== 'invitado',
+                                'turno-invitado': userRol === 'invitado',
+                                'c-pointer': turno.colorBg}"
+                    (click)="openDialog(turno)"
+                    (dndDrop)="onDrop($event, turno)"
+                    [dndDisableIf]="dndDropzoneDisabled"
+                    dndDropzoneDisabledClass="dragover-turn-disabled"
+                    dndDragoverClass = "dragover-turn"
+                    >
+                <span class="fs-10 fw-400" [ngClass]="{'color-span-turn': !turno.idusuario, 'txt-white': turno.idusuario}">
+                  {{turno.ancho < 70 ? '' : turno.rango}}
+                </span>
+                <span class="fs-12 txt-bold" [ngClass]="{'color-span-turn': !turno.idusuario, 'txt-white': turno.idusuario}">
+                  {{turno.ancho < 70 ? turno.textoCorto : turno.textoLargo}}
+                </span>
+              </div>
+        </div>
+  </div>
+  <div class="container-flex bg-transparent" style="border-left: 1px solid #BDBDBD;"
+        [ngStyle]="{'min-width': columnsDays + 'px',
+                    'max-width': columnsDays + 'px'}"
+                    *ngFor="let dia of [1,2,3] ">
+  </div>
+</div>
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="showLoadingModal">
+</app-loading-modal>

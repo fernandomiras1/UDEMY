@@ -1,0 +1,56 @@
+.container-carousel-list-group {
+  align-items: center;
+  background: rgba(172, 175, 176, 0.15);
+}
+.item-carousel-list-group {
+  padding: 10px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+.item-carousel-bg-active {
+  cursor: pointer;
+  background-color: #333333!important;
+}
+.item-carousel-bg-license {
+  cursor: pointer;
+  background-color: #ACAFB0!important;
+}
+.item-carousel-bg-disable {
+  cursor: default;
+  background-color: #E0E0E0 !important;
+}
+.swiper-wrapper {
+  height: 35px!important;
+  margin-top: 1rem!important;
+}
+.swiper-slide {
+  width: fit-content!important;
+  margin-right: 15px !important;
+  text-align: center !important;
+}
+.div-btn-prev-next-carousel {
+  z-index: 2;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+}
+.btn-prev-next-carousel {
+  padding: 0px;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+}
+.icon-btn-prev-next {
+  font-size: 20px;
+  color: #C4C4C4;
+  position: relative;
+  top: 2px;
+}
+.drag-user {
+  background: #909090!important;
+}

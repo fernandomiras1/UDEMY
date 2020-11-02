@@ -1,0 +1,565 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+@import 'scss/variables';
+
+@font-face {
+    font-family: Roboto;
+    src: url(assets/Roboto-Regular.ttf) format("truetype ");
+}
+
+@include mat-core();
+
+$app-primary: mat-palette($mat-red, 700);
+$app-accent:  mat-palette($mat-gray, 50);
+$app-theme: mat-light-theme($app-primary, $app-accent);
+@include angular-material-theme($app-theme);
+
+html, body {
+    font-family: 'Roboto', "Helvetica Neue", sans-serif !important;
+    height: 100%;
+}
+
+/** FIX MATERIAL MODAL POSITION ISSUE IN PAGE USING FLEXBOX **/
+html.cdk-global-scrollblock {
+    overflow: inherit;
+}
+/** END FIX **/
+
+body {
+    margin: 0;
+    font-size: 12px !important;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+.scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 4px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    border-radius: 7px;
+    background-color: rgb(153, 153, 153);
+    opacity: 0.2;
+    z-index: 90;
+    right: 1px;
+    height: 30px;
+}
+  
+.img-claro {
+    width: 104.5px;
+    height: 35.8px;
+}
+
+.box-shadow {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+.box-shadow-b {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.c-pointer {
+    cursor: pointer!important;
+    outline: none;
+}
+.c-default {
+    cursor: default!important;
+}
+.w-100 {width: 100%;}
+.w-50 {width: 50%;}
+.h-100 {height: 100%;}
+.mt-10p{margin-top: 10px!important;}
+.mt-1{margin-top: 1rem!important;}
+.mt-2{margin-top: 2rem;}
+.mt-3{margin-top: 3rem;}
+.mt-4{margin-top: 4rem;}
+.mt-5{margin-top: 5rem;}
+.mt-19p{margin-top: 19px!important;}
+.mt-22p{margin-top: 22px!important;}
+.ml-10p{margin-left: 10px;}
+.ml-1{margin-left: 1rem!important;}
+.ml-2{margin-left: 2rem!important;}
+.ml-3{margin-left: 3rem!important;}
+.ml-4{margin-left: 4rem!important;}
+.ml-5{margin-left: 5rem!important;}
+.mr-10p{margin-right: 10px!important;}
+.mr-1{margin-right: 1rem!important;}
+.mr-2{margin-right: 2rem!important;}
+.mr-3{margin-right: 3rem!important;}
+.mr-4{margin-right: 4rem!important;}
+.mr-5{margin-right: 5rem!important;}
+.mb-10p{margin-bottom: 10px!important;}
+.mb-1{margin-bottom: 1rem;}
+.mb-2{margin-bottom: 2rem;}
+.mb-3{margin-bottom: 3rem;}
+.mb-4{margin-bottom: 4rem;}
+.mb-5{margin-bottom: 5rem;}
+.fs-10 {font-size: 10px;}
+.fs-11 {font-size: 11px;}
+.fs-12 {font-size: 12px;}
+.fs-14 {font-size: 14px!important;}
+.fs-14-5 {font-size: 14.5px!important;}
+.fs-16 {font-size: 16px!important;}
+.fs-18 {font-size: 18px!important;}
+.fs-20 {font-size: 20px;}
+.fs-24 {font-size: 24px!important;}
+.fw-300 {font-weight: 300;}
+.fw-400 {font-weight: 400;}
+.fw-500 {font-weight: 500;}
+.fw-700 {font-weight: 700;}
+.fw-800 {font-weight: 800;}
+.pt-0 {padding-top: 0}
+.pt-1{padding-top: 1rem;}
+.pt-2{padding-top: 2rem;}
+.pt-3{padding-top: 3rem;}
+.pt-4{padding-top: 4rem;}
+.pt-5{padding-top: 5rem;}
+.pl-1{padding-left: 1rem;}
+.pl-2{padding-left: 2rem;}
+.pl-3{padding-left: 3rem;}
+.pl-4{padding-left: 4rem;}
+.pl-5{padding-left: 5rem;}
+.pr-1{padding-right: 1rem;}
+.pr-2{padding-right: 2rem;}
+.pr-3{padding-right: 3rem;}
+.pr-4{padding-right: 4rem;}
+.pr-5{padding-right: 5rem;}
+.p-1{padding: 1rem;}
+.p-2{padding: 2rem;}
+.p-3{padding: 3rem;}
+.p-4{padding: 4rem;}
+.p-5{padding: 5rem;}
+.pb-1{
+    padding-bottom: 1rem;
+}
+.oy-scroll{
+    overflow-y: scroll;
+}
+
+.v-hidden{
+    visibility: hidden!important;
+}
+.v-visible{
+    visibility: visible!important;
+}
+.txt-bold {
+    font-weight: bold;
+}
+.bg-transparent {
+    background-color: transparent!important;
+}
+.bg-color-claro {
+    background-color: $red;
+}
+.bg-white {
+    background-color: white;
+}
+.bg-white2{
+    background-color: #f6f6f6!important;
+}
+.txt-black {
+    color: black!important;
+}
+.txt-color-claro {
+    color: $red!important;
+}
+.txt-white {
+    color: white;
+}
+.txt-muted {
+    color: #acafb0;
+}
+
+.text-aqua{
+    color:#80cbd4;
+}
+
+.align-self-center {
+    align-self: center;
+}
+.align-items-center {
+    align-items: center;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+.text-start {
+    text-align: start;
+}
+.text-center {
+    text-align: center;
+}
+.text-end {
+    text-align: end;
+}
+.container-grid {
+    display: grid;
+}
+.container-flex {
+    display: flex!important;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-end {
+    justify-content: flex-end;
+}
+.justify-content-space-b {
+    justify-content: space-between;
+}
+.justify-content-space-a {
+    justify-content: space-around;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.form-group h3{
+    font-size: 14px;
+}
+.form-group h4{
+    font-size: 11px;
+    font-weight: 600;
+    margin: 0;
+}
+.input-element {
+    padding: 0 12px;
+    border: 1px solid #ccc;
+    min-height: 35px;
+    font-size: 16px;
+    line-height: 1.76;
+    color: #000000;
+    border-radius: 5px;
+}
+.input-element:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+.disabled-btn-effect{
+    opacity: 0.5!important;
+    cursor: default;
+}
+//Estilos del checkbox del navBar
+.mat-checkbox.mat-accent {
+    .mat-checkbox-frame {
+        border: solid 1px;
+        border-radius: 5px;
+    }
+}
+//Estilos del checkbox del home
+.mat-checkbox.mat-primary {
+    .mat-checkbox-frame {
+        border: solid 1px;
+        border-radius: 5px;
+    }
+    .mat-checkbox-background {
+        border-radius: 5px!important;
+    }
+}
+
+
+//Color del dia actual seleccionado del datepicker
+.mat-calendar-body-today {
+    color: white;
+    background-color: $red;
+    border: solid;
+}
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background-color: $red!important;
+}
+.mat-calendar-body-today:hover {
+    color: black;
+}
+.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background: transparent!important;
+    border: none!important;
+    color: rgba(0,0,0,.38)!important;
+}
+// Components
+
+app-form { width: 100%; }
+
+mat-dialog-container#modal-component {
+    padding: 16px 20px;
+    border-radius: 11px;
+    background-color: #fff;
+}
+.container-custom-modal .mat-dialog-container {
+    padding: 0px!important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+//checkbox
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+  }
+  .badge:empty {
+    display: none;
+  }
+  .btn .badge {
+    position: relative;
+    top: -1px;
+  }
+  .btn-xs .badge,
+  .btn-group-xs > .btn .badge {
+    top: 0;
+    padding: 1px 5px;
+  }
+  a.badge:hover,
+  a.badge:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .cb-sq-red input[type='checkbox'],
+  .cb-rd-red input[type='checkbox'] {
+      display: none;
+  }
+
+  .cb-rd-red input[type='checkbox']+.badge,
+  .cb-sq-red input[type='checkbox']+.badge {
+      padding: 1px 2px;
+      color: #fff;
+      background-color: white!important;
+  }
+
+  .cb-rd-red input[type='checkbox']+.badge {
+      border-radius: 10px;
+      border: 1px solid #969696;
+  }
+
+  .cb-sq-red input[type='checkbox']+.badge {
+      border-radius: 3px;
+      border: 1px solid #d41e1e;
+  }
+
+  .cb-sq-red input[type='checkbox']:checked+.badge,
+  .cb-rd-red input[type='checkbox']:checked+.badge {
+      color: #fff;
+      background-color: #d41e1e!important;
+      border: 1px solid #d41e1e;
+  }
+.mat-menu-panel.min-width-menu {
+    min-width: 195px !important; // old 220px
+    padding-left: 4px;
+}
+.menu-options {
+    font-family: Roboto;
+
+    &.mat-menu-panel.min-width-menu {
+        padding-left: 0;
+    }
+    > .mat-menu-content:not(:empty) {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    .option-fullname {
+        padding-left: 30px;
+    }
+    .option-legajo {
+        font-size: 12px;
+        font-weight: 400;
+        font-family: Roboto;
+        height: auto;
+        line-height: normal;
+        margin-top: -.8rem;;
+        margin-bottom: .325rem;
+        padding-left: 30px;
+        text-transform: lowercase;
+    }
+    .option-checked {
+        left: 10px;
+        position: absolute;
+    }
+    .mat-menu-item {
+        padding-left: 35px;
+    }
+}
+button.mat-menu-item {
+    padding-left: 20px;
+}
+
+.modal {
+    outline: none!important;
+}
+.modal-header {
+    display: none!important;
+}
+.btn-calendar .mat-button-focus-overlay {
+    background-color:transparent!important;
+}
+.owl-carousel .owl-item {
+    width: auto!important;
+}
+//********Calendario***********************/
+.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    color: black;
+    background: #EBEBEB;
+}
+/*****************************************/
+/*Aqui se modifican los estilos del outline focus de un input de angular material*/
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-start, .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border: 0.5px solid #acafb0!important;
+}
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    background: #fff!important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border-right-style: none!important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-gap {
+    border-left-style: none!important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-left-style: none!important;
+}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #acafb0!important;
+}
+.mat-form-field-appearance-outline .mat-form-field-flex {
+    height: 51px!important;
+}
+.mat-select-arrow {
+    margin-top: 7px!important;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.6em 0 1em 0!important;
+}
+.mat-select-value {
+    height: 17px!important;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: black!important;
+    font-weight: bold!important;
+}
+
+/**********************************************************************************/
+.highlight-dates{
+    div {
+        color: red!important;
+    }
+}
+
+.timezone-select .mat-select-trigger {
+    padding: .625em 0;
+    border: 2px solid transparent;
+}
+.timezone-select:focus .mat-select-trigger {
+    border-color: #000;
+}
+.timezone-select .mat-select-arrow-wrapper {
+    vertical-align: top;
+}
+
+.panel-opt-menu.mat-menu-panel.min-width-menu {
+    min-width: 4em !important;
+    padding: 0 .15em;
+}
+
+
+.card-danger {
+    background-color:#ffd1d1;
+    color:rgba(228, 21, 21, 0.87);
+    border-radius: 4px;
+    padding: 12px 17px;
+}
+
+.tooltip-title{
+	background: #444141;
+	color:white;
+	font-size:10px;
+	text-align: left;
+	padding: 1px 5px;
+}
+
+.tooltip-info{
+	font-size: 11px;
+	text-align: left;
+	padding: 5px 5px;
+}
+
+.tooltip-info div{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.swipper-carousel > .swiper-container {
+    position: static;
+}
+
+.asignTurn-modal {
+    section.modal-container {
+        padding-top: 21px;
+        padding-bottom: 21px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-subscript-wrapper {
+        padding: 0;
+    }
+    .assignTurn-repeat-each {
+        max-width: 72px !important;
+    }
+    footer.modal-container {
+        padding-top: 5px;
+        padding-bottom: 26px;
+    }
+    .mat-form-field {
+        line-height: inherit;
+    }
+}

@@ -1,0 +1,61 @@
+.asignTurn-container-rango {
+    border: solid 0.5px #BDBDBD;
+    border-radius: 4px;
+    div {
+        flex: 1;
+        padding: 10px 0px;
+        text-align: center;
+        border-left: 0.5px solid #acafb0;
+    }
+}
+.span-disabled {
+    color: #acafb0;
+}
+.asignTurn-container-datepicker {
+    border: 0.5px solid #acafb0;
+    width: 234px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    .asignTurn-container-datepicker-icon {
+        display: flex;
+        height: 100%;
+        border-right: 0.5px solid #acafb0;
+        width: 46px;
+        align-items: center;
+        justify-content: center;
+        mat-icon {
+            font-size: 20px;
+            position: relative;
+            left: 2px;
+            top: 2px;
+        }
+    }
+}
+.asignTurn-first-rango {
+    border-left: 0px!important;
+    border-radius: 2px 0px 0px 2px;
+}
+.asignTurn-last-rango {
+    border-radius: 0px 2px 2px 0px;
+}
+.asignTurn-container-circle-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    color: white;
+    text-align: center;
+}
+.circle-day-color-disabled {
+    background: #E0E0E0;
+    color: #616161;
+}
+.span-circle-date {
+    position: relative;
+    top: 6px;
+    left: -0.5px;
+}

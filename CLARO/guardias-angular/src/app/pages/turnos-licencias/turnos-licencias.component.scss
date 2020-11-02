@@ -1,0 +1,130 @@
+//Margin de toda la vista debajo del navbar
+.margin-container {
+  margin: 0px 24px;
+}
+//Columnas para los 4 dias del navbar calendar
+.grid-date-container-fourDays {
+  display: grid!important;
+  grid-template-columns: 0.6fr 1fr 1fr 1fr 1fr;
+}
+//Columnas para las 2 semanas del navbar calendar
+.grid-date-container-twoWeeks {
+  display: grid!important;
+  grid-template-columns: 0.7fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+//Colummnas para cada dia de las 2 semanas mas el divisor
+.grid-div {
+  display: grid!important;
+  grid-template-columns: 2fr 0.01fr;
+}
+.divider-black {
+  border-left: 1.5px solid #4F4F4F!important;
+}
+//Estilos del boton siguiente o volver del navbar calendar
+.btn-prev-next {
+  padding: 0px;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none;
+}
+.btn-prev-next:hover {
+  background: rgba(196, 196, 196, 0.34);
+  color: #8F8F8F;
+  border-radius: 50%;
+}
+.icon-btn-prev-next {
+  font-size: 20px;
+  color: #C4C4C4;
+  position: relative;
+  top: 2px;
+}
+//Estilos de los numeros del navbar calendar
+.circle-date-selected {
+  margin-left: 10px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  color: white;
+  display: inline-block;
+  padding: 0px;
+  text-align: center;
+}
+.circle-date {
+  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  padding: 0px;
+  text-align: center;
+}
+//Span de el dia actual
+.span-circle-date {
+  position: relative;
+  top: 10px;
+  left: -1px;
+}
+//Lineas divisoras de las dias
+.line-divider {
+  display: inline-block;
+  width: 0;
+  position: relative;
+  top: 21px;
+  left: 2px;
+  height: 15px;
+  border-right: 1px solid #BDBDBD;
+}
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 2px;
+  background-color: #F5F5F5;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  border-radius: 7px;
+  background-color: rgb(153, 153, 153);
+  opacity: 0.2;
+  z-index: 90;
+  right: 1px;
+  height: 30px;
+}
+.scroll-y {
+  max-height: 80vh; 
+  overflow-y: auto;
+}
+//Columnas de la lista de grupos
+.grid-list-group {
+  display: grid!important;
+  grid-template-columns: 0.5fr 9.5fr 1fr 1fr 1fr;
+}
+.shadow-open-list-group {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+}
+.line-top-list-group {
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+//Botones para abrir los grupos
+.btn-list-group {
+  padding: 0px;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none;
+}
+.btn-list-group:hover {
+  background: rgba(255, 0, 0, 0.08);
+  border-radius: 50%;
+}
+.span-show-group:hover{
+  text-decoration: underline;
+}

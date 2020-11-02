@@ -1,0 +1,21 @@
+
+<app-modal title="Eliminar plantilla"
+    textBtnLeft="CANCELAR"
+    textBtnRight="CONFIRMAR"
+    (onClickBtnLeft)="cancel()"
+    (onClickClose)="cancel()"
+    (onClickBtnRight)="confirm()"
+>
+
+    <h3><b>Eliminación de plantilla</b></h3>
+    <p>
+        ¿Está seguro que desea eliminar la plantilla 
+        <b class="modal-msg">{{ data.name }}</b>? <br>
+        Contiene {{ data.range }}<br>
+        También se eliminarán todas las
+        programaciones realizadas sobre esta plantilla.  
+        <br><br>
+        Las plantillas se eliminarán al confirmar y guardar cambios.
+    </p>
+
+</app-modal>

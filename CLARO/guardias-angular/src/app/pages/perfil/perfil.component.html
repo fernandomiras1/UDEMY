@@ -1,0 +1,55 @@
+<!-- Navbar -->
+<app-navbar [nombreGroup]="'Perfil'" optionsRoutesPage="{{2}}" [calendar]="false" detailGroup="true"></app-navbar>
+
+<!-- Content -->
+<section id="perfilContent" *ngIf="userProfile">
+	<article>
+		<app-card [props]="{ title: 'Datos de Usuario', gridSize: 4 }">
+			<div class="form-group">
+				<h4>Nombre y apellido</h4>
+				<h3>{{ userProfile.user.apellido | titlecase }} {{ userProfile['user'].nombre | titlecase }}</h3>
+			</div>
+			<div class="form-group">
+				<h4>Usuario remedy</h4>
+				<h3>{{ userProfile.user.usuario_remedy }}</h3>
+			</div>
+			<div class="form-group">
+				<h4>Grupo remedy</h4>
+				<h3>{{ userProfile.user.grupo_remedy }}</h3>
+			</div>
+			<div class="form-group">
+				<h4>Legajo corporativo</h4>
+				<h3>{{ userProfile.user.legajo_corpo }}</h3>
+			</div>
+		</app-card>
+		<app-card [props]="{ title: 'Contacto', gridSize: 1 }">
+			<div class="container-flex justify-content-end">
+				<img (click)="enable()" class="c-pointer" *ngIf="userProfile.is_editable && this.disableInputs" alt="claro-logo" src="../assets/imgs/Editar.svg">
+			</div>
+			<form class="grid-2" [formGroup]="profileForm">
+				<div class="form-group">
+					<span *ngFor="let item of phones; index as i">
+						<h4>{{item.name}}</h4>
+						<app-form-select (phoneNumberEmitter)="phoneNumberCapture($event)" [disable]="disableInputs" [profileForm]="profileForm" [props]="{index:i, code:item.code, number: item.number, model: item.name | removespace | lowercase, showButtonForValidation:item.showButtonForValidation,required:item.required,sigos:item.sigos }"></app-form-select>
+					</span>
+				</div>
+			</form>
+			<div class="container-flex justify-content-end">
+				<button [disabled]="!disableSubmit" [ngClass]="{'disabled-btn-effect':!disableSubmit,'v-hidden':disableInputs}" (click)="saveChanges()" id="button-save" mat-raised-button class="bg-color-claro txt-white btn-claro mt-1">
+					<label class="c-pointer">GUARDAR CAMBIOS</label>
+				</button>
+			</div>
+		</app-card>
+	</article>
+	<div class="sigos">
+		<h3><b>Validaciones</b></h3>
+		<app-sigos-validation [sigos]="this.sigosAside"></app-sigos-validation>
+		<div class="container-flex justify-content-end">
+			<b class="txt-color-claro mt-1 c-pointer" (click)="openModal()">VER MÁS >></b>
+		</div>
+	</div>
+</section>
+
+<app-loading-modal
+  [showLoadingModal]="!userProfile">
+</app-loading-modal>

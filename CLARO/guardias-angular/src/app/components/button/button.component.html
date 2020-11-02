@@ -1,0 +1,7 @@
+<button mat-raised-button (click)="onClick()" 
+  [disabled]="disabled" 
+  class="bg-color-claro txt-white">
+    <mat-icon *ngIf="iconLeft">{{icon}}</mat-icon>
+    {{text}}
+    <mat-icon *ngIf="iconRight">{{icon}}</mat-icon>
+</button>

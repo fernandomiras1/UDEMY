@@ -1,0 +1,58 @@
+
+<app-modal [title]="user"
+    [subtitles]="subtitle"
+    [description]="turno.rango"
+    [isEdit]="isEditable"
+    [userRol]="userRol"
+    textBtnLeft="ELIMINAR TURNO"
+    textBtnRight="EDITAR"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="openDeleteTurnDialog()"
+    (onClickBtnRight)="openEditTurnDialog()"
+    [disabledBtnLeft]="partialEdition"
+>
+
+    <div class="container-flex justify-content-space-b">
+        <div>
+            <span class="fs-14">Repite</span>
+            <span class="ml-1 fs-14">{{repeatTxt}}</span>
+        </div>
+        <div *ngIf="repeatTxt != 'Nunca' && userRol !== 'invitado' && userRol !== 'guardia'">
+            <button (click)="openDeleteRepetitionsDialog()" mat-button class="txt-muted" style="position: relative;top:-7px">QUITAR REPETICIÓN</button>
+        </div>
+    </div>
+    <span class="mt-1 txt-bold" *ngIf="id_repeticion == '1'">{{"El " + (dateRepeat | date: 'EEEE' | titlecase) + (dateRepeat | date: 'dd-MM-yyyy')}}</span>
+    <span class="mt-1" *ngIf="id_repeticion == '4'">{{this.rulesRepeatDescription}}</span>
+    <div class="container-flex mt-1" *ngIf="id_repeticion != '1'">
+        <span class="fs-14">Hasta</span>
+        <span class="ml-1 txt-bold">{{(dateRepeat | date: 'd') + " de " + (dateRepeat | date: 'MMMM, yyyy')}}</span>
+    </div>
+    <div class="container-flex mt-1" *ngIf="id_repeticion == '5'">
+        <span class="fs-14">Cada</span>
+        <span class="ml-1 txt-bold">{{rulesRepeat ? rulesRepeat.cada : 'no'}}</span>
+        <span class="ml-1 fs-14">Tipo</span>
+        <span class="ml-1 txt-bold">{{rulesRepeat ? (rulesRepeat.tipo | titlecase) : 'no'}}</span>
+    </div>
+    <div *ngIf="id_repeticion == '2' || id_repeticion == '3' || id_repeticion == '5'" class="mt-1 container-flex justify-content-space-b">
+        <div [ngClass]="{'circle-day-color-disabled': !day.active, 'circle-day-active': day.active}" 
+            class="asignTurn-container-circle-day" *ngFor="let day of daysBtns">
+                <b class="fs-12 fw-500">{{day.txt}}</b>
+        </div>
+    </div>
+    <div class="container-flex mt-1">
+        <div class="flex-column" style="flex: 1.2;">
+            <span class="fw-300">Celular Corporativo</span>
+            <span class="span-no-conf">No configurado</span>
+        </div>
+        <div class="flex-column" style="flex: 1;">
+            <span class="fw-300">Celular Corporativo</span>
+            <span class="span-no-conf">No configurado</span>
+        </div>
+    </div>
+    <div class="container-flex mt-2">
+        <div class="flex-column">
+            <span class="fw-300">Teléfono Fijo</span>
+            <span class="span-no-conf">No configurado</span>
+        </div>
+    </div>
+</app-modal>

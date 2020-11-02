@@ -1,0 +1,26 @@
+.p-detail-container {
+  padding-left: 12rem;
+  padding-right: 12rem;
+}
+
+.mat-stepper-container {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.content-template {
+  max-height: 560px;
+  overflow-y: auto;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none;
+}

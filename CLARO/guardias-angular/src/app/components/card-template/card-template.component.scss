@@ -1,0 +1,78 @@
+@import '../../../scss/variables';
+
+.header-panel {
+  color: #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  position: relative;
+}
+
+.body-panel {
+  display: grid!important;
+  grid-template-columns: 0.6fr 1fr;
+  padding: 12px 25px;
+}
+
+.footer-panel {
+  text-align: center;
+  padding: 0px 25px 10px 25px;
+}
+
+.bg-selected {
+  background: #ffe9e9!important;
+}
+
+.box-size {
+  background-color: grey;
+  margin-bottom: 12%;
+  border-radius: 1px;
+}
+
+.box-block {
+  background: #eaeaea;
+  text-align: center;
+  padding: 1px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+
+
+.plantilla-duracion-blocks {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.plantilla-duracion-blocks .box-size {
+  height: 40px;
+}
+
+// esta bien 
+.plantilla-opt-wrapper {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: .15em;
+}
+
+.plantilla-options.btn-options {
+  min-width: 1em;
+  padding: 0 .5em;
+}
+
+.plantilla-options.btn-options.btn-open-menu {
+  background-color: #ccc;
+}
+
+.plantilla-desactivar-btn .plantilla-desactivar-icon {
+  display: none;
+}
+
+.plantilla-desactivar-btn:disabled .plantilla-desactivar-icon {
+  display: inline-block;
+}
+
+.plantilla-desactivar-icon {
+  color: $red;
+  opacity: .5;
+}

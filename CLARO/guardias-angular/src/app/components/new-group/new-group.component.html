@@ -1,0 +1,145 @@
+<form [formGroup]="groupForm">
+  <div class="mt-1">
+    <main class="contenedor-flex">
+      <div class="elemet-flex contenedor-1">
+        <span class="txt-bold fs-20">Tipo de grupo</span>
+        <div class="mt-1">
+          <div class="card-container c-pointer" (click)="selectTypeGroup(groupType.SITIO)">
+            <div style="flex: 0.5;" class="text-center align-self-center">
+              <div class="container-flex justify-content-center">
+                <div [ngClass]="{'selected-bg-sitio-tec': type.value === groupType.SITIO}" class="container-icon-sitio-tec">
+                  <mat-icon class="icon-sitio">location_on</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1; margin-right: 25px;" class="align-self-center">
+              <span [ngClass]="{'selected-color-sitio-tec': type.value === groupType.SITIO}" class="txt-bold fs-20">SITIO</span>
+              <p [ngClass]="{'selected-color-sitio-tec': type.value === groupType.SITIO}" class="mt-10p" style="margin: 0;">Grupo de personas que están asociadas a diferentes sitios.</p>
+            </div>
+          </div>
+          <div class="card-container c-pointer" (click)="selectTypeGroup(groupType.TECNOLOGIA)">
+            <div style="flex: 0.5;" class="text-center align-self-center">
+              <div class="container-flex justify-content-center">
+                <div [ngClass]="{'selected-bg-sitio-tec': type.value === groupType.TECNOLOGIA}" class="container-icon-sitio-tec">
+                  <mat-icon class="icon-sitio">account_tree</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1; margin-right: 25px;" class="align-self-center">
+              <span [ngClass]="{'selected-color-sitio-tec': type.value === groupType.TECNOLOGIA}" class="txt-bold fs-20">TECNOLOGÍA</span>
+              <p [ngClass]="{'selected-color-sitio-tec': type.value === groupType.TECNOLOGIA}" class="mt-10p" style="margin: 0;">Grupo cross que se enfoca en una o más tecnologías.</p>
+            </div>
+          </div>
+        </div>
+        <mat-hint class="fs-14 fw-400 txt-color-claro" *ngIf="type.invalid && type.touched">
+          * Seleccione un tipo de grupo
+        </mat-hint>
+      </div>
+      <div formGroupName="data" class="elemet-flex contenedor-2">
+        <span class="txt-bold fs-20">Información del grupo</span>
+          <div class="flex-column mt-1">
+            <mat-form-field class="fs-14-5" appearance="fill">
+              <mat-label>Nombre del grupo</mat-label>
+              <input matInput name="zonegroupName"
+                autocomplete="off"
+                formControlName="zonegroupName">
+            </mat-form-field>
+            <mat-error class="fs-14 fw-400 txt-color-claro"
+            *ngIf="zonegroupName.hasError('required') && zonegroupName.touched">
+              * Ingrese un nombre para el grupo
+            </mat-error>
+          </div>
+          <div class="flex-column">
+            <mat-form-field class="fs-14-5" appearance="fill">
+              <mat-label>Descripción (opcional)</mat-label>
+              <input matInput name="groupDescription" 
+                autocomplete="off"
+                formControlName="description">
+            </mat-form-field>
+          </div>
+    
+          <div class="flex-column">
+            <mat-form-field *ngIf="type.value === groupType.SITIO" class="fs-14-5" appearance="fill">
+              <mat-label>Sub Tipo</mat-label>
+              <mat-select multiple formControlName="selectType">
+                <mat-select-trigger>
+                  {{selectValue}}
+                </mat-select-trigger>
+                <mat-optgroup *ngFor="let cate of setCategories" [label]="cate.category | uppercase">
+                  <mat-option *ngFor="let option of cate.options" [value]="option.id" (click)="selectSubCateType(cate, option)">
+                    {{option.name | uppercase}}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+            <mat-error class="fs-14 fw-400 txt-color-claro"
+            *ngIf="!isValidSiteType && type.value === groupType.SITIO && submitted">
+              * Este campo es requerido
+          </mat-error>
+
+          <mat-form-field *ngIf="type.value === groupType.TECNOLOGIA" class="fs-14-5" appearance="fill">
+            <mat-label>Tipo</mat-label>
+            <input matInput
+              disabled="true"
+              style="color:black;"
+              value="TECNOLOGÍA">
+          </mat-form-field>
+          </div>
+      </div>
+      <div formGroupName="data" class="elemet-flex">
+        <span class="txt-bold fs-20">Validación de teléfonos de contacto</span>
+        <div class="flex-column mt-1">
+          <span class="fw-300 fs-14">Elija qué teléfonos serán obligatorios para los guardias de este grupo</span>
+          <mat-hint *ngIf="validatePhones && submitted" class="fs-14 fw-400 txt-color-claro">
+            * Seleccione al menos un teléfono
+          </mat-hint>
+          <div class="flex-column">
+            <div class="container-flex mt-1">
+              <mat-checkbox class="mr-1" color="primary"
+                [checked]="numberCorpGuard.value"
+                formControlName="numberCorpGuard">
+              </mat-checkbox>
+              <span class="fw-500 fs-14">Celular corporativo</span>
+            </div>
+
+            <div class="container-flex mt-1">
+              <mat-checkbox class="mr-1" color="primary"
+                [checked]="numberGuard.value"
+                formControlName="numberGuard">
+              </mat-checkbox>
+              <span class="fw-500 fs-14">Celular de guardia</span>
+            </div>
+
+            <div class="container-flex mt-1">
+              <mat-checkbox class="mr-1" color="primary"
+                formControlName="shownumberRotary"
+                [checked]="shownumberRotary.value">
+              </mat-checkbox>
+              <span class="fw-500 fs-14">Línea rotativa</span>
+            </div>
+
+            <ng-container *ngIf="shownumberRotary.value">
+              <mat-form-field class="mt-10p fs-14-5" appearance="fill">
+                <mat-label>Rotativa</mat-label>
+                <input matInput
+                  name="groupNumberRotary"
+                  placeholder="*12345"
+                  type="text"
+                  formControlName="numberRotary">
+              </mat-form-field>
+              <mat-hint style="color: #4F4F4F; line-height: 14px;" class="fw-500 fs-12 flex-column">
+                <div *ngIf="numberRotary.hasError('validateRotary') && numberRotary.touched"
+                  class="mt-10p fs-14 fw-400 txt-color-claro">
+                    Formato inválido. Ingrese: <br>
+                    - #/* + 4/5 dígitos numéricos <br>
+                    - 8 a 13 dígitos numéricos consecutivos
+                </div>
+              </mat-hint>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+  </main>
+</div>
+</form>

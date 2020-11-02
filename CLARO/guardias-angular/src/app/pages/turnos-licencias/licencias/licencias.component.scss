@@ -1,0 +1,21 @@
+.container-detail {
+  background: white;
+  z-index: 3;
+  min-width: 142px;
+  padding: 8px 16px 20px 8px;
+  border-right: 1px solid #4F4F4F
+}
+.container-template-line {
+  border-bottom: 1px solid #ddd;
+}
+.div-container-empty-color {
+  background-color: transparent;
+}
+.div-container-primary-color {
+  background-color: rgb(220, 220, 220);
+  cursor: pointer;
+}
+.div-container-secondary-color {
+  background-color: rgb(243,243,243);
+  cursor: pointer;
+}

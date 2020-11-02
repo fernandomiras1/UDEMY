@@ -1,0 +1,21 @@
+
+<div class="validation">
+  <div class="container-flex justify-content-end">
+    <span *ngIf="sigos.length > 0" class="material-icons c-pointer" (click)="downloadXLS()">
+      play_for_work
+    </span>
+  </div>
+  <p *ngFor="let item of sigos">
+    <b>
+      <label>{{ item.start_date | date: 'dd-MM-yyyy | H:mm:ss' }}</label> <br>
+      <label>{{ item.tipo }}: + {{ item.numberid }}</label>
+    </b>
+    <br>
+    <b><label>Estado: </label></b>
+    <span class="redClaro-color no-validado" [innerHTML]="sigosStatusMessage(item.resultado)"></span>
+    <span *ngIf="item.resultado != 'PASS'"> - {{ item.mensaje_error }}</span>
+  </p>
+  <p *ngIf="sigos.length == 0" class="text-center">
+    <b>Sin datos</b>
+  </p>
+</div>

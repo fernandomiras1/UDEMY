@@ -1,0 +1,20 @@
+<app-modal title="Editar Grupo de {{ data.typeGroup | titlecase }}"
+    textBtnLeft="Cancelar"
+    textBtnRight="Guardar"
+    [disabledBtnRight]="!tempPeopleByGroup.isEditValid"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="closeModal()"
+    (onClickBtnRight)="tempPeopleByGroup.onEditGroup()">
+
+    <app-people-by-group #tempPeopleByGroup
+      (onUpdatedGroup)="onUpdatedGroup($event)"
+      [typeGroup]="data.typeGroup"
+      [sitesUsers]="data.sitesUsers">
+    </app-people-by-group>
+</app-modal>
+
+<!--Modal Eliminando datos-->
+<app-loading-modal
+  [showLoadingModal]="showLoadingModal">
+  message="Eliminando.."
+</app-loading-modal>

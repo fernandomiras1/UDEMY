@@ -1,0 +1,59 @@
+<span class="select-group" [formGroup]="profileForm">
+    <span class="select-element">
+        <span *ngIf="disable" class="select-disabled">
+            <img src="{{countryImage}}" alt="" width="20" height="20">
+            {{countryCode}}
+            <b [class.active]="selected"></b>
+        </span>
+        <span [ngClass]="{'required-input':props.required}" *ngIf="!disable" class="select" (click)="optionSelected(true)">
+            <img src="{{countryImage}}" alt="" width="20" height="20">
+            {{countryCode}}
+            <b [class.active]="selected"></b>
+        </span>
+        <ul class="select-options" [class.active]="selected" [(ngModel)]="countryCode"
+            [ngModelOptions]="{standalone: true}" ngDefaultControl>
+            <li class="option" [class.active]="countrySelected == country.id_pais"
+                *ngFor="let country of countries; index as i"
+                (click)="codeSelected(country.codigo_pais, i, country.imagen_pais)">
+                {{country.nombre_pais}}
+            </li>
+        </ul>
+    </span>
+    <input 
+        [ngClass]="{'required-input':props.required && !disable}"
+        type="text" 
+        name="{{props.model}}" 
+        [ngModelOptions]="{standalone: true}"
+        [ngModel]="props.number | mask: '00 0000 - 00000'" 
+        (ngModelChange)="changed($event)" id="{{props.model}}"
+        [disabled]="disable"
+        class="input-element"
+        maxlength="15"
+        >
+    <span 
+        [tooltip]="HtmlContent" 
+        content-type="template" 
+        hide-delay="200" 
+        [ngClass]="{'v-visible':isNumberFormatCorret && props.number.length > 0,'v-hidden':!isNumberFormatCorret || props.number.length == 0}" 
+        class="material-icons check-icon"
+    >
+        done
+    </span>
+    <span *ngIf="props.sigos && disable" class="material-icons check-icon">
+        done
+    </span>
+    <ng-template #HtmlContent>
+        Número completo
+    </ng-template>
+    <div [class.v-hidden]="!disable" (click)="validatePhoneNumber()" *ngIf="showButtonForValidation && !ButtonForValidationIsLoading" class="phone-icon ml-1">
+        <span class="material-icons">
+            stay_current_portrait
+        </span>
+    </div>
+    <div [class.v-hidden]="!disable" *ngIf="showButtonForValidation && ButtonForValidationIsLoading" class="phone-icon active ml-1">
+        <div>
+            <mat-spinner diameter="30"></mat-spinner>
+        </div>
+    </div>
+</span>
+

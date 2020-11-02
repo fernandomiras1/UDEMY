@@ -1,0 +1,58 @@
+<app-modal title="Eliminar turno"
+    textBtnLeft="CANCELAR"
+    textBtnRight="CONFIRMAR"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="closeModal()"
+    (onClickBtnRight)="confirm()">
+
+    <h3><b>Reasignación de turnos por eliminación de guardia</b></h3>
+    <p>
+        Algunos de los guardias eliminados tiene turnos pendientes.
+        ¿Desea reasignarlos a guardias activos antes de eliminarlo del grupo?
+        Los turnos que no sean reasignados serán eliminados.
+    </p>
+    <div class="container-flex justify-content-end">
+        <b class="mr-2">Eliminar turno</b>
+    </div>
+    <div class="oy-scroll" style="min-height: 100px;max-height: 400px;">
+        <div class="item" *ngFor="let item of replaceBy,let i = index">
+            <div class="mb-1 mt-1 txt-color-claro">
+                <b>{{ item.apellido | titlecase }} {{ item.nombre | titlecase }}</b>
+            </div>
+            <div class="mt-1" *ngFor="let row of item.asignaciones,let j = index">
+                <div class="select-container">
+                    <div>
+                        <b>
+                            {{ row.fecha_desde | dayName | titlecase }}
+                            {{ row.fecha_desde | date:'dd-MM' }}
+                        </b>
+                        <br>
+                        <span>{{ row.nombre_tipo_de_guardia }}</span>
+                        <br>
+                        <span>Turno: {{ row.horario_desde }} a {{ row.horario_hasta }}</span>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-select  [(ngModel)]="row['selected']"  placeholder="Elija un guardia..." #singleSelect  (selectionChange)="guardSelected($event)">
+                                <mat-option [disabled]="guard.telefono_validado == 0" name="fieldName" ngDefaultControl  *ngFor="let guard of row.usuarios,let k = index" [value]="{guard:guard,i:i,j:j}">
+                                {{ guard.apellido | titlecase }}, {{ guard.nombre | titlecase }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="container-flex justify-content-center">
+                        <mat-checkbox [disabled]="row['selected'] == null" [checked]="row['deleted']" [(ngModel)]="row['deleted']" [value]="{i:i,j:j}" (change)="delete($event)" class="mt-1" color="warn"></mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <mat-divider class="mt-1"></mat-divider>
+        </div>
+    </div>
+
+</app-modal>
+
+
+<app-loading-modal
+  [showLoadingModal]="loading">
+</app-loading-modal>
+

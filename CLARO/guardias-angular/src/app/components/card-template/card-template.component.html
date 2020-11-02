@@ -1,0 +1,58 @@
+<div (click)="onClick()">
+  <div class="header-panel" [ngClass]="{'bg-selected': template.selected}">
+    <span class="txt-bold" [ngClass]="{'txt-color-claro': template.selected}" style="color: #333; overflow-wrap: break-word;">{{template.nombre_tipo_de_guardia}}</span>
+    <div class="plantilla-opt-wrapper" *ngIf="mode === modeTemplate.LIST">
+      <button
+        id="plantilla-{{templateIndex + '-' + template.id_tipo_guardia}}"
+        mat-button
+        [matMenuTriggerFor]="plantillaMenu"
+        class="btn-options plantilla-options"
+        (menuOpened)="onMenuOpened(templateIndex, template.id_tipo_guardia)"
+        (menuClosed)="onMenuClosed(templateIndex, template.id_tipo_guardia)"
+      >
+        <mat-icon aria-hidden="false" class="icon-options">more_vert</mat-icon>
+      </button>
+    </div>
+    <mat-menu #plantillaMenu="matMenu" isOpen="open-menu" class="panel-opt-menu min-width-menu">
+      <div matTooltip="Plantilla en uso - No puede desactivarse." matTooltipPosition="below" [matTooltipDisabled]="verifiedDesactivarPlantillas[template.id_tipo_guardia]">
+        <button (click)="onDesactivarPlantilla(template.id_tipo_guardia, template.nombre_tipo_de_guardia, templateIndex)"
+          class="plantilla-desactivar-btn" mat-menu-item [disabled]="!verifiedDesactivarPlantillas[template.id_tipo_guardia]">
+            <ng-container *ngIf="null === verifiedDesactivarPlantillas[template.id_tipo_guardia]; else desactivarTemplate">
+              <mat-spinner diameter="25"></mat-spinner>
+            </ng-container>
+            <ng-template #desactivarTemplate>
+              Desactivar <mat-icon aria-hidden="false" class="plantilla-desactivar-icon">error</mat-icon>
+            </ng-template>
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+  <div class="content-panel">
+    <div class="body-panel">
+      <div class="mr-3">
+        <span class="fs-12 txt-bold" style="color: #333;">Duración</span>
+        <div class="plantilla-duracion-blocks">
+          <ng-container *ngFor="let cssPlantilla of cssTemplates.size let first = first;">
+            <div class="box-size" [ngClass]="{'mt-10p': first, 'bg-color-claro': template.selected}" [ngStyle]="{'width': cssTemplates.width}"></div>
+          </ng-container>
+        </div>
+        <span class="fs-11 fw-400">{{timeTile}}</span>
+      </div>
+      <div>
+        <span class="fs-12 txt-bold" style="color: #333;">Turnos</span>
+        <div *ngFor="let desdehasta of template.rango_hour;let i = index" class="fs-12 fw-400 box-block mt-10p" [ngClass]="{'bg-selected': template.selected}">
+          {{desdehasta.horario_desde + " a " + desdehasta.horario_hasta}}
+        </div>
+      </div>
+    </div>
+    <div class="footer-panel">
+      <span class="fw-400" style="overflow-wrap: break-word;">Las guardias comienzan
+        <span *ngFor="let desdehasta of template.rango_hour; let last = last; let i = index;">
+          <span *ngIf="last && 0 < i"> y </span>
+          <span>{{" a las " + desdehasta.horario_desde}}</span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,218 @@
+
+<div class="grupo-section">
+    <div class="grupo-main-column">
+        <h2>Grupo de {{this.isSite ? 'Sitio' : 'Tecnología'}}</h2>
+        <p>Asocia las personas y los sitios que desees que estén en el grupo</p>
+        <div class="grupo-search">
+            <input #search (keydown.enter)="getRemedy()" type="text" placeholder="Buscar persona o sitio" [(ngModel)]="searchInput">
+            <span *ngIf="search.value.length > 0" (click)="clearInputSearch()" class="c-pointer material-icons">close</span>
+            <span (click)="getRemedy()" class="material-icons c-pointer">search</span>
+        </div>
+        <div class="grupo-container">
+            <div class="grupo-accordion">
+                <div class="accordion-title">
+                    <div class="accordion-top" (click)="openToggle(toggleType.OPEN, true, false)">
+                        <mat-icon>{{ toggleParent == toggleType.OPEN ? 'keyboard_arrow_down': 'keyboard_arrow_right' }}</mat-icon>
+                        <label>PERSONAS POR GRUPO REMEDY</label>
+                    </div>
+                    <div class="accordion-container scrollbar" [class.active]="toggleParent == toggleType.OPEN">
+                        <div *ngIf="loadingRemedyUsers" style="height: 50px;" class="bg-white container-flex justify-content-center">
+                            <mat-spinner class="mt-10p" diameter="25"></mat-spinner>
+                        </div>
+                        <ng-container *ngIf="!loadingRemedyUsers">
+
+                            <ng-container *ngIf="peopleNotfound">
+                              <div class="grupo-accordion-title">
+                                <div class="grupo-accordion-title" style="color: #d62826;">
+                                  No se encontraron usuarios que coincidan con ese criterio de búsqueda.
+                                </div>
+                              </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="!peopleNotfound">
+                              <div class="grupo-container-accordion" *ngFor="let remedy of remedyUsers | filter:term; index as i;">
+                                <div class="grupo-accordion-title">
+                                  <mat-icon (click)="openToggle(i, false, false)">{{ toggleChild == i ? 'keyboard_arrow_down': 'keyboard_arrow_right' }}</mat-icon>
+                                  <mat-checkbox color="primary" [indeterminate]="isAllOrSomeSelected(remedy.usuarios, true)" [checked]="isAllOrSomeSelected(remedy.usuarios)"
+                                    (change)="onChangeAll(remedy.usuarios, $event.checked, 'people')">
+                                  </mat-checkbox>
+                                  <label>{{remedy.grupo_remedy | uppercase }}</label>
+                                </div>
+                                <div class="grupo-accordion-panel" [class.active]="toggleChild == i">
+                                  <div class="grupo-checkbox" *ngFor="let user of remedy.usuarios">
+                                    <mat-checkbox color="primary" [checked]="user.selected"
+                                      (change)="onChange(user, $event.checked, 'people')">
+                                    </mat-checkbox>
+                                    <label class="grupo-checkbox-name">
+                                      {{user['apellido'] | titlecase}}, {{user['nombre'] | titlecase}}
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="accordion-title">
+                    <div (click)="openToggle(toggleType.CLOSED, true, false)" class="accordion-top">
+                        <mat-icon>{{ toggleParent == toggleType.CLOSED ? 'keyboard_arrow_down': 'keyboard_arrow_right' }}</mat-icon>
+                        <label *ngIf="this.isSite">SITIOS POR REGIÓN</label>
+                        <label *ngIf="!this.isSite">TECNOLOGÍAS</label>
+                    </div>
+                    <div class="accordion-container scrollbar" [class.active]="toggleParent == toggleType.CLOSED">
+                        <div *ngIf="loadingRemedy" style="height: 50px;" class="bg-white container-flex justify-content-center">
+                            <mat-spinner class="mt-10p" diameter="25"></mat-spinner>
+                        </div>
+                        
+                        <ng-container *ngIf="!loadingRemedy">
+
+                            <ng-container *ngIf="SitesTecnologiesNotFound">
+                              <div class="grupo-accordion-title">
+                                <div class="grupo-accordion-title" style="color: #d62826;">
+                                  {{ SitesTecnologiesNotFoundMessage }}
+                                </div>
+                              </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="isSite && !SitesTecnologiesNotFound">
+                                <div class="grupo-container-accordion" *ngFor="let group of remedyGroups; index as i">
+                                  <div class="grupo-accordion-title">
+                                    <mat-icon (click)="openToggle(i, false, false)">{{ toggleChild == i ? 'keyboard_arrow_down': 'keyboard_arrow_right' }}</mat-icon>
+
+                                    <mat-checkbox color="primary" [indeterminate]="isAllOrSomeSelected(group.acronimosDetalle, true)"  [checked]="isAllOrSomeSelected(group.acronimosDetalle)" 
+                                      (change)="onChangeAllSite(group, $event.checked)">
+                                    </mat-checkbox>
+                                    <label>{{(group.nombre ? group.nombre : 'SIN REGIÓN ASOCIADA') | stringify}}</label>
+                                  </div>
+                                  <div class="grupo-accordion-panel" [class.active]="toggleChild == i">
+                                    <div class="grupo-checkbox" *ngFor="let site of group.acronimosDetalle">
+                                      <mat-checkbox color="primary" [checked]="site.selected"
+                                        (change)="onChangeSite(group, site, $event.checked)">
+                                      </mat-checkbox>
+                                      <label class="grupo-checkbox-name">{{site.name}}</label>
+                                    </div>
+                                  </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="!isSite && !SitesTecnologiesNotFound">
+                            <div class="grupo-container-accordion">
+                              <div class="grupo-checkbox" *ngFor="let group of remedyGroups;">
+                                <mat-checkbox color="primary" [checked]="group.selected"
+                                  (change)="onChange(group, $event.checked, 'sites')">
+                                </mat-checkbox>
+                                <label class="grupo-checkbox-name">{{group.tecnologia}}</label>
+                              </div>
+                            </div>
+                            </ng-container>
+
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grupo-main-column selected scrollbar">
+        <div class="grupo-title">
+          Personas: {{remedyList.people.length}}
+        </div>
+        <div class="grupo-content">
+          <mat-chip-list aria-label="grupo content">
+            <mat-chip *ngFor="let user of remedyList.people" (click)="onClickChipPeople(user)" removable="true"
+              (removed)="onChange(user, false, 'people')">
+              {{ user.apellido + ', ' + user.nombre | titlecase}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+    </div>
+    <div class="grupo-main-column selected scrollbar">
+        <div class="grupo-title">
+        {{this.isSite ? 'Sitios' : 'Tecnologías'}}: {{countTotalItemsSelected}}
+        </div>
+        <div *ngIf="isSite" class="grupo-content">
+          <!-- remedyGroups a remedyList.sites -->
+        <ng-container *ngFor="let group of remedyList.sites">
+          <div *ngIf="group.acronimos.length > 0" class="align-items-center" style="margin: 10px;">
+            {{ (group.nombre ? group.nombre : 'SIN REGIÓN ASOCIADA') + ": " + group.acronimos.length }}
+          </div>
+          <div class="grupo-content-sites">
+            <ng-container *ngFor="let acronimo of group.acronimos">
+              <mat-chip-list *ngIf="acronimo.selected" aria-label="grupo content sites">
+                <mat-chip removable="true"
+                  (removed)="onChangeSite(group, acronimo, false, true)">
+                  {{ acronimo.name }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </ng-container>
+          </div>
+        </ng-container>
+        </div>
+        <div *ngIf="!isSite" class="grupo-content">
+          <mat-chip-list aria-label="grupo content">
+            <mat-chip *ngFor="let site of remedyList.sites" removable="true"
+              (removed)="onChange(site, false, 'sites')">
+              {{site.tecnologia}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal-screen" [class.active]="modalOpen.isOpen">
+  <div class="modal-container">
+      <div class="modal-title">
+         <h3>{{ modalOpen.title | titlecase }}</h3>
+         <mat-icon (click)="modalOpen.isOpen = false">close</mat-icon>
+      </div>
+      <div class="modal-content">
+          <div class="grupo-accordion">
+              <div class="accordion-title">
+                  <div class="accordion-top">
+                      <i class="grupo-arrow" [class.active]="toggleModalParent == -1" (click)="openToggle(-1, true, true)"></i>
+                      <label *ngIf="this.isSite">Sitios asociados</label>
+                      <label *ngIf="!this.isSite">Tecnologías asociadas</label>
+                  </div>
+                  <div class="accordion-container scrollbar" *ngIf="toggleModalParent == -1">
+                      <div class="grupo-container-accordion" *ngFor="let remedy of modalOpen.remedyGroups; index as i">
+                          <div *ngIf="isSite" class="grupo-accordion-title">
+                              <div class="grupo-checkbox">
+                                <mat-checkbox color="primary"
+                                  (change)="onChangeAll(remedy.usuarios, $event.checked, 'people')">
+                                </mat-checkbox>
+                              </div>
+                              <label>{{remedy.nombre | stringify}}</label>
+                          </div>
+                          <div class="grupo-labels">
+                              <ng-container *ngIf="isSite">
+                                  <label *ngFor="let user of remedy.acronimos; index as i" [class.active]="checked">
+                                    <input type="checkbox" name="checkbox" value="value" (change)="onChange(user, $event.target.checked, 'sites')">
+                                    {{user.acronimo}} +
+                                  </label>
+                              </ng-container>
+                              <ng-container *ngIf="!isSite">
+                                <input type="checkbox" name="checkbox" value="value" (change)="onChange(remedy, $event.target.checked, 'sites')">
+                                {{remedy.tecnologia | titlecase}} +
+                              </ng-container>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="accordion-title">
+                  <div class="accordion-top">
+                    <i class="grupo-arrow" [class.active]="toggleModalParent == toggleType.CLOSED" (click)="openToggle(toggleType.CLOSED, true, true)"></i>
+                    <label>Otros grupos donde se encuentra</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="loadingModal">
+  message="Eliminando.."
+</app-loading-modal>

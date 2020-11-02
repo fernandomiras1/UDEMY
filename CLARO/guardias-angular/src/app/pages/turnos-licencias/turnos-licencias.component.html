@@ -1,0 +1,115 @@
+<app-navbar optionsRoutesPage="3" calendar="true"></app-navbar>
+
+<div [ngStyle]="{'min-width': widthScreen + 'px', 'max-width': widthScreen + 'px'}" class="mt-1 margin-container container-flex">
+  <!--Boton licencia-->
+  <div class="container-flex align-items-center" [ngStyle]="{'min-width': columnBtnLicence + 'px', 'max-width': columnBtnLicence + 'px'}">
+    <button [disabled]="true" mat-raised-button class="bg-color-claro txt-white btn-claro disabled-btn-effect" style="height: 30px;min-width: 88px;">
+      <mat-icon style="position: relative;top: -1px;font-size: 16px;">add</mat-icon>
+      <label style="position: relative;top: -4px;font-size: 12px;">AÑADIR LICENCIA</label>
+    </button>
+  </div>
+  <!--Navbar de calendario 4 dias-->
+  <ng-container *ngIf="seletTimeCalendar === selecType.DAYS">
+    <ng-container *ngFor="let date of dates; let first = first; let last = last; let i = index;">
+      <ng-container *ngIf="!first && !last">
+        <div class="container-flex align-items-center justify-content-center" [ngStyle]="{'min-width': columnsDays + 'px', 'max-width': columnsDays + 'px'}">
+          <div class="container-flex align-items-center" *ngIf="((dates.length) - (dates.length) + 1) == i">
+            <button class="btn-prev-next c-pointer" (click)="prevNextDays('prev')">
+              <mat-icon class="icon-btn-prev-next" style="left: -1px;" aria-hidden="false">keyboard_arrow_left</mat-icon>
+            </button>
+          </div>
+          <div class="container-flex justify-content-center align-items-center w-100">
+            <span class="fs-12 fw-500">{{(date.nextDay | date: 'EEE').split('.')[0] | uppercase}}</span>
+            <div [ngClass]="{'bg-color-claro': date.selected, 'circle-date-selected': date.selected, 'circle-date': !date.selected}">
+              <b class="fs-24 span-circle-date">{{date.nextDay | date: 'd'}}</b>
+            </div>
+          </div>
+          <div class="container-flex align-items-center justify-content-end" *ngIf="dates.length - 2 == i">
+            <button class="btn-prev-next c-pointer" (click)="prevNextDays('next')">
+              <mat-icon class="icon-btn-prev-next" style="left: 1px;" aria-hidden="false">keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <!--Navbar de calendario 2 semanas-->
+  <ng-container *ngIf="seletTimeCalendar === selecType.WEEKS">
+    <ng-container *ngFor="let date of dates; let first = first; let last = last; let i = index;">
+      <div class="grid-div" *ngIf="!first && !last">
+        <div class="container-flex align-items-center justify-content-center" [ngStyle]="{'min-width': columnsDays + 'px', 'max-width': columnsDays + 'px'}">
+          <div class="container-flex align-items-center" *ngIf="((dates.length) - (dates.length) + 1) == i">
+            <button class="btn-prev-next c-pointer" (click)="prevNextDays('prev')">
+              <mat-icon class="icon-btn-prev-next" style="left: -1px;" aria-hidden="false">keyboard_arrow_left</mat-icon>
+            </button>
+          </div>
+          <span [ngClass]="{'txt-color-claro txt-bold': date.selected}" class="fs-12 fw-300">{{(date.nextDay | date: 'EEE').split('.')[0] | uppercase}}<span style="margin-left: 2px;">{{date.nextDay | date: 'd'}}</span></span>
+          <div class="container-flex align-items-center justify-content-end" *ngIf="dates.length - 2 == i">
+            <button class="btn-prev-next c-pointer" (click)="prevNextDays('next')">
+              <mat-icon class="icon-btn-prev-next" style="left: 1px;" aria-hidden="false">keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="container-flex align-items-end" *ngIf="dates.length - 2 != i">
+          <span class="line-divider" style="top: 9px;" [ngClass]="{'divider-black': date.nextDay.getDay() === 0}"></span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="margin-container mt-1" *ngIf="showSkeleton">
+  <div class="grid-skeleton" *ngFor="let size of [1,2,3,4,5,6,7,8,9,10,11,12]">
+    <ngx-skeleton-loader count="1" [theme]="{height: '45px'}"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" class="ml-10p" [theme]="{height: '45px'}"></ngx-skeleton-loader>
+  </div>
+</div>
+<!--Body list group-->
+<div  *ngIf="!showSkeleton"
+      [ngStyle]="{'min-width': generalService.widthScreen + 'px'}" 
+      class="scrollbar scroll-y margin-container" 
+      style="overflow-x: hidden; margin-top: 8px;">
+  <ng-container *ngFor="let group of groupList; let position = index;">
+    <!--Lista cerrada de los grupos-->
+    <div class="grid-list-group" [ngClass]="{'shadow-open-list-group': group.isOpen}">
+      <div class="container-flex align-items-center line-top-list-group">
+        <button class="btn-list-group c-pointer ml-10p" (click)="openGroup(group)">
+          <mat-icon class="icon-btn-prev-next txt-color-claro fs-10" style="left: 1px;" aria-hidden="false" *ngIf="!group.isOpen">keyboard_arrow_right</mat-icon>
+          <mat-icon class="icon-btn-prev-next txt-color-claro fs-10" style="left: 1px;" aria-hidden="false" *ngIf="group.isOpen">expand_more</mat-icon>
+        </button>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group">
+        <span class="txt-bold fs-18">{{group.data.nombre_grupo}}</span>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group" *ngIf="group.data.sites_count > 0">
+        <span class="txt-bold">Sitios: <span class="txt-bold txt-color-claro"> {{group.data.sites_count}}</span></span>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group" *ngIf="group.data.technologies_count > 0">
+        <span class="txt-bold">Tecnologías: <span class="txt-bold txt-color-claro"> {{group.data.technologies_count}}</span></span>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group">
+        <span class="txt-bold">Guardias: <span class="txt-bold txt-color-claro">{{group.data.users_count}}</span></span>
+      </div>
+      <a  class="line-top-list-group container-flex align-items-center" 
+          style="text-decoration: none;" 
+          target="_blank" 
+          [routerLink]="['/detalle-grupo/'+ group.data.id_tipo_grupo + '/' + group.data.id_grupo]">
+        <span style="min-width: 78px;" class="container-flex span-show-group align-items-center c-pointer h-100 txt-bold txt-color-claro">
+          VER GRUPO 
+        </span>
+        <mat-icon class="txt-color-claro fw-500 c-pointer" style="margin-left: 5px; font-size: 12px; top: 6px;position: relative;" aria-hidden="false">keyboard_arrow_right</mat-icon>
+      </a>
+    </div>
+    <!--Lista abierta de los grupos-->
+    <div class="body-list-group" *ngIf="group.isOpen">
+      <app-carrusel *ngIf="allowedRole" [dateSelected]="dateSelected" [guardias]="group.data.group_users" [licencias]="group.data.licencias"></app-carrusel>
+      <app-turnos [guardLoged]="guardLoged" [sizeParams]="sizeParams" [groupPlanning]="group.data.group_relation_planning" [licencias]="group.data.licencias"></app-turnos>
+      <app-licencias *ngIf="false" [sizeParams]="sizeParams" [licencias]="group.data.licencias"></app-licencias>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="groupList.length == 0">
+    <div style="border-top: 1px solid #c7c4c5;border-bottom: 1px solid #c7c4c5;padding: 15px;" class="text-center">
+      <b>No tienes grupos para realizar programaciones</b>
+    </div>
+  </ng-container>
+</div>

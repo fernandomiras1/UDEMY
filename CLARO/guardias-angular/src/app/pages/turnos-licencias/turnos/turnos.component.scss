@@ -1,0 +1,80 @@
+.margin-container {
+  margin: 0px 24px;
+}
+.container-detail-turns {
+  background: white;
+  z-index: 3;
+  min-width: 142px;
+  padding: 8px 16px 20px 8px;
+  border-right: 1px solid #4F4F4F
+}
+.container-template-line {
+  border-bottom: 1px solid #ddd;
+}
+.container-turnos-overflow-x {
+  overflow: auto;
+  overflow-x: hidden;
+}
+.container-turnos {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  
+}
+.turno {
+  height: 90%;
+  background: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-style: dashed;
+  border-color: #d4d2d2;
+  border-width: 1px;
+  background: #FAFAFA;
+  border-radius: 4px;
+  cursor: pointer;
+  span {
+    display: flex;
+    text-align: center;
+  }
+}
+.turno-invitado {
+  height: 90%;
+  background: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-style: dashed;
+  border-color: #d4d2d2;
+  border-width: 1px;
+  background: #FAFAFA;
+  border-radius: 4px;
+  span {
+    display: flex;
+    text-align: center;
+  }
+}
+.turno:hover {
+  opacity: 1;
+  box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.12);
+  border: none;
+}
+.color-span-turn {
+  color: #ACAFB0;
+}
+.dragover-turn {
+  opacity: 1;
+  box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.12);
+  border: none!important;
+}
+.dragover-turn-disabled {
+  background: #d8d8d8!important;
+  color: white;
+}

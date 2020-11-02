@@ -1,0 +1,155 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.container {
+  padding: 0px 4rem 0px 4rem;
+}
+
+.contenedor-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+  
+  @include desktop {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+
+.contenedor-2 {
+  flex-basis: 30%;
+}
+
+.elemet-flex {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.disabled-btn {
+  opacity: 0.5;
+}
+.disabled-body {
+  color: #adadad;
+  cursor: context-menu!important;
+}
+.grid-toolbar {
+  display: grid!important;
+  grid-template-columns: 1fr 1fr;
+}
+.grid-body-container {
+  display: grid!important;
+  grid-template-columns: 1fr 1fr;
+}
+.card-container {
+  display: flex!important;
+  box-shadow: -1px -1px 31px -22px rgba(0,0,0,0.75);
+  border-radius: 15px;
+  border: solid 1px #f0f0f0;
+  height: 100px;
+  margin-bottom: 10px;
+  min-width: 250px;
+}
+.btn-toolbar {
+    background: transparent;
+    border: 0px;
+    outline: none;
+}
+.btn-toolbar-disabled {
+  opacity: 0.6;
+}
+.icon-btn-next {
+  position: absolute;
+  top: 31px;
+  font-size: 12px;
+  right: 51px;
+}
+.container-icon-sitio-tec {
+  padding: 25px;
+  background: #f9f9f9;
+  border-radius: 100%;
+  color: #acafb0;
+  height: 30px;
+  width: 30px;
+}
+.selected-bg-sitio-tec {
+  background: #fdebea;
+  color: $red;
+}
+.selected-color-sitio-tec {
+  color: $red;
+}
+.icon-sitio {
+  font-size: 35px;
+  position: relative;
+  left: -6px;
+  top: -2px;
+}
+.input-group {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  height: 45px;
+  font-size: 16px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.input-group:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+//select
+.select-sitio-tec-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 150px;
+  padding: 0px;
+  height: 47px;
+  outline: 0;
+  background: transparent;
+}
+.select-sitio-tec-span {
+  font-size: 14px;
+  font-weight: 400;
+}
+.select-sitio-tec-button {
+  border: 0;
+  background: transparent;
+  margin-top: 4px;
+}
+.select-sitio-tec-option-container {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 0px 0px 5px 5px;
+  border: 1px solid #ccc;
+  text-align: start;
+  position: absolute;
+  width: 148px;
+  margin-top: 66px;
+  margin-left: -1px;
+}
+.select-sitio-tec-button:focus {
+  outline: 0;
+}
+.select-sitio-tec-icon {
+  position: relative;
+  top: 0px;
+  left: -5px;
+  color: #888888;
+}
+.select-sitio-tec-option:hover {
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+.select-sitio-tec-option {
+  font-size: 12px;
+  font-weight: 400;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: space-between;
+}

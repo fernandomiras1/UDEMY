@@ -1,0 +1,215 @@
+<app-navbar [nombreGroup]="nombre_grupo" optionsRoutesPage="{{isEdit ? 1 : 2}}" detailGroup="true" [plantillas]="templatesSelectionView" (cancelPlantillas)="onCancelPlantillaHorarios()" (savePlantillas)="onSavePlantillaHorarios()" [calendar]="true"></app-navbar>
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="isLoading">
+</app-loading-modal>
+<!--Modal Misma Plantilla-->
+<modal #htmlInsideModal >
+  <ng-template #modalBody>
+    <div style="
+        padding: 12px 40px 12px 40px;
+        background-color: #fff;
+        width: 400px;
+        margin-top: -6rem;
+        border-radius: 8px;
+        text-align: center;">
+      <span class="txt-color-claro fw-300">
+        <span class="material-icons fs-16" style="position: relative;top: 2px;">error_outline</span>
+        No puede agregar otra plantilla con el mismo rango horario, debe tener distinta hora de inicio.
+      </span>
+    </div>
+  </ng-template>
+</modal>
+<!--Modal alert Plantilla-->
+<modal #htmlAlertSaveTemplateModal >
+  <ng-template #modalBody>
+    <div style="
+        padding: 12px 40px 12px 40px;
+        background-color: #fff;
+        width: 400px;
+        margin-top: -6rem;
+        border-radius: 8px;
+        text-align: center;">
+      <span class="txt-black fw-300">
+        <span class="material-icons fs-16 mr-1 txt-muted" style="position: relative;top: 2px;">warning</span>
+        La <b>plantilla de {{ plantillaHora }} "{{ plantillaName }}"</b> será eliminada al guardar cambios.
+      </span>
+    </div>
+  </ng-template>
+</modal>
+<ng-container *ngIf="dataGroup && !templatesSelectionView">
+  <div class="p-detail-container mt-2 container-flex align-items-center">
+    <span class="fs-24 fw-500">Detalle del grupo</span>
+    <img *ngIf="!isEdit && userCanEditGroup" (click)="editGroup()" class="ml-1 c-pointer" alt="editar-img" src="../../assets/imgs/Editar.svg"/>
+  </div>
+  <div class="p-detail-container grid-detail-container mt-1">
+    <div class="flex-column fs-12 line-divider-group">
+      <div>
+        <span class="fw-500">Nombre: </span>
+        <span *ngIf="!isEdit" class="fw-300">{{dataGroup.nombre_grupo}}</span>
+          <input *ngIf="isEdit" type="text" class="inputs-detail" [(ngModel)]="dataGroup.nombre_grupo"/>
+      </div>
+      <div class="mt-5p">
+        <span class="fw-500">Descripción: </span>
+        <span *ngIf="!isEdit" class="fw-300">{{dataGroup.descripcion}}</span>
+        <input *ngIf="isEdit" type="text" class="inputs-detail" [(ngModel)]="dataGroup.descripcion"/>
+      </div>
+      <div class="mt-5p">
+        <span class="fw-500">Tipo de grupo: </span>
+        <span class="fw-300">{{tipo_grupo | titlecase}}</span>
+      </div>
+      <div class="mt-5p">
+        <span class="fw-500">Jefe: </span>
+        <span class="fw-300">{{dataGroup.apellido_jefe + ", " + dataGroup.nombre_jefe}}</span>
+      </div>
+      <div class="mt-5p">
+        <span class="fw-500">Gerencia: </span>
+        <span class="fw-300">{{dataGroup.gerencia}}</span>
+      </div>
+      <div class="mt-5p">
+        <span class="fw-500">Grupo Remedy: </span>
+        <span class="fw-300">{{dataGroup.support_group_name}}</span>
+      </div>
+    </div>
+    <div class="scroll-y scrollbar" style="padding-right: 1rem; max-height: 200px">
+      <div class="container-flex justify-content-space-b align-items-center">
+        <span class="fw-500 fs-16">Plantillas activas</span>
+        <button *ngIf="isEdit" class="btns-plantilla c-pointer" (click)="addTemplates()">añadir plantilla</button>
+      </div>
+      <div class="flex-column fs-12">
+        <ng-container *ngFor="let template of templates;let templateIndex = index;">
+        <div *ngIf="template.estado == 1"  class="mt-10p">
+          <span class="fw-500">{{template.nombre_tipo_de_guardia}}</span>
+          <div class="container-flex justify-content-space-b align-items-center">
+            <span class="fw-300">{{ getHoursToStringFromBlocks( template ) }}</span>
+            <mat-icon 
+              *ngIf="isEdit" 
+              aria-hidden="false" 
+              [ngClass]="{'txt-muted': ifMinimumLengthOfTemplates, 'c-pointer': !ifMinimumLengthOfTemplates}"
+              class="c-pointer" 
+              (click)="deleteTemplate(templateIndex,template)"
+            >delete
+            </mat-icon>
+          </div>
+          <div class="line-divider-plantilla">
+            <span class="fw-500">Guardia de turno: </span>
+            <span class="fw-300">{{ (template.guardias_de_turno && template.guardias_de_turno.length) ? listGuardiasDeTurno(template.guardias_de_turno) : '-'}}</span>
+          </div>
+        </div>
+        </ng-container>
+
+        <div class="mt-1" *ngIf="isDeletingLastPlantilla">
+          <span class="txt-color-claro">El grupo debe tener al menos una plantilla.<br/>
+            Puedes eliminar esta y seleccionar otra desde "Añadir plantilla"</span>
+        </div>
+      </div>
+    </div>
+    <div class="fs-12" style="margin-left: 2rem;">
+      <span class="fw-500">Teléfonos obligatorios</span>
+      <div class="mt-10p container-flex justify-content-space-b align-items-center" style="padding-right: 4rem;">
+        <span class="fw-300">Celular corporativo</span>
+        <label class="cb-rd-red" [ngClass]="{'c-pointer': isEdit}">
+          <input type="checkbox" [disabled]="!isEdit" [(ngModel)]="dataGroup.celular_corporativo_requerido">
+          <span class="badge">
+            <img style="width: 10px;position: relative;top: 1px;" alt="check-img" src="../../assets/imgs/Check.svg"/>
+          </span>
+        </label>
+      </div>
+      <div class="mt-10p container-flex justify-content-space-b align-items-center" style="padding-right: 4rem;">
+        <span class="fw-300">Celular guardia</span>
+        <label class="cb-rd-red" [ngClass]="{'c-pointer': isEdit}">
+          <input type="checkbox" [disabled]="!isEdit" [(ngModel)]="dataGroup.celular_guardia_requerido">
+          <span class="badge">
+            <img style="width: 10px;position: relative;top: 1px;" alt="check-img" src="../../assets/imgs/Check.svg"/>
+          </span>
+        </label>
+      </div>
+      <div class="mt-10p container-flex justify-content-space-b align-items-center" style="padding-right: 4rem;">
+        <span class="fw-300">Interno rotativo de grupo</span>
+        <label class="cb-rd-red" [ngClass]="{'c-pointer': isEdit}">
+          <input type="checkbox" [disabled]="!isEdit" [(ngModel)]="dataGroup.linea_rotativo_requerido">
+          <span class="badge">
+            <img style="width: 10px;position: relative;top: 1px;" alt="check-img" src="../../assets/imgs/Check.svg"/>
+          </span>
+        </label>
+      </div>
+      <div class="mt-10p" *ngIf="dataGroup.linea_rotativo_requerido">
+        <input
+          (keyup)="errorsValidateNumberRotary = false"
+          class="inputs-detail fs-14 txt-bold"
+          placeholder="12345"
+          style="width: 80px;"
+          [disabled]="!isEdit"
+          [(ngModel)]="dataGroup.linea_rotativo"
+          [ngClass]="{'disabled-input': !isEdit}"/>
+        <mat-hint *ngIf="isEdit" style="color: #4F4F4F; line-height: 14px;" class="fw-500 fs-12 flex-column">
+          <div *ngIf="errorsValidateNumberRotary" class="mt-10p fs-11 fw-400 txt-color-claro">
+            Formato inválido. Ingrese: <br>
+            - #/* + 4/5 dígitos numéricos <br>
+            - 8 a 13 dígitos numéricos consecutivos
+          </div>
+         </mat-hint>
+      </div>
+    </div>
+  </div>
+  <div class="p-detail-container mt-3 container-flex align-items-center">
+    <div class="div-divider" [ngStyle]="{'width': isEdit ? '70%' : '100%' }"></div>
+    <div *ngIf="isEdit">
+      <button (click)="cancelEditGroup()" class="btn-cancelar c-pointer">cancelar</button>
+      <button
+        (click)="guardarCambios()"
+        [ngClass]="{'c-pointer': dataGroup.celular_corporativo_requerido || dataGroup.celular_guardia_requerido || dataGroup.linea_rotativo_requerido}"
+        class="btns-plantilla ml-1"
+        [ngStyle]="{'opacity': (dataGroup.celular_corporativo_requerido || dataGroup.celular_guardia_requerido || dataGroup.linea_rotativo_requerido) ? '1' : '0.6' }"
+        ng-disabled="isSaveDisabled"
+      >
+        guardar cambios
+      </button>
+    </div>
+  </div>
+  <div class="p-detail-container mt-2 container-flex align-items-center" [ngClass]="{'disabled-body': isEdit}">
+    <span class="fs-24 fw-500">Personas y sitios asociados</span>
+    <img (click)="editPersonas()" *ngIf="userCanEditGroup" class="ml-1 c-pointer" alt="editar-img" src="../../assets/imgs/Editar.svg"/>
+  </div>
+  <div class="p-detail-container grid-personas-container mt-3" [ngClass]="{'disabled-body': isEdit}">
+    <div style="min-width: 500px;">
+      <span class="fs-14 txt-bold txt-color-claro">PERSONAS: {{dataGroup.cant_usuarios}}</span>
+      <div class="container-person">
+        <span class="fs-12 fw-300 mt-1" *ngFor="let usuario of dataGroup.todosUsuarios | sortBy:'apellido'">{{usuario.apellido + ", " + usuario.nombre}}</span>
+      </div>
+    </div>
+    <div *ngIf="tipo_grupo == 'sitio'">
+      <span class="fs-14 txt-bold txt-color-claro">{{tipo_grupo + ": " + dataGroup.cant_sitios | uppercase}}</span>
+      <div class="container-person" *ngFor="let sitio of sitios">
+        <span class="fs-14 txt-bold" style="margin-top: 5px!important; color: #777;">
+          <span class="material-icons" style="position: relative;top: 7px;">keyboard_arrow_down</span>
+            {{sitio.localidad || 'SIN REGIÓN ASOCIADA' + ": " + sitio.acronimos.length}}
+            <div>
+              <ng-container *ngFor="let acronimo of sitio.acronimos">
+                <span class="fs-12 ml-1 mt-1 fw-400">{{acronimo}}</span>
+              </ng-container>
+            </div>
+          </span>
+      </div>
+    </div>
+    <div *ngIf="tipo_grupo == 'tecnologia'">
+      <span class="fs-14 txt-bold txt-color-claro">
+        {{tipo_grupo + ": " + dataGroup.cant_sitios | uppercase}}
+      </span>
+      <div class="container-person">
+        <span class="fs-12 fw-300 mt-1" *ngFor="let sitio of dataGroup.sitios">{{sitio.alcance}}</span>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Vista Plantillas -->
+<ng-container *ngIf="templatesSelectionView">
+  <div class="p-detail-container mt-3 flex-column plantilla-horaria">    
+    <app-templates
+      [templatesSelectedById]="templatesByID"
+      [mode]="modeTemplate.EDITION"
+      (selectedTemplates)="onSelectedTemplates($event)">
+    </app-templates>
+  </div>
+</ng-container>

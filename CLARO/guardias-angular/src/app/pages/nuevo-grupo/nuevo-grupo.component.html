@@ -1,0 +1,81 @@
+
+
+<mat-toolbar class="box-shadow-b bg-color-claro p-detail-container" style="height: 70px;">
+  <div class="container-flex align-items-center txt-white">
+    <mat-icon class="c-pointer" aria-hidden="false" routerLink="/home">arrow_back_ios</mat-icon>
+    <span class="fs-24 ml-10p">Nuevo grupo</span>
+  </div>
+</mat-toolbar>
+
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="showLoadingModal">
+</app-loading-modal>
+
+<div class="mat-stepper-container">
+  <mat-horizontal-stepper linear #stepper
+    (selectionChange)="stepperGroupService.onChangedStep($event)">
+
+    <!-- <mat-step [stepControl]="tempNewGroup.groupForm">
+      <ng-template matStepLabel>Tipo de grupo</ng-template>
+
+      <app-new-group #tempNewGroup></app-new-group>
+
+      <div class="container-flex justify-content-center">
+        <app-button (clicked)="goPageEditGroup(tempNewGroup.groupForm, tempNewGroup.groupFormValid)"
+          text="SIGUIENTE"
+          iconRight="true" 
+          icon="keyboard_arrow_right">
+        </app-button>
+      </div>
+    </mat-step>  -->
+
+    <mat-step [label]="stepperGroupService.stepGroupPeople">
+      <ng-template matStepLabel>Personas por grupo</ng-template>
+      <app-people-by-group #tempPeopleByGroup [typeGroup]="'sitio'"></app-people-by-group>
+
+      <div class="container-flex justify-content-center">
+        <button mat-button matStepperPrevious>
+          <mat-icon class="icon-btn-next">keyboard_arrow_left</mat-icon>
+          <label class="c-pointer">ANTERIOR</label>
+        </button>
+  
+        <app-button (clicked)="goPagePlantillas(tempPeopleByGroup.nextStep())"
+          [disabled]="!tempPeopleByGroup.isValid"
+          text="SIGUIENTE"
+          iconRight="true" 
+          icon="keyboard_arrow_right">
+        </app-button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Plantillas</ng-template>
+
+      <div class="scrollbar content-template">
+        <div class="mat-stepper-container flex-column">
+          <app-templates
+            [mode]="modeTemplate.SELECTION"
+            (selectedTemplates)="selectedTemplates = $event">
+          </app-templates>
+        </div>
+      </div>
+
+      <div class="mt-1 container-flex justify-content-center">
+        <button mat-button matStepperPrevious>
+          <mat-icon class="icon-btn-next">keyboard_arrow_left</mat-icon>
+          <label class="c-pointer">ANTERIOR</label>
+        </button>
+        
+        <app-button (clicked)="confirmGroup()"
+          [disabled]="selectedTemplates.length === 0"
+          text="FINALIZAR"
+          iconRight="true"
+          icon="keyboard_arrow_right">
+        </app-button>
+      </div>
+
+
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+

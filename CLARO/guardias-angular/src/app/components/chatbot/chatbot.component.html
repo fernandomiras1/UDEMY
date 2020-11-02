@@ -1,0 +1,32 @@
+<div *ngIf="open" id="chatbot">
+    <div class="chatbot-header container-flex justify-content-space-b txt-white">
+        <span class="align-self-center">Chat</span>
+        <span (click)="open = !open" class="material-icons c-pointer">
+            minimize
+        </span>
+    </div>
+    <div class="chatbot-body" #messageBody>
+        <div *ngFor="let message of messages">
+            <div *ngIf="message.side == 'sender'" class="chatbot-right-item">
+                <div class="chatbot-right-content" [innerHTML]="message.content"></div>
+            </div>
+            <div  *ngIf="message.side == 'receiver'" class="chatbot-left-item">
+                <div class="chatbot-left-img">
+                    <img width="50px" src="assets/imgs/bot.png" alt="">
+                </div>
+                <div class="chatbot-left-content" [innerHTML]="message.content | safeUrl"></div>
+            </div>
+        </div>
+    </div>
+    <div class="chatbot-footer">
+        <div class="container-flex justify-content-space-b">
+            <input (keyup.enter)="sendMessage(send)" #send type="text" class="chatbot-input">
+            <span (click)="sendMessage(send)" class="material-icons align-self-center c-pointer fs-18 hover-send">
+                send
+            </span>
+        </div>
+    </div>
+</div>
+<div (click)="open = !open"  *ngIf="!open" class="chatbot-toggle-icon c-pointer">
+    <img width="40px" src="assets/imgs/bot.png" alt="">
+</div>

@@ -1,0 +1,53 @@
+.mr-2{margin-right: 2rem;}
+.btn-options {
+    width: 102px;
+    height: 40px;
+}
+.icon-options {
+    margin-top: 6px;
+    margin-left: -7px;
+    font-size: 18px;
+}
+.icon-calendar {
+    font-size: 20px;
+    padding: 2px;
+}
+.btn-options:hover {
+    background-color: #af1010;
+  }
+.btn-open-menu{
+    background-color: #af1010;
+}
+.grid-plantilla {
+  display: grid!important;
+  grid-template-columns: 1fr 1fr;
+}
+.btn-plantilla {
+    background: transparent;
+    border: 0px;
+}
+.grid-2 {
+    display: grid!important;
+    grid-template-columns: calc(100%/2) calc(100%/2);
+}
+.grid-3 {
+    display: grid!important;
+    grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+}
+.p-detail-container {
+    padding-left: 12rem;
+    padding-right: 12rem;
+}
+.inactive-validate {
+    color: grey;
+}
+
+.btn-join.in {
+    background-color: white;
+    color:red
+}
+.btn-join.out {
+    background-color: transparent;
+    color:white;
+    border: solid 1px #ababab;
+}

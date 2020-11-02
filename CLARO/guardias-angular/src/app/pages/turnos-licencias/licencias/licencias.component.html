@@ -1,0 +1,53 @@
+<div class="container-template-line container-flex">
+  <div class="flex-column container-detail"
+        [ngStyle]="{'min-width': columnBtnLicence + 'px', 
+                    'max-width': columnBtnLicence + 'px'}">
+    <b class="txt-color-claro fw-700">Licencias</b>
+  </div>
+  <div  class="flex-column align-self-center bg-transparent"  style="position: relative;" 
+        [ngStyle]="{'min-width': columnsDays + 'px', 
+                    'max-width': columnsDays + 'px'}">
+    <div  *ngFor="let user of licencias; let i = index;"
+          class="mb-10p"
+          style="position: relative;"
+          [tooltip]="htmlTooltipLicenseBar"
+          hide-delay="100"
+          content-type="template"
+          placement="bottom"
+          width="230"
+          max-width="230"
+          [ngClass]="{'div-container-primary-color': (i % 2 == 0), 
+                      'div-container-secondary-color': (i % 2 != 0)}"
+          [ngStyle]="{'min-width': user.widthLicence + 'px',
+                      'max-width': user.widthLicence + 'px',
+                      'left': user.desplazar + 'px'}">
+      <span class="ml-10p fs-10">
+        {{user.apellido + ", " + user.nombre | titlecase}}
+      </span>
+      <ng-template #htmlTooltipLicenseBar>
+        <div class="flex-column  text-start" style="padding: 2px;">
+          <div class="container-flex justify-content-space-b">
+            <span class="fw-400 fs-16">{{(user.apellido | titlecaseAll) + ", " + (user.nombre | titlecaseAll)}}</span>
+            <div style="height: max-content; border-radius: 3px; padding: 0px 6px; background:#262626;"><span class="fw-300 fs-10">{{user.nombre_licencia | uppercase}}</span></div>
+          </div>
+          <div class="container-flex justify-content-space-b">
+            <span class="fw-300 txt-white fs-12">Desde: <span class="fw-800">{{user.fecha_desde.split(" ")[0]}}</span></span>
+            <span class="fw-300 txt-white fs-12">Hasta: <span class="fw-800">{{user.fecha_hasta ? user.fecha_hasta.split(" ")[0] : 'Indefinido'}} </span></span>
+          </div>
+          <span style="border-radius: 2px; padding:1px 4px; background:#262626;" class="mt-1 txt-bold fs-12">GRUPOS AFECTADOS</span>
+          <div class="flex-column" *ngIf="user.grupos.length > 0">
+            <span *ngFor="let afected of user.grupos" class="fw-300 txt-white fs-12">{{afected.nombre_grupo}}</span>
+          </div>
+          <div class="flex-column" *ngIf="user.grupos.length < 1">
+            <span class="fw-300 txt-white fs-12">Sin grupos afectados</span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="container-flex bg-transparent" style="border-left: 1px solid #BDBDBD;" 
+        [ngStyle]="{'min-width': columnsDays + 'px', 
+                    'max-width': columnsDays + 'px'}" 
+                    *ngFor="let dia of [1,2,3] ">
+  </div>
+</div>

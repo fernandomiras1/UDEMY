@@ -1,0 +1,20 @@
+<app-modal title="Eliminar"
+    textBtnLeft="Cancelar"
+    (onClickClose)="close()"
+    (onClickBtnLeft)="close()">
+
+    <h3 style="line-height: 20px;">
+        <b>
+            ¿Está seguro de que desea eliminar el grupo de {{ type }} <br> "{{ group }}"?
+        </b>
+    </h3>
+    <p>
+        Esta acción afectará a {{ people }} personas y {{ quantity }} {{ type }}s. <br>
+        Esta acción no puede deshacerse.
+    </p>
+
+    <button [ngClass]="{'disabled-btn-effect':deleting}" [disabled]="deleting" (click)="confirm()" mat-button class="fs-16 txt-color-claro txt-bold">
+        <label class="c-pointer">ELIMINAR</label>
+    </button>
+
+</app-modal>

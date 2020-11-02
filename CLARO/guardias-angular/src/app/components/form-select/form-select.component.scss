@@ -1,0 +1,145 @@
+.select-group {
+    display: flex;
+    align-items: center;
+}
+
+.select-element{
+    position: relative;
+}
+
+.input-element {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+span.select,span.select-disabled{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-width: 80px;
+    min-height: 35px; 
+    padding-right: 7.5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+span.select:hover{
+    background: #dedcdc40;
+}
+
+span.select-disabled{
+    background:#EBEBE4!important;
+    cursor: default!important;
+}
+
+span.select img {
+    margin-right: 3.5px;
+}
+
+.select b {
+    border-color: #888 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    position: absolute;
+    right: 5px;
+}
+
+.select b.active {
+    border-color: transparent transparent #888 transparent;
+    border-width: 0 4px 5px 4px;
+}
+
+.select-options {
+    width: 260px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin: 0;
+    padding: 5px;
+    display: none;
+}
+
+.select-options.active {
+    display: block;
+    position: absolute;
+    bottom: 37px;
+    background: white;
+    border: none;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.option {
+    padding: 6px;
+    list-style-type: none;
+}
+
+.option:hover {
+    cursor: pointer;
+    background: rgb(88,151,251);
+    color: #fff;
+}
+
+.option.active{
+    color: rgb(255,0,24);
+    font-weight: 500;
+}
+
+.option.active:hover{
+    background: none;
+}
+
+.image-validated {
+    opacity: 0.5;
+    padding-left: 10px;
+}
+
+
+.check-icon{
+    margin-left: 10px;
+    font-size: 18px;
+    color: #20e0f9;
+}
+
+
+.phone-icon{
+    background-color:#eeeeee;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor:pointer;
+}
+.phone-icon.active:hover{
+    background-color:#eeeeee;
+    cursor: default;
+}
+
+.phone-icon:hover{
+    background-color: #e0e0e0;
+}
+
+.phone-icon span{
+    font-size: 10px;
+    color:#8F8F8F;
+    position:relative;
+    top: 11px;
+    left: 11px;
+    font-size: 17px;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: #a7a5a5;
+}
+
+mat-spinner{
+    position: relative;
+    left: 5px;
+    top:4px;
+}
+
+.required-input {
+    border: 1px solid red!important;
+}
+
+

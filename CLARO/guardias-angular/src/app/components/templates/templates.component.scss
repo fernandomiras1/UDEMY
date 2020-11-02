@@ -1,0 +1,81 @@
+@import '../../../scss/variables';
+
+.panel-default {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-sizing: border-box;
+  height: 289px;
+  margin-bottom: 2rem;
+  min-height: 259px;
+}
+
+.swipper-carousel {
+  position: relative;
+
+  .bg-circle {
+    background: #f2f2f2;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    position: absolute;
+    user-select: none;
+  }
+  .bg-circle:after {
+    color: #acafb0;
+    font-size: 1rem;
+  }
+  .bg-circle.swiper-button-prev {
+    left: -3rem;
+  }
+  .bg-circle.swiper-button-next {
+    right: -3rem;
+  }
+  .bg-circle.swiper-button-disabled {
+    visibility: hidden;
+  }
+}
+
+.border-seleted {
+  border: 1px solid $red;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+  background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  border-radius: 7px;
+  background-color: rgb(153, 153, 153);
+  opacity: 0.2;
+  z-index: 90;
+  right: 1px;
+  height: 30px;
+}
+
+.plantilla-block-plus {
+  border-style: dashed;
+  border-width: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+.plantilla-block-plus:before {
+  align-self: center;
+  color: #999;
+  content: '+';
+  display: block;
+  font-size: 4.5em;
+  font-weight: 100;
+}

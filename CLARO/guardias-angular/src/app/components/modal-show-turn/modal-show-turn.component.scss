@@ -1,0 +1,26 @@
+@import '../../../scss/variables';
+
+.span-no-conf {
+  font-weight: bold;
+  font-size: 18px;
+  color: #dfe2e3;
+}
+
+.asignTurn-container-circle-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  color: white;
+  text-align: center;
+}
+.circle-day-active {
+  border: solid 1px $red !important;
+  color: $red;
+}
+.circle-day-color-disabled {
+  background: #E0E0E0;
+  color: #616161;
+}

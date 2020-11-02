@@ -1,0 +1,273 @@
+@import '../../../scss/variables';
+
+.ml-mr-5 {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+.skeleton-div {
+  margin-top: -15px;
+  padding-right: 1rem;
+}
+.scroll-y {
+  max-height: 70vh; 
+  overflow-y: auto;
+}
+.grid-2 {
+  display: grid!important;
+  grid-template-columns: 1.5fr 3fr;
+}
+.grid-3 {
+  display: grid!important;
+  grid-template-columns: 1fr 1.5fr 3fr;
+}
+.grid-personal {
+  display: grid!important;
+  grid-template-columns: 1.9fr 1.9fr 1.5fr 1.8fr 0.4fr;
+}
+.grid-sitios-tec {
+  display: grid!important;
+  grid-template-columns: 1.8fr 1.5fr 2fr 1.5fr 2.2fr 0.5fr 0.5fr;
+}
+.grid-grupos {
+  display: grid!important;
+  grid-template-columns: 2fr 1.5fr 2fr 2fr 0.5fr 0.8fr 1fr;
+}
+.headerUnderline {
+  border-bottom: 2px solid #ddd;
+}
+
+.input-search, .input-search:focus {
+  border: none;
+  font-size: 14px;
+  padding: 0px 14px;
+  outline: none;
+  box-shadow: none;
+}
+
+.input-group {
+  position: relative;
+  height: 38px;
+  font-size: 16px;
+  line-height: 34px;
+  width: 240;
+  border: 1px solid #ccc;
+  border-radius: 4px 0px 0px 4px
+}
+
+.clear-input {
+  position: absolute;
+  color: #ACAFB0;
+  cursor: pointer;
+  margin-top: 8px;
+  z-index: 55;
+  right: 4px;
+}
+.btn-noc {
+  padding: 0px 10px 10px 10px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.btn-noc-selected {
+  color: $red;
+  border-bottom: 2px solid $red;
+  font-weight: bold;
+}
+.btn-noc:hover {
+  color: $red;
+  border-bottom: 2px solid $red;
+  font-weight: bold;
+}
+.btn-search {
+  border: none;
+  background: $red;
+  border-radius: 0px 4px 4px 0px;
+  height: 40px;
+  width: 40px;
+  color: white;
+  outline: none;
+}
+.headers-table {
+  padding: 8px 8px 15px 0px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.txt-gray {
+  color: #00000080;
+}
+.btn-skype {
+  background-color: transparent;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+}
+.btn-icon {
+  background-color: transparent;
+  width: 25px;
+  height: 25px;
+}
+.btn-info {
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+.btn-show-pass:hover {
+  background: #e7e7e7 !important;
+}
+.btn-edit-delete {
+  opacity: 0.15;
+  width: 25px;
+  height: 25px;
+}
+.btn-edit-delete:hover {
+  background: #c4c4c426;
+  opacity: 1;
+}
+.icons-info-create-delete {
+  position: relative;
+  top: -3px
+}
+.div-table {
+  padding: 6% 0% 6% 0%;
+}
+.div-info-create-delete {
+  display: flex;
+  align-items: center;
+  padding: 12px 8px 15px 0px;
+}
+.div-table-underline {
+  border-bottom: 1px solid #ddd;
+}
+
+.span-gp-guardia:hover {
+  border-bottom: 0.5px solid $red;
+  cursor: pointer;
+}
+.noc-personal:hover {
+  background: rgba(196, 196, 196, 0.15);
+}
+.btn-tec {
+  height: 80%; 
+  width: 55%; 
+  border-radius: 0px 4px 4px 0px; 
+  border: 1px solid #BDBDBD;
+  color: rgba(0, 0, 0, 0.5);
+  outline: none;
+  cursor: pointer;
+}
+.btn-sitio {
+  height: 80%; 
+  width: 35%; 
+  border-radius: 4px 0px 0px 4px; 
+  border: 1px solid #BDBDBD;
+  color: rgba(0, 0, 0, 0.5);
+  outline: none;
+  cursor: pointer;
+}
+.bg-btn-selected {
+  background: #E0E0E0;
+}
+//tooltip
+.container-tooltip {
+  width: 200px; 
+  background: black;
+}
+.headers-row-tooltip {
+  font-size: 10px;
+  background: #1d1d1d;
+  border-radius: 3px;
+  padding-left: 5px;
+  font-weight: 500;
+}
+.title-container-col {
+  font-weight: bold;
+  font-size: 10px;
+  color: #FFFFFF;
+  margin-bottom: 0px;
+}
+.grid-tooltip-persons {
+  display: grid!important; 
+  grid-template-columns: 1.5fr 0.5fr;
+}
+.btns-tooltip { 
+  outline: none; 
+  cursor: pointer;  
+  width: 40px;
+  height: 40px;
+  background: rgba(196, 196, 196, 0.15);
+  border: 1px solid #FFFFFF !important;
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 0px;
+}
+.tooltip-bottom[_nghost-wnw-c112]::after {
+  margin-left: 80px;
+}
+
+
+.group-btn {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 6px 12px;
+    text-align: center;
+    width: 120px;
+    border:none;
+    cursor: pointer;
+}
+
+.group-btn.in {
+  color: #FFFFFF;
+  background: $red;
+}
+
+.group-btn.out {
+  color: $red;
+  background:rgba(239, 56, 41, 0.1);
+}
+
+.grupo-guardia-counter {
+  background: rgba(239, 56, 41, 0.1);
+  border-radius: 50%;
+  color: $red;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  margin-left: 8px;
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* POPOVER */
+.popover {
+  box-shadow: 0 2px 5px #ccc;
+  padding: 4px;
+}
+.popover-title {
+  background: rgba(228, 228, 228, 0.6);
+  border-radius: 2px;
+  color: $red;
+  margin: 0;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 143.33%;
+  padding: 4px 6px;
+}
+.popover-ul {
+  border-top: 2px solid rgba(228, 228, 228, 0.6);
+  margin-top: 5px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 3px 5px;
+}
+.popover-li {
+  list-style-type: none;
+  margin: 3px 0 5px;
+}

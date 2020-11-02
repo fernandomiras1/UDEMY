@@ -1,0 +1,35 @@
+<header class="bg-color-claro">
+  <div class="flex-column">
+      <div class="container-flex justify-content-space-b">
+          <span class="txt-white txt-bold fs-18">{{title}}</span>
+          <span (click)="closeModal()" class="material-icons c-pointer icon-close">
+            clear
+          </span>
+      </div>
+      <span class="txt-white fw-400">{{ subtitles }}</span>
+      <span class="txt-white fw-400">{{ description }}</span>
+  </div>
+</header>
+<section class="flex-column modal-container">
+  <ng-content></ng-content>
+</section>
+<footer *ngIf="userRol !== 'invitado' "
+        class="modal-container container-flex justify-content-space-b align-items-center">
+  
+  <button *ngIf="isEdit && textBtnLeft"
+        (click)="onClickBtnLeft.emit()"
+        [disabled]="disabledBtnLeft"
+        mat-button class="txt-bold"
+        style="color: #d62826;"
+        [ngClass]="{'disabled-btn-effect': disabledBtnLeft}"
+  >
+    {{ textBtnLeft| uppercase }}
+  </button>
+  <button *ngIf="isEdit && textBtnRight"
+        (click)="onClickBtnRight.emit()"
+        [disabled]="disabledBtnRight"
+        mat-raised-button class="bg-color-claro txt-white">
+    {{ textBtnRight| uppercase }}
+  </button>
+  <ng-content select="button"></ng-content>  
+</footer>

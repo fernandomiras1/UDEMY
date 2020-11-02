@@ -1,0 +1,11 @@
+<app-modal title="Quitar Programación"
+    textBtnLeft="CANCELAR"
+    textBtnRight="CONFIRMAR"
+    (onClickClose)="closeModal()"
+    (onClickBtnLeft)="closeModal()"
+    (onClickBtnRight)="confirm()">
+
+    <h3>¿Está seguro que desea eliminar la repetición?</h3>
+    <br>
+    <mat-checkbox [(ngModel)]="checkbox" color="warn" class="example-margin">Eliminar también este turno.</mat-checkbox>
+</app-modal>

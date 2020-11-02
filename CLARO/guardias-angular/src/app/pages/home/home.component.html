@@ -1,0 +1,422 @@
+<app-navbar optionsRoutesPage="2" [calendar]="true"></app-navbar>
+
+<div *ngIf="!userPhoneValidated" class="container-flex justify-content-center mt-1">
+  <div style="width: 90%;" class="container-flex justify-content-space-b card-danger">
+      <b class="align-self-center">
+        Atención: Se requiere completar la información de perfil para poder ser asignado a una guardia.
+      </b>
+      <button [routerLink]="['/perfil',userID]"  mat-raised-button color="warn">Completar</button>
+  </div>
+</div>
+
+
+<div class="ml-mr-5" [ngClass]="{'grid-3': allowedRole, 'grid-2': !allowedRole}">
+  <div class="mt-1" *ngIf="allowedRole" >
+    <app-button (clicked)="routerNewGroup()"
+      text="NUEVO GRUPO" 
+      iconLeft="true"    
+      icon="add">
+    </app-button>
+  </div>
+  <div class="mt-2 container-flex justify-content-space-a">
+    <button class="btn-noc" *ngFor="let tabOption of optionsNoc" 
+            [ngClass]="{'btn-noc-selected': tabOption.selected}"
+            (click)="activeTab(tabOption)">
+      {{tabOption.title}}
+    </button>
+  </div>
+  <div class="mt-1 container-flex justify-content-end">
+    <mat-checkbox [(ngModel)]="checkboxOptions.checked" 
+      *ngIf="checkboxOptions.title.length > 0 && checkboxOptions.userCanSeeCheckbox" 
+      #checkbox 
+      (change)='checkboxListener()'
+      class="fs-14 checkHome" 
+      color="primary" 
+      style="padding: 10px 25px 10px 10px;">{{checkboxOptions.title}}
+    </mat-checkbox>
+    <span class="input-group">
+      <input (keydown.enter)="search()" [(ngModel)]="inputSearchOptions.value" name="legajo" type="text" [placeholder]="inputSearchOptions.placeholder" class="input-search"/>
+      <mat-icon (click)="inputSearchOptions.value = ''"  [ngClass]="{'v-hidden': inputSearchOptions.value.length == 0}" class="clear-input">close</mat-icon>
+    </span>
+    <button (click)="search()" class="btn-search c-pointer">
+      <mat-icon style="margin-top: 5px;">search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-container [ngSwitch]="currentTab">
+  <!--NOC Headers-->
+  <div [class]="headerSelected.classGrid">
+    <div *ngSwitchCase="'Sitios | Tecnologías'" class="txt-gray headers-table" style="display: flex; padding: 0;">
+      <button [ngClass]="optionsNoc[1].btnSelected === 'sitio' ? 'bg-btn-selected': 'bg-white'" 
+              class="txt-bold btn-sitio" 
+              (click)="toggleSitiosTec('sitio')">Sitio</button>
+      <button [ngClass]="optionsNoc[1].btnSelected === 'tecnologia' ? 'bg-btn-selected': 'bg-white'" 
+              class="txt-bold btn-tec" 
+              (click)="toggleSitiosTec('tecnologia')">Tecnología</button>
+    </div>
+    <div class="txt-gray headers-table" 
+          *ngFor="let title of headerSelected.headertitles" 
+          [ngClass]="{'txt-color-claro': title == 'En Guardia'}"
+    >{{title}}
+      <mat-icon (click)="groupSitiosTecOrder()" class="c-pointer" style="position: absolute;" aria-hidden="false" *ngIf="currentTab == 'Sitios | Tecnologías' && title == 'Grupo'">
+        {{orderByNoc[0].icon}}
+      </mat-icon>
+    </div>
+  </div>
+  <!--NOC Personal Skeleton-->
+  <div class="container-grid" *ngIf="showSkeleton">
+    <div [class]="headerSelected.classGrid" *ngFor="let skeleton of skeletonSize">
+      <div class="skeleton-div" *ngFor="let size of headerSelected.headertitles"><ngx-skeleton-loader count="1"></ngx-skeleton-loader></div>
+      <div *ngSwitchCase="'Sitios | Tecnologías'" class="skeleton-div"><ngx-skeleton-loader count="1"></ngx-skeleton-loader></div>
+    </div>
+  </div>
+  <!--NOC Personal-->
+  <div *ngSwitchCase="'Personal'" class="scrollbar container-grid ml-mr-5 scroll-y" ngxInfiniteScroller (onScrollDown)="onScrollDown()">
+    <div class="grid-personal noc-personal" *ngFor="let data of dataTableNoc">
+      <div class="div-table div-table-underline container-flex align-items-center">
+        <span class="fs-12 txt-bold c-pointer" (click)="detallePerfil(data.id_usuario)">{{(data.apellido + ', ' + data.nombre | titlecase)}}</span>
+      </div>
+      <div class="div-table div-table-underline container-flex align-items-center">
+        <span class="txt-bold" style="color: #ACAFB0 !important;" *ngIf="data.grupos.length < 1">SIN GRUPO</span>
+        <div>
+          <ng-container *ngFor="let group of data.listingGruposGuardia; let first = first;">
+            <span *ngIf="!first">, </span>
+            <span
+              (click)="exactSearch(group.nombre_grupo)"
+              class="txt-color-claro fs-12 fw-500 span-gp-guardia"
+              style="white-space: pre"
+            >{{group.nombre_grupo}}</span>
+          </ng-container>
+          <ng-container *ngIf="data.listingMoreGruposGuardia && data.listingMoreGruposGuardia.length">
+            <span
+              class="grupo-guardia-counter"
+              [mdePopoverTriggerFor]="appPopover"
+              mdePopoverTriggerOn="click"
+              #popoverTrigger="mdePopoverTrigger"
+              >+{{ data.listingMoreGruposGuardia.length }}</span>
+            <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+              <mat-card class="popover" style="max-width: 300px">
+                <mat-card-content class="popover-content">
+                  <h3 class="popover-title">GRUPOS</h3>
+                  <ul class="popover-ul">
+                    <li class="popover-li" *ngFor="let moreGroup of data.listingMoreGruposGuardia">
+                      <span
+                        (click)="exactSearch(moreGroup.nombre_grupo)"
+                        class="txt-color-claro fs-12 fw-500 span-gp-guardia"
+                        style="white-space: pre"
+                      >{{moreGroup.nombre_grupo}}</span>
+                    </li>
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+            </mde-popover>
+          </ng-container>
+        </div>
+      </div>
+      <div class="div-table div-table-underline container-flex align-items-center">
+        <span class="fs-12">{{data.disponibilidad_usuario | uppercase}}</span>
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <a [href]="getLinkByTeams([data])" rel="noopener noreferrer" target="_blank">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/microsoft-teams.svg"/>
+        </a>
+        <a (click)="openMailOrSkype([data], 'skype')" class="c-pointer">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/skype_logo.svg"/>
+        </a>
+        <a style="text-decoration: none;" *ngIf="data.celular_corporativo" class="fs-12 txt-bold txt-black">
+          <img style="width: 16px;position: relative;top: 4px;" src="../../assets/imgs/skype_phone.png" alt="">
+          {{ data.celular_corporativo }}
+        </a>
+
+        <div *ngIf="data.celular_corporativo == null && data.celular_guardia">
+          <span class="fs-12 txt-bold">GUARDIA:</span>
+          <span class="fs-12">
+            {{data.celular_guardia}}
+          </span>
+        </div>
+
+        <div *ngIf="data.celular_corporativo == null && data.celular_guardia == null && data.telefono_fijo">
+          <span class="fs-12 txt-bold">FIJO:</span>
+          <span class="fs-12">
+            {{data.telefono_fijo}}
+          </span>
+        </div>
+        
+
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <button mat-mini-fab class="mat-elevation-z0 btn-info"
+                [tooltip]="htmlNocPersonal"
+                content-type="template"
+                placement="bottom"
+                hide-delay="100">
+          <mat-icon style="position: relative;top: -10px;" aria-label="info">info</mat-icon>
+        </button>
+        <ng-template #htmlNocPersonal>
+          <div>
+            <div class="tooltip-title">
+              <b>CONTACTO</b>
+            </div>
+            <div class="tooltip-info">
+              <div><b>LEGAJO CORPORATIVO: </b>{{ data.legajo_corpo }}</div>
+              <div><b>CORPORATIVO: </b>{{ data.celular_corporativo ? data.celular_corporativo : 'sin datos' }}</div>
+              <div><b>GUARDIA: </b>{{ data.celular_guardia ? data.celular_guardia : 'sin datos' }}</div>
+              <div><b>FIJO: </b>{{ data.telefono_fijo ? data.telefono_fijo : 'sin datos' }}</div>
+            </div>
+          </div>
+          <div>
+            <div class="tooltip-title">
+              <b>INFORMACIÓN</b>
+            </div>
+            <div class="tooltip-info">
+              <div><b>Gerencia: </b>{{ data.gerencia }}</div>
+              <div><b>Jefe: </b>{{ data.jefe_apellido ? (data.jefe_apellido + ', ' + data.jefe_nombre | titlecase) : 'sin datos' }}</div>
+              <div><b>Grupos Remedy: </b>
+                <div *ngFor="let grupo of data.grupos_remedy" >- {{ grupo }}</div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+    <div *ngIf="showSpinnerNewPage" class="container-flex justify-content-center mt-1">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+  </div>
+  <!--NOC Sitios | Tecnologias-->
+  <div *ngSwitchCase="'Sitios | Tecnologías'" class="scrollbar container-grid ml-mr-5 scroll-y" ngxInfiniteScroller (onScrollDown)="onScrollDown()">
+    <div class="grid-sitios-tec" *ngFor="let data of dataTableNoc">
+      <div class="div-table div-table-underline container-flex align-items-center">
+        <mat-icon class="icon-calendar fs-14 justify-content-center" *ngIf="data.tipo_grupo === 'tecnologia'" style="display: flex; flex-direction: column; color: #F58221;">account_tree</mat-icon>
+        <mat-icon class="icon-calendar fs-14 justify-content-center" *ngIf="data.tipo_grupo === 'sitio'" style="display: flex; flex-direction: column; color: #0096a9;">location_on</mat-icon>
+        <span class="fs-12 txt-bold">{{data.acronimo}}</span>
+        <span class="fs-12 txt-bold">{{data.tecnologia}}</span>
+      </div>
+      <div class="container-flex align-items-center div-table div-table-underline">
+        <span *ngIf="data.nombre">{{ data.apellido + ', ' + data.nombre | titlecase }}</span>
+      </div>
+      <div class="div-table div-table-underline flex-column">
+        <span class="fs-12 fw-500" style="padding-bottom: 5px;margin-top: -5px;" *ngIf="!data.nombre && data.tipo_grupo === 'tecnologia'">Sin guardia asociado</span>
+        <span class="fs-12 fw-500" style="padding-bottom: 5px;margin-top: -5px;">{{data.fecha_fin_guardia_format | shortdaytospanish}}</span>
+        <span class="fs-12 fw-300" style="color: #00000080;">{{data.nombre_tipo_de_guardia}}</span>
+      </div>
+      <div (click)="exactSearch(data.nombre_grupo)" class="container-flex align-items-center div-table div-table-underline">
+        <span class="txt-color-claro fs-12 fw-500 span-gp-guardia">{{data.nombre_grupo}}</span>
+      </div>
+      <div class="container-flex align-items-center div-table div-table-underline">
+        <a [href]="getLinkByTeams([data])" *ngIf="data.email" rel="noopener noreferrer" target="_blank">
+          <img style="position: relative;top: 5px; margin-right: 5px;" src="../../../assets/imgs/microsoft-teams.svg"/>
+        </a>
+      
+        <button (click)="openMailOrSkype([data], 'skype')" *ngIf="data.email" mat-mini-fab class="mat-elevation-z0 btn-skype">
+          <img style="position: relative;top: -9px; margin-right: 5px;" src="../../../assets/imgs/skype_logo.svg"/>
+        </button>
+        
+        <div *ngIf="data.linea_rotativo">
+          <span class="fs-12 txt-bold">ROTATIVA:</span>
+          <span class="fs-12">
+            {{data.linea_rotativo}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo">
+          <span class="fs-12 txt-bold">CORPORATIVO:</span>
+          <span class="fs-12">
+            {{data.celular_corporativo}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo == null && data.celular_guardia">
+          <span class="fs-12 txt-bold">GUARDIA:</span>
+          <span class="fs-12">
+            {{data.celular_guardia}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo == null && data.celular_guardia == null && data.telefono_fijo">
+          <span class="fs-12 txt-bold">FIJO:</span>
+          <span class="fs-12">
+            {{data.telefono_fijo}}
+          </span>
+        </div>
+      
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <button mat-mini-fab class="mat-elevation-z0 btn-info"
+                [tooltip]="htmlNocSitioTec"
+                content-type="template"
+                placement="bottom"
+                hide-delay="100">
+          <mat-icon style="position: relative;top: -10px;" aria-label="info">info</mat-icon>
+        </button>
+      </div>
+      <ng-template #htmlNocSitioTec>
+        <div>
+          <div class="tooltip-title">
+            <b>CONTACTO</b>
+          </div>
+          <div class="tooltip-info">
+            <div *ngIf="data.apellido">{{ data.apellido + ', ' + data.nombre | titlecase }}</div>
+            <div><b>LEGAJO CORPORATIVO: </b>{{ data.legajo_corpo }}</div>
+            <div><b>ROTATIVA: </b>{{ data.linea_rotativo ? data.linea_rotativo : 'sin datos' }}</div>
+            <div><b>CORPORATIVO: </b>{{ data.celular_corporativo ? data.celular_corporativo : 'sin datos' }}</div>
+            <div><b>GUARDIA: </b>{{ data.celular_guardia ? data.celular_guardia : 'sin datos' }}</div>
+            <div><b>FIJO: </b>{{ data.telefono_fijo ? data.telefono_fijo : 'sin datos' }}</div>
+          </div>
+        </div>
+        <div>
+          <div class="tooltip-title">
+            <b>INFORMACIÓN</b>
+          </div>
+          <div class="tooltip-info">
+            <div><b>Gerencia: </b>{{ data.manager_gerencia }}</div>
+            <div><b>Jefe: </b>{{ data.manager_apellido + ', ' + data.manager_nombre | titlecase }}</div>
+            <div><b>Grupos Remedy: </b>
+              <div *ngFor="let grupo of data.grupos_remedy" >- {{ grupo }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="div-info-create-delete div-table-underline">
+        <button (click)="goCalendarPage(data.id_grupo)" *ngIf="data.logged_user_present != 0" mat-mini-fab class="mat-elevation-z0 btn-icon">
+          <mat-icon class="icon-calendar fs-14 icons-info-create-delete">calendar_today</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="showSpinnerNewPage" class="container-flex justify-content-center mt-1">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+  </div>
+  <!--NOC Grupos-->
+  <div *ngSwitchCase="'Grupos'" class="scrollbar container-grid ml-mr-5 scroll-y" ngxInfiniteScroller (onScrollDown)="onScrollDown()">
+    <div class="grid-grupos" *ngFor="let data of dataTableNoc; let i = index;">
+      <div class="div-table div-table-underline container-flex align-items-center">
+        <mat-icon class="icon-calendar fs-14 justify-content-center" *ngIf="data.tipo_grupo === 'tecnologia'" style="display: flex; flex-direction: column; color: #F58221;">account_tree</mat-icon>
+        <mat-icon class="icon-calendar fs-14 justify-content-center" *ngIf="data.tipo_grupo === 'sitio'" style="display: flex; flex-direction: column; color: #0096a9;">location_on</mat-icon>
+        <span class="fs-12 txt-bold c-pointer" [routerLink]="['/detalle-grupo/'+ data.tipo_grupo + '/' + data.id_grupo]">{{data.nombre_grupo}}</span>
+      </div>
+      <div class="container-flex align-items-center div-table div-table-underline"><span *ngIf="data.nombre || data.appellido">{{ data.apellido + ', ' + data.nombre | titlecase }}</span></div><!-- En Guardia -->
+      <div class="div-table div-table-underline flex-column">
+        <span class="fs-12 fw-500" style="padding-bottom: 5px;margin-top: -5px;" *ngIf="!data.nombre">Sin guardia asociado</span>
+        <span class="fs-12 fw-500" style="padding-bottom: 5px;margin-top: -5px;">{{data.fecha_fin_guardia_format | shortdaytospanish}}</span>
+        <span class="fs-12 fw-300" style="color: #00000080;">{{data.nombre_tipo_de_guardia}}</span>
+      </div>
+      <div class="container-flex align-items-center div-table div-table-underline">
+
+        <a [href]="getLinkByTeams(data.usuarios)" rel="noopener noreferrer" target="_blank">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/microsoft-teams.svg"/>
+        </a>
+       
+        <span class="c-pointer" (click)="openMailOrSkype(data.usuarios, 'skype')">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/skype_logo.svg"/>
+        </span>
+
+        <div *ngIf="data.linea_rotativo">
+          <span class="fs-12 txt-bold">ROTATIVA:</span>
+          <span class="fs-12">
+            {{data.linea_rotativo}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo">
+          <span class="fs-12 txt-bold">CORPORATIVO:</span>
+          <span class="fs-12">
+            {{data.celular_corporativo}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo == null && data.celular_guardia">
+          <span class="fs-12 txt-bold">GUARDIA:</span>
+          <span class="fs-12">
+            {{data.celular_guardia}}
+          </span>
+        </div>
+
+        <div *ngIf="data.linea_rotativo == null && data.celular_corporativo == null && data.celular_guardia == null && data.telefono_fijo">
+          <span class="fs-12 txt-bold">FIJO:</span>
+          <span class="fs-12">
+            {{data.telefono_fijo}}
+          </span>
+        </div>
+
+        
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <button [tooltip]="htmlNocGrupos"
+                [content-type]="myOptions.contentType"
+                [hideDelayAfterClick]="myOptions.hideDelayAfterClick"
+                trigger="click"
+                id="{{'tooltipId' + i}}"
+                [pointerEvents]="myOptions.pointerEvents"
+                (blur)="infoTooltipHide(i)"
+                mat-mini-fab class="mat-elevation-z0 btn-info">
+          <mat-icon style="position: relative;top: -10px;" aria-label="info">info</mat-icon>
+        </button>
+        <ng-template #htmlNocGrupos>
+          <div>
+            <div class="tooltip-title">
+              <b>CONTACTO</b>
+            </div>
+            <div class="tooltip-info">
+              <div><b>Rotativa: </b>{{ data.linea_rotativo ? data.linea_rotativo : 'sin datos' }}</div>
+              <div><b>Corporativo: </b>{{ data.celular_corporativo ? data.celular_corporativo : 'sin datos' }}</div>
+              <div><b>Guardia: </b>{{ data.celular_guardia ? data.celular_guardia : 'sin datos' }}</div>
+              <div><b>fijo: </b>{{ data.telefono_fijo ? data.telefono_fijo : 'sin datos' }}</div>
+            </div>
+          </div>
+          <div>
+            <div class="tooltip-title">
+              <b>PERSONAS DEL GRUPO</b>
+            </div>
+            <div class="tooltip-info">
+              <div class="grid-tooltip-persons">
+                <div class="flex-column">
+                  <label class="fw-300 txt-white fs-12" *ngFor="let usuario of data.usuarios | slice:0:6; let i = index; let last = last">
+                    <span *ngIf="i <= 5" >{{ usuario.apellido + ", " + usuario.nombre | titlecase }}</span>
+                    <span *ngIf="last && data.usuarios.length > 5" ><br>... y {{ data.usuarios.length - 5 }} más</span>
+                  </label>
+                </div>
+                <div class="flex-column align-items-end mt-10p">
+                  <button (click)="openMailOrSkype(data.usuarios, 'email')" class="btns-tooltip txt-white"><mat-icon class="txt-white" style="margin-top: 5px; cursor: pointer;">mail_outline</mat-icon></button>
+                  <button (click)="openMailOrSkype(data.usuarios, 'skype')" class="btns-tooltip txt-white  mt-10p">
+                      <img style="width: 24px; margin-top: 5px; cursor: pointer;" src="../../../assets/imgs/skype-alt.svg">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <button *ngIf="(data.logged_user_present_organization == 1) || userCanSeenCalendar" (click)="goCalendarPage(data.id_grupo)" mat-mini-fab class="mat-elevation-z0 btn-icon">
+          <mat-icon class="icon-calendar fs-14 icons-info-create-delete">calendar_today</mat-icon>
+        </button>
+      </div>
+      <div class="div-info-create-delete div-table-underline">
+        <div *ngIf="data.logged_user_present_organization == 1 && userCanSeeActions">
+          <button mat-mini-fab class="mat-elevation-z0 btn-icon" [routerLink]="['/detalle-grupo/'+ data.tipo_grupo + '/' + data.id_grupo]">
+            <mat-icon class="icon-calendar fs-14 icons-info-create-delete">create</mat-icon>
+          </button>
+          <button (click)="deleteGroupModalConfirm(data)" mat-mini-fab class="mat-elevation-z0 btn-icon" style="margin-left: 1rem;">
+            <mat-icon class="icon-calendar fs-14 icons-info-create-delete">delete</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="userCanJoinToGroup" >
+          <button *ngIf="data.logged_user_present == 0 && data.logged_user_present_organization == 1" (click)="joinGroup(data,1)" class="group-btn in">UNIRME AL GRUPO</button>
+          <button *ngIf="data.logged_user_present == 1 && data.logged_user_present_organization == 1" (click)="joinGroup(data,0)" class="group-btn out">SALIR DEL GRUPO</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showSpinnerNewPage" class="container-flex justify-content-center mt-1">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+  </div>
+  <!--Sin datos-->
+  <div *ngIf="!showSkeleton && dataTableNoc.length < 1" class="container-grid ml-mr-5">
+    <div class="div-table-underline text-center noc-personal" style="padding: 2rem;">
+      <span>No se encontraron datos</span>
+    </div>
+  </div>
+</ng-container>
