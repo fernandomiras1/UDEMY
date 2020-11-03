@@ -534,10 +534,8 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.panelClass = 'container-custom-modal';
-    dialogConfig.width = '700px';
-    dialogConfig.data = {
-      user
-    };
+    dialogConfig.width = '600px';
+    dialogConfig.data = {user};
     return this.matDialog.open(ModalPeopleByGroupComponent, dialogConfig);
   }
 

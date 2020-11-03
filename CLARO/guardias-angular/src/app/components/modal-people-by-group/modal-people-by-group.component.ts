@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { Component, Inject, OnInit, Injectable } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {FlatTreeControl} from '@angular/cdk/tree';
+import { User } from '@app/models/group.model';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
+import { GeneralService } from '@app/services/general.service';
+
 
 /**
  * Node for to-do item
@@ -36,6 +39,104 @@ const TREE_DATA = {
   ]
 };
 
+const SITE_DATA = [
+  {
+    "nombre": "MERLO",
+    "acronimos": [
+      {
+        "acronimo": "SL196",
+        "localidad": "MERLO",
+        "cellowner_legajo": "EXA23736",
+        "count_people": "1",
+      }
+    ]
+  },
+  {
+    "nombre": "SIN REGIÓN ASOCIADA",
+    "acronimos": [
+      {
+        "acronimo": "TNQ126",
+        "localidad": null,
+        "cellowner_legajo": "EXA23736",
+        "count_people": "1",
+      },
+      {
+        "acronimo": "TNQ127",
+        "localidad": null,
+        "cellowner_legajo": "EXA23736",
+        "count_people": "1",
+      },
+      {
+        "acronimo": "TNQ128",
+        "localidad": null,
+        "cellowner_legajo": "EXA23736",
+        "count_people": "1",
+      },
+      {
+        "acronimo": "TNQ131",
+        "localidad": null,
+        "cellowner_legajo": "EXA23736",
+        "count_people": "1",
+      }
+    ]
+  }
+]
+
+const DATA_MAP = {
+  "MERLO": {
+    "SL196": {
+      "acronimo": "SL196",
+      "localidad": "MERLO",
+      "cellowner_legajo": "EXA23736",
+      "count_people": "1",
+    
+    }
+  },
+  "SIN REGIÓN ASOCIADA": {
+    "TNQ126": {
+      "acronimo": "TNQ126",
+      "localidad": null,
+      "cellowner_legajo": "EXA23736",
+      "count_people": "1",
+    
+    },
+    "TNQ127": {
+      "acronimo": "TNQ127",
+      "localidad": null,
+      "cellowner_legajo": "EXA23736",
+      "count_people": "1",
+    
+    },
+    "TNQ128": {
+      "acronimo": "TNQ128",
+      "localidad": null,
+      "cellowner_legajo": "EXA23736",
+      "count_people": "1",
+   
+    },
+    "TNQ131": {
+      "acronimo": "TNQ131",
+      "localidad": null,
+      "cellowner_legajo": "EXA23736",
+      "count_people": "1",
+ 
+    }
+  }
+}
+
+const DATA_MAP_NULL = {
+  "MERLO": {
+    "SL196": null
+  },
+  "SIN REGIÓN ASOCIADA": {
+    "TNQ126": null,
+    "TNQ127": null,
+    "TNQ128": null,
+    "TNQ131": null
+  }
+}
+
+
 /**
  * Checklist database, it can build a tree structured Json object.
  * Each node in Json object represents a to-do item or a category.
@@ -54,10 +155,14 @@ export class ChecklistDatabase {
   initialize() {
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
-    const data = this.buildFileTree(TREE_DATA, 0);
 
-    // Notify the change.
+    // SITE_DATA
+    // DATA_MAP
+    const data = this.buildFileTree(DATA_MAP_NULL, 0);
+    // console.log('data', data);
+    // // Notify the change.
     this.dataChange.next(data);
+
   }
 
   /**
@@ -67,6 +172,7 @@ export class ChecklistDatabase {
   buildFileTree(obj: {[key: string]: any}, level: number): TodoItemNode[] {
     return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
       const value = obj[key];
+      console.log(value);
       const node = new TodoItemNode();
       node.item = key;
 
@@ -90,12 +196,11 @@ export class ChecklistDatabase {
     }
   }
 
-  updateItem(node: TodoItemNode, name: string) {
-    node.item = name;
-    this.dataChange.next(this.data);
-  }
+  // updateItem(node: TodoItemNode, name: string) {
+  //   node.item = name;
+  //   this.dataChange.next(this.data);
+  // }
 }
-
 
 
 @Component({
@@ -106,7 +211,6 @@ export class ChecklistDatabase {
 })
 export class ModalPeopleByGroupComponent implements OnInit {
 
-  public showLoadingModal = false;
    /** Map from flat node to nested node. This helps us finding the nested node to be modified */
    flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
 
@@ -128,22 +232,55 @@ export class ModalPeopleByGroupComponent implements OnInit {
    /** The selection for checklist */
    checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private _database: ChecklistDatabase,
-              public dialogRef: MatDialogRef<ModalPeopleByGroupComponent>) {
-                this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-                  this.isExpandable, this.getChildren);
-                this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
-                this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+   sites = [];
 
-                _database.dataChange.subscribe(data => {
-                  this.dataSource.data = data;
-                });
-              }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {user: User},
+    public generalservice: GeneralService,
+    private _database: ChecklistDatabase,
+    public dialogRef: MatDialogRef<ModalPeopleByGroupComponent>) {
+      this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+        this.isExpandable, this.getChildren);
+      this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
+      this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+      _database.dataChange.subscribe(data => {
+        this.dataSource.data = data;
+      });
+    }
+
 
   ngOnInit(): void {
-    console.log('data modal', this.data);
+    console.log('modal', this.data.user);
+    this.generalservice.getGroupsByOwner('EXA23736').subscribe(resu => {
+      console.log(resu);
+      this.groupByLocalidad(resu);
+      console.log('sites', this.sites);
+    });
+    // getGroupsByOwner
   }
+
+  groupByLocalidad(sites: any) {
+    const acronimos = new Set(sites.map(item => item.localidad));
+    acronimos.forEach(local => {
+      this.sites.push({
+        nombre: local || 'SIN REGIÓN ASOCIADA',
+        acronimos: sites.filter(i => i.localidad === local).reduce(function(map, obj) {
+          map[obj.acronimo] = null;
+          return map;
+        }, {})
+      });
+    });
+
+
+    const result = this.sites.reduce(function(map, obj) {
+      map[obj.nombre] = obj.acronimos;
+      return map;
+    }, {});
+
+    console.log(result);
+
+  }
+
 
   onUpdatedGroup(deletedUsers: any) {
     this.dialogRef.close(deletedUsers);
@@ -203,6 +340,7 @@ export class ModalPeopleByGroupComponent implements OnInit {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: TodoItemFlatNode): void {
+    console.log('todoItemSelectionToggle', node);
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
@@ -216,6 +354,7 @@ export class ModalPeopleByGroupComponent implements OnInit {
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: TodoItemFlatNode): void {
+    console.log('todoLeafItemSelectionToggle', node);
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
   }
@@ -263,16 +402,5 @@ export class ModalPeopleByGroupComponent implements OnInit {
     return null;
   }
 
-  /** Select the category so we can insert the new item. */
-  // addNewItem(node: TodoItemFlatNode) {
-  //   const parentNode = this.flatNodeMap.get(node);
-  //   this._database.insertItem(parentNode!, '');
-  //   this.treeControl.expand(node);
-  // }
 
-  /** Save the node to database */
-  // saveNode(node: TodoItemFlatNode, itemValue: string) {
-  //   const nestedNode = this.flatNodeMap.get(node);
-  //   this._database.updateItem(nestedNode!, itemValue);
-  // }
 }

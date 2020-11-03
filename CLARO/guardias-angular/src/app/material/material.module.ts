@@ -24,6 +24,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import {MatTreeModule} from '@angular/material/tree';
     MatCardModule,
     MatStepperModule,
     MatChipsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -77,7 +79,8 @@ import {MatTreeModule} from '@angular/material/tree';
     MatCardModule,
     MatStepperModule,
     MatChipsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule { }

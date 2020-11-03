@@ -19,7 +19,7 @@ export class   TurnosLicenciasService {
                }
 
   
-  getPlanningCalendar(dates: any [], only_my_groups = "1", show_only_group_id = "") {
+  getPlanningCalendar(dates: any [], filter_by = "all_groups", show_only_group_id = "") {
     const date_start = moment(dates[0]['nextDay']).format('YYYY-MM-DD HH:mm:ss');
     const date_end = moment(dates[dates.length - 1]['nextDay']).format('YYYY-MM-DD HH:mm:ss');
     let id = this.generalService.getUser().id_usuario
@@ -28,7 +28,7 @@ export class   TurnosLicenciasService {
       "date_end": date_end,
       "id_user": id,
       "show_only_group_id":show_only_group_id,
-      "only_my_groups": only_my_groups,
+      "filter_by": filter_by
     }
     return this.http.post(`${URL}/grilla-group/planning-calendar-groups`, body, { headers: this.generalService.headers });
   }

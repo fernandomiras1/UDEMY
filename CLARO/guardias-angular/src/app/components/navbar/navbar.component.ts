@@ -7,6 +7,8 @@ import { PermissionsService } from '../../services/permissions.service';
 import GridNavigation from '../../pages/turnos-licencias/grid-navigation';
 import { GrupoService } from '../../services/grupo.service';
 import { SessionManagerService } from '../../services/session-manager.service';
+import { MODE_SELECT_TIME } from '@app/utils/common.enum';
+import { SELECT_OPTIONS_GROUP, SELECT_OPTIONS_TIME } from '@app/utils/static.data';
 
 @Component({
   selector: 'app-navbar',
@@ -28,13 +30,17 @@ export class NavbarComponent implements OnInit {
   isOpenMenu: Boolean = false;
   selectDay: Date =  new Date();
   allowedRole: Boolean;
-  userCanSeeCheckbox: Boolean = false;
   userCanJoinToGroup: boolean = false;
   userIsJoined: boolean;
   group_id: string;
-  onlyMyGroups:boolean = true;
-
+  optionsSelectGroup = SELECT_OPTIONS_GROUP;
+  valueSelectGroup:string;
+  userCanSeeSelectGroup: Boolean = false;
   private gridNavigation: GridNavigation;
+  
+  public valueSelectTime: string;
+  public selecType: typeof MODE_SELECT_TIME = MODE_SELECT_TIME;
+  public optionsSelectTime = SELECT_OPTIONS_TIME;
 
   constructor(private dataobsservice: DataObsService,
               public generalService: GeneralService,
@@ -47,21 +53,37 @@ export class NavbarComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    this.setDefaultValueForSelectGroup();
     this.gridNavigation = new GridNavigation();
     this.checkPreviousNavigation()
     this.setDay();
     this.setMenuOptions();
     this.setCheckbox();
+    this.valueSelectTime = SessionManagerService.getItem('selecTime') || this.selecType.DAYS;
     this.permissionsService.has(['admin-guardia', 'admin-jefe-guardia', 'jefe-admin', 'admin-jefe']).then(allowed => this.allowedRole = allowed);
-    this.permissionsService.has(['invitado']).then(isInvitado => this.userCanSeeCheckbox = !isInvitado);
-    this.permissionsService.has(['jefe-guardia','guardia']).then(isSupervisor => this.enableJoinButtons(isSupervisor))
+    this.permissionsService.has(['jefe-guardia','guardia']).then(isSupervisor => this.enableJoinButtons(isSupervisor));
+  }
+
+  setDefaultValueForSelectGroup(){
+    const isInvitado = SessionManagerService.user().role == 'invitado';
+    this.userCanSeeSelectGroup = !isInvitado;
+    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+  }
+
+  onChangedValueGroup(value){
+    this.valueSelectGroup = value;
+    this.dataobsservice.filterGroups.emit(value);
+  }
+
+  onChangedValueSelect(value: string ) {
+    SessionManagerService.setItem('selecTime', value);
+    this.dataobsservice.selectTimeCalendar.emit(value);
   }
   
   setCheckbox(){
     this.route.queryParams.subscribe(params => {
       if( params['id_grupo'] ) {
-        this.onlyMyGroups = false;
+        this.valueSelectGroup = SELECT_OPTIONS_GROUP[0].value;
       }
     });
   }
@@ -101,12 +123,11 @@ export class NavbarComponent implements OnInit {
   setDay() {
     this.dataobsservice.date.emit(this.selectDay);
   }
-  toggleMyGroups(value: boolean) {
-    this.dataobsservice.checkMyGroups.emit(value);
-	}
+ 
 	logout() {
     this.generalService.clearClaroStorage();
   }
+
   selectedDay() {
     this.dataobsservice.date.emit(this.selectDay);
   }

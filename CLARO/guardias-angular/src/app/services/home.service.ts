@@ -27,13 +27,13 @@ export class HomeService {
     }
     return this.http.post(`${URL}/vista-noc`, body, { headers: this.generalService.headers });
   }
-  getGroup(group_order:string = 'ASC', limit:number = 10, page: number = 1,  string_search:string = '', only_my_groups:boolean = true, string_exact_group_name:boolean = false) {
+  getGroup(group_order:string = 'ASC', limit:number = 10, page: number = 1,  string_search:string = '', filter_by = 'all_groups',string_exact_group_name:boolean = false) {
     const body = {
       "group_order":group_order, //orden de los grupos
       "page": page.toString(), //numero de pagina
       "limit":limit, //cantidad de registros por pagina
       "string_search":string_search, //string para busqueda exacta
-      "only_my_groups": only_my_groups ? 1 : 0, // checkbox "Ver solo mis grupos"
+      "filter_by": filter_by,
       "string_exact_group_name": string_exact_group_name //activa busqueda exacta
     }
     return this.http.post(`${URL}/group-list`, body, { headers: this.generalService.headers });

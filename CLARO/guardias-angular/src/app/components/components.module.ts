@@ -7,7 +7,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../material/material.module';
 import { AppRoutingModule } from './../app-routing.module';
-import { SelectTimeComponent } from './select-time/select-time.component';
+import { SelectComponent } from './select/select.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ModalValidarTelefonoComponent } from './modal-validar-telefono/modal-validar-telefono.component';
 import { ModalShowTurnComponent } from './modal-show-turn/modal-show-turn.component';
@@ -71,7 +71,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ModalValidarTelefonoComponent,
     ModalDeleteRepetitionsComponent,
     NavbarComponent,
-    SelectTimeComponent,
+    SelectComponent,
     ModalProfileValidationsComponent,
     SigosValidationComponent,
     ModalComponent,
@@ -98,9 +98,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ModalShowTurnComponent,
     ModalValidarTelefonoComponent,
     ModalDeleteRepetitionsComponent,
-    ModalPeopleByGroupComponent,
     NavbarComponent,
-    SelectTimeComponent,
+    SelectComponent,
     SigosValidationComponent,
     ChatbotComponent,
     NewGroupComponent,

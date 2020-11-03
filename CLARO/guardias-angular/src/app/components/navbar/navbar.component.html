@@ -36,8 +36,17 @@
 		</div>
 		<div class="container-flex" *ngIf="optionsRoutesPage >= 3">
 			<label class="txt-white fs-14 ml-3">Ver por</label>
-			<app-select-time style="z-index: 20;"></app-select-time>
-			<mat-checkbox *ngIf="userCanSeeCheckbox" #checkbox [checked]="onlyMyGroups" (change)='toggleMyGroups(checkbox.checked)' color="accent" class="txt-white fs-14 checkCalendar">Ver sólo mis grupos</mat-checkbox>
+			<app-select style="z-index: 20;"
+				[options]="optionsSelectTime"
+				[valueSelected]="valueSelectTime"
+				(onChangedValue)="onChangedValueSelect($event)">
+			</app-select>
+			<app-select
+				*ngIf="userCanSeeSelectGroup"
+				[options]="optionsSelectGroup"
+				[valueSelected]="valueSelectGroup"
+				(onChangedValue)="onChangedValueGroup($event)">
+		  	</app-select>
 		</div>
 	</div>
 	<div *ngIf="optionsRoutesPage >= 3" class="text-center">
@@ -77,7 +86,7 @@
 	<ng-container *ngIf="user">
 		<label mat-menu-item disabled class="txt-black txt-bold option-fullname">{{(user.nombre + " " + user.apellido) | titlecase}}</label>
 		<label mat-menu-item disabled class="txt-black option-legajo">{{user.legajo_corpo}}</label>
-		<button *ngIf="userCanSeeCheckbox" mat-menu-item [routerLink]="['/perfil',user.id_usuario]">Perfil</button>
+		<button *ngIf="userCanSeeSelectGroup" mat-menu-item [routerLink]="['/perfil',user.id_usuario]">Perfil</button>
 		<button mat-menu-item *ngIf="user.grupo_remedy === 'ARG-MV-GESTION Y SOPORTE OPERATIVO'" [routerLink]="['/plantilla/listar']">Plantillas</button>
 		<button [disabled]="!allowedRole" mat-menu-item (click)="serverValidacionTelefonica($event)">
 			<mat-checkbox [disabled]="!allowedRole" 

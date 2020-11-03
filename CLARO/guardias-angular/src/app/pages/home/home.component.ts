@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { HomeService } from '../../services/home.service';
 import { TooltipDirective } from 'ng2-tooltip-directive';
 import { PermissionsService } from '../../services/permissions.service';
@@ -14,13 +14,14 @@ import { ModalLeaveGroupComponent } from "../../components/modal-leave-group/mod
 import { ProfileService } from '../../services/profile.service';
 import { NotificationsService } from "../../services/notifications/notifications.service";
 import * as moment from 'moment';
+import { SELECT_OPTIONS_GROUP, SELECT_OPTIONS_TIME } from '@app/utils/static.data';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit{
   @ViewChildren(TooltipDirective) tooltipDirective;
   tooltip: TooltipDirective;
   allowedRole: Boolean;
@@ -111,6 +112,10 @@ export class HomeComponent implements OnInit {
 
   showSpinnerNewPage: boolean;
   endScroll:boolean = false;
+  valueSelectGroup: string;
+  optionsSelectGroup = SELECT_OPTIONS_GROUP;
+  showSelectGroup = true;
+
   grupo: optGroupService;
   sitiosTecnologia: optSitioTecPersonalService;
   personal: optSitioTecPersonalService;
@@ -142,6 +147,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setDefaultValueForSelectGroup();
     this.getServerNoc('GRUPOS',this.getSearchParams('GRUPOS'));
     this.headerSelected.classGrid = this.optionsNoc[2].classGrid;
     this.headerSelected.headertitles = this.optionsNoc[2].headertitles;
@@ -150,6 +156,7 @@ export class HomeComponent implements OnInit {
     this.permissionsService.has(['invitado']).then(isInvitado => this.userCanSeenCalendar = isInvitado);
     this.permissionsService.has(['invitado']).then(isInvitado => {
       if(isInvitado){
+        this.showSelectGroup = false;
         this.optionsNoc[2].headertitles.pop()
         this.checkboxOptions.checked = false;
       }
@@ -161,6 +168,22 @@ export class HomeComponent implements OnInit {
     this.permissionsService.has(['guardia']).then(join => this.userCanJoinToGroup = join);
     this.skeletonSize = Array(this.limit).fill(0).map((x,i)=>i);
     
+    
+  }
+
+  setDefaultValueForSelectGroup(){
+    const isInvitado = SessionManagerService.user().role == 'invitado';
+    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+  }
+
+  onChangedValueGroup(value: string) {
+    this.valueSelectGroup = value;
+    this.dataTableNoc = [];
+    this.showSkeleton = true;
+    this.endScroll  = false;
+    this.currentPage = 1;
+    const type_view = this.checkboxOptions.type_view
+    this.getServerNoc(type_view,this.getSearchParams(type_view))
   }
   
   cancelRequest(): void {
@@ -221,15 +244,17 @@ export class HomeComponent implements OnInit {
     this.headerSelected.classGrid = TabOptionSelected.classGrid;
     this.headerSelected.headertitles = TabOptionSelected.headertitles;
     this.optionsNoc[2]['exactSearch'] = false;
+    this.showSelectGroup = TabOptionSelected.type_view == 'GRUPOS';
+
   }
 
-  getGroupsFromService({group_order = 'ASC', limit = 10, page = 1, string_search = '', only_my_groups = true, string_exact_group_name = false}) {
+  getGroupsFromService({group_order = 'ASC', limit = 10, page = 1, string_search = '', filter_by = 'all_groups',string_exact_group_name = false}) {
     return this.homeservice.getGroup(
       group_order,
       limit,
       page,
       string_search,
-      only_my_groups,
+      filter_by,
       string_exact_group_name
     )
   }
@@ -307,7 +332,7 @@ export class HomeComponent implements OnInit {
         limit: this.limit,
         page: this.currentPage,
         string_search: this.inputSearchOptions.value,
-        only_my_groups: this.checkboxOptions.checked,
+        filter_by: this.valueSelectGroup,
         string_exact_group_name: this.optionsNoc[2]['exactSearch']
       },
       
@@ -339,6 +364,7 @@ export class HomeComponent implements OnInit {
     const groupIndex = 2;
     this.optionsNoc[groupIndex]['exactSearch'] = true;
     this.checkboxOptions.checked = false;
+    this.valueSelectGroup = SELECT_OPTIONS_GROUP[0].value;
     this.inputSearchOptions.value = groupName;
     this.activeTab(this.optionsNoc[groupIndex])
   }
@@ -505,4 +531,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
+ 
+  
 }

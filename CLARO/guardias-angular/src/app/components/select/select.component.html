@@ -1,0 +1,5 @@
+<select #option (change)="onChangedValue.emit(option.value)" 
+    [(ngModel)]="valueSelected" class="select-time-container divide c-pointer">
+        <option *ngFor="let option of options" [value]="option.value">{{option.name}}</option>
+</select>
+

@@ -132,6 +132,12 @@ export class GeneralService {
       })
     );
   }
+  
+  getGroupsByOwner(id_User: string): Observable<any> {
+    return this.http.get(`${URL}/claro_sites/by_owner/${id_User}`, { headers: this.headers }).pipe(
+      map((resu: any) => resu.message)
+    );
+  }
 
   async clearClaroStorage() {
     await SessionManagerService.removeItem('userClaro');

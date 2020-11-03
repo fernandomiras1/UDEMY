@@ -119,8 +119,8 @@
         </div>
         <div class="grupo-content">
           <mat-chip-list aria-label="grupo content">
-            <mat-chip *ngFor="let user of remedyList.people" (click)="onClickChipPeople(user)" removable="true"
-              (removed)="onChange(user, false, 'people')">
+            <mat-chip *ngFor="let user of remedyList.people" (click)="onClickChipPeople(user)"
+            class="c-pointer" removable="true" (removed)="onChange(user, false, 'people')">
               {{ user.apellido + ', ' + user.nombre | titlecase}}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>

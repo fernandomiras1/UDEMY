@@ -92,3 +92,29 @@ export const COLORS_TEMPLATES = [
   }
 ];
 
+export const SELECT_OPTIONS_TIME = [
+  {
+    value: 'fourDays',
+    name: '4 días'
+  },
+  {
+    value: 'twoWeeks',
+    name: '2 semanas'
+  }
+];
+
+export const SELECT_OPTIONS_GROUP = [
+  {
+    value: 'all_groups',
+    name: 'Todos los grupos'
+  },
+  {
+    value: 'my_groups',
+    name: 'Sólo mis grupos'
+  },
+  {
+    value: 'support_organization',
+    name: 'Sólo mi gerencia'
+  }
+];
+

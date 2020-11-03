@@ -27,13 +27,19 @@
   </div>
   <div class="mt-1 container-flex justify-content-end">
     <mat-checkbox [(ngModel)]="checkboxOptions.checked" 
-      *ngIf="checkboxOptions.title.length > 0 && checkboxOptions.userCanSeeCheckbox" 
+      *ngIf="checkboxOptions.title.length > 0 && checkboxOptions.userCanSeeCheckbox && !showSelectGroup" 
       #checkbox 
       (change)='checkboxListener()'
       class="fs-14 checkHome" 
       color="primary" 
       style="padding: 10px 25px 10px 10px;">{{checkboxOptions.title}}
     </mat-checkbox>
+    <app-select
+      *ngIf="showSelectGroup"
+      [options]="optionsSelectGroup"
+      [valueSelected]="valueSelectGroup"
+      (onChangedValue)="onChangedValueGroup($event)">
+    </app-select>
     <span class="input-group">
       <input (keydown.enter)="search()" [(ngModel)]="inputSearchOptions.value" name="legajo" type="text" [placeholder]="inputSearchOptions.placeholder" class="input-search"/>
       <mat-icon (click)="inputSearchOptions.value = ''"  [ngClass]="{'v-hidden': inputSearchOptions.value.length == 0}" class="clear-input">close</mat-icon>

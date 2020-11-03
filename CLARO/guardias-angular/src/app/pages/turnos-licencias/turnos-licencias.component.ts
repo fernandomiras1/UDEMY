@@ -10,6 +10,7 @@ import GridNavigation from './grid-navigation'
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { MODE_SELECT_TIME } from '@app/utils/common.enum';
+import { SELECT_OPTIONS_GROUP } from '@app/utils/static.data';
 
 @Component({
   selector: 'app-turnos-licencias',
@@ -43,7 +44,8 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
     },
   }
 
-  only_my_groups:string;
+
+  filter_by:string;
   //Dia de hoy
   today = new Date();
   //Array con los grupos
@@ -80,10 +82,13 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
   }
 
   init(): void {
+
+    this.setDefaultValueForSelectGroup();
+
     this.route.queryParams.subscribe(params => {
       if(params['id_grupo']) {
         this.idGrupoParam = params['id_grupo'];
-        this.only_my_groups = "0";
+        this.filter_by = SELECT_OPTIONS_GROUP[0].value;
       }
     });
    
@@ -120,9 +125,8 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
       this.getDataWithParameters()
     }));
 
-    this.eventEmitterUnsuscribe.push(this.dataobsservice.checkMyGroups.subscribe(checked => {
-        this.only_my_groups = checked ? "1" : "0";
-        console.log('3');
+    this.eventEmitterUnsuscribe.push(this.dataobsservice.filterGroups.subscribe(filter_by => {
+        this.filter_by = filter_by;
         this.getDataWithParameters()
     }));
 
@@ -134,6 +138,10 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
     this.permissionsService.exceptions(['invitado', 'guardia', 'admin-guardia']).then(allowed => this.allowedRole = allowed);
   }
 
+  setDefaultValueForSelectGroup(){
+    const isInvitado = SessionManagerService.user().role == 'invitado';
+    this.filter_by   = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+  }
   //Calcular tamaño columnas para 4 dias y objeto para armar las plantillas
   calcWidthColumn(seletTimeCalendar) {
     if(seletTimeCalendar === this.selecType.DAYS) {
@@ -200,7 +208,7 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
   }
 
   getCalendarServer(dates) {
-    this.obsPlaningCalendar = this.turnosService.getPlanningCalendar(dates,this.only_my_groups, this.idGrupoParam).subscribe(res => {
+    this.obsPlaningCalendar = this.turnosService.getPlanningCalendar(dates, this.filter_by, this.idGrupoParam).subscribe(res => {
       this.showSkeleton = false;
       this.setGroupList(res['message'])
       .then(() => this.openGroupsRegistered());
@@ -219,18 +227,8 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
         if(isOpen) {
           this.gridNavigation.registerOpenedGroups(true,data['id_grupo'])
         }
-  
-        if(userProfile.role === 'guardia') {
-          data.group_users.forEach(users => {
-            if(users.id_usuario === userProfile.id_usuario) {
-              this.guardLoged = users;
-              this.groupList.push({data, isOpen});
-            } 
-          });
-        } else {
-          this.guardLoged = null;
-          this.groupList.push({data, isOpen});
-        }
+
+        this.groupList.push({data, isOpen});
       });
 
       resolve()
@@ -259,6 +257,7 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
   
   ngOnDestroy(): void {
     this.eventEmitterUnsuscribe.forEach(data => data.unsubscribe());
+    this.obsPlaningCalendar.unsubscribe();
   }
 
 }
