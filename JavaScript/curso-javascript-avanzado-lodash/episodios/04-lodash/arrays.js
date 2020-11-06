@@ -79,9 +79,67 @@ console.log('Res lenght:', res.length );
 
 
 
+/**
+ * 
+ * Mi ejemplos 
+ */
+
+var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ 
+// va a obtener el valor anidado facilemente.
+_.get(object, 'a[0].b.c');
+// => 3
+ 
+_.get(object, ['a', '0', 'b', 'c']);
+// => 3
+ 
+_.get(object, 'a.b.c', 'default');
+// => 'default'
+
+var data = {
+    properties: {
+        daysFilter: [ 7, 14, 21, 28, 35, 42],
+        environments: [
+            { name: 'Develop', matchs: []},
+            { name: 'Testing', matchs: ['sprint-']},
+            { name: 'Staging', matchs: ['release-']},
+            { name: 'Production', matchs: ['prod-']}
+        ]
+    }
+}
+// Obtengo los dias y si no esta le agrego [] , y agrego un map para sacar la info de esa forma.
+var daysFilter =  _.get(data, 'properties.daysFilter', []).map(day => ({ value: day, name: `${day} días`}));
+
+// Obtengo de forma segura la lista de enviroment y si no existe o algo le agrego un array vacio.
+var environmentMappings = _.get(collector, 'properties.environments', []);
 
 
+const data = [{
+    name: "Alice",
+    created_at : "2017-04-18"
+},
+{
+    name: "James",
+    created_at : "2017-06-30"
+},
+{
+    name: "Melisa",
+    created_at : "2017-04-03"
+},
+{
+    name: "James",
+    created_at : "2017-04-03"
+},
+{
+    name: "Amy",
+    created_at : "2017-05-03"
+}];
+const result = 
+  _.chain(data)
+    .groupBy("created_at") // aca mismo usar una funcion para pasar milliseconds to date
+    .map((value, key) => ({ date: key, items: value, total: value.length }))
+    .orderBy(it => it.date, ['asc'])
+    .value()
 
-
-
-console.log('\n\n\n\n');
+// Te lo agrupa por la fecha asc y map lo develve de esa forma el objeto.
+console.log(JSON.stringify(result, null, 2));
