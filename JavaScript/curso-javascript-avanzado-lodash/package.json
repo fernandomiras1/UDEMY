@@ -1,0 +1,32 @@
+{
+  "name": "js-avanzado-el-geek-curioso",
+  "version": "1.0.0",
+  "description": "Una colección de ejemplos para el curso de javascript avanzado de el geek curioso",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "new-episode": "node ./bin/createEpisode.js",
+    "oraculo": "node ./bin/oraculo"
+  },
+  "keywords": [
+    "tutorial",
+    "curso",
+    "javascript",
+    "ejemplos",
+    "learning",
+    "aprendizaje",
+    "aprender"
+  ],
+  "author": "Danielo Rodríguez Rivero",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.0",
+    "lodash": "^4.17.5",
+    "prettier": "^1.12.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
+  }
+}
