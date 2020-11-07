@@ -79,3 +79,55 @@ const uniqueArray = things.thing.filter((thing, index) => {
 
 console.log(uniqueArray);
 //console.log(meses);
+
+var dataAntes = [
+  {
+    "nombre": "MERLO",
+    "acronimos": [
+      {
+        "localidad": "MERLO",
+        "name": "SL196",
+        "selected": true
+      }
+    ]
+  },
+  {
+    "nombre": null,
+    "acronimos": [
+      {
+        "localidad": null,
+        "name": "TNQ126",
+        "selected": true
+      },
+      {
+        "localidad": null,
+        "name": "TNQ127",
+        "selected": true
+      },
+      {
+        "localidad": null,
+        "name": "TNQ128",
+        "selected": true
+      },
+      {
+        "localidad": null,
+        "name": "TNQ131",
+        "selected": true
+      }
+    ]
+  }
+]
+
+
+var dataAhora = dataAntes.map(group => group.acronimos.map(a=> a.name))
+.reduce((acc, val) => acc.concat(val), []);
+
+
+// quedaria de esta forma
+dataAhora = [
+  "SL196",
+  "TNQ126",
+  "TNQ127",
+  "TNQ128",
+  "TNQ131"
+]
