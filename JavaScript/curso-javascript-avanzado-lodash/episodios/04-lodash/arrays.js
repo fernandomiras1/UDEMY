@@ -143,3 +143,25 @@ const result =
 
 // Te lo agrupa por la fecha asc y map lo develve de esa forma el objeto.
 console.log(JSON.stringify(result, null, 2));
+
+
+// Te lo agrega en un array ["fer","miras","hola"]
+
+var data = 'fer ,miras,hola';
+result = 
+  _.chain(data)
+    .split(',')
+    .map(value => value.trim())
+    .value()
+
+/**
+ * Result
+ * 
+ *  [
+        "fer",
+        "miras",
+        "hola"
+    ]
+    * 
+    */
+   
