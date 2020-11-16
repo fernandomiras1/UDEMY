@@ -110,6 +110,9 @@ var data = {
 // Obtengo los dias y si no esta le agrego [] , y agrego un map para sacar la info de esa forma.
 var daysFilter =  _.get(data, 'properties.daysFilter', []).map(day => ({ value: day, name: `${day} días`}));
 
+// si no encuetnra el avatar le pone ''
+var avatarUrl =  _.get(item, 'user.avatarUrl', ''),
+
 // Obtengo de forma segura la lista de enviroment y si no existe o algo le agrego un array vacio.
 var environmentMappings = _.get(collector, 'properties.environments', []);
 
