@@ -11,6 +11,7 @@ import { HomeGuard } from './guards/home.guard';
 import { TurnosLicenciasComponent } from './pages/turnos-licencias/turnos-licencias.component';
 import { ListarPlantillasComponent } from './pages/listar-plantillas/listar-plantillas.component';
 import { NuevaPlantillaComponent } from './pages/nueva-plantilla/nueva-plantilla.component';
+import { IntegrationTemipComponent } from './pages/integration-temip/integration-temip.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'plantilla/crear', component: NuevaPlantillaComponent,
     canActivate: [LoginGuard, AdminGuardGuard]
+  },
+  {
+    path: 'integracion/temip', 
+    component: IntegrationTemipComponent
   },
 
 ];

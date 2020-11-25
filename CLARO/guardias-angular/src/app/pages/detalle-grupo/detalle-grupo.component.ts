@@ -336,4 +336,33 @@ export class DetalleGrupoComponent implements OnInit {
   get isLoading() {
     return this.loading;
   }
+
+  get subtypes() {
+
+    let fullText = [];
+
+    const categories = this.dataGroup.categories;
+
+    for(let category of categories)
+    {
+        let categoryName = category.category.toUpperCase();
+        let optionsName = [];
+
+        for(let option of category.options)
+        {
+          if(option.enable == '1')
+          {
+            optionsName.push(option.name.charAt(0).toUpperCase() + option.name.slice(1));
+          }
+        }
+
+        if(optionsName.length > 0)
+        {
+          fullText.push( categoryName + ': ' + optionsName.join(', ') );
+        }
+
+    }
+
+    return fullText.length > 0 ? fullText.join(' - ') : 'sin datos';
+  }
 }

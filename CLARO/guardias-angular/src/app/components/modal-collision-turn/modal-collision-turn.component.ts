@@ -49,6 +49,13 @@ export class ModalCollisionTurnComponent implements OnInit {
       for(let colission of colissionByMonth.values) {
         colission.collision_user['checked'] = true;
         colission.previous_user['checked'] = false;
+
+        if(colission.previous_user.id_plantilla_usuario == this.item.turno.id_plantilla_usuario) {
+          colission['hide'] = true;
+        }
+        else{
+          colission['hide'] = false;
+        }
       }
     }
   }
@@ -58,7 +65,11 @@ export class ModalCollisionTurnComponent implements OnInit {
     let total = 0;
 
     for( let colissionByMonth of this.collision.collisions ) {
-      total += colissionByMonth.values.length;
+      for(let colission of colissionByMonth.values) {
+        if(colission['hide'] == false){
+          total++;
+        }
+      }
     }
 
     return total;

@@ -84,11 +84,7 @@ export class ModalTurnoComponent implements OnInit {
         tipo: ''
       }
     ],
-    dia_todos_los_meses: [
-      {
-        dia: ''
-      }
-    ],
+    dia_todos_los_meses:[],
     descripcion: '',
     selectDayCalendar: null,
     dias_repeticion: [],
@@ -97,7 +93,10 @@ export class ModalTurnoComponent implements OnInit {
     footerRepeatDaysMonth: {
       value: '',
       dayNumber: null,
-      dayTxt: ''
+      dayTxt: '',
+      number:null,
+      check1:true,
+      check2:false
     }
   }
   dateFilter;
@@ -148,11 +147,15 @@ export class ModalTurnoComponent implements OnInit {
     this.isEdit = edit ? edit : false;
     this.partialEdition = partialEdition;
     this.id_plantilla_usuario = id_plantilla_usuario ? id_plantilla_usuario : false;
+    let repetitionID = '1';
     if(data['datosTurno']) {
       turno = data['datosTurno'].turno;
+      repetitionID = turno.template_user.rules_repetition.id_repeticion
       optsDropDownAsignation = data['datosTurno'].optsDropDownAsignation;
       fechaPlantilla = data['datosTurno'].fechaPlantilla;
       dates = data['datosTurno'].dates;
+      this.setDefaultDayForCalendar(turno, repetitionID);
+      this.setDefaultDaysSelectedForRepetitions(turno, repetitionID);
       guards.forEach(guard => {
         if(this.partialEdition && SessionManagerService.user().id_usuario == guard.id_usuario) {
           this.dataGuardTurnModal.guard = guard;
@@ -181,7 +184,7 @@ export class ModalTurnoComponent implements OnInit {
       this.dates = dates;
       this.nombrePlantilla = turno.type_guardia.nombre_tipo_de_guardia;
       this.optsDropDownAsignation = optsDropDownAsignation;
-      this.dataGuardTurnModal.idOptsDropDown = JSON.parse(JSON.stringify(optsDropDownAsignation[0].id_dropdown));
+      this.dataGuardTurnModal.idOptsDropDown = repetitionID;
       this.rangoSelectedGuard(turno['type_guardia']['rango_hour'], turno['id_rango_horario']);
       //Se van a desabilitar las fechas hasta la primera del navbar calendario
       //this.minDate = new Date(this.dates[1].nextDay);
@@ -193,7 +196,10 @@ export class ModalTurnoComponent implements OnInit {
     }
 
     this.setOriginalUserBeforeEdit(this.dataGuardTurnModal.guard);
-
+    this.setDefaultDayForMonthRepetitions(repetitionID);
+    this.setDefaultCheckForMonthRepetitions(turno, repetitionID);
+    this.setDefaultSelectForCustomRpetitions(turno, repetitionID);
+    this.setWithoutRepetitionIfItIsGuard(turno);
   }
 
   ngOnInit() {
@@ -218,6 +224,63 @@ export class ModalTurnoComponent implements OnInit {
 
   }
 
+  
+  setWithoutRepetitionIfItIsGuard(turn){
+    if(this.turnOpenedByAnotherGuard(turn)) {
+      this.dataGuardTurnModal.idOptsDropDown = '1';
+    }
+  }
+
+  setDefaultDayForCalendar(turn, repetitionID){
+    if(repetitionID != null && repetitionID != '1' && "template_user" in turn){
+      this.dataGuardTurnModal.selectDayCalendar = turn.template_user.fecha_repeticion_hasta;
+    }
+  }
+
+  setDefaultDaysSelectedForRepetitions(turn, repetitionID){
+
+    if(['2', '3'].includes(repetitionID) && "template_user" in turn){
+      const daysOfWeek = turn.template_user.rules_repetition.dias_repeticion.split(',');
+      
+      this.dataGuardTurnModal.dias_repeticion = daysOfWeek;
+  
+      this.daysBtns.filter(btn => !daysOfWeek.includes(btn.fulltxt)).forEach(btn => btn.active = false);
+    }
+  }
+
+  setDefaultDayForMonthRepetitions(repetitionID){
+    if(['4'].includes(repetitionID)){
+        this.monthOptionTurnModal()
+    }
+  }
+
+  setDefaultCheckForMonthRepetitions(turn, repetitionID){
+    if("template_user" in turn && ['4'].includes(repetitionID)){
+      const rule = JSON.parse(turn.template_user.rules_repetition.regla)[0];
+      if(rule.dia == 'asignado'){
+        this.dataGuardTurnModal.footerRepeatDaysMonth.check1 = false;
+        this.dataGuardTurnModal.footerRepeatDaysMonth.check2 = true;
+      }
+      else{
+        this.dataGuardTurnModal.footerRepeatDaysMonth.check2 = true;
+        this.dataGuardTurnModal.footerRepeatDaysMonth.check2 = false;
+      }
+    }
+  }
+
+  setDefaultSelectForCustomRpetitions(turn, repetitionID){
+    if("template_user" in turn && ['5'].includes(repetitionID)){
+      const rule = JSON.parse(turn.template_user.rules_repetition.regla)[0];
+      this.dataGuardTurnModal.personalizado_cada = [rule];
+
+      if(rule.tipo == "semanas") {
+        const daysOfWeek = turn.template_user.rules_repetition.dias_repeticion.split(',');
+        this.daysBtns.filter(btn => !daysOfWeek.includes(btn.fulltxt)).forEach(btn => btn.active = false);
+      }
+
+    }  
+  }
+
   get selectDisabled() {
 
     if(this.partialEdition) {
@@ -240,7 +303,7 @@ export class ModalTurnoComponent implements OnInit {
   }
 
   isSupervisor(){
-    if(SessionManagerService.user().role = 'jefe-guardia') {
+    if(SessionManagerService.user().role == 'jefe-guardia') {
       return true;
     }
     return false
@@ -347,6 +410,7 @@ export class ModalTurnoComponent implements OnInit {
       this.guards.filter(guard => guard['apellido_usuario'].toLowerCase().indexOf(search) > -1)
     );
   }
+
 
   selectTypeRepeat(e) {
 
@@ -475,19 +539,37 @@ export class ModalTurnoComponent implements OnInit {
   }
 
   openDatePicker(picker): void {
-    const repetitionID = this.dataGuardTurnModal.idOptsDropDown;
     const daysSelected:number = this.dataGuardTurnModal.dias_repeticion.length;
-    if(daysSelected > 0 || repetitionID == '5') {
+    const option:string = this.dataGuardTurnModal.idOptsDropDown;
+    if(daysSelected > 0 || ['4','5'].includes(option)) {
       picker.open()
     }
+    
   }
 
   monthOptionTurnModal() {
+    this.dataGuardTurnModal.footerRepeatDaysMonth.number = this.fechaPlantilla.clone().format("D");
     this.dataGuardTurnModal.footerRepeatDaysMonth.dayNumber = "El día " + this.fechaPlantilla.clone().format("D") + " de cada mes";
     this.dataGuardTurnModal.footerRepeatDaysMonth.value = this.dataGuardTurnModal.footerRepeatDaysMonth.dayNumber;
     let prefixes = ['primer', 'segundo', 'tercer', 'cuarto', 'quinto'];
     let mensaje_semana_mes = "El " + prefixes[Math.floor(this.fechaPlantilla.date() / 7)] + ' ' +  this.generalService.titlecase(this.fechaPlantilla.clone().locale('es').format("dddd")) + " de cada mes";
     this.dataGuardTurnModal.footerRepeatDaysMonth.dayTxt = mensaje_semana_mes;
+    
+    this.dataGuardTurnModal.dia_todos_los_meses = [{dia: this.dataGuardTurnModal.footerRepeatDaysMonth.number}];
+    this.dataGuardTurnModal.descripcion = this.dataGuardTurnModal.footerRepeatDaysMonth.dayNumber;
+ 
+  }
+
+  
+  optionMonth(option){
+    if(option == 1){
+      this.dataGuardTurnModal.dia_todos_los_meses = [{dia: this.dataGuardTurnModal.footerRepeatDaysMonth.number}];
+      this.dataGuardTurnModal.descripcion = this.dataGuardTurnModal.footerRepeatDaysMonth.dayNumber;
+    }
+    else{
+      this.dataGuardTurnModal.dia_todos_los_meses = [{dia:'asignado'}];
+      this.dataGuardTurnModal.descripcion = this.dataGuardTurnModal.footerRepeatDaysMonth.dayTxt;
+    }
   }
 
   txtRepeatDays() {
@@ -574,7 +656,9 @@ export class ModalTurnoComponent implements OnInit {
   asingGuard() {
     const guard = this.dataGuardTurnModal.guard;
     this.showLoadingModal = true;
-      this.turnosService.checkCollisions(this.dataGuardTurnModal).subscribe(res => {
+
+  
+    this.turnosService.checkCollisions(this.dataGuardTurnModal).subscribe(res => {
         this.showLoadingModal = false;
         let response = res['message'];
         
@@ -583,13 +667,90 @@ export class ModalTurnoComponent implements OnInit {
             this.editAssignedGuard(response);
             this.editedGuardNotification(guard);
           } else if(response.collisions.length > 0) {
-            this.openDialogCollisions(response);
+
+            let totalCollisions = 0;
+
+            for(let col of response.collisions) {
+              totalCollisions += col.values.length;
+            }
+
+            if((this.turnOpenedByAnotherGuard(this.dataGuardTurnModal.turno) || this.turnOpenedByABoss(this.dataGuardTurnModal.turno)) && totalCollisions == 1 && this.collisionWithSameTurn(response)) {
+              this.resolveCollision(response);
+            }
+            else{
+              this.openDialogCollisions(response);
+            }
           } else {
             this.assignedGuardWithoutCollisions()
             this.notification(guard,'create');
           }
         }
-      });
+    });
+  }
+
+  collisionWithSameTurn(response): boolean {
+    return this.dataGuardTurnModal.turno.id_plantilla_usuario == response.collisions[0].values[0].previous_user.id_plantilla_usuario;
+  }
+
+  resolveCollision(collisions){
+  
+    collisions = this.setCheckedByDefault(collisions);
+
+    const responseRequestData = {
+      id_user_asignado: this.dataGuardTurnModal.guard['id_usuario'],
+      id_user: SessionManagerService.user().id_usuario,
+      id_plantilla_tipo_guardia:this.dataGuardTurnModal.turno.id_tipoguardia,
+      id_horario_grupo:this.dataGuardTurnModal.turno.id_horario_grupo,
+      fecha_inicio:moment(this.dataGuardTurnModal.turno.dia).format("YYYY-MM-DD HH:mm:ss"),
+      fecha_repeticion_hasta:moment(this.dataGuardTurnModal.selectDayCalendar).format("YYYY-MM-DD HH:mm:ss"),
+      id_rango_horario:this.dataGuardTurnModal.turno.id_rango_horario,
+      id_dropdown_repeticion:this.dataGuardTurnModal.id_dropdown_repeticion,
+      id_grupo:this.dataGuardTurnModal.turno.id_grupo,
+      descripcion:this.dataGuardTurnModal.descripcion,
+      dias_repeticion:this.dataGuardTurnModal.dias_repeticion.join(','),
+      dia_todos_los_meses:this.dataGuardTurnModal.dia_todos_los_meses,
+      personalizado_cada:this.dataGuardTurnModal.personalizado_cada,
+      solucion_colisiones:this.mapCollisions(collisions)
+    }
+    
+    this.turnosService.confirmCollisions(responseRequestData)
+    .subscribe(() => {
+      //this.prepareNotifications(this.item.guard,this.collisions,this.selectedGroup,responseRequestData.solucion_colisiones)
+      this.dialogRef.close();
+      this.dataobsservice.refreshGrid.emit();
+    });
+
+  }
+
+  setCheckedByDefault(collisions) {
+    for( let colissionByMonth of collisions.collisions ) {
+      for(let colission of colissionByMonth.values) {
+        colission.collision_user['checked'] = true;
+        colission.previous_user['checked'] = false;
+      }
+    }
+
+    return collisions;
+  }
+
+  mapCollisions(collisions){
+
+    let solutions = [];
+
+    for( let colissionByMonth of collisions.collisions ) {
+      for(let colission of colissionByMonth.values) {
+        solutions.push({
+          id_repeticion:colission.previous_user.id_repeticion,
+          id_plantilla_usuario:colission.previous_user.id_plantilla_usuario,
+          id_previus_user:colission.previous_user.data_user.id_user,
+          id_asignation_user_update:Object.values(colission).find(c => c['checked'])['data_user'].id_user.toString(),
+          fecha_desde:colission.previous_user.fecha_desde,
+          fecha_hasta:colission.previous_user.fecha_hasta,
+          eliminar_previo: !colission.previous_user.checked
+        });
+      }
+    }
+    return solutions;
   }
 
   editAssignedGuard(message:string) {
@@ -666,7 +827,6 @@ export class ModalTurnoComponent implements OnInit {
     )
   }
 
-
   setOriginalUserBeforeEdit(user) {
     if(user) {
       const {id_usuario, nombre_usuario, apellido_usuario} = user;
@@ -676,6 +836,28 @@ export class ModalTurnoComponent implements OnInit {
 
   isSameUserAfterEdit(guard) {
     return this.originalUserSelected.id_usuario == guard.id_usuario;
+  }
+
+  turnOpenedByAnotherGuard(turn){
+    const userLogged = SessionManagerService.user();
+    
+    if(userLogged.role == 'guardia' && userLogged.id_usuario != String(turn.idusuario)) {
+      return true;
+    }
+
+    return false;
+
+  }
+
+  turnOpenedByABoss(turn){
+    const userLogged = SessionManagerService.user();
+    
+    if(['jefe', 'jefe-guardia', 'admin-jefe'].includes(userLogged.role) && userLogged.id_usuario != String(turn.idusuario)) {
+      return true;
+    }
+
+    return false;
+
   }
 
 }

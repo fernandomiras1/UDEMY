@@ -279,8 +279,18 @@ body {
     .mat-checkbox-frame {
         border: solid 1px;
         border-radius: 5px;
+
+       
     }
+
+    .mat-checkbox-checkmark-path {
+        stroke: #ff1616 !important;
+    }
+   
 }
+
+
+
 //Estilos del checkbox del home
 .mat-checkbox.mat-primary {
     .mat-checkbox-frame {
@@ -445,6 +455,13 @@ button.mat-menu-item {
 }
 .owl-carousel .owl-item {
     width: auto!important;
+}
+
+/**
+header nav - height
+*/
+.header-container {
+  height: 70px !important;
 }
 //********Calendario***********************/
 .mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {

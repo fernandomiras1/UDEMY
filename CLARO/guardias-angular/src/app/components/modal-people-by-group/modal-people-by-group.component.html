@@ -4,21 +4,33 @@
   textBtnRight="CONFIRMAR"
   (onClickClose)="closeModal()"
   (onClickBtnLeft)="closeModal()"
-  (onClickBtnRight)="closeModal()">
+  (onClickBtnRight)="onSaveChanges()">
 
   <div class="scrollbar container">
-
     <mat-accordion togglePosition="before" class="example-headers-align" multi>
       <!-- #enddocregion multi -->
       <mat-expansion-panel expanded="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Sitios asociados
-          </mat-panel-title>
+        <mat-expansion-panel-header class="right-aligned-header">
+          <mat-panel-description>
+            <span style="color:black">Sitios asociados</span>
+            <div *ngIf="this.responseBySite && responseBySite.success">
+              <button (click)="checkAllOrNone($event, true)" color="primary" mat-button>Todos</button>
+              <button (click)="checkAllOrNone($event, false)" color="primary" mat-button>Ninguno</button>
+            </div>
+          </mat-panel-description>
+         
         </mat-expansion-panel-header>
-    
+        
+          <div *ngIf="responseBySite && !responseBySite.success" class="site-message-title">
+            <span>{{responseBySite.message}}</span>
+          </div>
+
+          <div *ngIf="!this.responseBySite" class="container-spinner">
+            <mat-spinner [diameter]="50"></mat-spinner>
+          </div>
+
           <!-- Body -->
-          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-tree *ngIf="this.responseBySite && responseBySite.success" [dataSource]="dataSource" [treeControl]="treeControl">
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
               <button mat-icon-button disabled></button>
               <mat-checkbox color="primary"
@@ -40,7 +52,7 @@
               </mat-checkbox>
             </mat-tree-node>
           </mat-tree> 
-      
+
       
       </mat-expansion-panel>
    
@@ -50,14 +62,12 @@
           <mat-panel-title>
             Otros grupos donde se encuentra
           </mat-panel-title>
-          <!-- <mat-panel-description>
-            Inform the date you wish to travel
-            <mat-icon>date_range</mat-icon>
-          </mat-panel-description> -->
         </mat-expansion-panel-header>
-    
+        <div *ngIf="!data.user.grupos_asociados?.length" class="site-message-title">
+          <span>No se encontraron grupos para el usuario.</span>
+        </div>
         <ul>
-          <li *ngFor="let item of data.user.grupos_asociados">{{item.nombre_grupo}}</li>
+          <li *ngFor="let item of data.user.grupos_asociados">{{item.nombre_grupo}}</li> 
         </ul>
       </mat-expansion-panel>
     </mat-accordion>

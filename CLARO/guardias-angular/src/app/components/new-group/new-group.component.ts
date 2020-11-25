@@ -3,7 +3,7 @@ import { conditionalValidator } from '../../utils/conditional.validator';
 import { FormBuilder, Validators, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { GroupType } from '../../utils/common.enum';
 import { GrupoService } from '@app/services/grupo.service';
-import { SubCategories, Categorie, CateOption } from '@app/models/group.model';
+import { SubCategories, Category, CateOption } from '@app/models/group.model';
 
 @Component({
   selector: 'app-new-group',
@@ -34,7 +34,7 @@ export class NewGroupComponent implements OnInit {
   public submitted = false;
   public selectedSitioType: string[] = [];
   public selectValue: string;
-  public setCategories: Categorie[] = [];
+  public setCategories: Category[] = [];
   public groupType: typeof GroupType = GroupType;
   constructor(private fb: FormBuilder,
               private grupoService: GrupoService) { }
@@ -75,7 +75,7 @@ export class NewGroupComponent implements OnInit {
     this.groupForm.get('isSelectType').setValue(true);
   }
 
-  selectSubCateType(data: Categorie, option: CateOption): void {
+  selectSubCateType(data: Category, option: CateOption): void {
     this.categories.value.forEach(cate => {
       if(option.id === cate.id) {
         const value = `${data.category[0].toUpperCase()}:${option.name.toUpperCase()}`;

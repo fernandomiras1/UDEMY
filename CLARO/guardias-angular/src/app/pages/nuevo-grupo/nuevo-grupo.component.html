@@ -1,6 +1,6 @@
 
 
-<mat-toolbar class="box-shadow-b bg-color-claro p-detail-container" style="height: 70px;">
+<mat-toolbar class="box-shadow-b bg-color-claro p-detail-container header-container">
   <div class="container-flex align-items-center txt-white">
     <mat-icon class="c-pointer" aria-hidden="false" routerLink="/home">arrow_back_ios</mat-icon>
     <span class="fs-24 ml-10p">Nuevo grupo</span>
@@ -16,7 +16,7 @@
   <mat-horizontal-stepper linear #stepper
     (selectionChange)="stepperGroupService.onChangedStep($event)">
 
-    <!-- <mat-step [stepControl]="tempNewGroup.groupForm">
+    <mat-step [stepControl]="tempNewGroup.groupForm">
       <ng-template matStepLabel>Tipo de grupo</ng-template>
 
       <app-new-group #tempNewGroup></app-new-group>
@@ -28,11 +28,11 @@
           icon="keyboard_arrow_right">
         </app-button>
       </div>
-    </mat-step>  -->
+    </mat-step> 
 
     <mat-step [label]="stepperGroupService.stepGroupPeople">
       <ng-template matStepLabel>Personas por grupo</ng-template>
-      <app-people-by-group #tempPeopleByGroup [typeGroup]="'sitio'"></app-people-by-group>
+      <app-people-by-group #tempPeopleByGroup [typeGroup]="tempNewGroup.type.value"></app-people-by-group>
 
       <div class="container-flex justify-content-center">
         <button mat-button matStepperPrevious>

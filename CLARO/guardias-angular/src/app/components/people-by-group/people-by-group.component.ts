@@ -33,6 +33,7 @@ import {
 } from '../../models/group.model';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { TodoItemFlatNode } from '@app/models/tree-checklist.model';
 
 @Component({
   selector: 'app-people-by-group',
@@ -87,7 +88,7 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
     public grupoService: GrupoService,
     public plantillaService: PlantillasService,
     public stepperGroupService: StepperGroupService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -100,6 +101,7 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
         this.toggleParent = this.toggleType.OPEN;
       }
     });
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -139,6 +141,7 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
         user.estado = 1;
       });
       listUserFinal = [...this.remedyList.people, ...this.cloneUsersEdit];
+      this.setDeletedUsers(this.remedyList.people,this.cloneUsersEdit)
 
       const sinRepetidosUsers = this.eliminarDuplicados(listUserFinal, 'idusuario');
 
@@ -184,13 +187,23 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
+  setDeletedUsers(people, clone): void{
+    
+    const ids = people.map(user => user.idusuario);
+    
+    clone.filter(user => !ids.includes(user.idusuario)).forEach(user => {
+        user['estado'] = 0;
+    });
+    
+  }
+
   nextStep() {
     const sitesUsers: AddNewGroup = {
       users: this.remedyList.people,
       sites: this.listSiteRemedy(),
       valid: this.isValid
     };
-    console.log(sitesUsers);
+
     return sitesUsers;
   }
 
@@ -352,11 +365,10 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   selecAcronimos() {
-    const acronimos = this.remedyList.sites.map(group => group.acronimos.map(a=> a.name))
-    .reduce((acc, val) => acc.concat(val), []);
+    const acronyms: any = this.getAcronymsByList(this.remedyList.sites);
 
     this.remedyGroups.forEach(groups => {
-      acronimos.forEach(acronimo => {
+      acronyms.forEach(acronimo => {
         if (this.isSite) {
           groups.acronimosDetalle.forEach(acronimoDetalle => {
             if(acronimoDetalle.name === acronimo) {
@@ -389,7 +401,7 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
       this.userDuplicated(selectedPerson);
       this.remedyList[value].push(selectedPerson);
       selectedPerson.selected = true;
-    } else {    // Validate checkbox interaction
+    } else {
       this.checked = checked;
       this.remedyList.people = this.remedyList.people
         .filter(person => person.idusuario !== selectedPerson.idusuario);
@@ -407,7 +419,6 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
       this.remedyUsersAPI(this.remedyUsers, selectedPerson);
       // objeto en memoria
       this.remedyUsersAPI(this.generalservice.remedyUsersSites, selectedPerson);
-
     }
   }
 
@@ -487,7 +498,7 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
         groupList.acronimos.splice(itemPosition, 1);
       }
 
-    } else {
+    } else if (checked) {
       this.remedyList.sites.push({nombre:groupName, acronimos:[item]});
     }
     
@@ -513,6 +524,11 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
     return total;
   }
 
+  getAcronymsByList(remedyList: SiteList[]): string[] {
+    return remedyList.map(group => group.acronimos.map(a=> a.name))
+      .reduce((acc, val) => acc.concat(val), []);
+  }
+
   onChangeAll(object, checked: boolean, value: string) {
     object.forEach((e:any) => {
       this.userDuplicated(e);
@@ -530,13 +546,40 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  onClickChipPeople(user: User) {
+  onClickChipPeople(user: User) { 
+    const acronyms = this.getAcronymsByList(this.remedyList.sites);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.panelClass = 'container-custom-modal';
     dialogConfig.width = '600px';
-    dialogConfig.data = {user};
-    return this.matDialog.open(ModalPeopleByGroupComponent, dialogConfig);
+    dialogConfig.data = { user, acronyms };
+    const modalDialog = this.matDialog.open(ModalPeopleByGroupComponent, dialogConfig);
+
+    modalDialog.afterClosed().subscribe((dataItems: TodoItemFlatNode[]) => {
+      if (dataItems) {
+        for (const acronimos of this.remedyGroups) {
+          acronimos.acronimosDetalle.forEach(site => {
+
+            const siteNodes = dataItems.find((i: TodoItemFlatNode) => i.item === site.name);
+            const siteData: Site = {
+              localidad: site.localidad || null,
+              name: siteNodes ? siteNodes.item : site.name,
+              selected: true
+            }
+    
+            if (site.name === siteNodes?.item) {
+              site.selected = true;
+              this.addItemBySite(site.localidad, siteData, site.selected);
+            } else {
+              site.selected = false;
+              siteData.selected = false;
+              this.addItemBySite(site.localidad, siteData, site.selected);
+            }
+          });
+        }
+      }
+    });
+
   }
 
   openModal(name, type, owner) {
@@ -580,7 +623,6 @@ export class PeopleByGroupComponent implements OnChanges, OnInit, OnDestroy {
         };
       })
     };
-
   }
 
   assignGuardsToOtherUsersIfExists(deletedUsers: DeletedUsers, id_group: string, group_name: string, callback: any): void {

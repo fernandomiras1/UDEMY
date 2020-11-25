@@ -69,7 +69,7 @@
             <div class="container-flex">
                 <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repetición</span>
                 <mat-form-field appearance="outline" style="flex: 2.5;">
-                    <mat-select [disabled]="partialEdition" [(ngModel)]="dataGuardTurnModal.idOptsDropDown" (selectionChange)="selectTypeRepeat($event)">
+                    <mat-select [disabled]="partialEdition"  [(ngModel)]="dataGuardTurnModal.idOptsDropDown" (selectionChange)="selectTypeRepeat($event)">
                         <mat-option *ngFor="let option of optsDropDownAsignation;" [value]="option.id_dropdown">
                             {{option.nombre_dropdown}}
                         </mat-option>
@@ -77,11 +77,11 @@
                 </mat-form-field>
             </div>
             <div *ngIf="dataGuardTurnModal.idOptsDropDown === '4'" class="mt-1">
-                <mat-radio-group color="primary" [(ngModel)]="dataGuardTurnModal.footerRepeatDaysMonth.value" aria-label="Select an option" class="flex-column">
-                    <mat-radio-button color="primary" [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayNumber">
+                <mat-radio-group color="primary" aria-label="Select an option" class="flex-column">
+                    <mat-radio-button [checked]="dataGuardTurnModal.footerRepeatDaysMonth.check1" (click)="optionMonth(1)" color="primary" [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayNumber">
                         <span class="fw-400 fs-14">{{dataGuardTurnModal.footerRepeatDaysMonth.dayNumber}}</span>
                     </mat-radio-button>
-                    <mat-radio-button class="mt-10p"  [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayTxt" color="primary">
+                    <mat-radio-button [checked]="dataGuardTurnModal.footerRepeatDaysMonth.check2" (click)="optionMonth(2)" class="mt-10p" [value]="dataGuardTurnModal.footerRepeatDaysMonth.dayTxt" color="primary">
                         <span class="fw-400 fs-14">{{dataGuardTurnModal.footerRepeatDaysMonth.dayTxt}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
@@ -115,7 +115,8 @@
             <div *ngIf="dataGuardTurnModal.idOptsDropDown != '1'" class="container-flex mt-22p">
                 <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repite hasta</span>
                 <div class="flex-column">
-                    <div class="asignTurn-container-datepicker c-pointer" style="flex: 2.1;"  (click)="openDatePicker(picker)">
+                    <div class="asignTurn-container-datepicker c-pointer" style="flex: 2.1;"  
+                        (click)="openDatePicker(picker)">
                         <input [(ngModel)]="dataGuardTurnModal.selectDayCalendar" (ngModelChange)="showErrorDate()" matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="dateFilter" style="width: 1px; visibility: hidden;">
                         <div [ngClass]="{'c-pointer':dataGuardTurnModal.dias_repeticion.length > 0}" class="asignTurn-container-datepicker-icon">
                             <mat-icon aria-hidden="false" class="txt-muted">calendar_today</mat-icon>

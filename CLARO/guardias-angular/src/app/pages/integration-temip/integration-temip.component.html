@@ -1,0 +1,62 @@
+<mat-toolbar class="box-shadow-b bg-color-claro header-container">
+	<div class="container-flex w-100">
+		<img alt="claro-logo" src="../assets/imgs/claro_logo.svg" class="img-claro"/>
+	</div>
+</mat-toolbar>
+
+ <!--Sin datos-->
+ <div *ngIf="!data && errorQueryParam" class="container-grid ml-mr-3">
+  <div class="div-table-underline text-center noc-personal" style="padding: 2rem;">
+    <span>No se recibieron parámetros de búsqueda</span>
+  </div>
+</div>
+
+<div *ngIf="data" class="scrollbar scroll-y margin-container" 
+  style="overflow-x: hidden; margin-top: 8px;">
+  
+  <div class="container-flex" style="margin: 10px; justify-content: flex-start;">
+    <span class="txt-bold fs-18">{{this.isSite ? 'Sitio' : 'Tecnología'}}: {{data.name | uppercase}}</span>
+  </div>
+  <ng-container *ngFor="let group of data.groupList; let position = index;">
+    <!--Lista cerrada de los grupos-->
+    <div class="grid-list-group" [ngClass]="{'shadow-open-list-group': group.isOpen}">
+      <div class="container-flex align-items-center line-top-list-group">
+        <button class="btn-list-group c-pointer ml-10p" (click)="group.isOpen = !group.isOpen">
+          <mat-icon class="icon-btn-prev-next txt-color-claro fs-10" style="left: 1px;" aria-hidden="false" *ngIf="!group.isOpen">keyboard_arrow_right</mat-icon>
+          <mat-icon class="icon-btn-prev-next txt-color-claro fs-10" style="left: 1px;" aria-hidden="false" *ngIf="group.isOpen">expand_more</mat-icon>
+        </button>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group">
+        <span class="txt-bold fs-18">{{group.name}}</span>
+      </div>
+      <div class="container-flex align-items-center line-top-list-group">
+        <span class="txt-bold fs-18">Gerencia: <span class="txt-bold fs-18">{{group.area | uppercase}}</span></span>
+      </div>
+    </div>
+    <!--Lista abierta de los grupos-->
+    <div *ngIf="group.isOpen">
+      <div class="grid-grupos headerUnderline ml-mr-3 mt-2">
+        <div *ngFor="let value of optionsTableHeader" class="txt-gray headers-table">
+          {{value}}
+        </div>
+      </div>
+        <div class="scrollbar container-grid ml-mr-3 scroll-y">
+         <app-people-temip *ngFor="let people of group.peopleList"
+          [people]="people">
+         </app-people-temip>
+      </div>
+    </div>
+  </ng-container>
+  <!--Sin datos-->
+  <div *ngIf="data.groupList.length === 0" class="container-grid ml-mr-3">
+    <div class="div-table-underline text-center noc-personal" style="padding: 2rem;">
+      <span>No se encontraron datos</span>
+    </div>
+  </div>
+  
+</div>
+<!--Modal Cargando datos-->
+<app-loading-modal
+  [showLoadingModal]="isLoading">
+  message="Canrango.."
+</app-loading-modal>

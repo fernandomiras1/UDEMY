@@ -6,6 +6,7 @@ import { SessionManagerService } from './session-manager.service';
 import * as moment from 'moment';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { transformStringInDates } from '@app/utils/dates.operations';
 
 
 const URL = environment.URL + "/api";
@@ -88,17 +89,10 @@ export class   TurnosLicenciasService {
         dia: null
       }
     ];
-    if(obj.footerRepeatDaysMonth.value) {
-      if(obj.footerRepeatDaysMonth.value.split("de")[0].split("día")[1]) {
-        descripcion = obj.footerRepeatDaysMonth.value.split("de")[0].split("día")[1];
-        dia_todos_los_meses[0].dia = obj.footerRepeatDaysMonth.value.split("de")[0].split("día")[1];
-      } else {
-        descripcion = obj.footerRepeatDaysMonth.value.split("de")[0];
-        dia_todos_los_meses[0].dia = 'asignado';
-      }
-    }
+    
     let fecha_inicio = moment(obj.turno.dia);
-    let fecha_repeticion_hasta = moment(obj.selectDayCalendar).add(obj.turno.minutos, 'minute');
+    let fecha_repeticion_hasta = moment(moment(obj.selectDayCalendar).format('YYYY-MM-DD ' + obj.turno.horario_desde));
+
     let body = {
         id_user_asignado: obj.guard.id_usuario,
         id_user: this.generalService.user.id_usuario,
@@ -108,14 +102,15 @@ export class   TurnosLicenciasService {
         fecha_repeticion_hasta: fecha_repeticion_hasta.format('YYYY-MM-DD HH:mm:ss'),
         fecha_repeticion_hasta_real: fecha_repeticion_hasta.format('YYYY-MM-DD HH:mm:ss'),
         id_rango_horario: obj.turno.id_rango_horario,
-        id_dropdown_repeticion: obj.id_dropdown_repeticion,
+        id_dropdown_repeticion: obj.idOptsDropDown,
         id_grupo: obj.turno.id_grupo,
         dias_repeticion,
-        descripcion,
+        descripcion: obj.descripcion,
+        id_plantilla_usuario:obj.turno.id_plantilla_usuario
     };
-    if(obj.id_dropdown_repeticion == '4') {
-      body['dia_todos_los_meses'] = dia_todos_los_meses;
-    } else if(obj.id_dropdown_repeticion == '5') {
+    if(obj.idOptsDropDown == '4') {
+      body['dia_todos_los_meses'] = obj.dia_todos_los_meses;
+    } else if(obj.idOptsDropDown == '5') {
       body['personalizado_cada'] = obj.personalizado_cada;
     } else if(id_plantilla_usuario) {
       body['id_plantilla_usuario'] = id_plantilla_usuario;

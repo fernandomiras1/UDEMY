@@ -21,3 +21,18 @@
 .example-headers-align .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
+
+
+.site-message-title {
+  display: flex;
+  align-items: center;
+  padding: 2.5%;
+  color: #d62826;
+  font-weight: 500;
+}
+
+.container-spinner {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}

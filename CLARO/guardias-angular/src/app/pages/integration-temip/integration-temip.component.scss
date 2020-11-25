@@ -1,0 +1,76 @@
+//Margin de toda la vista debajo del navbar
+.margin-container {
+  margin: 0px 24px;
+}
+
+.scroll-y {
+  max-height: 80vh; 
+  overflow-y: auto;
+}
+
+.icon-btn-prev-next {
+  font-size: 20px;
+  color: #C4C4C4;
+  position: relative;
+  top: 2px;
+}
+
+.grid-list-group {
+  display: grid!important;
+  grid-template-columns: 0.5fr 7.5fr 4fr 0fr 0fr;
+}
+
+.shadow-open-list-group {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.line-top-list-group {
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+//Botones para abrir los grupos
+.btn-list-group {
+  padding: 0px;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none;
+}
+.btn-list-group:hover {
+  background: rgba(255, 0, 0, 0.08);
+  border-radius: 50%;
+}
+
+.ml-mr-3 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.headerUnderline {
+  border-bottom: 2px solid #ddd;
+}
+
+.headers-table {
+  padding: 8px 8px 15px 0px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.grid-grupos {
+  display: grid!important;
+  grid-template-columns: 1.5fr 2fr 2fr 1fr 1fr 2fr;
+}
+
+.txt-gray {
+  color: #00000080;
+}
+
+.div-table {
+  padding: 6% 0% 6% 0%;
+}
+
+.div-table-underline {
+  border-bottom: 1px solid #ddd;
+}

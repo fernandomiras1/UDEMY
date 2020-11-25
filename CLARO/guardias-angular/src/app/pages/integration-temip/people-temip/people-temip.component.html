@@ -1,0 +1,45 @@
+<div class="grid-grupos">
+  <div class="div-table div-table-underline align-items-center">
+    <span class="fs-12 txt-bold">{{people.name}}</span>
+  </div>
+  <div class="div-table div-table-underline flex-column">
+    <span *ngIf="people.date" class="fs-12 fw-500" style="padding-bottom: 5px;margin-top: -5px;">
+      {{people.date}}
+    </span>
+    <span *ngIf="people.template" class="fs-12 fw-300" style="color: #00000080;">
+      {{people.template}}
+    </span>
+  </div>
+  <div class="div-table div-table-underline flex-column">
+    <div class="container-flex align-items-center div-table" style="padding: 0px;position: relative;top: -3px;">
+        <a [href]="getLinkByTeams(people.email)" rel="noopener noreferrer" target="_blank">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/microsoft-teams.svg"/>
+        </a>
+      
+        <span class="c-pointer" (click)="openSkype(people.email)">
+          <img style="margin-right: 5px;margin-top: 6px;" src="../../../assets/imgs/skype_logo.svg"/>
+        </span>
+        <div style="flex-direction: row;align-items: flex-start;">
+          <div *ngFor="let contact of optionsContact">
+            <span class="fs-12 txt-bold">{{contact.name}}:</span>
+            <span class="fs-12">
+              {{people[contact.value] ? people[contact.value] : 'Sin datos'}}
+            </span>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="div-table div-table-underline flex-column">
+    <span>{{people.id | uppercase}}</span>
+  </div>
+
+  <div class="div-table div-table-underline flex-column">
+    <span>{{people.boss}}</span>
+  </div>
+  
+  <div class="div-table div-table-underline flex-column">
+    <div style="position: relative; top: -9px">
+      <div *ngFor="let item of people.remedyList"> - {{item | uppercase}}</div>
+    </div>
+  </div>
+</div>

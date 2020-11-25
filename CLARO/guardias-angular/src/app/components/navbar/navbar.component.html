@@ -1,4 +1,4 @@
-<mat-toolbar class="box-shadow-b bg-color-claro" [ngClass]="{'p-detail-container': detailGroup, 'grid-2': optionsRoutesPage == 2, 'grid-3': optionsRoutesPage == 3}" style="height: 70px;">
+<mat-toolbar class="box-shadow-b bg-color-claro header-container" [ngClass]="{'p-detail-container': detailGroup, 'grid-2': optionsRoutesPage == 2, 'grid-3': optionsRoutesPage == 3}">
 	<div class="container-flex w-100">
 		<img [routerLink]="['/home']" alt="claro-logo" [ngClass]="{'c-pointer': optionsRoutesPage >= 2}" src="../assets/imgs/claro_logo.svg" class="img-claro" *ngIf="!detailGroup"/>
 		<div class="container-flex align-items-center txt-white" *ngIf="detailGroup && !plantillas">

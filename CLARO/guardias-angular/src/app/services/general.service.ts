@@ -132,13 +132,11 @@ export class GeneralService {
       })
     );
   }
-  
-  getGroupsByOwner(id_User: string): Observable<any> {
-    return this.http.get(`${URL}/claro_sites/by_owner/${id_User}`, { headers: this.headers }).pipe(
-      map((resu: any) => resu.message)
-    );
-  }
 
+  getSitesByUserId(id_User: string): Observable<any> {
+    return this.http.get(`${URL}/claro_sites/by_user_id/${id_User}`, { headers: this.headers });
+  }
+  
   async clearClaroStorage() {
     await SessionManagerService.removeItem('userClaro');
     await SessionManagerService.removeItem('authClaro');

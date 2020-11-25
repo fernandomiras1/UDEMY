@@ -105,7 +105,7 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
                 this.dateRepeat = turno.template_user.fecha_repeticion_hasta;
                 this.id_repeticion = turno.template_user.rules_repetition.id_repeticion;
                 if(this.id_repeticion == REPETITIONS.TODOS_LOS_MESES) {
-                  if(turno.template_user.rules_repetition.descripcion.split(" ").length > 2) {
+                  if(turno.template_user.rules_repetition.descripcion != null && turno.template_user.rules_repetition.descripcion.split(" ").length > 2) {
                     this.rulesRepeatDescription = turno.template_user.rules_repetition.descripcion;
                   } else {
                     this.rulesRepeatDescription = "El día " + turno.template_user.rules_repetition.descripcion;

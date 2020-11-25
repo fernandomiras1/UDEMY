@@ -30,6 +30,8 @@ import { TurnosComponent } from './turnos-licencias/turnos/turnos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { NuevaPlantillaComponent } from './nueva-plantilla/nueva-plantilla.component';
 import { ListarPlantillasComponent } from './listar-plantillas/listar-plantillas.component';
+import { IntegrationTemipComponent } from './integration-temip/integration-temip.component';
+import { PeopleTemipComponent } from './integration-temip/people-temip/people-temip.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { ListarPlantillasComponent } from './listar-plantillas/listar-plantillas
     TurnosComponent,
     NuevaPlantillaComponent,
     ListarPlantillasComponent,
+    IntegrationTemipComponent,
+    PeopleTemipComponent
   ],
   exports: [
   ]

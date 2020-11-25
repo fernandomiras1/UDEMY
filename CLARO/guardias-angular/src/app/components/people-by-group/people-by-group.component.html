@@ -46,6 +46,9 @@
                                     <label class="grupo-checkbox-name">
                                       {{user['apellido'] | titlecase}}, {{user['nombre'] | titlecase}}
                                     </label>
+                                    <span *ngIf="isSite && !sitesUsers" class="content-icon-people">
+                                      <mat-icon class="c-pointer" (click)="onClickChipPeople(user)">add</mat-icon>
+                                    </span>
                                   </div>
                                 </div>
                               </div>
@@ -119,8 +122,10 @@
         </div>
         <div class="grupo-content">
           <mat-chip-list aria-label="grupo content">
-            <mat-chip *ngFor="let user of remedyList.people" (click)="onClickChipPeople(user)"
-            class="c-pointer" removable="true" (removed)="onChange(user, false, 'people')">
+            <mat-chip *ngFor="let user of remedyList.people" (click)="isSite && !sitesUsers ? onClickChipPeople(user) : null"
+            [class.c-pointer]="isSite && !sitesUsers" removable="true" [matBadgeHidden]="user.cantidad_sitios == '0'"
+            [matBadge]="user.cantidad_sitios" matBadgePosition="above" matBadgeSize='small'
+            matBadgeColor="primary" (removed)="onChange(user, false, 'people')">
               {{ user.apellido + ', ' + user.nombre | titlecase}}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>

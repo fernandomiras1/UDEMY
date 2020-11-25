@@ -1,6 +1,14 @@
 @import '../../../scss/variables';
 
 // Content
+.content-icon-people {
+  margin-left: 5px;
+  position: absolute;
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
 .grupo-section {
   display: flex;
   flex-direction: row;

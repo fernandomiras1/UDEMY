@@ -11,7 +11,7 @@
   <section class="flex-column" style="padding: 15px 20px;box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);">
     <div>
       <div>
-        <span class="txt-bold fs-18">Existen <span>{{ totalOfCollisions }}</span> colisiones. ¿Qué guardias desea mantener?</span>
+        <span class="txt-bold fs-18">{{ totalOfCollisions > 1 ? 'Existen' : 'Existe' }} <span>{{ totalOfCollisions }}</span> {{ totalOfCollisions > 1 ? 'colisiones' : 'colisión' }}. ¿Qué {{ totalOfCollisions > 1 ? 'guardias' : 'guardia' }} desea mantener?</span>
       </div>
       <mat-radio-group class="flex-row mt-1" [(ngModel)]="selectedGroup">
         <div style="width: 49%;">
@@ -29,47 +29,49 @@
   </section>
   <section class="pt-1" [ngClass]="{'oy-scroll': totalOfCollisions > 4}" style="height: 50vh;">
 
-    <div class="item" *ngFor="let collisionMonth of collision.collisions;let i = index">
-      <div><h3 class="ml-1"><b>{{ collisionMonth.month | date :'LLLL' | titlecase }}</b></h3></div>
-      <mat-radio-group *ngFor="let colission of collisionMonth.values;let j = index" class="subitems">
-        <div class="container-flex justify-content-space-a mb-1">
-          <div class="w-50 ml-1">
-            <div><b class="fs-12">{{ colission.collision_user.fecha_desde | date :'EEEE dd-MM' | titlecase }}</b></div> 
-            <div class="container-flex">
-              <div style="width: 10%;">
-                <mat-radio-button color="primary" style="flex: 0.9;" (change)="markRadio($event)" [checked]="colission.collision_user.checked" [value]="{type:'collision_user', i:i, j:j}">
-                </mat-radio-button>
-              </div>
-              <div style="width: 88%;">
-                <span class="fs-16">{{ info.grupo }}</span><br>
-                <span class="fs-12">
-                  {{ colission.collision_user.nombre_plantilla | truncate:28 }} | 
-                  {{ colission.collision_user.fecha_desde | date:'HH:mm' }} - 
-                  {{ colission.collision_user.fecha_hasta | date:'HH:mm' }}
-                </span>
-              </div>
-            </div> 
+    <ng-container *ngFor="let collisionMonth of collision.collisions;let i = index">
+      <div class="item">
+        <div><h3 class="ml-1"><b>{{ collisionMonth.month | date :'LLLL' | titlecase }}</b></h3></div>
+        <mat-radio-group *ngFor="let colission of collisionMonth.values;let j = index" class="subitems">
+          <div *ngIf="!colission.hide" class="container-flex justify-content-space-a mb-1">
+            <div class="w-50 ml-1">
+              <div><b class="fs-12">{{ colission.collision_user.fecha_desde | date :'EEEE dd-MM' | titlecase }}</b></div> 
+              <div class="container-flex">
+                <div style="width: 10%;">
+                  <mat-radio-button color="primary" style="flex: 0.9;" (change)="markRadio($event)" [checked]="colission.collision_user.checked" [value]="{type:'collision_user', i:i, j:j}">
+                  </mat-radio-button>
+                </div>
+                <div style="width: 88%;">
+                  <span class="fs-16">{{ colission.collision_user.data_user.apellido }}, {{ colission.collision_user.data_user.nombre }}</span><br>
+                  <span class="fs-12">
+                    {{ colission.collision_user.nombre_plantilla | truncate:28 }} | 
+                    {{ colission.collision_user.fecha_desde | date:'HH:mm' }} - 
+                    {{ colission.collision_user.fecha_hasta | date:'HH:mm' }}
+                  </span>
+                </div>
+              </div> 
+            </div>
+            <div class="w-50">
+              <div><small><b>&nbsp;</b></small></div> 
+              <div class="container-flex">
+                <div style="width: 10%;">
+                  <mat-radio-button color="primary" style="flex: 0.9;" (change)="markRadio($event)" [checked]="colission.previous_user.checked" [value]="{type:'previous_user', i:i, j:j}">
+                  </mat-radio-button>
+                </div>
+                <div style="width: 88%;">
+                  <span class="fs-16">{{ colission.previous_user.data_user.apellido }}, {{ colission.previous_user.data_user.nombre }}</span><br>
+                  <span class="fs-12">
+                    {{ colission.previous_user.nombre_plantilla | truncate:28 }} |
+                    {{ colission.previous_user.fecha_desde | date:'HH:mm' }} - 
+                    {{ colission.previous_user.fecha_hasta | date:'HH:mm' }}
+                  </span>
+                </div>
+              </div> 
+            </div>
           </div>
-          <div class="w-50">
-            <div><small><b>&nbsp;</b></small></div> 
-            <div class="container-flex">
-              <div style="width: 10%;">
-                <mat-radio-button color="primary" style="flex: 0.9;" (change)="markRadio($event)" [checked]="colission.previous_user.checked" [value]="{type:'previous_user', i:i, j:j}">
-                </mat-radio-button>
-              </div>
-              <div style="width: 88%;">
-                <span class="fs-16">{{ info.grupo }}</span><br>
-                <span class="fs-12">
-                  {{ colission.previous_user.nombre_plantilla | truncate:28 }} |
-                  {{ colission.previous_user.fecha_desde | date:'HH:mm' }} - 
-                  {{ colission.previous_user.fecha_hasta | date:'HH:mm' }}
-                </span>
-              </div>
-            </div> 
-          </div>
-        </div>
-      </mat-radio-group>
-    </div>
+        </mat-radio-group>
+      </div>
+    </ng-container>
 
   </section>
 </app-modal>

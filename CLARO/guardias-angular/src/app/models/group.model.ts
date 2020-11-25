@@ -20,7 +20,7 @@ export interface UserSite {
   celular: string;
   department: string;
   email: string;
-  grupos_asociados: GroupAssociated[];
+  grupos_asociados: number|GroupAssociated[];
   idusuario: string;
   legajo_corpo: string;
   nivel_jerarquico: null;
@@ -71,6 +71,7 @@ export interface DataGroupSite {
   support_group_name: string;
   todosUsuarios: DetailGroupUser[];
   usuarios: RemedyUser;
+  categories: Category[]
 }
 
 export interface RemedyViews {
@@ -116,6 +117,11 @@ export interface RemedyUser {
   cant_usuarios: number;
   grupo_remedy: string;
   usuarios: User[];
+}
+
+export interface SitesByUserIdResponse {
+  region: string;
+  acronyms: Array<string>;
 }
 
 export interface RespRemedyGroups {
@@ -168,10 +174,11 @@ export interface DetailGroupUser {
 }
 
 export interface SubCategories {
-  categories: Categorie[]
+  categories: Category[]
 }
 
-export interface Categorie {
+
+export interface Category {
   category: string;
   options: CateOption[];
 }
@@ -179,4 +186,7 @@ export interface Categorie {
 export interface CateOption {
   id: number;
   name: string;
+  enable?: string
 }
+
+
