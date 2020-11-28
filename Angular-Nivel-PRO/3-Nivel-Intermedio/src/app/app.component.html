@@ -43,5 +43,20 @@
 
   <!-- Creamos un Modal de forma Dinamica -->
   <ng-container #alertDinamico></ng-container>
+
+  <!-- Definimos el template que se va a repetir -->
+  <ng-template #timeEndTemplate let-message let-title="title">
+    <app-simple-alert-view 
+      [title]="title"
+      [message]="message">
+    </app-simple-alert-view>
+  </ng-template>
+
+  <ng-container [ngTemplateOutlet]="timeEndTemplate"
+    [ngTemplateOutletContext]="{title: 'Game Over', $implicit: 'Timer ended'}">
+  </ng-container>
+  <ng-container [ngTemplateOutlet]="timeEndTemplate"></ng-container>
+  <ng-container [ngTemplateOutlet]="timeEndTemplate"></ng-container>
+  <ng-container [ngTemplateOutlet]="timeEndTemplate"></ng-container>
   
 </div>
