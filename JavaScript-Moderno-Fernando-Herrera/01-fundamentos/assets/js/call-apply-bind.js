@@ -36,8 +36,8 @@ persona1.eat.call(persona2, 'Hamburgesa');
 /**
  *
     Hace casi exactamente lo mismo q el metodo call. La diferencia entre call y applay, es como reciven los parametros, en applay se pasa como un arreglo
-    call: lo recibe como una lista de parametros separados por comas.
-    apply: lo recibe como un arreglo de parametros.
+    call: lo recibe parametros como una lista de parametros separados por comas.
+    apply: lo recibe parametros como un arreglo de parametros.
     bin: crear una nueva funcion con el nuevo contexto.
  */
 persona1.say.apply(persona2);
