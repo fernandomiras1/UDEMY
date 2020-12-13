@@ -40,7 +40,7 @@
 /*
 
 */
-+
+
 
 // 06 - Todos los navegadores tienen una consola de Javascript, las mejores sin duda son firefox y Chrome
 // La consola es muy útil ya que podrás observar tu código JS, resultados y seleccionar elementos

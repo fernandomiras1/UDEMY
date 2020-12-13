@@ -14,8 +14,9 @@ const medidas = {
 
 // Una forma de hacerlo es con el object method llamado assign
 
-const resultado = Object.assign(producto, medidas);
+const resultado = Object.assign(producto, medidas); // va a unir ambos objetos
 
 // Otra forma de hacerlo que se considera más moderna es con El Spread Operator o Rest Operator, veamoslo en el siguiente video
+const resultado2 = { ...producto, ...medidas };
 
 console.log(resultado);

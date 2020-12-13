@@ -21,6 +21,6 @@ producto.nombre = 'Tablet';
 // producto.imagen = "imagen.jpg";
 
 // Verificar si un objeto esta sellado
-console.log(Object.isSealed(producto))
+console.log(Object.isSealed(producto)) // true
 
 console.log(producto);

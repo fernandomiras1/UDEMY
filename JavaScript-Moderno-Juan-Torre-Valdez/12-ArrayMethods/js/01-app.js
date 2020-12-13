@@ -27,7 +27,7 @@ meses.forEach(mes => {
 // O también podrías utilizar el Array Method de .includes
 
 const resultado = meses.includes('Enero'); // Cambiar a Diciembre...
-console.log(resultado);
+console.log(resultado); // true
 
 
 // En el caso de un arreglo de objetos... .includes no es la mejor opción, podrías utilizar uno llamado .some

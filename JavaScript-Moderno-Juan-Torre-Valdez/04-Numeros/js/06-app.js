@@ -11,7 +11,7 @@ console.log(numero1);
 
 console.log(Number.parseInt(numero1)); // Convertir de String a Número
 console.log(Number.parseFloat(numero2)); // Convertir a número con decimales 
-console.log(Number.parseInt(numero3)); 
+console.log(Number.parseInt(numero3)); // NaN No es un numero
 
 // Revisar si un número es entero
 console.log(Number.isInteger(numero4) ); // Revisar si un número es entero o no

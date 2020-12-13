@@ -8,7 +8,7 @@ console.log(`${producto} ${texto} !!!`);
  
 
 
-// Split
+// Split, dividir un string en un array
 const actividad = 'Estoy aprendiendo Javascript Moderno';
 console.log(actividad.split(" "));
 

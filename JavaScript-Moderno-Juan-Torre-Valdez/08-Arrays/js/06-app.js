@@ -15,7 +15,7 @@ const producto3 =  {
     nombre: 'Teclado', 
     precio: 50
 }
-
+// forma declarativa. No modifica el objeto actual.
 // Para añadir producto al arreglo simplemente agregamos...
 let resultado = [...carrito, producto];
  resultado = [...resultado, producto2];

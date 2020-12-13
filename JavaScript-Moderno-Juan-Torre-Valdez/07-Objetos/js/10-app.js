@@ -1,19 +1,16 @@
+// En este video estaremos viendo la palabra this...
+// This se refiere al valor sobre el objeto o context que se esta ejecutando en ese momento
+
+
+// Aún no hemos visto las funciones, pero lo haremos en los próximos capitulos...
 
 const producto = {
     nombre: "Monitor 20 pulgadas",
     precio: 30,
-    disponible: true
+    disponible: true,
+    mostrarInfo: function() {
+        return `El Producto: ${this.nombre}  tiene un precio de ${this.precio}`;
+    }
 }
 
-
-const medidas = {
-    peso: '1 kg',
-    medida: '1 metro'
-}
-
-
-// Otra forma de hacerlo que se considera más moderna es con algo llamado el Spread Operator o Rest Operator
-
-const resultado = { ...producto, ...medidas};
-
-console.log(resultado);
+console.log(producto.mostrarInfo() );

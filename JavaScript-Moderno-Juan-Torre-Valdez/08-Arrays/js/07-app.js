@@ -21,10 +21,10 @@ carrito.unshift(producto3);
 // Veamos como Eliminar elementos de un arreglo... con un objeto solo se utiliza delete, los arreglos también son sencillos de manipular
 
 // Eliminar el primer elemento...
-// carrito.shift();
+carrito.shift();
 
 // // Eliminar el ultimo elemento...
-// carrito.pop();
+carrito.pop();
 
 
 // Ahora supongamos que deseas eliminar del centro...

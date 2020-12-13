@@ -20,5 +20,5 @@ console.log( producto.substring(2, 1) );  // Si el número es mayor al segundo, 
 // Si has visto algunos sitios web muestran tu primer letra de tu nombre:
 
 const nombre = "Juan";
-console.log(nombre.substring(0,1));
-console.log(nombre.charAt(0));
+console.log(nombre.substring(0,1)); //Forma1: corta la primera letra 
+console.log(nombre.charAt(0)); // Forma2: corta la primera letra 
