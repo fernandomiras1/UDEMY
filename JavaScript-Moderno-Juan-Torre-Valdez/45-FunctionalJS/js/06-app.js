@@ -17,4 +17,4 @@ const formatearNombre = (arg1, arg2) => `${arg1} - ${arg2}`;
 
 const mostrarNombre = formatearNombre;
 
-console.log(mostrarNombre(nombre, trabajo));
+console.log(mostrarNombre(nombre, trabajo)); 

@@ -12,7 +12,7 @@ datos.set('profesion', 'Desarrollador Web');
 
 // entries a las ciudades
 for( let entry of ciudades.entries() ){
-    console.log(entry);
+    console.log(entry); // Imprime llave y valor de nuestro arreglo [0, 'Londres']
 }
 
 // entries a las ordenes

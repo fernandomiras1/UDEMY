@@ -33,7 +33,7 @@ console.log( carrito.delete('Camisa') );
 console.log( carrito.has('Camisa') );
 console.log(carrito);
 
-// Limpiar un set
+// Limpiar un set ( vaciar todos los elementos. )
 carrito.clear();
 console.log(carrito);
 

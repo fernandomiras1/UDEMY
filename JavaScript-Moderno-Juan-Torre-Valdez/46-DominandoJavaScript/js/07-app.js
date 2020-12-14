@@ -24,4 +24,18 @@ new Promise(function(resolve) {
 
 console.log("Quinto!");
 
+/**
+ * 
+ * Resu en consola
+ * Primero
+ * Tercero
+ * Quinto
+ * 5To
+ * Segundo
+ * Cuarto
+ * 
+ *  
+ * 
+ */
+
 // El Event Loop esta revisando siempre por funciones que ejecutar, esas funciones pasan al stack, y una vez que se ejecutan, entonces comienza ir al queueue y comienza a ejecutar esas funciones...

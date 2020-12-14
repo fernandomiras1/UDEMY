@@ -22,9 +22,7 @@ const suma = (a,b,c) => a + b + c;
 
 // Podriamos dividir más esta función... a que sea un argumento en cada ocasion...
 
-const parcial = a => 
-    b => 
-        c => suma(a, b, c);
+const parcial = a => b => c => suma(a, b, c);
 
 const primerNumero = parcial(5);
 const segundoNumero = primerNumero(4);
@@ -35,3 +33,10 @@ console.log(resultado);
 // Otra opción seria...
 const resultadoParcial = parcial(5)(5)(3)
 console.log(resultadoParcial)
+
+//// Otra forma ( donde lo vi en intenert por mi parte FERNANDO MIRAS )
+
+var a = add(2)(3); //5
+var add = function(x) { 
+  return function(y) { return x + y; }; 
+}
