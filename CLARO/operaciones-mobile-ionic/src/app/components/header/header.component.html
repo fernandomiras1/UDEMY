@@ -1,0 +1,9 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="!isMenu" defaultHref="/home"></ion-back-button>
+      <ion-menu-button *ngIf="isMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>

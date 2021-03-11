@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "902448700150",
+    "firebase_url": "https://ingreso-egreso-app-8dec0.firebaseio.com",
+    "project_id": "ingreso-egreso-app-8dec0",
+    "storage_bucket": "ingreso-egreso-app-8dec0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902448700150:android:dd441213db603173016ad7",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902448700150-dr66k5a08mpckvtoe7qg4lkjc4nu4m24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUce1gkbtSnEVrL4-VAWXyEV8p0tGdh1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902448700150-dr66k5a08mpckvtoe7qg4lkjc4nu4m24.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

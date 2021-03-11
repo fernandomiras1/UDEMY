@@ -1,0 +1,43 @@
+<app-header title="Avisos"></app-header>
+
+<ion-content>
+  <ion-row class="ion-justify-content-start">
+    <ion-col size="10">
+      <form [formGroup]="form">
+        <ion-searchbar
+          placeholder="Buscar"
+          animated
+          debounce="700"
+          formControlName="search"
+        >
+        </ion-searchbar>
+      </form>
+    </ion-col>
+    <ion-col size="2">
+      <ion-fab-button
+        size="small"
+        color="light"
+        (click)="showFilterModal($event)"
+      >
+        <ion-icon name="filter"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let item of filteredOptions | async"
+      lines="none"
+      [color]="!item.isViewed ? 'light': 'text-color'"
+      (click)="open( item )"
+      detail
+    >
+      <ion-icon slot="start" [name]="item.icon" color="primary"> </ion-icon>
+      <ion-label>
+        <h2 [class.viewed]="!item.isViewed">{{ item.title }}</h2>
+        <p>{{ item.text }}</p>
+        <p>{{item.date}} &mdash; {{item.hour}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,24 @@
+<app-header title="Configuración"></app-header>
+
+<ion-content>
+  <ion-list-header>
+    <ion-label>AVISOS</ion-label>
+  </ion-list-header>
+  <ion-item>
+    <ion-icon *ngIf="!notificationPush" slot="start" name="notifications-off"></ion-icon>
+    <ion-icon *ngIf="notificationPush" slot="start" name="notifications"></ion-icon>
+    <ion-label>
+      Silenciar notificaciones push
+    </ion-label>
+    <ion-toggle [(ngModel)]="notificationPush"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-icon slot="start" name="settings"></ion-icon>
+    <ion-label>Mantener en teléfono durante</ion-label>
+    <ion-select value="2" okText="CONFIRMAR" cancelText="Cancelar">
+      <ion-select-option *ngFor="let item of selectOptionsTel" 
+        [value]="item.value">{{item.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>

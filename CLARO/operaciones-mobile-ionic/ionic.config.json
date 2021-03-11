@@ -1,0 +1,7 @@
+{
+  "name": "operaciones-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

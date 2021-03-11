@@ -1,0 +1,38 @@
+.menu-header {
+  text-align: center;
+  background-color: var(--ion-color-primary);
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  strong {
+    margin-top: 10px;
+    font-size: 20px;
+    color: white;
+    line-height: 26px;
+  }
+
+  p {
+    color: white;
+  }
+
+  &-mt37 {
+    margin-top: 37px;
+  }
+}
+
+ion-menu.md ion-item.selected {
+  --background: rgba(var(--ion-color-primary-rgb), 0.14);
+}
+
+ion-menu.md ion-item.selected ion-icon {
+  color: var(--ion-color-primary);
+}
+
+ion-menu.ios ion-item.selected ion-icon {
+  color: var(--ion-color-primary);
+}
+
+ion-item.selected {
+  --color: var(--ion-color-primary);
+}
