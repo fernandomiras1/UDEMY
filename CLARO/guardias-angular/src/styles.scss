@@ -164,7 +164,9 @@ body {
 .oy-scroll{
     overflow-y: scroll;
 }
-
+.oy-scroll-auto{
+    overflow-y: auto;
+}
 .v-hidden{
     visibility: hidden!important;
 }

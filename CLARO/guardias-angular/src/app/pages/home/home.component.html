@@ -3,7 +3,7 @@
 <div *ngIf="!userPhoneValidated" class="container-flex justify-content-center mt-1">
   <div style="width: 90%;" class="container-flex justify-content-space-b card-danger">
       <b class="align-self-center">
-        Atención: Se requiere completar la información de perfil para poder ser asignado a una guardia.
+        Atención: {{ notificationMessage() }}
       </b>
       <button [routerLink]="['/perfil',userID]"  mat-raised-button color="warn">Completar</button>
   </div>
@@ -396,12 +396,12 @@
         </ng-template>
       </div>
       <div class="div-info-create-delete div-table-underline">
-        <button *ngIf="(data.logged_user_present_organization == 1) || userCanSeenCalendar" (click)="goCalendarPage(data.id_grupo)" mat-mini-fab class="mat-elevation-z0 btn-icon">
+        <button *ngIf="(data.logged_user_present_organization == 1) || userCanSeenCalendar || isAdmin" (click)="goCalendarPage(data.id_grupo)" mat-mini-fab class="mat-elevation-z0 btn-icon">
           <mat-icon class="icon-calendar fs-14 icons-info-create-delete">calendar_today</mat-icon>
         </button>
       </div>
       <div class="div-info-create-delete div-table-underline">
-        <div *ngIf="data.logged_user_present_organization == 1 && userCanSeeActions">
+        <div *ngIf="(data.logged_user_present_organization == 1 && userCanSeeActions) || isAdmin">
           <button mat-mini-fab class="mat-elevation-z0 btn-icon" [routerLink]="['/detalle-grupo/'+ data.tipo_grupo + '/' + data.id_grupo]">
             <mat-icon class="icon-calendar fs-14 icons-info-create-delete">create</mat-icon>
           </button>

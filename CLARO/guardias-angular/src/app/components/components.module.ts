@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'angular-custom-modal';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ModalDeleteRepetitionsComponent } from './modal-delete-repetitions/modal-delete-repetitions.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../material/material.module';
-import { AppRoutingModule } from './../app-routing.module';
+import { RouterModule } from '@angular/router';
 import { SelectComponent } from './select/select.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ModalValidarTelefonoComponent } from './modal-validar-telefono/modal-validar-telefono.component';
@@ -43,11 +42,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   imports: [
-    BrowserModule,
     CommonModule,
-    AppRoutingModule,
     MaterialModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     TooltipModule,
     PipesModule,
@@ -55,7 +53,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgxMaskModule.forRoot(options),
     Ng2SearchPipeModule,
     NgxUsefulSwiperModule,
-    ModalModule
+    ModalModule,
   ],
   declarations: [
     CardComponent,

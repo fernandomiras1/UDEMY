@@ -14,8 +14,11 @@ import { DataObsService } from '@app/services/data-obs.service';
 export class ModalDeleteTurnComponent implements OnInit {
   dateStartEnd;
   id_plantilla_usuario;
+  id_plantilla_grupo;
   showLoadingModal;
   turno;
+  grupal;
+  grupalInfo;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<ModalDeleteTurnComponent>,
@@ -23,14 +26,18 @@ export class ModalDeleteTurnComponent implements OnInit {
               private dataobsservice: DataObsService,
               private notificationsService: NotificationsService
               ) { 
-                const { turno, id_plantilla_usuario } = data;
+                const { turno, id_plantilla_usuario, id_plantilla_grupo, grupal, grupalInfo} = data;
                 this.turno = turno;
                 this.dateStartEnd = turno.turno.template_user;
                 this.id_plantilla_usuario = id_plantilla_usuario;
+                this.id_plantilla_grupo = id_plantilla_grupo;
+                this.grupal = grupal;
+                this.grupalInfo = grupalInfo;
               }
 
   ngOnInit(): void {
     this.dialogRef.updatePosition({ top: `20px` });
+    console.log(SessionManagerService.user());
   }
   closeModal() {
     this.dialogRef.close();
@@ -39,15 +46,20 @@ export class ModalDeleteTurnComponent implements OnInit {
     
     let guardRange = this.verifyIfDatesBelongsToSameDay(this.turno.turno)
 
-    let deleteGuard = {
-      fecha_repeticion_inicia: guardRange.from,
-      fecha_repeticion_hasta:guardRange.to,
+    const data = {
+      id_plantilla_usuario: this.id_plantilla_usuario,
+      id_plantilla_grupo: this.id_plantilla_grupo,
+      fecha_inicial: guardRange.from,
+      fecha_final:guardRange.to,
+      grupal:this.grupal
     }
     
     this.showLoadingModal = true;
-    this.turnosService.deleteTurn(this.id_plantilla_usuario, deleteGuard).subscribe(res => {
-      const guard = this.turno.turno.template_user.user;
-      this.notification(guard);
+    this.turnosService.deleteTurn(data).subscribe(() => {
+      if(this.grupal)
+        this.notificationForGroup();
+      else
+        this.notificationForGuard();
     });
   }
 
@@ -67,7 +79,8 @@ export class ModalDeleteTurnComponent implements OnInit {
     }
   }
 
-  notification(guard) {
+  notificationForGuard() {
+    const guard = this.turno.turno.template_user.user;
 
     const date = moment().format('DD/MM/YYYY HH:mm');
 
@@ -78,10 +91,31 @@ export class ModalDeleteTurnComponent implements OnInit {
       idusurecep:idusuario,
       mensaje:`${apellido}, ${nombre} se eliminaron guardias el dia ${date}`,
     })
-    .subscribe(() => {
-      this.showLoadingModal = false;
-      this.closeModal();
-      this.dataobsservice.refreshGrid.emit();
-    });
+    .subscribe(() => this.reload());
   }
+
+  notificationForGroup()
+  {
+    const { lista_distribucion } = this.grupalInfo;
+    const { id_usuario, nombre, apellido} = SessionManagerService.user()
+    const date = moment().format('DD/MM/YYYY HH:mm');
+    
+    this.notificationsService.send({
+      idususol: id_usuario,
+      email : lista_distribucion,
+      mensaje:`${apellido}, ${nombre} se eliminaron guardias el dia ${date}`,
+    })
+    .subscribe(
+      () => this.reload(),
+      () => this.reload()
+    );
+  }
+
+  reload()
+  {
+    this.showLoadingModal = false;
+    this.dialogRef.close();
+    this.dataobsservice.refreshGrid.emit();
+  }
+
 }

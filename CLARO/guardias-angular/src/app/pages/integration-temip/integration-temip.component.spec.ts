@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { IntegrationTemipComponent } from './integration-temip.component';
 
@@ -6,7 +6,7 @@ describe('IntegrationTemipComponent', () => {
   let component: IntegrationTemipComponent;
   let fixture: ComponentFixture<IntegrationTemipComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ IntegrationTemipComponent ]
     })

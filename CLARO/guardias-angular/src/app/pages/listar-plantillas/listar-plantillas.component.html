@@ -2,7 +2,7 @@
 
 
 <div class="pt-3 pl-5 pb-1">
-    <button *ngIf="user.grupo_remedy === role.ADMIN"
+    <button *ngIf="user.roles.includes(profile.ADMIN)"
       mat-raised-button
       class="ml-5 mat-focus-indicator bg-color-claro txt-white btn-claro mat-raised-button mat-button-base"
       tabindex="0"

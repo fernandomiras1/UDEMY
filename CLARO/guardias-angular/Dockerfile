@@ -1,5 +1,4 @@
-#FROM node:13.3.0 AS compile-image
-FROM 10.2.206.8:8001/angular/node:13.3.0 AS compile-image 
+FROM 10.2.206.8:8001/angular/node:14.15.1 AS compile-image
 
 WORKDIR /opt/ng
 COPY package.json package-lock.json ./

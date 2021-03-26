@@ -8,7 +8,7 @@ const local = false;
 export const environment = {
   production: false,
   URL: local ? 'http://localhost:9100/' : 'http://10.2.206.8:9092',
-  sendNotification:false
+  emailDev: 'claronotificaciones@incluit.com'
 };
 
 

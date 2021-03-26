@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalDisabledTurnComponent } from './modal-disabled-turn.component';
 
@@ -6,7 +6,7 @@ describe('ModalDisabledTurnComponent', () => {
   let component: ModalDisabledTurnComponent;
   let fixture: ComponentFixture<ModalDisabledTurnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalDisabledTurnComponent ]
     })

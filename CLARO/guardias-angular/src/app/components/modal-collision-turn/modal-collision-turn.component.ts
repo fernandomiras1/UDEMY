@@ -6,6 +6,8 @@ import GridNavigation from "../../pages/turnos-licencias/grid-navigation";
 import { SessionManagerService } from '@app/services/session-manager.service';
 import { NotificationsService } from "../../services/notifications/notifications.service";
 import { DataObsService } from '@app/services/data-obs.service';
+import { getUserByIdFromCollisions, IDguardsReplaced } from '@app/utils/collision.notifications';
+import { titlecase } from '@app/utils/titlecase.string';
 
 @Component({
   selector: 'app-modal-collision-turn',
@@ -176,11 +178,10 @@ export class ModalCollisionTurnComponent implements OnInit {
       this.disableConfirm = true;
       this.turnosLicenciasService.confirmCollisions(responseRequestData)
       .subscribe(() => {
-        //this.prepareNotifications(this.item.guard,this.collisions,this.selectedGroup,responseRequestData.solucion_colisiones)
+        this.prepareNotifications(this.item.guard,this.collision,this.selectedGroup,responseRequestData.solucion_colisiones)
         this.dialogRef.close();
         this.dataobsservice.refreshGrid.emit();
       });
-
     
   }
 
@@ -191,40 +192,26 @@ export class ModalCollisionTurnComponent implements OnInit {
 
   sendNotificacionAssignedToNewGuard(currentUser,selection) {
     if(selection != 'previous_user') {
-      const {id_usuario, nombre_usuario, apellido_usuario} = currentUser;
-      this.notification(id_usuario, nombre_usuario, apellido_usuario, 'create');
+      const {id_usuario, nombre, nombre_usuario, apellido, apellido_usuario} = currentUser;
+      const nameUser = nombre ? nombre : nombre_usuario;
+      const lastNameUser = apellido ? apellido : apellido_usuario;
+      this.notification(id_usuario, nameUser, lastNameUser, 'create');
     }
   }
 
-  sendNotificationToReplacedUsers(currentUserID,selection,solutions,collisions) {
-    const IDreplaced = this.IDguardsReplaced(currentUserID,selection,solutions);
+  sendNotificationToReplacedUsers(currentUserID, selection, solutions, collisions) {
+    const IDreplaced = IDguardsReplaced(currentUserID,selection,solutions);
     IDreplaced.forEach(id => {
-      const {id_user, nombre, apellido} = this.getUserByID(id,collisions)
+      const {id_user, nombre, apellido} = getUserByIdFromCollisions(id,collisions.collisions);
       this.notification(id_user, nombre, apellido, 'delete');
     })
   }
 
-  IDguardsReplaced(currentUserID,selection,solutions) {
-    if(selection === 'collision_user' || selection == null) {
-      return [...new Set(
-          solutions
-          .filter(c => c.id_asignation_user_update == currentUserID)
-          .map( c => c.id_previus_user )
-        )
-      ];
-    }
-    return [];
-  }
-
-  getUserByID(id,collisions){
-    return collisions
-    .map(c => c.previous_user.data_user)
-    .find( u => u.id_user == id)
-  }
-  
   notification(id_usuario, nombre_usuario, apellido_usuario, action) {
 
     const date = moment().format('DD/MM/YYYY HH:mm');
+
+    const fullName = titlecase(`${apellido_usuario}, ${nombre_usuario}`);
 
     const message = {
       create:'se le asignaron guardias el dia ' + date,
@@ -235,7 +222,7 @@ export class ModalCollisionTurnComponent implements OnInit {
     this.notificationsService.send({
       idususol:SessionManagerService.user().id_usuario,
       idusurecep:id_usuario,
-      mensaje:`${apellido_usuario}, ${nombre_usuario} ${message[action]}`
+      mensaje:`${fullName} ${message[action]}`
     })
     .subscribe(response => console.log(response))
   }

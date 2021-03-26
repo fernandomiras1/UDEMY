@@ -54,7 +54,7 @@ export class GrupoService {
   }
 
   saveDetailGroup(id: string, data: any) {
-    const { dataGroup, plantillaChanges } = data;
+    const { dataGroup, plantillaChanges, categories } = data;
   
     const info = {
       nombre_grupo: (dataGroup.nombre_grupo && dataGroup.nombre_grupo.toString()) || '',
@@ -64,10 +64,16 @@ export class GrupoService {
       linea_rotativo_requerido: this.booleanToString(dataGroup.linea_rotativo_requerido),
       usuario_creador: (dataGroup.id_usuario_jefe && dataGroup.id_usuario_jefe.toString()) || '',
       descripcion: (dataGroup.descripcion && dataGroup.descripcion.toString()) || '',
-      plantilla_horario:plantillaChanges
+      plantilla_horario:plantillaChanges,
+      categories: categories,
+      programacion_grupal: dataGroup.programacion_grupal,
+      lista_distribucion: dataGroup.lista_distribucion,
     };
     
-    return this.http.put(`${URL}/group/service/${id}`, info, { headers: this.generalService.headers });
+    return this.http.put(`${URL}/group/service/${id}`, info, { headers: this.generalService.headers })
+    .pipe(
+      map(this.mapTemplatesWithInitialValues)
+    );
   }
 
   verifyGuardAssignments(data: any) {

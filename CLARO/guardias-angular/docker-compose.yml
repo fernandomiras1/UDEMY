@@ -17,5 +17,5 @@ services:
       - ./tsconfig.json:/usr/src/app/tsconfig.json
       - ./tslint.json:/usr/src/app/tslint.json
       - ./package.json:/usr/src/app/package.json
-    entrypoint: ng serve --host 0.0.0.0 --poll 1
+    entrypoint: ng serve --host 0.0.0.0 --port 4200 --poll 1
     

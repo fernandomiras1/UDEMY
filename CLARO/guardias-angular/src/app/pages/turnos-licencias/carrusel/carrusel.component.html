@@ -6,56 +6,74 @@
       </button>
     </div>
     <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let guardia of guardias; let first = first;" [ngClass]="{'ml-2': first}">
-        <span *ngIf="guardia.status === 'active'"
-              [ngClass]="[guardia.statusClass]"
-              [dndDraggable]="guardia"
-              [dndEffectAllowed]="draggable.effectAllowed"
-              (dndStart)="onDragStart(guardia)"
-              (dndCanceled)="onDragCanceled()"
-              (dndEnd)="onDragEnd()"
-              dndDraggingClass = "drag-user"
-              class="item-carousel-list-group">
-              {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
-        </span>
-        <span *ngIf="guardia.status === 'disable'"
-              [ngClass]="[guardia.statusClass]"
-              [tooltip]="htmlTooltipMsg"
-              hide-delay="100"
-              content-type="template"
-              placement="bottom"
-              class="item-carousel-list-group">
-              {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
-        </span>
-        <span *ngIf="guardia.status === 'license'"
-              [ngClass]="[guardia.statusClass]"
-              [tooltip]="htmlTooltipMsg"
-              hide-delay="100"
-              content-type="template"
-              placement="bottom"
-              [dndDraggable]="guardia"
-              [dndEffectAllowed]="draggable.effectAllowed"
-              (dndStart)="onDragStart(guardia)"
-              (dndCanceled)="onDragCanceled()"
-              (dndEnd)="onDragEnd()"
-              dndDraggingClass = "drag-user"
-              class="item-carousel-list-group">
-              {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
-        </span>
-        <ng-template #htmlTooltipMsg>
-          <div class="flex-column" style="padding: 10px;">
-            <span class="txt-bold fs-12">IMPOSIBLE ASIGNAR</span>
-            <div class="flex-column mt-10p">
-              <label class="fw-300 txt-white fs-12">
-                {{messageTooltip[guardia.status].txt1}}
-              </label>
-              <label class="fw-300 txt-white fs-12">
-                {{messageTooltip[guardia.status].txt2}}
-              </label>
+      <ng-container *ngIf="isGrupal">
+        <div class="swiper-slide" class="ml-2">
+          <span 
+            [dndDraggable]="1"
+            [dndEffectAllowed]="draggable.effectAllowed"
+            (dndStart)="onDragStart(1)"
+            (dndCanceled)="onDragCanceled()"
+            (dndEnd)="onDragEnd()"
+            dndDraggingClass = "drag-user"
+            class="item-carousel-list-group item-carousel-bg-active"
+          >
+            {{ grupo.nombre_grupal | titlecase }}
+          </span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isGrupal">
+        <div class="swiper-slide" *ngFor="let guardia of guardias; let first = first;" [ngClass]="{'ml-2': first}">
+          <span *ngIf="guardia.status === 'active'"
+                [ngClass]="[guardia.statusClass]"
+                [dndDraggable]="guardia"
+                [dndEffectAllowed]="draggable.effectAllowed"
+                (dndStart)="onDragStart(guardia)"
+                (dndCanceled)="onDragCanceled()"
+                (dndEnd)="onDragEnd()"
+                dndDraggingClass = "drag-user"
+                class="item-carousel-list-group">
+                {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
+          </span>
+          <span *ngIf="guardia.status === 'disable'"
+                [ngClass]="[guardia.statusClass]"
+                [tooltip]="htmlTooltipMsg"
+                hide-delay="100"
+                content-type="template"
+                placement="bottom"
+                class="item-carousel-list-group">
+                {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
+          </span>
+          <span *ngIf="guardia.status === 'license'"
+                [ngClass]="[guardia.statusClass]"
+                [tooltip]="htmlTooltipMsg"
+                hide-delay="100"
+                content-type="template"
+                placement="bottom"
+                [dndDraggable]="guardia"
+                [dndEffectAllowed]="draggable.effectAllowed"
+                (dndStart)="onDragStart(guardia)"
+                (dndCanceled)="onDragCanceled()"
+                (dndEnd)="onDragEnd()"
+                dndDraggingClass = "drag-user"
+                class="item-carousel-list-group">
+                {{guardia.apellido_usuario + ", " + guardia.nombre_usuario | titlecaseAll}}
+          </span>
+          <ng-template #htmlTooltipMsg>
+            <div class="flex-column" style="padding: 10px;">
+              <span class="txt-bold fs-12">IMPOSIBLE ASIGNAR</span>
+              <div class="flex-column mt-10p">
+                <label class="fw-300 txt-white fs-12">
+                  {{messageTooltip[guardia.status].txt1}}
+                </label>
+                <label class="fw-300 txt-white fs-12">
+                  {{messageTooltip[guardia.status].txt2}}
+                </label>
+              </div>
             </div>
-          </div>
-        </ng-template>
-      </div>
+          </ng-template>
+        </div>
+      </ng-container>
+
     </div>
     <div style="right: 1px;" class="bg-white div-btn-prev-next-carousel" *ngIf="guardias.length > 13">
       <button class="btn-prev-next-carousel c-pointer" (click)="swiperNext(usefulSwiper)">

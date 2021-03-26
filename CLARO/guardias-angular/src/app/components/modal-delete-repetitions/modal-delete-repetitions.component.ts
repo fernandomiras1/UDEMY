@@ -14,7 +14,7 @@ export class ModalDeleteRepetitionsComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ModalDeleteRepetitionsComponent>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
   }

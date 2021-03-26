@@ -13,6 +13,10 @@ export enum ROLE {
   ADMIN = 'ARG-MV-GESTION Y SOPORTE OPERATIVO'
 }
 
+export enum USER_PROFILE {
+  ADMIN = 'admin'
+}
+
 export enum ToggleType {
   OPEN = -1,
   CLOSED = -2

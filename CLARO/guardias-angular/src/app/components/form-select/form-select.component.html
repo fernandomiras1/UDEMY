@@ -45,11 +45,11 @@
     <ng-template #HtmlContent>
         Número completo
     </ng-template>
-    <div [class.v-hidden]="!disable" (click)="validatePhoneNumber()" *ngIf="showButtonForValidation && !ButtonForValidationIsLoading" class="phone-icon ml-1">
-        <span class="material-icons">
+    <span [class.v-hidden]="!disable" (click)="validatePhoneNumber()" *ngIf="showButtonForValidation && !ButtonForValidationIsLoading" class="ml-1">
+        <span class="material-icons phone-icon">
             stay_current_portrait
         </span>
-    </div>
+    </span>
     <div [class.v-hidden]="!disable" *ngIf="showButtonForValidation && ButtonForValidationIsLoading" class="phone-icon active ml-1">
         <div>
             <mat-spinner diameter="30"></mat-spinner>

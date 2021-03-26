@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { conditionalValidator } from '../../utils/conditional.validator';
+import { conditionalValidator, REGEX_EMAIL } from '../../utils/conditional.validator';
 import { FormBuilder, Validators, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { GroupType } from '../../utils/common.enum';
 import { GrupoService } from '@app/services/grupo.service';
@@ -12,7 +12,7 @@ import { SubCategories, Category, CateOption } from '@app/models/group.model';
 })
 
 export class NewGroupComponent implements OnInit {
-
+  regexEmail = REGEX_EMAIL;
   public groupForm = this.fb.group({
     type: ['', Validators.required],
     isSelectType: [false],
@@ -27,6 +27,13 @@ export class NewGroupComponent implements OnInit {
       '')],
       numberCorpGuard: false,
       numberGuard: false,
+      isGroup: false,
+      nameGroup: ['', conditionalValidator(() => this.isGroup.value,Validators.required,'')],
+      distributionList: ['', [
+        Validators.pattern(this.regexEmail),
+        conditionalValidator(() => this.isGroup.value,Validators.required,'')
+        ]
+      ],
       zoneGMT: ''
     })
   });
@@ -46,6 +53,11 @@ export class NewGroupComponent implements OnInit {
       if (!value) {
         this.numberRotary.setValue('');
       }
+    });
+    
+    this.isGroup.valueChanges.subscribe(() => {
+      this.nameGroup.updateValueAndValidity();
+      this.distributionList.updateValueAndValidity();
     });
   }
 
@@ -76,11 +88,11 @@ export class NewGroupComponent implements OnInit {
   }
 
   selectSubCateType(data: Category, option: CateOption): void {
-    this.categories.value.forEach(cate => {
-      if(option.id === cate.id) {
+    this.categories.value.forEach(category => {
+      if(option.id === category.id) {
         const value = `${data.category[0].toUpperCase()}:${option.name.toUpperCase()}`;
-        cate.checked = cate.checked == 0 ? 1 : 0;
-        if (cate.checked) {
+        category.checked = category.checked == 0 ? 1 : 0;
+        if (category.checked) {
           this.selectedSitioType.push(value);
         } else {
           this.selectedSitioType = this.selectedSitioType.filter((name: string) => name !== value);
@@ -107,8 +119,10 @@ export class NewGroupComponent implements OnInit {
   }
 
   get validatePhones(): boolean {
-		return (this.shownumberRotary.value || this.numberCorpGuard.value ||
+    const isValid = (this.shownumberRotary.value || this.numberCorpGuard.value ||
 			this.numberGuard.value) ? false : true;
+    
+    return !this.isGroup.value ? isValid : false; 
   }
 
   get groupFormValid(): boolean {
@@ -158,5 +172,17 @@ export class NewGroupComponent implements OnInit {
 
   get numberGuard() {
     return this.data.get('numberGuard');
+  }
+  
+  get isGroup() {
+    return this.data.get('isGroup');
+  }
+  
+  get nameGroup() {
+    return this.data.get('nameGroup');
+  }
+  
+  get distributionList() {
+    return this.data.get('distributionList');
   }
 }

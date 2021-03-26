@@ -1,48 +1,65 @@
 <!-- Navbar -->
-<app-navbar [nombreGroup]="'Perfil'" optionsRoutesPage="{{2}}" [calendar]="false" detailGroup="true"></app-navbar>
+<app-navbar [headerTitle]="fullName" optionsRoutesPage="{{2}}" [calendar]="false" detailGroup="true"></app-navbar>
 
 <!-- Content -->
-<section id="perfilContent" *ngIf="userProfile">
+<section id="perfilContent" *ngIf="userProfile" class="mt-1">
 	<article>
 		<app-card [props]="{ title: 'Datos de Usuario', gridSize: 4 }">
 			<div class="form-group">
-				<h4>Nombre y apellido</h4>
-				<h3>{{ userProfile.user.apellido | titlecase }} {{ userProfile['user'].nombre | titlecase }}</h3>
+				<h4>Legajo corporativo</h4>
+				<h3>{{ userProfile.user.legajo_corpo | uppercase }}</h3>
 			</div>
 			<div class="form-group">
 				<h4>Usuario remedy</h4>
 				<h3>{{ userProfile.user.usuario_remedy }}</h3>
 			</div>
 			<div class="form-group">
-				<h4>Grupo remedy</h4>
-				<h3>{{ userProfile.user.grupo_remedy }}</h3>
+				<h4>Jefe</h4>
+				<h3>{{ userProfile.user.jefe }}</h3>
 			</div>
 			<div class="form-group">
-				<h4>Legajo corporativo</h4>
-				<h3>{{ userProfile.user.legajo_corpo }}</h3>
+				<h4>Gerencia</h4>
+				<h3>{{ userProfile.user.organization_remedy | uppercase }}</h3>
 			</div>
 		</app-card>
-		<app-card [props]="{ title: 'Contacto', gridSize: 1 }">
-			<div class="container-flex justify-content-end">
-				<img (click)="enable()" class="c-pointer" *ngIf="userProfile.is_editable && this.disableInputs" alt="claro-logo" src="../assets/imgs/Editar.svg">
-			</div>
-			<form class="grid-2" [formGroup]="profileForm">
-				<div class="form-group">
-					<span *ngFor="let item of phones; index as i">
-						<h4>{{item.name}}</h4>
-						<app-form-select (phoneNumberEmitter)="phoneNumberCapture($event)" [disable]="disableInputs" [profileForm]="profileForm" [props]="{index:i, code:item.code, number: item.number, model: item.name | removespace | lowercase, showButtonForValidation:item.showButtonForValidation,required:item.required,sigos:item.sigos }"></app-form-select>
-					</span>
+
+		<div style="display: flex; justify-content: space-between;">
+			<app-card style="width: 35%;" [props]="{ title: 'Grupos Remedy', gridSize: 1 }">
+				<div class="oy-scroll-auto" style="min-height: 289px;max-height: 289px;">
+					<div *ngFor="let remedy of userProfile.user.grupos_remedy" class="mb-1"> 
+						- {{ remedy | uppercase }}
+					</div>
 				</div>
-			</form>
-			<div class="container-flex justify-content-end">
-				<button [disabled]="!disableSubmit" [ngClass]="{'disabled-btn-effect':!disableSubmit,'v-hidden':disableInputs}" (click)="saveChanges()" id="button-save" mat-raised-button class="bg-color-claro txt-white btn-claro mt-1">
-					<label class="c-pointer">GUARDAR CAMBIOS</label>
-				</button>
-			</div>
-		</app-card>
+			</app-card>
+
+			<app-card style="width: 60%;" [props]="{ title: 'Teléfonos de contacto', gridSize: 1 }">
+				<div class="container-flex justify-content-space-b">
+					<p style="color: #777778;">
+						Una tilde indica que el celular fue ingresado. <br>
+						Doble tilde indica que fue validado.
+					</p>
+					<img (click)="enable()" class="c-pointer" *ngIf="userProfile.is_editable && this.disableInputs" alt="claro-logo" src="../assets/imgs/Editar.svg">
+				</div>
+				<form class="grid-2" [formGroup]="profileForm">
+					<div class="form-group">
+						<span *ngFor="let item of phones; index as i">
+							<h4>{{item.name}}</h4>
+							<app-form-select (phoneNumberEmitter)="phoneNumberCapture($event)" [disable]="disableInputs" [profileForm]="profileForm" [props]="{index:i, code:item.code, number: item.number, model: item.name | removespace | lowercase, showButtonForValidation:item.showButtonForValidation,required:item.required,sigos:item.sigos }"></app-form-select>
+						</span>
+					</div>
+				</form>
+				<div class="container-flex justify-content-end">
+					<button [disabled]="!disableSubmit" [ngClass]="{'disabled-btn-effect':!disableSubmit,'v-hidden':disableInputs}" (click)="saveChanges()" id="button-save" mat-raised-button class="bg-color-claro txt-white btn-claro mt-1">
+						<label class="c-pointer">GUARDAR CAMBIOS</label>
+					</button>
+				</div>
+			</app-card>
+		</div>
+
+
 	</article>
 	<div class="sigos">
-		<h3><b>Validaciones</b></h3>
+		<h3><b>Validaciones de SIGOS</b></h3>
 		<app-sigos-validation [sigos]="this.sigosAside"></app-sigos-validation>
 		<div class="container-flex justify-content-end">
 			<b class="txt-color-claro mt-1 c-pointer" (click)="openModal()">VER MÁS >></b>

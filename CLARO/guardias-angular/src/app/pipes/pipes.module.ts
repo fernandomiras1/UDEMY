@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from './truncate.pipe';
 import { SortByPipe } from './sort-by.pipe';
+import { UppercasePipe } from './uppercase.pipe';
 
 @NgModule({
    imports: [
@@ -21,7 +22,8 @@ import { SortByPipe } from './sort-by.pipe';
       StringifyPipe,
       TitlecaseAll,
       TruncatePipe,
-      SortByPipe
+      SortByPipe,
+      UppercasePipe
    ],
    exports: [
       DayNamePipe,

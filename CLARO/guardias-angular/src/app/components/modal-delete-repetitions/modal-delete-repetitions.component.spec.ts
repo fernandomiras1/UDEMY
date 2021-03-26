@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalDeleteRepetitionsComponent } from './modal-delete-repetitions.component';
 
@@ -6,7 +6,7 @@ describe('ModalDeleteRepetitionsComponent', () => {
   let component: ModalDeleteRepetitionsComponent;
   let fixture: ComponentFixture<ModalDeleteRepetitionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalDeleteRepetitionsComponent ]
     })

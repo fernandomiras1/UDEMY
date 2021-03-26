@@ -116,13 +116,14 @@ export class FormSelectComponent implements OnInit {
   }
 
   changed(phone:string,fromDropdown = false):void {
-    const parsedPhone = this.parsePhone(phone)
-    this.phoneNumberEmitter.emit(parsedPhone)
-    this.isNumberFormatCorret = parsedPhone.isValid
-
     if(phone.length == 0 && !fromDropdown) {
       this.resetInput()
     }
+
+    const parsedPhone = this.parsePhone(phone)
+    this.isNumberFormatCorret = parsedPhone.isValid
+    this.phoneNumberEmitter.emit(parsedPhone)
+
   }
 
   resetInput(){

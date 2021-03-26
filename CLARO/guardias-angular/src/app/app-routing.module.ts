@@ -1,18 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
-import { NuevoGrupoComponent } from './pages/nuevo-grupo/nuevo-grupo.component';
-import { DetalleGrupoComponent } from './pages/detalle-grupo/detalle-grupo.component';
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuardGuard } from './guards/admin-guard.guard';
 import { HomeGuard } from './guards/home.guard';
-import { TurnosLicenciasComponent } from './pages/turnos-licencias/turnos-licencias.component';
-import { ListarPlantillasComponent } from './pages/listar-plantillas/listar-plantillas.component';
-import { NuevaPlantillaComponent } from './pages/nueva-plantilla/nueva-plantilla.component';
-import { IntegrationTemipComponent } from './pages/integration-temip/integration-temip.component';
-
 
 const routes: Routes = [
   {
@@ -22,52 +12,53 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
-    canActivate: [HomeGuard]
+    canActivate: [HomeGuard],
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'home',
-    component: HomeComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'perfil/:id',
-    component: PerfilComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
   },
   {
     path: 'nuevo-grupo',
-    component: NuevoGrupoComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    loadChildren: () => import('./pages/nuevo-grupo/nuevo-grupo.module').then(m => m.NuevoGrupoModule)
   },
   {
     path: 'detalle-grupo/:tipo_grupo/:id',
-    component: DetalleGrupoComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    loadChildren: () => import('./pages/detalle-grupo/detalle-grupo.module').then(m => m.DetalleGrupoModule)
   },
   {
     path: 'calendario/:id',
-    component: TurnosLicenciasComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    loadChildren: () => import('./pages/turnos-licencias/turnos-licencias.module').then(m => m.TurnosLicenciasModule)
   },
   {
-    path: 'plantilla/listar', component: ListarPlantillasComponent,
-    canActivate: [LoginGuard, AdminGuardGuard]
+    path: 'plantilla/listar',
+    canActivate: [LoginGuard, AdminGuardGuard],
+    loadChildren: () => import('./pages/listar-plantillas/listar-plantillas.module').then(m => m.ListarPlantillasModule)
   },
   {
-    path: 'plantilla/crear', component: NuevaPlantillaComponent,
-    canActivate: [LoginGuard, AdminGuardGuard]
+    path: 'plantilla/crear',
+    canActivate: [LoginGuard, AdminGuardGuard],
+    loadChildren: () => import('./pages/nueva-plantilla/nueva-plantilla.module').then(m => m.NuevaPlantillaModule)
   },
   {
-    path: 'integracion/temip', 
-    component: IntegrationTemipComponent
+    path: 'integracion/temip',
+    loadChildren: () => import('./pages/integration-temip/integration-temip.module').then(m => m.IntegrationTemipModule)
   },
 
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -14,6 +14,10 @@ import GridNavigation from "../../pages/turnos-licencias/grid-navigation";
 import { SessionManagerService } from "../../services/session-manager.service";
 import { NotificationsService } from "../../services/notifications/notifications.service";
 import { DataObsService } from '@app/services/data-obs.service';
+import { getUserByIdFromCollisions, IDguardsReplaced } from '@app/utils/collision.notifications';
+import { hasIntersection } from '@app/utils/intersection.array';
+import { ProfileService } from '@app/services/profile.service';
+import { SigosService } from '@app/services/sigos/sigos.service';
 
 @Component({
   selector: 'app-modal-turno',
@@ -25,7 +29,7 @@ export class ModalTurnoComponent implements OnInit {
   disabledSelect: Boolean;
   typeModal;
   bodyModal;
-  fechaPlantilla = moment();
+  fechaPlantilla;
   daysBtns = [
     {
       id: 1,
@@ -101,6 +105,8 @@ export class ModalTurnoComponent implements OnInit {
   }
   dateFilter;
   dates;
+  grupal:boolean;
+  grupalInfo;
 
   minDate: Date;
   maxDate: Date; 
@@ -138,16 +144,38 @@ export class ModalTurnoComponent implements OnInit {
     private generalService: GeneralService,
     public dialog: MatDialog,
     private notificationsService: NotificationsService,
-    private dataobsservice: DataObsService
+    private dataobsservice: DataObsService,
+    private sigosService: SigosService
   ) {
     this.gridNavigation = new GridNavigation()
-
-    let {id_plantilla_usuario, edit, disabledSelect, type, guards, fechaPlantilla, guardSelected, turno, dates, optsDropDownAsignation, partialEdition} = data;
+    this.fechaPlantilla = moment();
+    let {
+      id_plantilla_usuario, 
+      edit, 
+      disabledSelect, 
+      type, 
+      guards, 
+      fechaPlantilla, 
+      guardSelected, 
+      turno, 
+      dates, 
+      optsDropDownAsignation, 
+      partialEdition,
+      grupal,
+      grupalInfo,
+    } = data;
+    this.typeModal = type;
+    if ( data.type === 'customized') {
+      return;
+    }
+    this.grupal = grupal;
+    this.grupalInfo = grupalInfo;
     //Es para switchear entre los distintos modales
     this.isEdit = edit ? edit : false;
     this.partialEdition = partialEdition;
     this.id_plantilla_usuario = id_plantilla_usuario ? id_plantilla_usuario : false;
     let repetitionID = '1';
+
     if(data['datosTurno']) {
       turno = data['datosTurno'].turno;
       repetitionID = turno.template_user.rules_repetition.id_repeticion
@@ -171,7 +199,6 @@ export class ModalTurnoComponent implements OnInit {
       this.dataGuardTurnModal.guard = guardSelected;
       this.errorsMessage.general = true;
     }
-    this.typeModal = type;
     if(this.typeModal === 'asignar-turno') {
       this.disabledSelect = disabledSelect;
       //Esta fecha es la seleccionada del turno
@@ -239,12 +266,16 @@ export class ModalTurnoComponent implements OnInit {
 
   setDefaultDaysSelectedForRepetitions(turn, repetitionID){
 
-    if(['2', '3'].includes(repetitionID) && "template_user" in turn){
-      const daysOfWeek = turn.template_user.rules_repetition.dias_repeticion.split(',');
-      
-      this.dataGuardTurnModal.dias_repeticion = daysOfWeek;
-  
-      this.daysBtns.filter(btn => !daysOfWeek.includes(btn.fulltxt)).forEach(btn => btn.active = false);
+    if(['2', '3','5'].includes(repetitionID) && "template_user" in turn){
+
+      if(turn.template_user.rules_repetition.dias_repeticion)
+      {
+        const daysOfWeek = turn.template_user.rules_repetition.dias_repeticion.split(',');
+        
+        this.dataGuardTurnModal.dias_repeticion = daysOfWeek;
+    
+        this.daysBtns.filter(btn => !daysOfWeek.includes(btn.fulltxt)).forEach(btn => btn.active = false);
+      }
     }
   }
 
@@ -328,13 +359,21 @@ export class ModalTurnoComponent implements OnInit {
     }
   }
 
+  get getDisabledEffect():boolean 
+  {
+    return this.phoneNotValidated() || !this.errorsMessage.general || (!this.grupal && !this.dataGuardTurnModal.guard)
+  }
+
 
   closeModal() {
     this.dialogRef.close();
   }
 
   ngAfterViewInit() {
-    this.setInitialValue();
+    if(!this.grupal)
+    {
+      this.setInitialValue();
+    }
   }
 
   ngOnDestroy() {
@@ -504,11 +543,6 @@ export class ModalTurnoComponent implements OnInit {
     day.active = !day.active;
     this.updateArrayDataGuardTurnModal();
 
-    if(this.fechaPlantilla.day() != day.id && false) {
-      day.active = !day.active;
-      this.updateArrayDataGuardTurnModal();
-      //this.txtRepeatDays();
-    }
   }
 
   updateArrayDataGuardTurnModal() {
@@ -618,22 +652,49 @@ export class ModalTurnoComponent implements OnInit {
   }
 
   confirmAsingGuard() {
-    if(this.errorsMessage.general){
-      if(this.dataGuardTurnModal.guard) {
-        if(this.dataGuardTurnModal.idOptsDropDown != '1' && this.dataGuardTurnModal.selectDayCalendar) {
-          this.formatDateRepeat(false);
-        } else if(this.dataGuardTurnModal.idOptsDropDown == '1') {
-          this.formatDateRepeat(true);
-        } else {
-          this.showErrorDate();
-        }
-      } else {
-        this.showErrorGuard();
-      }
-    };
+    if(!this.errorsMessage.general) return null;
+
+    if(this.grupal)
+    {
+      this.confirmGrupalAssignation();
+    }
+    else if(this.dataGuardTurnModal.guard && !this.phoneNotValidated())
+    {
+      this.confirmNormalAssignation();
+    }
+    else 
+    {
+      this.showErrorGuard();
+    }
   }
 
-  formatDateRepeat(isNeverRepeat: boolean) {
+  confirmGrupalAssignation():void
+  {
+    if(this.dataGuardTurnModal.idOptsDropDown != '1' && this.dataGuardTurnModal.selectDayCalendar) {
+      this.formatDateRepeat(false);
+      this.assignGroup();
+    } else if(this.dataGuardTurnModal.idOptsDropDown == '1') {
+      this.formatDateRepeat(true);
+      this.assignGroup();
+    } else {
+      this.showErrorDate();
+    }
+  }
+
+  confirmNormalAssignation(): void
+  {
+    if(this.dataGuardTurnModal.idOptsDropDown != '1' && this.dataGuardTurnModal.selectDayCalendar) {
+      this.formatDateRepeat(false);
+      this.assignGuard();
+    } else if(this.dataGuardTurnModal.idOptsDropDown == '1') {
+      this.formatDateRepeat(true);
+      this.assignGuard();
+    } else {
+      this.showErrorDate();
+    }
+  }
+
+  formatDateRepeat(isNeverRepeat: boolean):void {
     this.rangosHorarios.forEach(rango => {
       if(rango.selected) {
         let formatWithRangoHour = moment(this.dataGuardTurnModal.turno.dia).clone();
@@ -648,20 +709,66 @@ export class ModalTurnoComponent implements OnInit {
           .seconds(0);
           this.dataGuardTurnModal.selectDayCalendar = formatWithRangoHourNever;
         }
-        this.asingGuard();
       }
     });
   }
 
-  asingGuard() {
+  assignGroup()
+  {
+    this.showLoadingModal = true;
+    const inicio = moment(this.dataGuardTurnModal.turno.dia);
+    const calendar = moment(this.dataGuardTurnModal.selectDayCalendar).format("YYYY-MM-DD")
+    const hasta = moment(calendar + ' ' + inicio.format('HH:mm:ss')).format("YYYY-MM-DD HH:mm:ss");
+
+    const data = {
+      id_user: SessionManagerService.user().id_usuario,
+      id_plantilla_tipo_guardia: this.dataGuardTurnModal.turno.id_tipoguardia,
+      id_horario_grupo:this.dataGuardTurnModal.turno.id_horario_grupo,
+      fecha_inicio:inicio.format("YYYY-MM-DD HH:mm:ss"),
+      fecha_repeticion_hasta:hasta,
+      fecha_repeticion_hasta_real:hasta,
+      id_rango_horario:this.dataGuardTurnModal.turno.id_rango_horario,
+      id_dropdown_repeticion:this.dataGuardTurnModal.idOptsDropDown,
+      id_grupo:this.dataGuardTurnModal.turno.id_grupo,
+      descripcion:this.dataGuardTurnModal.descripcion,
+      dias_repeticion:this.dataGuardTurnModal.dias_repeticion.join(','),
+      dia_todos_los_meses:this.dataGuardTurnModal.dia_todos_los_meses,
+      personalizado_cada:this.dataGuardTurnModal.personalizado_cada,
+      programacion_grupal: true,
+    };
+
+    let request, action;
+
+    if(this.isEdit) 
+    {
+      data['id_plantilla_grupo'] = this.dataGuardTurnModal.turno.template_user.id_plantilla_grupo; 
+      request = this.turnosService.updateAssignGroup(data);
+      action = 'update';
+    }
+    else
+    {
+      request =  this.turnosService.assignGroup(data);
+      action = 'create';
+    }
+
+    request.subscribe((res) => {
+      this.showLoadingModal = false;
+      this.dialogRef.close(res['message']);
+      this.dataobsservice.refreshGrid.emit();
+      this.notificationGrupal(action);
+    });
+   
+  }
+
+  assignGuard() {
     const guard = this.dataGuardTurnModal.guard;
     this.showLoadingModal = true;
 
-  
+
     this.turnosService.checkCollisions(this.dataGuardTurnModal).subscribe(res => {
         this.showLoadingModal = false;
         let response = res['message'];
-        
+
         if(response.collisions) {
           if(this.isEdit && response.collisions.length == 0) {
             this.editAssignedGuard(response);
@@ -674,7 +781,7 @@ export class ModalTurnoComponent implements OnInit {
               totalCollisions += col.values.length;
             }
 
-            if((this.turnOpenedByAnotherGuard(this.dataGuardTurnModal.turno) || this.turnOpenedByABoss(this.dataGuardTurnModal.turno)) && totalCollisions == 1 && this.collisionWithSameTurn(response)) {
+            if((this.turnOpenedByAnotherGuard(this.dataGuardTurnModal.turno) || this.turnOpenedByABoss(this.dataGuardTurnModal.turno)) && totalCollisions >= 1 && this.collisionWithSameTurn(response)) {
               this.resolveCollision(response);
             }
             else{
@@ -715,11 +822,31 @@ export class ModalTurnoComponent implements OnInit {
     
     this.turnosService.confirmCollisions(responseRequestData)
     .subscribe(() => {
-      //this.prepareNotifications(this.item.guard,this.collisions,this.selectedGroup,responseRequestData.solucion_colisiones)
+      this.prepareNotifications(this.dataGuardTurnModal.guard, collisions, 'collision_user',responseRequestData.solucion_colisiones)
       this.dialogRef.close();
       this.dataobsservice.refreshGrid.emit();
     });
 
+  }
+
+  prepareNotifications(currentUser,collisions,selection,solutions){
+    this.sendNotificacionAssignedToNewGuard(currentUser,selection);
+    this.sendNotificationToReplacedUsers(currentUser.id_usuario,selection,solutions,collisions);
+  }
+
+  sendNotificacionAssignedToNewGuard(currentUser, selection) {
+    if(selection != 'previous_user') {
+      const {id_usuario, nombre_usuario, apellido_usuario} = currentUser;
+      this.notification({id_usuario, nombre_usuario , apellido_usuario}, 'create');
+    }
+  }
+
+  sendNotificationToReplacedUsers(currentUserID, selection, solutions, collisions) {
+    const IDreplaced = IDguardsReplaced(currentUserID,selection,solutions);
+    IDreplaced.forEach(id => {
+      const {id_user:id_usuario, nombre:nombre_usuario, apellido:apellido_usuario} = getUserByIdFromCollisions(id,collisions.collisions);
+      this.notification({id_usuario, nombre_usuario , apellido_usuario}, 'delete');
+    })
   }
 
   setCheckedByDefault(collisions) {
@@ -801,13 +928,7 @@ export class ModalTurnoComponent implements OnInit {
   
   notification(guard:any,action:string) {
 
-    const date = moment().format('DD/MM/YYYY HH:mm');
-
-    const message = {
-      create:'se le asignaron guardias el dia ' + date,
-      update:'se modificaron guardias el dia ' + date,
-      delete:'se eliminaron guardias el dia ' + date
-    }
+    const message = this.notificationActions(action);
 
     let {id_usuario, nombre_usuario , apellido_usuario} = guard;
 
@@ -819,7 +940,7 @@ export class ModalTurnoComponent implements OnInit {
     this.notificationsService.send({
       idususol:SessionManagerService.user().id_usuario,
       idusurecep:id_usuario,
-      mensaje:`${apellido_usuario}, ${nombre_usuario} ${message[action]}`
+      mensaje:`${apellido_usuario}, ${nombre_usuario} ${message}`
     })
     .subscribe(
       response => console.log(response),
@@ -832,6 +953,29 @@ export class ModalTurnoComponent implements OnInit {
       const {id_usuario, nombre_usuario, apellido_usuario} = user;
       this.originalUserSelected = {id_usuario, nombre_usuario, apellido_usuario};
     }
+  }
+
+  notificationGrupal(action) {
+    const { lista_distribucion } = this.grupalInfo;
+    const { id_usuario, nombre, apellido} = SessionManagerService.user()
+    const message = `${apellido} ${nombre} ${this.notificationActions(action)}`;
+    this.notificationsService.send({
+      idususol:id_usuario,
+      email: lista_distribucion,
+      mensaje: message
+    })
+    .subscribe(resu => console.log('resuNotification:', resu))
+  }
+
+  notificationActions(action:string): string
+  {
+    const date = moment().format('DD/MM/YYYY HH:mm');
+    const message = {
+      create:'se le asignaron guardias el dia ' + date,
+      update:'se modificaron guardias el dia ' + date,
+      delete:'se eliminaron guardias el dia ' + date
+    }
+    return message[action];
   }
 
   isSameUserAfterEdit(guard) {
@@ -852,12 +996,20 @@ export class ModalTurnoComponent implements OnInit {
   turnOpenedByABoss(turn){
     const userLogged = SessionManagerService.user();
     
-    if(['jefe', 'jefe-guardia', 'admin-jefe'].includes(userLogged.role) && userLogged.id_usuario != String(turn.idusuario)) {
+    if(['jefe', 'jefe-guardia', 'admin-jefe'].includes(userLogged.role)) {
       return true;
     }
 
     return false;
 
+  }
+
+
+  phoneNotValidated(): boolean
+  {
+    if(this.grupal) return false;
+
+    return this.sigosService.phoneNotValidated();
   }
 
 }

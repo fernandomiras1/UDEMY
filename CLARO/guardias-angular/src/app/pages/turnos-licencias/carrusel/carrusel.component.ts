@@ -15,6 +15,8 @@ export class CarruselComponent implements OnInit {
   @Input() guardias;
   @Input() licencias;
   @Input() dateSelected;
+  @Input() grupo;
+  
   draggable = {
     effectAllowed: "all",
     disable: false,
@@ -99,14 +101,6 @@ export class CarruselComponent implements OnInit {
     }
   }
 
-
-
-
-
-  
-
-
-
   setStatusGuardias() {
     let guardsActive = [];
     let guardsInactive = [];
@@ -129,16 +123,21 @@ export class CarruselComponent implements OnInit {
   }
   
   onDragStart(user) {
-    if(user.status === 'license') {
+    if(!this.isGrupal && user.status === 'license') {
       this.dataobsservice.dndDropzoneDisabled.emit(true);
     }
   }
   onDragEnd() {
     this.dataobsservice.dndDropzoneDisabled.emit(false);
-
   }
   onDragCanceled() {
     this.dataobsservice.dndDropzoneDisabled.emit(false);
   }
+
+  get isGrupal(): boolean
+  {
+    return this.grupo.programacion_grupal == '1';
+  }
+
   
 }

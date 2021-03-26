@@ -12,6 +12,7 @@ import { SigosLogService } from '../../services/sigos-log.service';
 import { ActivatedRoute } from '@angular/router';
 import CountryParser from '@app/utils/countryParser/CountryParser.util';
 import { ModalProfileValidationsComponent } from './../../components/modal-profile-validations/modal-profile-validations.component';
+import { titlecase } from '@app/utils/titlecase.string';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class PerfilComponent implements OnInit {
   public sigosAside: SigosContact[] = [];
   public disableInputs:boolean = true;
   public disableSubmit:boolean;
+  public loaded = false;
 
   isOpenMenu: Boolean = false;
   profileForm: FormGroup;
@@ -47,14 +49,22 @@ export class PerfilComponent implements OnInit {
     public generalservice: GeneralService,
     public matDialog: MatDialog
   ) {
-    this.profileId = this.activatedRoute.snapshot.paramMap.get('id')
+
   }
 
   ngOnInit(): void {
-
-    this.profileService
+    this.activatedRoute.params.subscribe(resu => {
+      const { id } = resu;
+      this.profileId = id;
+      this.profileService
         .getById(this.profileId)
-        .subscribe( userProfile => this.loadUserInformation(userProfile))
+        .subscribe( userProfile => {
+          this.loadUserInformation(userProfile)
+          this.loaded = true;
+      })
+      
+    })
+
 
     // Form
     this.profileForm = this.fb.group({
@@ -71,7 +81,6 @@ export class PerfilComponent implements OnInit {
     const corporativo = this.splitNumber(userProfile.user.celular_corporativo.numero)
     const guardia = this.splitNumber(userProfile.user.celular_guardia.numero)
     const fijo = this.splitNumber(userProfile.user.telefono_fijo)
-
     this.phones = [
       {
         name: 'Celular corporativo',
@@ -89,12 +98,12 @@ export class PerfilComponent implements OnInit {
         number:guardia.phone,
         showButtonForValidation:true,
         isValid:true,
-        required:true,
+        required:false,
         country: CountryParser.characteristic(guardia.code).country,
         sigos:false
       },
       {
-        name: 'Telefono fijo',
+        name: 'Teléfono fijo',
         code:fijo.code,
         number:fijo.phone,
         showButtonForValidation:false,
@@ -223,5 +232,14 @@ export class PerfilComponent implements OnInit {
         }
         resolve()
     })
+  }
+
+  get fullName(): string
+  {
+    if(this.loaded) 
+    {
+      const name = this.userProfile['user'].apellido + ', ' + this.userProfile['user'].nombre;
+      return 'Perfil de ' + titlecase(name);
+    }
   }
 }

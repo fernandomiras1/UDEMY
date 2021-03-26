@@ -61,6 +61,7 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
   guardLoged;
   private gridNavigation: GridNavigation
   daysDivider = {offset:0, day:0 };
+  groupNameFiltered:string = '';
 
   constructor(public generalService: GeneralService,
               private dataobsservice: DataObsService,
@@ -140,7 +141,7 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
 
   setDefaultValueForSelectGroup(){
     const isInvitado = SessionManagerService.user().role == 'invitado';
-    this.filter_by   = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+    this.filter_by   = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[1].value;
   }
   //Calcular tamaño columnas para 4 dias y objeto para armar las plantillas
   calcWidthColumn(seletTimeCalendar) {
@@ -210,8 +211,8 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
   getCalendarServer(dates) {
     this.obsPlaningCalendar = this.turnosService.getPlanningCalendar(dates, this.filter_by, this.idGrupoParam).subscribe(res => {
       this.showSkeleton = false;
-      this.setGroupList(res['message'])
-      .then(() => this.openGroupsRegistered());
+      this.setGroupList(res['message']).then(() => this.openGroupsRegistered());
+      this.groupFilteredName();
     }, e => this.generalService.errorConnection());
   }
 
@@ -253,6 +254,25 @@ export class TurnosLicenciasComponent implements OnInit, OnDestroy {
         this.openGroup(group,true)
       })
     },100)
+  }
+
+  groupFilteredName(): void 
+  {
+      if(this.idGrupoParam != "")
+        this.groupNameFiltered = this.groupList[0].data.nombre_grupo;
+      
+  }
+
+  isGrupal(group:any): boolean
+  {
+    return group.data.programacion_grupal == '1';
+  }
+
+  grupalInfo(group:any): any
+  {
+    const {nombre_grupal, nombre_grupo, lista_distribucion} = group.data;
+
+    return {nombre_grupal, nombre_grupo, lista_distribucion};
   }
   
   ngOnDestroy(): void {

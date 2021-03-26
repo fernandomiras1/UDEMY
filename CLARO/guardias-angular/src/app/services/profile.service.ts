@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GeneralService } from './general.service';
 import { environment } from '../../environments/environment';
+import { SessionManagerService } from './session-manager.service';
 const URL = environment.URL + "/api";
 
 @Injectable({
@@ -29,5 +30,12 @@ export class ProfileService {
 
     return this.http.post(`${URL}/user/profile/${id}`,data, { headers: this.generalService.headers });
   }
+
+  isPhoneGuardValidated(): boolean
+  {
+      const user = SessionManagerService.user();
+      return user.celular_guardia.validacion === null ? false : true;
+  }
+  
   
 }

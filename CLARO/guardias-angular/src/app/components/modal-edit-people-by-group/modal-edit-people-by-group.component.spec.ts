@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalEditPeopleByGroupComponent } from './modal-edit-people-by-group.component';
 
@@ -6,7 +6,7 @@ describe('ModalEditPeopleByGroupComponent', () => {
   let component: ModalEditPeopleByGroupComponent;
   let fixture: ComponentFixture<ModalEditPeopleByGroupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalEditPeopleByGroupComponent ]
     })

@@ -188,7 +188,7 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     dialogConfig.data = {
       type: 'customized',
       name: `¿Está seguro que desea eliminar "${nameTemplate}"?`,
-      // tslint:disable-next-line: max-line-length
+
       content: `<p><b class="modal-msg">Las guardias comienzan ${horariosInicio}.</b></p><br>
       <p>¿Estás seguro que quieres desactivar el rango de horarios?`,
       close: true,

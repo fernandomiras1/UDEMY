@@ -12,6 +12,11 @@ import { ModalDisabledTurnComponent } from '../../../components/modal-disabled-t
 import { transformStringInDates } from "@app/utils/dates.operations";
 import { COLORS_TEMPLATES } from '@app/utils/static.data';
 import { TurnUserByColor } from '@app/models/turn.model';
+import { acronym } from '@app/utils/acronym.string';
+import { titlecase } from '@app/utils/titlecase.string';
+import { hexToRgb } from '@app/utils/hexToRgb.string';
+import { PermissionsService } from '@app/services/permissions.service';
+import { ProfileService } from '@app/services/profile.service';
 @Component({
   selector: 'app-turnos',
   templateUrl: './turnos.component.html',
@@ -22,6 +27,8 @@ export class TurnosComponent implements OnInit {
   @Input() groupPlanning;
   @Input() licencias;
   @Input() guardLoged;
+  @Input() grupalInfo;
+  @Input() grupal:boolean;
 
   turnUser: TurnUserByColor[] = [];
   countIterationGetColor = -1;
@@ -45,7 +52,8 @@ export class TurnosComponent implements OnInit {
               private dataobsservice: DataObsService,
               private turnosService: TurnosLicenciasService,
               public dialog: MatDialog,
-              private router: Router) {}
+              private router: Router,
+              ) {}
 
   ngOnInit(): void {
     this.userRol = JSON.parse(SessionManagerService.getItem('userClaro')).role;
@@ -129,11 +137,13 @@ export class TurnosComponent implements OnInit {
     });
     this.setDaysTurns();
   }
+
   //Calculo el ancho de los turnos en base a los minutos
   calcWidthTurn(tiempoTotal): Number {
     tiempoTotal = tiempoTotal * (this.sizeHourTurnCard/60);
     return tiempoTotal;
   }
+
   //El formato de los turnos no tenian dias aqui les agrego
   setDaysTurns() {
     this.groupPlanning.forEach(planning => {
@@ -160,18 +170,31 @@ export class TurnosComponent implements OnInit {
     });
     this.setAsignationsTurns();
   }
+
   //Recorro los turnos para encontrar asignaciones y guardarlas en un solo array
   setAsignationsTurns() {
     this.groupPlanning.forEach((planning, indexGroup) => {
       if(planning.asignation_user_guard_planning.length > 0) {
         planning.asignation_user_guard_planning.forEach(asignation => {
           if(asignation.repetitions_user_asignation.length > 0) {
-            this.compareDaysTurnosAsignation(asignation, planning.turnos, indexGroup);
-          } else {
+            this.compareDaysTurnosAsignation('repetitions_user_asignation', asignation, planning.turnos, indexGroup);
+          }
+          else {
             this.calcShiftTurns();
           }
         });
-      } else {
+      }
+      else if(planning.asignation_group_guard_planning.length > 0) {
+        planning.asignation_group_guard_planning.forEach(asignation => {
+          if(asignation.repetitions_group_asignation.length > 0) {
+            this.compareDaysTurnosAsignation('repetitions_group_asignation',asignation, planning.turnos, indexGroup);
+          }
+          else {
+            this.calcShiftTurns();
+          }
+        });
+      }
+      else {
         this.calcShiftTurns();
       }
     });
@@ -179,29 +202,46 @@ export class TurnosComponent implements OnInit {
 
   /*Comparo los turnos con las asignaciones si encuentro le seteo
   nuevos parametros al turno*/
-  compareDaysTurnosAsignation(asignation, turnos, indexGroup) {
-    asignation.repetitions_user_asignation.forEach(userAsignation => {
-      let fullFecha = userAsignation.fecha_desde.split(" ")[0];
-      let fullHora = userAsignation.fecha_desde.split(" ")[1];
+  compareDaysTurnosAsignation(nombreArray, asignation, turnos, indexGroup) {
+    asignation[nombreArray].forEach(asignation => {
+      let fullFecha = asignation.fecha_desde.split(" ")[0];
+      let fullHora = asignation.fecha_desde.split(" ")[1];
       let horaMin = fullHora.split(":")[0] + ":" + fullHora.split(":")[1];
       turnos.forEach(turno => {
         if(fullFecha === moment(turno.dia).format("YYYY-MM-DD") && horaMin === turno.rango.split("a")[0].trim()) {
-          this.setParamsAsignationTurn(asignation, userAsignation, turno, indexGroup);
+          this.setParamsAsignationTurn(asignation, asignation, turno, indexGroup);
         }
       });
     });
     this.reduceTurnosToFourDays();
   }
+
   //Seteo los nombre cortos y largos de los turnos
   setParamsAsignationTurn(asignation, userAsignation, turno, indexGroup) {
-    turno.template_user = userAsignation.template_user;
-    turno.idusuario = asignation.user.idusuario;
-    turno.textoCorto = asignation.user.apellido.charAt(0).toUpperCase() + asignation.user.nombre.charAt(0).toUpperCase();
-    let textoLargo = asignation.user.apellido + ", " + asignation.user.nombre;
-    turno.textoLargo = this.titlecaseText(textoLargo);
-    turno.colorBg = this.generateColor(indexGroup, turno);
-    turno.id_plantilla_usuario = asignation.id_plantilla_usuario;
+
+    if(asignation.template_user)
+    {
+      const textoLargo = userAsignation.template_user.user.apellido + ", " + userAsignation.template_user.user.nombre;
+      turno.template_user = userAsignation.template_user;
+      turno.idusuario = userAsignation.template_user.user.idusuario;
+      turno.textoCorto = acronym(textoLargo);
+      turno.textoLargo = titlecase(textoLargo);
+      turno.colorBg = this.generateColor(indexGroup, turno);
+      turno.id_plantilla_usuario = asignation.id_plantilla_usuario;
+      turno.grupal = false;
+    }
+    else if(asignation.template_group)
+    {
+      turno.template_user = userAsignation.template_group;
+      turno.idusuario = 999999;
+      turno.textoCorto = acronym(this.grupalInfo.nombre_grupal);
+      turno.textoLargo = titlecase(this.grupalInfo.nombre_grupal);
+      turno.colorBg = this.generateColor(indexGroup, turno);
+      turno.id_plantilla_usuario = asignation.id_plantilla_usuario;
+      turno.grupal = true;
+    }
   }
+
   /*Tengo un array de 6 dias pero visualmente 
     necesito 4 y un efecto de que hay un turno anterior*/
   reduceTurnosToFourDays() {
@@ -215,6 +255,7 @@ export class TurnosComponent implements OnInit {
     });
     this.calcShiftTurns();
   }
+
   //Calculo el desplazamiento si no empiezan a las 0 horas
   calcShiftTurns() {
     this.groupPlanning.forEach(planning => {
@@ -225,6 +266,7 @@ export class TurnosComponent implements OnInit {
       }
     });
   }
+
   //Genero colores para los turnos
   generateColor(indexGroup: number, turn) {
     this.countIterationGetColor ++;
@@ -242,7 +284,7 @@ export class TurnosComponent implements OnInit {
     // remove duplicates from array of turn
     uniqueArray.forEach((t, index) => {
       const indexColor = index >= totalColor ? index % totalColor : index;
-      t.bgColor = this.hexToRgb(COLORS_TEMPLATES[i].array_color[indexColor]);
+      t.bgColor = hexToRgb(COLORS_TEMPLATES[i].array_color[indexColor]);
     });
 
     // filter turn duplicates any add bgColor.
@@ -253,13 +295,6 @@ export class TurnosComponent implements OnInit {
     return this.turnUser[this.countIterationGetColor].bgColor;
   }
 
-  hexToRgb(hex): string {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result 
-      ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
-      : null;
-  }
-
   backgroundColor(turn): string {
     if( !turn.colorBg  && !this.timeIsAvailable(turn) ) {
       turn.colorBg = '#cdcdcd';
@@ -267,16 +302,6 @@ export class TurnosComponent implements OnInit {
     return turn.colorBg
   }
 
-
-  titlecaseText(value: string): string {
-    return value.toLocaleLowerCase()
-      .trim()
-      .split(" ")
-      .map(item => {
-        return item.charAt(0).toUpperCase() + item.slice(1);
-      })
-      .join(" ");
-  }
   /*Funcion que se llama cuando dropean algun guardia sobre un turno 
     que a su vez llama a la funcion que abre el modal de asignacion
   */
@@ -313,8 +338,6 @@ export class TurnosComponent implements OnInit {
     return transformStringInDates(dia,horario_desde,horario_hasta);
   }
 
-
-
   openDialog(turno, guardSelected?) {
     
     if(this.userRol == 'guardia' || this.userRol == 'admin-guardia') {
@@ -333,10 +356,23 @@ export class TurnosComponent implements OnInit {
     .minutes(parseInt(turno.horario_desde.split(":")[1]))
     .seconds(0);
     this.showLoadingModal = true;
-    this.turnosService.getGroupGuards(turno.id_grupo, fechaPlantilla.format('YYYY-MM-DD HH:mm:ss')).subscribe(res => {
-      let guardias = this.checkStatusSelectGuards(res['message'], this.licencias, turno.dia);
-      const dialogConfig = new MatDialogConfig();
 
+    if(this.grupal)
+    {
+      this.openGrupalTurn(fechaPlantilla, turno);
+    }
+    else
+    {
+      this.openNormalTurn(turno.id_grupo, fechaPlantilla, turno, guardSelected);
+    }
+
+  }
+
+  openNormalTurn(turnId: string, templateDate: any, turn:any, guardSelected: any)
+  {
+    this.turnosService.getGroupGuards(turnId, templateDate.format('YYYY-MM-DD HH:mm:ss')).subscribe(res => {
+      let guardias = this.checkStatusSelectGuards(res['message'], this.licencias, turn.dia);
+      const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = false;
       dialogConfig.panelClass = "container-custom-modal";
       dialogConfig.width = "370px";
@@ -347,13 +383,14 @@ export class TurnosComponent implements OnInit {
         dialogConfig.data = { 
           type:'asignar-turno', 
           name: "asignar turno",
-          turno,
+          turno:turn,
           guardSelected: guardSelected ? guardSelected : null,
           disabledSelect: guardSelected ? true : false,
           guards: guardias, 
-          fechaPlantilla,
+          fechaPlantilla: templateDate,
           dates: this.dates,
-          optsDropDownAsignation
+          optsDropDownAsignation,
+          grupal:false
         };
         const dialogRef = this.dialog.open(ModalTurnoComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(asignation => {
@@ -362,7 +399,35 @@ export class TurnosComponent implements OnInit {
           }
         });
       });
-   }, e => console.log(e));
+    }, e => console.log(e));
+
+  }
+
+  openGrupalTurn(templateDate: any, turn:any)
+  {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.panelClass = "container-custom-modal";
+    dialogConfig.width = "370px";
+    this.turnosService.dropdownAsignation().subscribe(res => {
+      this.showLoadingModal = false;
+      const optsDropDownAsignation = res['message'];
+      dialogConfig.data = { 
+        type:'asignar-turno', 
+        name: "asignar turno",
+        turno:turn,
+        guardSelected: null,
+        disabledSelect: false,
+        guards: [], 
+        fechaPlantilla: templateDate,
+        dates: this.dates,
+        optsDropDownAsignation,
+        grupal:true,
+        grupalInfo:this.grupalInfo
+      };
+      const dialogRef = this.dialog.open(ModalTurnoComponent, dialogConfig);
+    });
+
   }
 
   checkStatusSelectGuards(guardias, licencias, dia) {
@@ -397,11 +462,14 @@ export class TurnosComponent implements OnInit {
         optsDropDownAsignation = res['message'];
         dialogConfig.data = { 
           id_plantilla_usuario,
+          id_plantilla_grupo: turno.template_user.id_plantilla_grupo,
           turno,
           guardias,
           fechaPlantilla,
           dates: this.dates,
-          optsDropDownAsignation
+          optsDropDownAsignation,
+          grupal: this.grupal,
+          grupalInfo:this.grupalInfo
         };
         const dialogRef = this.dialog.open(ModalShowTurnComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(() => {

@@ -3,8 +3,9 @@
 		<img [routerLink]="['/home']" alt="claro-logo" [ngClass]="{'c-pointer': optionsRoutesPage >= 2}" src="../assets/imgs/claro_logo.svg" class="img-claro" *ngIf="!detailGroup"/>
 		<div class="container-flex align-items-center txt-white" *ngIf="detailGroup && !plantillas">
 			<mat-icon class="c-pointer" aria-hidden="false" [routerLink]="['/home']">arrow_back_ios</mat-icon>
-			<mat-icon aria-hidden="false" class="ml-10p" *ngIf="nombreGroup != 'Perfil'">place</mat-icon>
-			<span class="fs-24 ml-10p">{{nombreGroup}}</span>
+			<mat-icon aria-hidden="false" class="ml-10p" *ngIf="showMarker && groupType == 'sitio'">place</mat-icon>
+			<mat-icon aria-hidden="false" class="ml-10p" *ngIf="showMarker && groupType == 'tecnologia'">account_tree</mat-icon>
+			<span class="fs-24 ml-10p">{{headerTitle}}</span>
 		</div>
     <div class="grid-plantilla w-100 align-items-center txt-white" *ngIf="plantillas">
 	  <ng-container *ngIf="action; else defaultTemplate">
@@ -46,10 +47,14 @@
 				[options]="optionsSelectGroup"
 				[valueSelected]="valueSelectGroup"
 				(onChangedValue)="onChangedValueGroup($event)">
-		  	</app-select>
-		</div>
+			  </app-select>
+			  <div *ngIf="groupName != ''" style="width: 230px;text-overflow: ellipsis; overflow: hidden;color:white">
+				  <mat-checkbox (change)="reloadPage()" [checked]="true" class="example-margin mr-1"></mat-checkbox>
+				  <span class="fs-12 txt-white">Visualizando grupo {{ groupName }}</span>
+			  </div>
+			</div>
 	</div>
-	<div *ngIf="optionsRoutesPage >= 3" class="text-center">
+	<div *ngIf="optionsRoutesPage >= 3" class="text-center" [ngClass]="{'move-calendar' : groupName != ''}">
 		<input matInput [matDatepicker]="picker" [(ngModel)]="selectDay" (ngModelChange)="selectedDay()" style="visibility: hidden; position: absolute; top: 2rem;">
 		<mat-datepicker #picker color="warn"></mat-datepicker>
 		<button mat-button class="fs-24 btn-calendar txt-white" (click)="picker.open()">
@@ -87,7 +92,7 @@
 		<label mat-menu-item disabled class="txt-black txt-bold option-fullname">{{(user.nombre + " " + user.apellido) | titlecase}}</label>
 		<label mat-menu-item disabled class="txt-black option-legajo">{{user.legajo_corpo}}</label>
 		<button *ngIf="userCanSeeSelectGroup" mat-menu-item [routerLink]="['/perfil',user.id_usuario]">Perfil</button>
-		<button mat-menu-item *ngIf="user.grupo_remedy === 'ARG-MV-GESTION Y SOPORTE OPERATIVO'" [routerLink]="['/plantilla/listar']">Plantillas</button>
+		<button mat-menu-item *ngIf="user.roles.includes(profile.ADMIN)" [routerLink]="['/plantilla/listar']">Plantillas</button>
 		<button [disabled]="!allowedRole" mat-menu-item (click)="serverValidacionTelefonica($event)">
 			<mat-checkbox [disabled]="!allowedRole" 
 				(click)="$event.preventDefault()"

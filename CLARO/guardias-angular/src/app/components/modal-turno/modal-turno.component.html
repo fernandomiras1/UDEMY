@@ -27,25 +27,32 @@
         (onClickClose)="closeModal()"
         (onClickBtnLeft)="closeModal()">
 
-        <span class="fs-12 txt-bold">Elija una persona</span>
-        <mat-form-field appearance="outline">
-            <mat-select [disabled]="selectDisabled" (selectionChange)="selectGuardChange()" [(ngModel)]="dataGuardTurnModal.guard" [formControl]="guardCtrl" placeholder="Elija una persona..." #singleSelect >
-                <mat-option>
-                <ngx-mat-select-search  [formControl]="guardFilterCtrl"
-                                        placeholderLabel="Elija una persona..."
-                                        noEntriesFoundLabel="'No se encontró a la persona'"
-                ></ngx-mat-select-search>
-                </mat-option>
-                <mat-option [ngClass]="guard['statusClass'] ? guard['statusClass'] : ''" [disabled]="guard.active == 'disable' || guard.active == 'license'"  *ngFor="let guard of filteredGuards | async;" [value]="guard">
-                    {{guard.apellido_usuario + ", " + guard.nombre_usuario | titlecase}}
-                </mat-option>
-            </mat-select>
-            <mat-hint *ngIf="errorsMessage.guard" class="fs-12 txt-color-claro mt-1">*Debe seleccionar una persona</mat-hint>
-        </mat-form-field>
+        <ng-container *ngIf="grupal">
+            <span class="fs-12 txt-bold">Asignacion grupal a</span>
+            <span class="fs-16 fw-300">{{ grupalInfo.nombre_grupal }}</span>
+        </ng-container>
+        <ng-container *ngIf="!grupal">
+            <span class="fs-12 txt-bold">Elija una persona</span>
+            <mat-form-field appearance="outline">
+                <mat-select [disabled]="selectDisabled" (selectionChange)="selectGuardChange()" [(ngModel)]="dataGuardTurnModal.guard" [formControl]="guardCtrl" placeholder="Elija una persona..." #singleSelect >
+                    <mat-option>
+                    <ngx-mat-select-search  [formControl]="guardFilterCtrl"
+                                            placeholderLabel="Elija una persona..."
+                                            noEntriesFoundLabel="'No se encontró a la persona'"
+                    ></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option [ngClass]="guard['statusClass'] ? guard['statusClass'] : ''" [disabled]="guard.active == 'disable' || guard.active == 'license'"  *ngFor="let guard of filteredGuards | async;" [value]="guard">
+                        {{guard.apellido_usuario + ", " + guard.nombre_usuario | titlecase}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint *ngIf="errorsMessage.guard" class="fs-12 txt-color-claro mt-1">*Debe seleccionar una persona</mat-hint>
+            </mat-form-field>
+        </ng-container>
+
         <div class="container-flex mt-1">
             <div class="flex-column" style="flex: 1.4;">
                 <span class="fs-12 txt-bold">Dia seleccionado</span>
-                <span class="fs-16 fw-300">{{fechaPlantilla | date: 'EEEE d' | titlecase}}</span>
+                <span class="fs-16 fw-300">{{fechaPlantilla.toDate() | date: 'EEEE d' | titlecase}}</span>
 
             </div>
             <div class="flex-column" style="flex: 1;">
@@ -65,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="dataGuardTurnModal.guard" class="flex-column mt-22p">
+        <div *ngIf="dataGuardTurnModal.guard || grupal" class="flex-column mt-22p">
             <div class="container-flex">
                 <span class="fs-14 txt-bold" style="flex: 1; margin-top: 18px;">Repetición</span>
                 <mat-form-field appearance="outline" style="flex: 2.5;">
@@ -128,8 +135,10 @@
                 </div>
             </div>
         </div>
-        <button [ngClass]="{'disabled-btn-effect c-default': !errorsMessage.general || !dataGuardTurnModal.guard}"
-            mat-button class="fs-16 txt-color-claro txt-bold" (click)="confirmAsingGuard()">
+        <button [ngClass]="{'disabled-btn-effect c-default': getDisabledEffect}"
+            [disabled]="getDisabledEffect"
+            mat-button class="fs-16 txt-color-claro txt-bold"
+            (click)="confirmAsingGuard()">
             CONFIRMAR
         </button>
     </app-modal>

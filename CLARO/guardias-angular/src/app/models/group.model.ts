@@ -71,7 +71,10 @@ export interface DataGroupSite {
   support_group_name: string;
   todosUsuarios: DetailGroupUser[];
   usuarios: RemedyUser;
-  categories: Category[]
+  categories: Category[],
+  programacion_grupal: boolean,
+  nombre_grupal: string,
+  lista_distribucion: string
 }
 
 export interface RemedyViews {

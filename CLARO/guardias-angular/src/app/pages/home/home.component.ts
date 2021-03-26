@@ -15,6 +15,7 @@ import { ProfileService } from '../../services/profile.service';
 import { NotificationsService } from "../../services/notifications/notifications.service";
 import * as moment from 'moment';
 import { SELECT_OPTIONS_GROUP, SELECT_OPTIONS_TIME } from '@app/utils/static.data';
+import { titlecase } from '@app/utils/titlecase.string';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit{
   @ViewChildren(TooltipDirective) tooltipDirective;
   tooltip: TooltipDirective;
   allowedRole: Boolean;
-
+  isAdmin: Boolean;
+  
   optionsNoc = [
     {
       title: 'Personal',
@@ -122,15 +124,15 @@ export class HomeComponent implements OnInit{
   viewNoc = {
     grupos: {
       selected: true,
-      options: this.grupo,
+      options: null,
     },
     sitiosTecnologia: {
       selected: false,
-      options: this.sitiosTecnologia,
+      options: null,
     },
     personal: {
       selected: false,
-      options: this.personal,
+      options: null,
     }
   }
 
@@ -147,6 +149,8 @@ export class HomeComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+
+    this.isAdmin = SessionManagerService.user().role == 'admin-jefe';
     this.setDefaultValueForSelectGroup();
     this.getServerNoc('GRUPOS',this.getSearchParams('GRUPOS'));
     this.headerSelected.classGrid = this.optionsNoc[2].classGrid;
@@ -173,7 +177,7 @@ export class HomeComponent implements OnInit{
 
   setDefaultValueForSelectGroup(){
     const isInvitado = SessionManagerService.user().role == 'invitado';
-    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[1].value;
   }
 
   onChangedValueGroup(value: string) {
@@ -480,8 +484,8 @@ export class HomeComponent implements OnInit{
   }
 
   isPhoneNoValidated() {
-    const user = SessionManagerService.user();
-    this.profileService.getById(user.id_usuario).subscribe(response => {
+      const user = SessionManagerService.user();
+      this.profileService.getById(user.id_usuario).subscribe(response => {
       
       const corporativo = response['user']['celular_corporativo']['validacion'];
       const guardia = response['user']['celular_guardia']['validacion'];
@@ -497,16 +501,25 @@ export class HomeComponent implements OnInit{
   }
 
   notification({id_usuario, nombre, apellido}){
-    
+    const fullName = titlecase(`${apellido}, ${nombre}`);
     const data = {
       idususol: id_usuario, 
       idusurecep: id_usuario,
-      mensaje: `${apellido}, ${nombre} se requiere completar la información de perfil para poder ser asignado a una guardia.`
+      mensaje: fullName + this.notificationMessage()
     };
     this.notificationsService.send(data).subscribe(
-      response => console.log(response),
-      error => console.log('Error:',error)
+      console.log,
+      console.log
     );
+  }
+
+  notificationMessage(): string
+  {
+    const user = SessionManagerService.user();
+    if(user.role === 'jefe')
+      return ' se requiere completar la información de perfil.'
+    else 
+      return ' se requiere completar la información de perfil para poder ser asignado a una guardia.'
   }
 
   personalGrupoGuardiasListing() {

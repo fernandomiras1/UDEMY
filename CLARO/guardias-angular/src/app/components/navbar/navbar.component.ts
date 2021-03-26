@@ -9,6 +9,7 @@ import { GrupoService } from '../../services/grupo.service';
 import { SessionManagerService } from '../../services/session-manager.service';
 import { MODE_SELECT_TIME } from '@app/utils/common.enum';
 import { SELECT_OPTIONS_GROUP, SELECT_OPTIONS_TIME } from '@app/utils/static.data';
+import { USER_PROFILE } from '@app/utils/common.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +23,10 @@ export class NavbarComponent implements OnInit {
   @Input() detailGroup: boolean;
   @Input() plantillas: boolean;
   @Input() calendar: boolean;
-  @Input() nombreGroup: string;
+  @Input() headerTitle: string;
+  @Input() groupName: string;
+  @Input() showMarker = false;
+  @Input() groupType: string;
   @Output() cancelPlantillas = new EventEmitter<any>();
   @Output() savePlantillas = new EventEmitter<any>();
   validateSigosActive: number;
@@ -37,6 +41,7 @@ export class NavbarComponent implements OnInit {
   valueSelectGroup:string;
   userCanSeeSelectGroup: Boolean = false;
   private gridNavigation: GridNavigation;
+  profile: typeof USER_PROFILE  = USER_PROFILE;
   
   public valueSelectTime: string;
   public selecType: typeof MODE_SELECT_TIME = MODE_SELECT_TIME;
@@ -67,7 +72,7 @@ export class NavbarComponent implements OnInit {
   setDefaultValueForSelectGroup(){
     const isInvitado = SessionManagerService.user().role == 'invitado';
     this.userCanSeeSelectGroup = !isInvitado;
-    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[2].value;
+    this.valueSelectGroup = isInvitado ? SELECT_OPTIONS_GROUP[0].value : SELECT_OPTIONS_GROUP[1].value;
   }
 
   onChangedValueGroup(value){
@@ -147,8 +152,12 @@ export class NavbarComponent implements OnInit {
   }
 
   enableJoinButtons(isSupervisor:boolean): void {
+
+    if(this.router.url.indexOf('detalle-grupo') === -1) return null;
+
     if(this.detailGroup && isSupervisor){
       this.route.paramMap.subscribe(urlParam => {
+        console.log(this.router.url)
         this.group_id = urlParam['params']['id'];
         this.grupoService.checkRemedyGroup(this.group_id).subscribe(data => {
           this.userCanJoinToGroup = data['can_join'];
@@ -168,6 +177,11 @@ export class NavbarComponent implements OnInit {
     }
     this.userIsJoined = !this.userIsJoined
     this.grupoService.joinGroup(data).subscribe(r => console.log(r))
+  }
+
+  reloadPage()
+  {
+    location.href = "/calendario/grupos";
   }
 
 }

@@ -145,8 +145,19 @@ export class GeneralService {
     this.router.navigateByUrl('login');
   }
   checkValidacionTelefonica() {
-    return this.http.get(`${URL}/config-general/validate-sigos/show`, { headers: this.headers });
+    return this.http.get(`${URL}/config-general/validate-sigos/show`, { headers: this.headers })
+            .pipe(tap(data =>  this.setPhoneValidation(data)))
   }
+
+  setPhoneValidation(data)
+  {
+    let value = 0;
+    if(data){
+      value = data.message[0].active;
+    }
+    SessionManagerService.setItem('phone-validation', String(value)) 
+  }
+
   validacionTelefonica(value) {
     const data = {
       id_user_login:  this.user.id_usuario,

@@ -7,10 +7,10 @@ import { SessionManagerService } from '@app/services/session-manager.service';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
 import { ModalTurnoComponent } from '../modal-turno/modal-turno.component';
 import * as moment from 'moment';
-import { PermissionsService } from '@app/services/permissions.service';
 import { transformStringInDates } from "@app/utils/dates.operations";
 import { Subscription } from 'rxjs';
 import { DataObsService } from '@app/services/data-obs.service';
+import { SigosService } from '@app/services/sigos/sigos.service';
 
 @Component({
   selector: 'app-modal-show-turn',
@@ -77,14 +77,16 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
   isEditable:boolean = false;
   partialEdition:boolean = false;
   eventEmitterUnsuscribe: Subscription;
+  grupal:boolean;
+  grupalInfo;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<ModalShowTurnComponent>,
               public dialog: MatDialog,
               public turnosService: TurnosLicenciasService,
               public notificationsService: NotificationsService,
-              private permissionsService: PermissionsService,
               private dataobsservice: DataObsService,
+              private sigosService: SigosService
 
               ) {
               
@@ -97,8 +99,10 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
                 }
 
                 this.dataTurn = data;
-                const { turno } = data
-                this.user = turno.textoLargo;
+                const { turno, grupal, grupalInfo} = data;
+                this.grupal = grupal;
+                this.grupalInfo = grupalInfo;
+                this.user = grupal ? grupalInfo.nombre_grupo + ' / ' + turno.textoLargo : turno.textoLargo;
                 this.nameTurn = turno.type_guardia.nombre_tipo_de_guardia;
                 this.turno = turno;
                 this.repeatTxt = turno.template_user.rules_repetition.repetition.nombre_repeticion;
@@ -148,36 +152,57 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
   }
   openDeleteTurnDialog() {
     const dialogConfig = new MatDialogConfig();
-    let id_plantilla_usuario = this.dataTurn.id_plantilla_usuario
+    let {id_plantilla_usuario, id_plantilla_grupo, grupal} = this.dataTurn;
     dialogConfig.disableClose = false;
     dialogConfig.panelClass = "container-custom-modal";
 
     dialogConfig.data = { 
       id_plantilla_usuario,
+      id_plantilla_grupo,
+      grupal,
       turno: this.dataTurn,
+      grupalInfo: this.grupalInfo
     };
-    
     const dialogRef = this.dialog.open(ModalDeleteTurnComponent, dialogConfig);
   }
   
   openEditTurnDialog() {
-   
     const dialogConfig = new MatDialogConfig();
-    let id_plantilla_usuario = this.dataTurn.id_plantilla_usuario
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-edit";
     dialogConfig.panelClass = "container-custom-modal";
     dialogConfig.width = "370px";
-    dialogConfig.data = { 
-      id_plantilla_usuario,
-      datosTurno: this.dataTurn,
-      id_usuarioSelected: this.dataTurn.turno.template_user.user.idusuario,
-      guards: this.dataTurn.guardias,
-      type: 'asignar-turno',
-      name: "editar turno",
-      partialEdition: this.partialEdition,
-      edit: true,
-    };
+
+    if(this.grupal)
+    {
+      dialogConfig.data = {
+        id_plantilla_grupo: this.dataTurn.id_plantilla_grupo,
+        datosTurno: this.dataTurn,
+        id_usuarioSelected: null,
+        guards: [],
+        type: 'asignar-turno',
+        name: "editar turno",
+        partialEdition: this.partialEdition,
+        edit: true,
+        grupal: true,
+        grupalInfo: this.grupalInfo
+      }
+    }
+    else
+    {
+      dialogConfig.data = { 
+        id_plantilla_usuario: this.dataTurn.id_plantilla_usuario,
+        datosTurno: this.dataTurn,
+        id_usuarioSelected: this.dataTurn.turno.template_user.user.idusuario,
+        guards: this.dataTurn.guardias,
+        type: 'asignar-turno',
+        name: "editar turno",
+        partialEdition: this.partialEdition,
+        edit: true,
+        grupal: false
+      };
+    }
+
     const dialogRef = this.dialog.open(ModalTurnoComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
       this.closeModal()
@@ -227,8 +252,28 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if(result['confirm']) {
         const range = this.parseDateRangeFromTurn(result['checkbox'],this.dataTurn);
-         this.turnosService.deleteTurn(this.dataTurn['id_plantilla_usuario'],range).subscribe(() => {
-           this.notification(this.dataTurn['turno']['template_user']['user']).subscribe();
+        const {id_plantilla_usuario, id_plantilla_grupo, grupal} = this.dataTurn;
+        const data = { 
+          ...range,
+          id_plantilla_usuario,
+          id_plantilla_grupo,
+          grupal,
+        };
+
+         this.turnosService.deleteTurn(data).subscribe(() => {
+          if(grupal)
+          {
+            this.notificationGrupal();
+          }
+          else 
+          {
+            this.notification(this.dataTurn['turno']['template_user']['user'])
+            .subscribe( 
+              console.log,
+              console.log,
+            );
+          }
+
            this.dataobsservice.refreshGrid.emit()
         })
       }
@@ -246,6 +291,21 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
     })
   }
 
+  notificationGrupal()
+  {
+    const {nombre_grupal, lista_distribucion} = this.grupalInfo;
+    const date = moment().format('DD/MM/YYYY HH:mm');
+    
+    this.notificationsService.send({
+      email : lista_distribucion,
+      mensaje:`${nombre_grupal} se eliminaron guardias el dia ${date}`,
+    })
+    .subscribe(
+      console.log,
+      console.log,
+    );
+  }
+
   parseDateRangeFromTurn(deleteThisTurn: boolean, turn:any): any {
     let daySelected = moment(turn['turno']['dia']).format('YYYY-MM-DD');
     let from = moment( daySelected + ' ' + turn['turno']['horario_desde'] );
@@ -258,13 +318,19 @@ export class ModalShowTurnComponent implements OnInit, OnDestroy {
     const format = 'YYYY-MM-DD HH:mm:ss';
 
     return {
-      fecha_repeticion_inicia:from.format(format),
-      fecha_repeticion_hasta:to.format(format)
+      fecha_inicial:from.format(format),
+      fecha_final:to.format(format)
     }
+  }
+
+  get disableByPhoneValidation(): boolean 
+  {
+    if(this.grupal) return false;
+
+    return this.sigosService.phoneNotValidated();
   }
 
   ngOnDestroy(): void {
     this.eventEmitterUnsuscribe?.unsubscribe();
   }
-
 }

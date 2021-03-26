@@ -108,7 +108,10 @@ export class PlantillasService {
       "celular_corporativo_requerido": newGroup['data']['numberCorpGuard'],
       "linea_rotativo_requerido": newGroup['data']['shownumberRotary'],
       "usuario_creador": this.userId,
-      "categories": newGroup['data']['categories']
+      "categories": newGroup['data']['categories'],
+      "isGroup": newGroup['data']['isGroup'],
+      "nameGroup": newGroup['data']['nameGroup'],
+      "distributionList": newGroup['data']['distributionList'],
     };
 
     return this.http.post(`${URL}/group/service`, body, { headers: this.generalService.headers });

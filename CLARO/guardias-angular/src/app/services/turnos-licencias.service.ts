@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { transformStringInDates } from '@app/utils/dates.operations';
+import { groupAssignation } from '@app/models/turn.model';
 
 
 const URL = environment.URL + "/api";
@@ -15,6 +16,7 @@ const URL = environment.URL + "/api";
   providedIn: 'root'
 })
 export class   TurnosLicenciasService {
+
   constructor(private http: HttpClient, 
               private generalService: GeneralService) {
                }
@@ -28,7 +30,7 @@ export class   TurnosLicenciasService {
       "date_start": date_start,
       "date_end": date_end,
       "id_user": id,
-      "show_only_group_id":show_only_group_id,
+      "group_id":show_only_group_id,
       "filter_by": filter_by
     }
     return this.http.post(`${URL}/grilla-group/planning-calendar-groups`, body, { headers: this.generalService.headers });
@@ -83,7 +85,6 @@ export class   TurnosLicenciasService {
     }
     this.generalService.getUser();
     this.generalService.user.id_usuario;
-    let descripcion;
     let dia_todos_los_meses = [ 
       {
         dia: null
@@ -128,16 +129,20 @@ export class   TurnosLicenciasService {
   asignGuard(obj) {
     return this.http.post(`${URL}/grilla-group/asignated-user-rule`, this.setObjAsignDelete(obj), { headers: this.generalService.headers });
   }
+
+  assignGroup(obj: groupAssignation) {
+    return this.http.post(`${URL}/grilla-group/asignated-user-rule`, obj, { headers: this.generalService.headers });
+  }
+
   updateAsignGuard(obj, id_plantilla_usuario) {
     return this.http.post(`${URL}/grilla-group/asignation-user/update`, this.setObjAsignDelete(obj, id_plantilla_usuario), { headers: this.generalService.headers });
   }
-  deleteTurn(id_plantilla_usuario, fechas) {
-    const body = {
-      id_plantilla_usuario,
-      fecha_inicial: fechas.fecha_repeticion_inicia,
-      fecha_final:fechas.fecha_repeticion_hasta,
-    }
-    return this.http.post(`${URL}/grilla-group/disable-repeat`, body, { headers: this.generalService.headers });
+
+  updateAssignGroup(obj: groupAssignation) {
+    return this.http.post(`${URL}/grilla-group/asignation-user/update`, obj, { headers: this.generalService.headers });
+  }
+  deleteTurn(data) {
+    return this.http.post(`${URL}/grilla-group/disable-repeat`, data, { headers: this.generalService.headers });
   }
   checkCollisions(obj) {
     return this.http.post(`${URL}/grilla-group/planning-calendar/verifica-colisiones`, this.setObjAsignDelete(obj), { headers: this.generalService.headers })
@@ -178,4 +183,5 @@ export class   TurnosLicenciasService {
   confirmCollisions(obj) {
     return this.http.post(`${URL}/grilla-group/asignated-user-rule`,obj, { headers: this.generalService.headers });
   }
+
 }

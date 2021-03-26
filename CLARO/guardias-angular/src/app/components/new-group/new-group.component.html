@@ -60,7 +60,7 @@
     
           <div class="flex-column">
             <mat-form-field *ngIf="type.value === groupType.SITIO" class="fs-14-5" appearance="fill">
-              <mat-label>Sub Tipo</mat-label>
+              <mat-label>Subtipo</mat-label>
               <mat-select multiple formControlName="selectType">
                 <mat-select-trigger>
                   {{selectValue}}
@@ -84,6 +84,40 @@
               style="color:black;"
               value="TECNOLOGÍA">
           </mat-form-field>
+          </div>
+
+          <span class="txt-bold fs-20">Tipo de usuarios de guardia</span>
+          <div class="flex-column mt-1">
+            <mat-slide-toggle formControlName="isGroup" color="primary">
+              <span class="fw-300 fs-14">Marque esta opción si desea realizar una programación grupal en lugar de personalizada</span>
+            </mat-slide-toggle>
+  
+            <mat-form-field class="fs-14-5" appearance="fill">
+              <mat-label>Lista de distribución</mat-label>
+              <input matInput name="distributionList"
+                autocomplete="off"
+                formControlName="distributionList">
+            </mat-form-field>
+            <mat-error class="fs-14 fw-400 txt-color-claro"
+            *ngIf="distributionList.hasError('pattern') && distributionList.touched">
+              * El email es inválido
+            </mat-error>
+            <mat-error class="fs-14 fw-400 txt-color-claro"
+            *ngIf="distributionList.hasError('required') && distributionList.touched">
+              * Ingrese una lista de distribución
+            </mat-error>
+            <ng-container *ngIf="isGroup.value">
+              <mat-form-field class="fs-14-5" appearance="fill">
+                <mat-label>Nombre grupal</mat-label>
+                <input matInput name="nameGroup"
+                  autocomplete="off"
+                  formControlName="nameGroup">
+              </mat-form-field>
+              <mat-error class="fs-14 fw-400 txt-color-claro"
+              *ngIf="nameGroup.hasError('required') && nameGroup.touched">
+                * Ingrese un nombre grupal
+              </mat-error>
+            </ng-container>
           </div>
       </div>
       <div formGroupName="data" class="elemet-flex">

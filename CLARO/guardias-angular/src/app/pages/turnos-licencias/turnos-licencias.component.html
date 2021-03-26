@@ -1,4 +1,4 @@
-<app-navbar optionsRoutesPage="3" calendar="true"></app-navbar>
+<app-navbar [groupName]="groupNameFiltered" optionsRoutesPage="3" calendar="true"></app-navbar>
 
 <div [ngStyle]="{'min-width': widthScreen + 'px', 'max-width': widthScreen + 'px'}" class="mt-1 margin-container container-flex">
   <!--Boton licencia-->
@@ -90,9 +90,8 @@
       <div class="container-flex align-items-center line-top-list-group">
         <span class="txt-bold">Guardias: <span class="txt-bold txt-color-claro">{{group.data.users_count}}</span></span>
       </div>
-      <a  class="line-top-list-group container-flex align-items-center" 
+      <a class="line-top-list-group container-flex align-items-center" 
           style="text-decoration: none;" 
-          target="_blank" 
           [routerLink]="['/detalle-grupo/'+ group.data.id_tipo_grupo + '/' + group.data.id_grupo]">
         <span style="min-width: 78px;" class="container-flex span-show-group align-items-center c-pointer h-100 txt-bold txt-color-claro">
           VER GRUPO 
@@ -102,8 +101,8 @@
     </div>
     <!--Lista abierta de los grupos-->
     <div class="body-list-group" *ngIf="group.isOpen">
-      <app-carrusel *ngIf="allowedRole" [dateSelected]="dateSelected" [guardias]="group.data.group_users" [licencias]="group.data.licencias"></app-carrusel>
-      <app-turnos [guardLoged]="guardLoged" [sizeParams]="sizeParams" [groupPlanning]="group.data.group_relation_planning" [licencias]="group.data.licencias"></app-turnos>
+      <app-carrusel *ngIf="allowedRole" [grupo]="group.data" [dateSelected]="dateSelected" [guardias]="group.data.group_users" [licencias]="group.data.licencias"></app-carrusel>
+      <app-turnos [grupal]="isGrupal(group)" [grupalInfo]="grupalInfo(group)" [guardLoged]="guardLoged" [sizeParams]="sizeParams" [groupPlanning]="group.data.group_relation_planning" [licencias]="group.data.licencias"></app-turnos>
       <app-licencias *ngIf="false" [sizeParams]="sizeParams" [licencias]="group.data.licencias"></app-licencias>
     </div>
   </ng-container>

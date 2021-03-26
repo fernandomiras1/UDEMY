@@ -4,13 +4,13 @@
     [description]="turno.rango"
     [isEdit]="isEditable"
     [userRol]="userRol"
+    [disabledBtnRight]="disableByPhoneValidation"
     textBtnLeft="ELIMINAR TURNO"
     textBtnRight="EDITAR"
     (onClickClose)="closeModal()"
     (onClickBtnLeft)="openDeleteTurnDialog()"
     (onClickBtnRight)="openEditTurnDialog()"
 >
-
     <div class="container-flex justify-content-space-b">
         <div>
             <span class="fs-14">Repite</span>
@@ -20,7 +20,7 @@
             <button (click)="openDeleteRepetitionsDialog()" mat-button class="txt-muted" style="position: relative;top:-7px">QUITAR REPETICIÓN</button>
         </div>
     </div>
-    <span class="mt-1 txt-bold" *ngIf="id_repeticion == '1'">{{"El " + (dateRepeat | date: 'EEEE' | titlecase) + (dateRepeat | date: 'dd-MM-yyyy')}}</span>
+    <span class="mt-1 txt-bold" *ngIf="id_repeticion == '1'">{{"El " + (dateRepeat | date: 'EEEE' | titlecase) + ' ' + (dateRepeat | date: 'dd-MM-yyyy')}}</span>
     <span class="mt-1" *ngIf="id_repeticion == '4'">{{this.rulesRepeatDescription}}</span>
     <div class="container-flex mt-1" *ngIf="id_repeticion != '1'">
         <span class="fs-14">Hasta</span>
@@ -38,20 +38,30 @@
                 <b class="fs-12 fw-500">{{day.txt}}</b>
         </div>
     </div>
-    <div class="container-flex mt-1">
-        <div class="flex-column" style="flex: 1.2;">
-            <span class="fw-300">Celular Corporativo</span>
-            <span class="span-no-conf">No configurado</span>
+    <ng-container *ngIf="!grupal">
+        <div class="container-flex mt-1">
+            <div class="flex-column" style="flex: 1.2;">
+                <span class="fw-300">Celular Corporativo</span>
+                <span class="span-no-conf">No configurado</span>
+            </div>
+            <div class="flex-column" style="flex: 1;">
+                <span class="fw-300">Celular Corporativo</span>
+                <span class="span-no-conf">No configurado</span>
+            </div>
         </div>
-        <div class="flex-column" style="flex: 1;">
-            <span class="fw-300">Celular Corporativo</span>
-            <span class="span-no-conf">No configurado</span>
+        <div class="container-flex mt-2">
+            <div class="flex-column">
+                <span class="fw-300">Teléfono Fijo</span>
+                <span class="span-no-conf">No configurado</span>
+            </div>
         </div>
-    </div>
-    <div class="container-flex mt-2">
-        <div class="flex-column">
-            <span class="fw-300">Teléfono Fijo</span>
-            <span class="span-no-conf">No configurado</span>
+    </ng-container>
+    <ng-container *ngIf="grupal">
+        <div class="container-flex mt-2">
+            <div class="flex-column">
+                <span class="fw-300">Lista de distribución</span>
+                <span class="">{{ grupalInfo.lista_distribucion }}</span>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </app-modal>

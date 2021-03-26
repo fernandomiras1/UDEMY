@@ -15,7 +15,7 @@
     </div>
     <mat-menu #plantillaMenu="matMenu" isOpen="open-menu" class="panel-opt-menu min-width-menu">
       <div matTooltip="Plantilla en uso - No puede desactivarse." matTooltipPosition="below" [matTooltipDisabled]="verifiedDesactivarPlantillas[template.id_tipo_guardia]">
-        <button (click)="onDesactivarPlantilla(template.id_tipo_guardia, template.nombre_tipo_de_guardia, templateIndex)"
+        <button (click)="onDesactivarPlantilla(template.id_tipo_guardia, template.nombre_tipo_de_guardia, blockIndex)"
           class="plantilla-desactivar-btn" mat-menu-item [disabled]="!verifiedDesactivarPlantillas[template.id_tipo_guardia]">
             <ng-container *ngIf="null === verifiedDesactivarPlantillas[template.id_tipo_guardia]; else desactivarTemplate">
               <mat-spinner diameter="25"></mat-spinner>

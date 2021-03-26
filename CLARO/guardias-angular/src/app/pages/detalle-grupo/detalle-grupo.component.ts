@@ -7,11 +7,13 @@ import {ModalComponent} from 'angular-custom-modal';
 import { ModalTurnoComponent as AppModalTurnoComponent } from '@app/components/modal-turno/modal-turno.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalEditPeopleByGroupComponent } from '../../components/modal-edit-people-by-group/modal-edit-people-by-group.component';
-import { GroupSites, DeletedUsers, DetailGroupUser, DataGroupSite } from '../../models/group.model';
+import { GroupSites, DeletedUsers, DetailGroupUser, DataGroupSite, Category, CateOption } from '../../models/group.model';
 import { MODE_STATUS_TEMPLATE } from '@app/utils/common.enum';
 import { Template } from '@app/models/template.model';
 import { ModalDeleteTemplateComponent } from '@app/components/modal-delete-template/modal-delete-template.component';
 import { Observable } from 'rxjs';
+import { REGEX_EMAIL } from '@app/utils/conditional.validator';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-detalle-grupo',
@@ -19,8 +21,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./detalle-grupo.component.scss']
 })
 export class DetalleGrupoComponent implements OnInit {
+
   @ViewChild('htmlInsideModal') htmlInsideModal: ModalComponent;
   @ViewChild('htmlAlertSaveTemplateModal') htmlAlertSaveTemplateModal: ModalComponent;
+  @ViewChild('emailDistribution') emailDistribution: NgModel;
+  regexEmail = REGEX_EMAIL;
   loading:boolean = true;
   nombre_grupo = 'Detalle del grupo';
   isEdit = false;
@@ -28,7 +33,7 @@ export class DetalleGrupoComponent implements OnInit {
   dataGroup: DataGroupSite;
   dataGroupModified;
   tipo_grupo: string;
-  errorsValidateNumberRotary: Boolean;
+  errorsValidateNumberRotary: boolean;
   sitios = [];
   cancelPlantillaHorarios;
   id;
@@ -40,6 +45,8 @@ export class DetalleGrupoComponent implements OnInit {
   templatesSelectedById: number[] = []
   modeTemplate: typeof MODE_STATUS_TEMPLATE = MODE_STATUS_TEMPLATE;
   templateList: any[] = [];
+  groupTypeIds: number[] = [];
+
   constructor(private grupoService: GrupoService,
               private route: ActivatedRoute,
               private generalservice: GeneralService,
@@ -76,11 +83,7 @@ export class DetalleGrupoComponent implements OnInit {
       this.dataGroup.celular_corporativo_requerido = this.stringToBoolean(this.dataGroup.celular_corporativo_requerido);
       this.dataGroup.celular_guardia_requerido = this.stringToBoolean(this.dataGroup.celular_guardia_requerido);
       this.dataGroup.linea_rotativo_requerido = this.stringToBoolean(this.dataGroup.linea_rotativo_requerido);
-      this.isSaveDisabled = (
-        this.dataGroup.celular_corporativo_requerido ||
-        this.dataGroup.celular_guardia_requerido ||
-        this.dataGroup.linea_rotativo_requerido
-      );
+     
       if (isInit && this.tipo_grupo === 'sitio') {
         this.addSitios(this.dataGroup.sitios);
       }
@@ -89,7 +92,11 @@ export class DetalleGrupoComponent implements OnInit {
       this.setTemplateList();
   }
 
+
   async editPersonas() {
+
+    if(this.isEdit) return;
+
     const sites = [];
     const users = [];
     this.dataGroup.todosUsuarios.forEach((user: DetailGroupUser) => {
@@ -211,6 +218,7 @@ export class DetalleGrupoComponent implements OnInit {
     this.isEdit = false;
     this.dataGroup = this.generalservice.getIninitalStateObj();
     this.isDeletingLastPlantilla = false;
+    this.resetSubtypes()
   }
 
   stringToBoolean(value): boolean {
@@ -236,13 +244,17 @@ export class DetalleGrupoComponent implements OnInit {
   }
 
   guardarCambios() {
+
     const data = {
       dataGroup: this.dataGroup,
-      plantillaChanges: this.filterTemplatesWithChanges()
+      plantillaChanges: this.filterTemplatesWithChanges(),
+      categories: this.groupTypeIds
     };
-    const isValid = this.dataGroup.linea_rotativo_requerido ? this.validateNumberRotary() : true;
+    const isValid = this.dataGroup.linea_rotativo_requerido
+      ? this.validateNumberRotary() 
+      : true;
 
-    if (isValid) {
+    if (isValid && this.validateTypeGroup()) {
       this.isEdit = false;
       this.loading = true;
       this.grupoService.saveDetailGroup(this.id, data)
@@ -265,15 +277,18 @@ export class DetalleGrupoComponent implements OnInit {
     })
   }
 
+  get isREGValidNumberRotary(): boolean {
+    return /^[\*\#][\d]{4,5}\b$|^[\d]{8,13}\b$/.test(this.dataGroup.linea_rotativo)
+  }
+
   validateNumberRotary() {
-		const validate = /^[\*\#][\d]{4,5}\b$|^[\d]{8,13}\b$/.test(this.dataGroup.linea_rotativo);
-		if (validate) {
+		if (this.isREGValidNumberRotary) {
 			this.errorsValidateNumberRotary = false;
 			return true;
 		} else {
-			this.errorsValidateNumberRotary = true;
-			return false;
-		}
+      this.errorsValidateNumberRotary = true;
+      return false;
+    }
   }
 
   addSitios(sitios: any []) {
@@ -333,16 +348,22 @@ export class DetalleGrupoComponent implements OnInit {
     return listGuardiasTurno;
   }
 
+  checkboxRotativo() {
+    if (this.dataGroup.linea_rotativo_requerido && this.isREGValidNumberRotary) {
+			this.errorsValidateNumberRotary = true;
+		} else {
+      this.errorsValidateNumberRotary = false;
+    }
+  }
+
   get isLoading() {
     return this.loading;
   }
 
-  get subtypes() {
+  get subtypes(): string {
 
     let fullText = [];
-
     const categories = this.dataGroup.categories;
-
     for(let category of categories)
     {
         let categoryName = category.category.toUpperCase();
@@ -353,6 +374,10 @@ export class DetalleGrupoComponent implements OnInit {
           if(option.enable == '1')
           {
             optionsName.push(option.name.charAt(0).toUpperCase() + option.name.slice(1));
+            if(!this.groupTypeIds.includes(option.id)) 
+            {
+              this.groupTypeIds.push(option.id)
+            }
           }
         }
 
@@ -360,9 +385,73 @@ export class DetalleGrupoComponent implements OnInit {
         {
           fullText.push( categoryName + ': ' + optionsName.join(', ') );
         }
-
     }
-
     return fullText.length > 0 ? fullText.join(' - ') : 'sin datos';
   }
+
+  selectSubCateType(option: CateOption): void
+  {
+    option.enable = this.groupTypeIds.includes( option.id ) ? "1" : "0"
+  }
+
+  get typeRequired(): boolean
+  {
+    if(this.tipo_grupo != 'sitio') return false;
+
+    for(let category of this.dataGroup.categories)
+    {
+        for(let option of category.options)
+        {
+          if(option.enable == '1')
+          {
+            return false;
+          }
+        }
+    }
+
+    return true;
+  }
+
+  validateTypeGroup(): boolean 
+  {
+    if(this.tipo_grupo == 'sitio')
+    {
+       return this.groupTypeIds.length > 0;
+    }
+    return true;
+  }
+
+  resetSubtypes()
+  {
+    const categories = this.dataGroup.categories;
+    this.groupTypeIds = [];
+    for(let category of categories)
+    {
+        for(let option of category.options)
+        {
+          if(option.enable == '1')
+          {
+            if(!this.groupTypeIds.includes(option.id)) 
+            {
+              this.groupTypeIds.push(option.id)
+            }
+          }
+        }
+    }
+  }
+
+  get disableButtonConfirm(): boolean
+  {
+    const { 
+      celular_corporativo_requerido:corp, 
+      celular_guardia_requerido:guardia,
+      linea_rotativo_requerido:linea,
+    } = this.dataGroup;
+    const anyNumberRequired = !this.dataGroup.programacion_grupal ? !( corp || guardia || linea ) : false;
+    const emailIsValid = this.emailDistribution ? this.emailDistribution.invalid : true;
+    const email = this.dataGroup.programacion_grupal ? emailIsValid : false;
+    return email || this.dataGroup.nombre_grupo.length === 0 || this.typeRequired || this.errorsValidateNumberRotary || anyNumberRequired;
+  }
+
+  
 }

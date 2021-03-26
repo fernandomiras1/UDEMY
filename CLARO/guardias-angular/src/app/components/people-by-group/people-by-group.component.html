@@ -46,7 +46,7 @@
                                     <label class="grupo-checkbox-name">
                                       {{user['apellido'] | titlecase}}, {{user['nombre'] | titlecase}}
                                     </label>
-                                    <span *ngIf="isSite && !sitesUsers" class="content-icon-people">
+                                    <span *ngIf="isSite" class="content-icon-people">
                                       <mat-icon class="c-pointer" (click)="onClickChipPeople(user)">add</mat-icon>
                                     </span>
                                   </div>
@@ -63,7 +63,7 @@
                         <label *ngIf="this.isSite">SITIOS POR REGIÓN</label>
                         <label *ngIf="!this.isSite">TECNOLOGÍAS</label>
                     </div>
-                    <div class="accordion-container scrollbar" [class.active]="toggleParent == toggleType.CLOSED">
+                    <div class="accordion-container scrollbar" style="overflow-y:hidden" [class.active]="toggleParent == toggleType.CLOSED">
                         <div *ngIf="loadingRemedy" style="height: 50px;" class="bg-white container-flex justify-content-center">
                             <mat-spinner class="mt-10p" diameter="25"></mat-spinner>
                         </div>
@@ -79,7 +79,8 @@
                             </ng-container>
 
                             <ng-container *ngIf="isSite && !SitesTecnologiesNotFound">
-                                <div class="grupo-container-accordion" *ngFor="let group of remedyGroups; index as i">
+                              <cdk-virtual-scroll-viewport itemSize="50" class="scrollbar cdk-virtual-viewport">
+                                <div *cdkVirtualFor="let group of remedyGroups; index as i" class="grupo-container-accordion">
                                   <div class="grupo-accordion-title">
                                     <mat-icon (click)="openToggle(i, false, false)">{{ toggleChild == i ? 'keyboard_arrow_down': 'keyboard_arrow_right' }}</mat-icon>
 
@@ -97,6 +98,7 @@
                                     </div>
                                   </div>
                                 </div>
+                              </cdk-virtual-scroll-viewport>
                             </ng-container>
 
                             <ng-container *ngIf="!isSite && !SitesTecnologiesNotFound">
@@ -122,8 +124,8 @@
         </div>
         <div class="grupo-content">
           <mat-chip-list aria-label="grupo content">
-            <mat-chip *ngFor="let user of remedyList.people" (click)="isSite && !sitesUsers ? onClickChipPeople(user) : null"
-            [class.c-pointer]="isSite && !sitesUsers" removable="true" [matBadgeHidden]="user.cantidad_sitios == '0'"
+            <mat-chip *ngFor="let user of remedyList.people" (click)="isSite ? onClickChipPeople(user) : null"
+            [class.c-pointer]="isSite" removable="true" [matBadgeHidden]="user.cantidad_sitios == '0'"
             [matBadge]="user.cantidad_sitios" matBadgePosition="above" matBadgeSize='small'
             matBadgeColor="primary" (removed)="onChange(user, false, 'people')">
               {{ user.apellido + ', ' + user.nombre | titlecase}}

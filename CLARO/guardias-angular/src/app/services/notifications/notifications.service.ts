@@ -2,6 +2,19 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
+interface NotificationsInterface {
+  aplicacion:string;
+  idususol:string;
+  legajosol?:string;
+  topico:string;
+  mensaje:string;
+  idusurecep:string;
+  legajorecep?:string;
+  perfil?:string;
+  grupo?:string;
+  gruporemedy?:string;
+  email?:string;
+}
 
 const serviceEndpoints = (function(){
   const api = 'http://intraoperativa.claro.amx/intranet'
@@ -25,31 +38,35 @@ export class NotificationsService {
     this.endpoints = serviceEndpoints
   }
 
-  send({idususol,idusurecep,mensaje}){
+  send({idususol = '',idusurecep = '', mensaje = '', email = ''}): Observable<any>{
 
-    const notificationData = {
+    const notificationData: NotificationsInterface = {
         aplicacion:this.app,
         idususol,
         legajosol:'',
-        topico:'CAMBIO_RESPONSABLE_GRUPO_GUARDIA',
-        mensaje:mensaje,
+        topico:'NOTIFICACION_CALIDAD_NOC',
+        mensaje,
         idusurecep,
         legajorecep:'',
         perfil:'',
         grupo:'',
-        gruporemedy:''
+        gruporemedy:'',
+        email: email
     };
     
-    let headers = new HttpHeaders();
-    let url = this.endpoints.postNotificaciones;
+    // En ambientes no productivos las notificaciones se envian a la lista de distribucion de QA
+    if(!environment.production){
+      notificationData.email = environment.emailDev;
+    }
+    
+    return this.sendNotification(notificationData);
+  }
 
-    if(environment.sendNotification){
-      return this.http.post(url,notificationData,{headers});
-    }
-    else{
-      //simulacion de envio de notificacion
-      return this.http.post('https://jsonplaceholder.typicode.com/posts',{});
-    }
+  sendNotification(notificationData: NotificationsInterface) {
+    const headers = new HttpHeaders();
+    const url = this.endpoints.postNotificaciones;
+
+    return this.http.post(url,notificationData,{headers});
   }
 
   batch(messages:MessageInterface[]): Observable<any> {
@@ -66,18 +83,6 @@ export class NotificationsService {
 
 }
 
-interface NotificationsInterface {
-  aplicacion:string,
-  idususol:string,
-  legajosol?:string,
-  topico:string,
-  mensaje:string,
-  idusurecep:string,
-  legajorecep?:string,
-  perfil?:string,
-  grupo?:string,
-  gruporemedy?:string
-}
 
 export interface MessageInterface {
   idususol:string,

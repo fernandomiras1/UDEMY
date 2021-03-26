@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalShowTurnComponent } from './modal-show-turn.component';
 
@@ -6,7 +6,7 @@ describe('ModalShowTurnComponent', () => {
   let component: ModalShowTurnComponent;
   let fixture: ComponentFixture<ModalShowTurnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalShowTurnComponent ]
     })
