@@ -11,17 +11,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
     path: 'configuration',
     loadChildren: () => import('./pages/configuration/configuration.module').then( m => m.ConfigurationPageModule)
   },
   {
     path: 'alerts',
     loadChildren: () => import('./pages/alerts/alerts.module').then( m => m.AlertsPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
 ];
 

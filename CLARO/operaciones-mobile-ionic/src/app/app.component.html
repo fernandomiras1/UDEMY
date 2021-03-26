@@ -50,7 +50,7 @@
           *ngFor="let p of appPages; let i = index"
         >
           <ion-item
-            (click)="clickTest(p.icon)"
+            (click)="clicked(p.icon)"
             *ngIf="p.static"
             routerDirection="root"
             [routerLink]="[p.url]"

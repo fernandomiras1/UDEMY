@@ -17,23 +17,6 @@ export class AlertsFilterModalComponent implements OnInit {
     {name: 'AVI', model: false},
     {name: 'SES', model: false},
     {name: 'PUMA', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
-    {name: 'Alarmas', model: false},
   ]
   constructor(public modalCtrl: ModalController) { }
 

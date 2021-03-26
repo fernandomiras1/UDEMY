@@ -21,8 +21,6 @@ export class AppComponent {
     private pushService: PushService
   ) {
     this.initializeApp();
-    // this.firstWordUppercase('Fernando Miras');
-    // this.nameUser = this.firstWordUppercase('Fernando Miras');
   }
 
   async initializeApp() {
@@ -39,19 +37,10 @@ export class AppComponent {
     }
   }
 
-  clickTest(icon: string) {
-    if (icon == 'exit') {
+  clicked(icon: string) {
+    if (icon === 'exit') {
       this.menuCtrl.enable(false);
     }
   }
 
-  // public firstWordUppercase( string: string ) {
-  //   let splitString = string.split(' ');
-  //   for( let i = 0; i < splitString.length; i++) {
-  //     let firstWord = splitString[i].charAt(0).toUpperCase();
-  //     splitString[i] = firstWord;
-  //   }
-  //   console.log(splitString.join(''));
-  //   return splitString.join('');
-  // }
 }

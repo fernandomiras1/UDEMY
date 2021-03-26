@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertDetailComponent } from '@modals/alert-detail/alert-detail.component';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { map, startWith } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { FilterPopoverComponent } from '@app/components/filter-popover/filter-popover.component';
+import { Observable, of } from 'rxjs';
 import { AlertsFilterModalComponent } from '@modals/alerts-filter-modal/alerts-filter-modal.component';
 @Component({
   selector: 'app-alerts',
@@ -12,6 +11,8 @@ import { AlertsFilterModalComponent } from '@modals/alerts-filter-modal/alerts-f
   styleUrls: ['./alerts.page.scss'],
 })
 export class AlertsPage implements OnInit {
+
+  public onlyView = false;
 
   data = [
     {
@@ -65,8 +66,7 @@ export class AlertsPage implements OnInit {
   ];
   form: FormGroup;
   filteredOptions: Observable<any[]>;
-  constructor(private modalCtrl: ModalController, 
-              private popoverCtrl: PopoverController,
+  constructor(private modalCtrl: ModalController,
               private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -106,16 +106,10 @@ export class AlertsPage implements OnInit {
     console.log('modal data:', data);
   }
 
-
-  async showFilterPop(event) {
-    const popover = await this.popoverCtrl.create({
-      component: FilterPopoverComponent,
-      event,
-      mode: 'ios',
-    });
-    popover.style.cssText = '--min-width: 350px; --max-width: 380px;';
-
-    await popover.present();
+  public onChangeToggleViewed(value: boolean) {
+    const newData = this.data.filter(item => !item.isViewed)
+    const filterData = value ? newData : this.data
+    this.filteredOptions = of(filterData)
   }
 
   private _filter(name: string): any[] {

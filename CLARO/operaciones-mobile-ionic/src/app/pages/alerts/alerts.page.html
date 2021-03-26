@@ -23,6 +23,10 @@
       </ion-fab-button>
     </ion-col>
   </ion-row>
+  <ion-list-header>
+    <ion-toggle (ngModelChange)="onChangeToggleViewed($event)" [(ngModel)]="onlyView"></ion-toggle>
+    <ion-label>Buscar sólo avisos no leídos</ion-label>
+  </ion-list-header>
 
   <ion-list>
     <ion-item
