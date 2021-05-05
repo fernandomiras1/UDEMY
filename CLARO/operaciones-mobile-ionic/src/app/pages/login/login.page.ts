@@ -32,12 +32,12 @@ export class LoginPage implements OnInit {
 
   login(form: NgForm){
 
-    this.authService.getTokenAPI().subscribe(resu => {
-      console.log('getTokenAPI', resu);
-    })
-    this.authService.login(form.value).subscribe(resu => {
-      console.log('API -  Externa', resu);
-    })
+    // this.authService.getTokenAPI().subscribe(resu => {
+    //   console.log('getTokenAPI', resu);
+    // })
+    // this.authService.login(form.value).subscribe(resu => {
+    //   console.log('API -  Externa', resu);
+    // })
     if (form.valid) {
       this.presentLoading('Espere...');
       console.log(form.value);

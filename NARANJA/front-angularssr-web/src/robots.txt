@@ -1,6 +1,0 @@
-User-Agent: *
-Disallow: /*jsessionid=
-Disallow: /*?replytocom=
-Disallow: /*p=
-Disallow: /*c=
-Disallow: /*.pdf
