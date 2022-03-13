@@ -7,17 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { UsersPageComponent } from './users-page/users-page.component';
-import { OrdersPageComponent } from './orders-page/orders-page.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { CircleProgressBarYappaComponent } from './pages/circle-progress-bar-yappa-page/circle-progress-bar-yappa.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
     HeaderComponent,
     SidebarComponent,
     UsersPageComponent,
     OrdersPageComponent,
+    CircleProgressBarYappaComponent
    ],
   imports: [
     BrowserModule,
