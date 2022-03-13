@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<mat-drawer-container>
+  <mat-drawer mode="side" opened class="app-sidebar">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content class="content">
+    <main class="dynamic-content">
+      <router-outlet></router-outlet>
+    </main>
+    <app-action-area></app-action-area>
+  </mat-drawer-content>
+</mat-drawer-container>
