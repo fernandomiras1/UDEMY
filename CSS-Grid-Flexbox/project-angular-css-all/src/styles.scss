@@ -48,3 +48,10 @@ body {
 .mat-drawer-container {
   height: calc(100vh - 64px);
 }
+
+.containers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
