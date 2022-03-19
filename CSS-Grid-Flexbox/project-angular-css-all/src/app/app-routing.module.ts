@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CircleProgressBarYappaComponent } from 'src/app/pages/circle-progress-bar-yappa-page/circle-progress-bar-yappa.component';
 import { PrettyPrintJsonPageComponent } from './pages/pretty-print-json-page/pretty-print-json-page.component';
+import { TransparentListHoverEffectsPageComponent } from './pages/transparent-list-hover-effects-page/transparent-list-hover-effects-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -13,6 +14,10 @@ const routes: Routes = [
   { path: 'circle-progress-yappa', component: CircleProgressBarYappaComponent },
   { path: 'pretty-print-json', component: PrettyPrintJsonPageComponent },
   { path: 'anchor-links', component: AnchorLinksPageComponent },
+  {
+    path: 'transparent-list',
+    component: TransparentListHoverEffectsPageComponent,
+  },
 ];
 
 @NgModule({

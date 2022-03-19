@@ -1,0 +1,153 @@
+:host {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    // font-family: consolas;
+}
+
+section {
+ position: relative;
+ background: #161623;
+ min-height: 100%;
+ overflow: hidden;
+ display: flex;
+ // Centramos todo lo que este en la seccion
+ justify-content: center;
+ align-items: center;
+}
+
+// Primera Pelota Naranja con Rojo
+section::before {
+    content: '';
+    position: relative;
+    width: 400px;
+    height: 400px;
+    // Le agregamos el gradiente
+    background: linear-gradient(#ffc107, #e91e63);
+    // para que sea redonda
+    border-radius: 50%;
+    // Lo movemos a la izquierda
+    transform: translate(35px, -50px);
+}
+  
+
+// 2da Pelota Naranja con Rojo ( mas pequeña )
+section::after {
+    content: '';
+    position: relative;
+    width: 350px;
+    height: 350px;
+    // Le agregamos el gradiente
+    background: linear-gradient(#2196f3, #31ff38);
+    // para que sea redonda
+    border-radius: 50%;
+    // Lo movemos a la izquierda
+    transform: translate(-56px, 150px);
+}
+
+// Tarjeta 
+.box {
+    position: relative;
+    min-width: 350px;
+    min-height: 400px;
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    z-index: 10;
+    padding: 10px;
+    // Le damos un blur.
+    backdrop-filter: blur(5px);
+}
+
+// Texto Titulo
+.box h3 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+
+.box .list {
+    position: relative;
+    display: flex;
+    padding: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+// Hover sobre cada item
+.box .list:hover {
+    background: #fff;
+    box-shadow: -15 30px 50px rgba(0,0,0,0.5);
+    // Va hacer zoom, movido hacia la derecha y arriba
+    transform: scale(1.15) translateX(30px) translateY(-15px);
+    z-index: 1000;
+}
+
+.box .list .imgBx {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.box .list .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box .list .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+}
+
+.box .list .content h4 {
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.2rem;
+    transition: 0.5s;
+}
+
+.box .list .content p {
+    font-size: 0.75rem;
+    transition: 0.5s;
+}
+
+.box .list:hover .content {
+    color: #333
+}
+
+.box .list .content .rank {
+    position: absolute;
+    // Lo tiramos hacia la derecha
+    right: -50px;
+    top: 25px;
+    color: #2196f3;
+    transition: 0.5s;
+    font-size: 2.5rem;
+}
+
+.box .list .content .rank small {
+    font-weight: 500;
+    opacity: 0.25;
+}
+
+.box .list:hover .content .rank {
+    position: absolute;
+    right: 20px;
+    color: #2196f3;
+}

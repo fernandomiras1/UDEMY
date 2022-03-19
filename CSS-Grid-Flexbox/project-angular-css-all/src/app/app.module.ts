@@ -1,3 +1,4 @@
+import { TransparentListHoverEffectsPageComponent } from './pages/transparent-list-hover-effects-page/transparent-list-hover-effects-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ const pages = [
   CircleProgressBarYappaComponent,
   PrettyPrintJsonPageComponent,
   AnchorLinksPageComponent,
+  TransparentListHoverEffectsPageComponent,
 ];
 
 @NgModule({

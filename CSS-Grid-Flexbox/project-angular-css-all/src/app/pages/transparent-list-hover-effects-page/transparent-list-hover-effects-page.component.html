@@ -1,0 +1,15 @@
+<section>
+  <div class="box">
+    <h3>Popular Creator Rank List</h3>
+    <div *ngFor="let item of list; let index = index"  class="list">
+      <div class="imgBx">
+        <img src="assets/list-hover-example/avatar-profile.jpeg" alt="">
+      </div>
+      <div class="content">
+        <h2 class="rank"><small>#</small>{{index + 1}}</h2>
+        <h4>{{item.name}}</h4>
+        <p>{{item.job}}</p>
+      </div>
+    </div>
+  </div>
+</section>
