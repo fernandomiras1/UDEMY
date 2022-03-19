@@ -1,0 +1,111 @@
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'rxjs'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:prettier/recommended',
+    'plugin:rxjs/recommended',
+  ],
+  root: true,
+  env: {
+    node: true,
+    jest: true,
+  },
+  ignorePatterns: ['.eslintrc.js', 'src/@fuse'],
+  overrides: [
+    {
+      files: ['*.spec.ts'],
+      rules: {
+        'prefer-destructuring': 'off',
+      },
+    },
+  ],
+  rules: {
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'always-multiline',
+      },
+    ],
+    'linebreak-style': 'off',
+    'no-multiple-empty-lines': 'error',
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        next: '*',
+        prev: ['const', 'let'],
+      },
+      {
+        blankLine: 'always',
+        next: 'return',
+        prev: '*',
+      },
+      {
+        blankLine: 'any',
+        next: ['const', 'let'],
+        prev: ['const', 'let'],
+      },
+    ],
+    semi: ['error', 'always'],
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        format: ['PascalCase'],
+        selector: 'interface',
+      },
+      {
+        format: ['UPPER_CASE'],
+        modifiers: ['const', 'exported'],
+        selector: 'variable',
+        types: ['boolean', 'number', 'string'],
+      },
+      {
+        format: ['camelCase'],
+        modifiers: ['const', 'exported'],
+        selector: 'variable',
+        types: ['array', 'function'],
+      },
+      {
+        format: ['camelCase'],
+        selector: 'variable',
+      },
+    ],
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true },
+    ],
+    '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/prefer-regexp-exec': 'off',
+    '@typescript-eslint/restrict-plus-operands': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/triple-slash-reference': 'off',
+    '@typescript-eslint/unbound-method': 'off',
+    'rxjs/no-implicit-any-catch': 'off',
+    'rxjs/no-subject-value': 'off',
+    'rxjs/no-ignored-takewhile-value': 'off',
+  },
+};
