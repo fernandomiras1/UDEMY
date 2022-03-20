@@ -1,0 +1,85 @@
+<section>
+  <div class="container">
+    <div class="leftSide">
+      <!-- Header -->
+      <div class="header">
+        <div class="userImg">
+          <img src="assets/img-whatsapp/user.jpg" class="cover">
+        </div>
+        <ul class="nav_icons">
+          <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+          <li><ion-icon name="chatbox"></ion-icon></li>
+          <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+        </ul>
+      </div>
+       <!-- Search -->
+       <div class="search_chat">
+         <div>
+           <input type="text" placeholder="Search or start new chat">
+           <ion-icon name="search-outline"></ion-icon>
+          </div>
+       </div>
+        <!-- Chat List -->
+        <div class="chat_list">
+          <ng-container *ngFor="let item of chatList; let i=index">
+            
+            <div class="block" [class.active]="item.active">
+              <div class="img_box">
+                <img src="assets/img-whatsapp/img{{i + 1}}.jpg" class="cover">
+              </div>
+              <div class="details">
+                <div class="list_head">
+                  <h4>{{item.name}}</h4>
+                  <p class="time" [class.unread]="!!item.unread">{{item.time}}</p>
+                </div>
+                <div class="message_p">
+                  <p>{{item.details}}</p>
+                  <b *ngIf="item.unread">{{item.unread}}</b>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+    </div>
+    <div class="rightSide">
+      <!-- Header -->
+      <div class="header">
+        <div class="img_text">
+          <div class="userImg">
+            <img src="assets/img-whatsapp/img1.jpg" class="cover">
+          </div>
+          <h4>Fernando Miras <br><span>online</span></h4>
+        </div>
+        <ul class="nav_icons">
+          <li><ion-icon name="search-outline"></ion-icon></li>
+          <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+        </ul>
+      </div>
+
+      <!-- Chatbox -->
+      <div class="chat-box">
+        <div class="message my_message">
+          <p>Hi<br><span>12:26</span></p>
+        </div>
+
+        <div class="message frnd_message">
+          <p>Hello<br><span>12:35</span></p>
+        </div>
+
+        <div class="message my_message">
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias, explicabo exercitationem? Dolorum modi alias voluptatibus suscipit, nam aspernatur, officia eaque corrupti a in ex numquam fuga quaerat asperiores, maiores accusantium.<br><span>12:55</span></p>
+        </div>
+      </div>
+
+      <!-- Chat imput -->
+      <div class="chatbox_input">
+        <ion-icon name="happy-outline"></ion-icon>
+        <ion-icon name="attach-outline"></ion-icon>
+        <input type="text" placeholder="Type a message">
+        <ion-icon name="mic"></ion-icon>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,3 +1,4 @@
+import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'circle-progress-yappa', component: CircleProgressBarYappaComponent },
   { path: 'pretty-print-json', component: PrettyPrintJsonPageComponent },
   { path: 'anchor-links', component: AnchorLinksPageComponent },
+  { path: 'whatsapp', component: WhatsappWebPageComponent },
   {
     path: 'transparent-list',
     component: TransparentListHoverEffectsPageComponent,

@@ -1,7 +1,7 @@
 import { TransparentListHoverEffectsPageComponent } from './pages/transparent-list-hover-effects-page/transparent-list-hover-effects-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { CircleProgressBarYappaComponent } from './pages/circle-progress-bar-yap
 import { PrintJsonObjectModule } from './components/base-print-json-object/base-print-json-object.module';
 import { PrettyPrintJsonPageComponent } from './pages/pretty-print-json-page/pretty-print-json-page.component';
 import { TextToUrlAnchorLinksModule } from './components/text-to-url-anchor-links/text-to-url-anchor-links.module';
+import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 
 const modules = [PrintJsonObjectModule, TextToUrlAnchorLinksModule];
 
@@ -25,6 +26,7 @@ const pages = [
   PrettyPrintJsonPageComponent,
   AnchorLinksPageComponent,
   TransparentListHoverEffectsPageComponent,
+  WhatsappWebPageComponent,
 ];
 
 @NgModule({
@@ -37,5 +39,6 @@ const pages = [
     modules,
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
