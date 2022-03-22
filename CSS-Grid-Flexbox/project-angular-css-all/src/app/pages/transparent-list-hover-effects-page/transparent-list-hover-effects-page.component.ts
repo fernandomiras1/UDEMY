@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-transparent-list-hover-effects-page',
   templateUrl: './transparent-list-hover-effects-page.component.html',
   styleUrls: ['./transparent-list-hover-effects-page.component.scss'],
 })
-export class TransparentListHoverEffectsPageComponent implements OnInit {
+export class TransparentListHoverEffectsPageComponent {
   constructor() {}
 
   readonly list = [
@@ -26,6 +26,4 @@ export class TransparentListHoverEffectsPageComponent implements OnInit {
       job: 'Devops Developer',
     },
   ];
-
-  ngOnInit() {}
 }
