@@ -1,0 +1,70 @@
+<small>Install: <code>npm i ngx-quill@14</code> and npm install quill </small>
+
+
+<quill-editor class="quill" [(ngModel)]="content" trackChanges="all" [modules]="modules">
+</quill-editor>
+<br>
+    
+<pre><code>{{ content }}</code></pre>
+
+
+<div class="containers-box">
+
+
+
+  <quill-editor class="quill" [(ngModel)]="content2"  placeholder=""
+    (onContentChanged)="bodyContentChanged($event)" [modules]="{toolbar:[]}">
+    <div quill-editor-toolbar class="quill-toolbar">
+      <span class="ql-formats" >
+
+        <select class="ql-size">
+          <option value="small"></option>
+          <option selected></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        <select class="ql-font">
+          <option selected></option>
+          <option value="serif"></option>
+          <option value="monospace"></option>
+        </select>
+        <button class="ql-bold" title="Hola mundo"  matTooltip="Bold (Ctrl+B)"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+      </span>
+      <span class="ql-formats" class="section-border">
+        <select class="ql-size">
+          <option value="small"></option>
+          <option selected></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        <select class="ql-font">
+          <option selected></option>
+          <option value="serif"></option>
+          <option value="monospace"></option>
+        </select>
+
+        <!-- <button class="ql-strike"></button>
+        <button class="ql-link"></button>
+        <button class="ql-script" value="super"></button>
+        <button class="ql-clean"></button>
+        <select class="ql-color"></select>
+        <button class="ql-align" value="justify"></button>
+        <button class="ql-align" value="center"></button>
+        <button class="ql-align" value="right"></button>
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+        <button class="ql-indent" value="+1"></button>
+        <button class="ql-blockquote"></button>
+        <button class="ql-indent" value="-1"></button>
+        <button class="ql-image"></button> -->
+      </span>
+    </div>
+  </quill-editor>
+
+
+  <button type="button" (click)="onClick()">ON CLICK</button>
+
+
+</div>

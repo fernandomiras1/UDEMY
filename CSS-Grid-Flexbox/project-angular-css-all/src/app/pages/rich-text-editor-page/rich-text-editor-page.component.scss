@@ -1,0 +1,29 @@
+.containers-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quill {
+    margin: 30px;
+    width: 80%;
+    height: 300px;
+}
+
+.quill-toolbar {
+margin: 5px;
+border-radius: 2px;
+}
+
+.quill-toolbar.active {
+background: #f1f1f1;
+}
+
+quill-editor {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
+
+ 

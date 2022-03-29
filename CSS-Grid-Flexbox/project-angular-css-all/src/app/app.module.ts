@@ -1,3 +1,4 @@
+import { RichTextEditorPageComponent } from './pages/rich-text-editor-page/rich-text-editor-page.component';
 import { TransparentListHoverEffectsPageComponent } from './pages/transparent-list-hover-effects-page/transparent-list-hover-effects-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,14 @@ import { PrettyPrintJsonPageComponent } from './pages/pretty-print-json-page/pre
 import { TextToUrlAnchorLinksModule } from './components/text-to-url-anchor-links/text-to-url-anchor-links.module';
 import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 
-const modules = [PrintJsonObjectModule, TextToUrlAnchorLinksModule];
+import { QuillModule } from 'ngx-quill';
+import { FormsModule } from '@angular/forms';
+
+const modules = [
+  PrintJsonObjectModule,
+  TextToUrlAnchorLinksModule,
+  QuillModule.forRoot(),
+];
 
 const pages = [
   UsersPageComponent,
@@ -27,6 +35,7 @@ const pages = [
   AnchorLinksPageComponent,
   TransparentListHoverEffectsPageComponent,
   WhatsappWebPageComponent,
+  RichTextEditorPageComponent,
 ];
 
 @NgModule({
@@ -35,6 +44,7 @@ const pages = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MaterialModule,
     modules,
   ],

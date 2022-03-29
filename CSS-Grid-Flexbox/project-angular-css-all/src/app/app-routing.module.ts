@@ -1,3 +1,4 @@
+import { RichTextEditorPageComponent } from './pages/rich-text-editor-page/rich-text-editor-page.component';
 import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'pretty-print-json', component: PrettyPrintJsonPageComponent },
   { path: 'anchor-links', component: AnchorLinksPageComponent },
   { path: 'whatsapp', component: WhatsappWebPageComponent },
+  { path: 'rich-text-editor', component: RichTextEditorPageComponent },
   {
     path: 'transparent-list',
     component: TransparentListHoverEffectsPageComponent,
