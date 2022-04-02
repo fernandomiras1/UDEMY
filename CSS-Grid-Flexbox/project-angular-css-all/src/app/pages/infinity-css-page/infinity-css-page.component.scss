@@ -1,0 +1,150 @@
+:host {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background: #042104;
+
+
+}
+
+@keyframes animationColor {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+section .container-circle {
+  display: flex;
+  // Para que cambie el color el background junto con el infinite
+  animation: animationColor 8s linear infinite;
+}
+
+section .container-circle .circle {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 -10px;
+}
+
+section .container-circle .circle span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(calc(18deg * var(--i)));
+  // 360 / 20 = 18deg
+}
+
+section .container-circle .circle span::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: #00ff0a;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff0a,
+    0 0 20px #00ff0a,
+    0 0 40px #00ff0a,
+    0 0 60px #00ff0a,
+    0 0 80px #00ff0a,
+    0 0 100px #00ff0a;
+  transform: scale(0.1);
+  // Parpadea 4s agrandado y achicado el dot
+  animation: animate 4s linear infinite;
+  // Comienza a girar 
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate {
+  0% {
+    transform: scale(1);
+  }
+
+  50%,
+  100% {
+    transform: scale(0.1);
+  }
+
+}
+
+section .container-circle .circle:nth-child(2) {
+  transform: rotate(-180deg);
+}
+
+section .container-circle .circle:nth-child(2) span::before {
+  animation-delay: calc(-0.1s * var(--i));
+}
+
+/*
+
+TITLE ::: CSS3 Glowing Gradient Loader Ring Animation Effects
+
+LINK: https://www.youtube.com/watch?v=4EOUMLgK5Xw
+
+*/
+
+h1 {
+  color: white;
+  margin-top: 50px;
+}
+
+.loader {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+  animation: loaderAnimation 2s linear infinite;
+}
+
+@keyframes loaderAnimation {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+
+.loader::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  background: #042104;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+  border-radius: 50%;
+  z-index: 1;
+  filter: blur(30px);
+}

@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
-import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { InfinityCSSPageComponent } from './pages/infinity-css-page/infinity-css-page.component';
 import { CircleProgressBarYappaComponent } from './pages/circle-progress-bar-yappa-page/circle-progress-bar-yappa.component';
 import { PrintJsonObjectModule } from './components/base-print-json-object/base-print-json-object.module';
 import { PrettyPrintJsonPageComponent } from './pages/pretty-print-json-page/pretty-print-json-page.component';
@@ -29,7 +29,7 @@ const modules = [
 
 const pages = [
   UsersPageComponent,
-  OrdersPageComponent,
+  InfinityCSSPageComponent,
   CircleProgressBarYappaComponent,
   PrettyPrintJsonPageComponent,
   AnchorLinksPageComponent,

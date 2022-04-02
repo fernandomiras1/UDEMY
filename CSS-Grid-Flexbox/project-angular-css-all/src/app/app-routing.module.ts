@@ -1,7 +1,7 @@
 import { RichTextEditorPageComponent } from './pages/rich-text-editor-page/rich-text-editor-page.component';
 import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
-import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { InfinityCSSPageComponent } from './pages/infinity-css-page/infinity-css-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { TransparentListHoverEffectsPageComponent } from './pages/transparent-li
 const routes: Routes = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
   { path: 'users', component: UsersPageComponent },
-  { path: 'orders', component: OrdersPageComponent },
+  { path: 'infinity-css', component: InfinityCSSPageComponent },
   { path: 'circle-progress-yappa', component: CircleProgressBarYappaComponent },
   { path: 'pretty-print-json', component: PrettyPrintJsonPageComponent },
   { path: 'anchor-links', component: AnchorLinksPageComponent },
