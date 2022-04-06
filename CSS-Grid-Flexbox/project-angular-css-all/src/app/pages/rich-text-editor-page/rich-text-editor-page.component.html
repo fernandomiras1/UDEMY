@@ -1,7 +1,7 @@
 <small>Install: <code>npm i ngx-quill@14</code> and npm install quill </small>
 
 <div class="zd-comment" dir="auto">
-  Test with multi layer list: FFFFFFFFFF<br>
+  Test with multi layer list: FFFFFFFFFF<br />
 
   <!-- <ol>
     <li>Level_1</li>
@@ -12,15 +12,17 @@
     <li class=\"ql-indent-3\">Level_4</li>
  </ol> -->
 
-
   <ol>
     <li>Level_1</li>
-    <li>Level_1
+    <li>
+      Level_1
       <ol>
         <li>Level_2</li>
-        <li>Level_2
+        <li>
+          Level_2
           <ol>
-            <li>Level_3
+            <li>
+              Level_3
               <ol>
                 <li>Level_4</li>
               </ol>
@@ -50,18 +52,18 @@
 
 <!-- <ckeditor [editor]="Editor" [data]="test"></ckeditor> -->
 
+<hr />
 
-<hr>
-
-<quill-editor class="quill" [(ngModel)]="content" trackChanges="all" [modules]="modules">
-</quill-editor>
-<br>
-    
-<pre><code>{{ content }}</code></pre>
-
+<!-- <quill-editor
+  class="quill"
+  [(ngModel)]="content"
+  trackChanges="all"
+  [modules]="modules"
+>
+</quill-editor> -->
 
 <div class="containers-box">
-  <quill-editor class="quill" [(ngModel)]="content2"  placeholder=""
+  <!-- <quill-editor class="quill" [(ngModel)]="content2"  placeholder=""
     (onContentChanged)="bodyContentChanged($event)" [modules]="{toolbar:[]}">
     <div quill-editor-toolbar class="quill-toolbar">
       <span class="ql-formats" >
@@ -110,5 +112,5 @@
         <button class="ql-image"></button>
       </span>
     </div>
-  </quill-editor>
+  </quill-editor> -->
 </div>
