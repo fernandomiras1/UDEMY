@@ -1,5 +1,57 @@
 <small>Install: <code>npm i ngx-quill@14</code> and npm install quill </small>
 
+<div class="zd-comment" dir="auto">
+  Test with multi layer list: FFFFFFFFFF<br>
+
+  <!-- <ol>
+    <li>Level_1</li>
+    <li>Level_1</li>
+    <li class=\"ql-indent-1\">Level_2</li>
+    <li class=\"ql-indent-1\">Level_2</li>
+    <li class=\"ql-indent-2\">Level_3</li>
+    <li class=\"ql-indent-3\">Level_4</li>
+ </ol> -->
+
+
+  <ol>
+    <li>Level_1</li>
+    <li>Level_1
+      <ol>
+        <li>Level_2</li>
+        <li>Level_2
+          <ol>
+            <li>Level_3
+              <ol>
+                <li>Level_4</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+  <!-- <ol dir="auto">
+     <li>One</li>
+     <li>
+        Two
+        <ol dir="auto">
+           <li>Two.One</li>
+           <li>
+              Two.Two
+              <ol dir="auto">
+                 <li>Two.Two.One</li>
+              </ol>
+           </li>
+        </ol>
+     </li>
+     <li>Three</li>
+  </ol> -->
+</div>
+
+<!-- <ckeditor [editor]="Editor" [data]="test"></ckeditor> -->
+
+
+<hr>
 
 <quill-editor class="quill" [(ngModel)]="content" trackChanges="all" [modules]="modules">
 </quill-editor>
@@ -9,9 +61,6 @@
 
 
 <div class="containers-box">
-
-
-
   <quill-editor class="quill" [(ngModel)]="content2"  placeholder=""
     (onContentChanged)="bodyContentChanged($event)" [modules]="{toolbar:[]}">
     <div quill-editor-toolbar class="quill-toolbar">
@@ -45,7 +94,7 @@
           <option value="monospace"></option>
         </select>
 
-        <!-- <button class="ql-strike"></button>
+        <button class="ql-strike"></button>
         <button class="ql-link"></button>
         <button class="ql-script" value="super"></button>
         <button class="ql-clean"></button>
@@ -58,13 +107,8 @@
         <button class="ql-indent" value="+1"></button>
         <button class="ql-blockquote"></button>
         <button class="ql-indent" value="-1"></button>
-        <button class="ql-image"></button> -->
+        <button class="ql-image"></button>
       </span>
     </div>
   </quill-editor>
-
-
-  <button type="button" (click)="onClick()">ON CLICK</button>
-
-
 </div>
