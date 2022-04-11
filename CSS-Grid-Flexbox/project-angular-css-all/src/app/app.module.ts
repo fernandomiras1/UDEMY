@@ -17,6 +17,7 @@ import { PrintJsonObjectModule } from './components/base-print-json-object/base-
 import { PrettyPrintJsonPageComponent } from './pages/pretty-print-json-page/pretty-print-json-page.component';
 import { TextToUrlAnchorLinksModule } from './components/text-to-url-anchor-links/text-to-url-anchor-links.module';
 import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
+import { NeonLightBorderDivPageComponent } from './pages/neon-light-border-div-page/neon-light-border-div-page.component';
 
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
@@ -36,6 +37,7 @@ const pages = [
   TransparentListHoverEffectsPageComponent,
   WhatsappWebPageComponent,
   RichTextEditorPageComponent,
+  NeonLightBorderDivPageComponent,
 ];
 
 @NgModule({

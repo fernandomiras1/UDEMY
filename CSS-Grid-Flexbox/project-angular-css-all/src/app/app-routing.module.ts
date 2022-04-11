@@ -1,3 +1,4 @@
+import { NeonLightBorderDivPageComponent } from './pages/neon-light-border-div-page/neon-light-border-div-page.component';
 import { RichTextEditorPageComponent } from './pages/rich-text-editor-page/rich-text-editor-page.component';
 import { WhatsappWebPageComponent } from './pages/whatsapp-web-page/whatsapp-web-page.component';
 import { AnchorLinksPageComponent } from './pages/anchor-links-page/anchor-links-page.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'transparent-list',
     component: TransparentListHoverEffectsPageComponent,
+  },
+  {
+    path: 'neon-light-border',
+    component: NeonLightBorderDivPageComponent,
   },
 ];
 
