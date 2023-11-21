@@ -1,0 +1,94 @@
+<app-title title="Defer Triggers" />
+<section>
+  <h1 class="text-xl text-red-800 font-bold">On interaction</h1>
+  <hr class="my-2" />
+
+  <!-- En este caso hasta no hacerle click al DIV no te va a cargar el componete  -->
+  @defer (on interaction) {
+  <app-heavy-loaders-fast cssClass="bg-blue-500 h-20">
+    <span>On Interaction</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">Click en el div</div>
+  }
+</section>
+<section>
+  <h1 class="text-xl text-red-800 font-bold">On interaction with Button</h1>
+  <hr class="my-2" />
+
+  <button class="p-2 bg-blue-600 rounded text-white my-2" #btnInteraction>
+    Click me!
+  </button>
+
+  @defer (on interaction(btnInteraction)) {
+  <app-heavy-loaders-fast cssClass="bg-blue-500 h-20">
+    <span>On Interaction</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">Placeholder Div</div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl text-red-800 font-bold">On interaction with Hover</h1>
+  <hr class="my-2" />
+
+  <!-- En este caso hasta no hacerle hover al DIV no te va a cargar el componete  -->
+  @defer (on hover) {
+  <app-heavy-loaders-fast cssClass="bg-blue-500 h-20">
+    <span>On Interaction</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">Placeholder Div</div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl text-red-800 font-bold">On interaction with Immediate</h1>
+  <hr class="my-2" />
+
+  <!-- desencadena la carga diferida inmediatamente, 
+  lo que significa que una vez que el cliente ha terminado de renderizar, 
+  el chunk diferido empezaría a cargar inmediatamente. -->
+  @defer (on immediate) {
+  <app-heavy-loaders-fast cssClass="bg-blue-500 h-20">
+    <span>On Immediate</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">Placeholder Div</div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl text-red-800 font-bold">On interaction with Timer</h1>
+  <hr class="my-2" />
+
+  @defer (on timer(2000)) {
+  <app-heavy-loaders-fast cssClass="bg-green-500 h-20">
+    <span>On timer(2000)</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">2 Segundos</div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl text-red-800 font-bold">
+    On interaction with More thant one Condition
+  </h1>
+  <hr class="my-2" />
+
+  <!-- Si alguna de las condiciones se cumpla, hace la carga diferida -->
+  <!-- 
+  prefetch: permite precargar el código componente (no lo
+  ejecuta, carga el código) y así tenerlo listo tan pronto
+  sea el momento de llamarlo
+   -->
+  @defer (on hover; prefetch on idle) {
+  <app-heavy-loaders-fast cssClass="bg-green-500 h-20">
+    <span>On Hover, idle</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full h-20 bg-purple-100">Hover</div>
+  }
+</section>

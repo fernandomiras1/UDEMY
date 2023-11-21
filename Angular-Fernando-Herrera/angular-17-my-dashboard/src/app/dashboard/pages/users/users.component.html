@@ -1,0 +1,25 @@
+<app-title title="Listado de Usuarios" />
+
+<ul>
+  @for (user of userService.users(); track user.id) {
+
+  <li class="flex items-center my-2 cursor-pointer">
+    <img [alt]="user.first_name" [srcset]="user.avatar" class="rounded w-14" />
+
+    <a [routerLink]="['/dashboard/user', user.id]" class="mx-5 hover:underline"
+      >{{ user.first_name }} {{ user.last_name }}</a
+    >
+  </li>
+  } @empty {
+  <div class="flex items-center gird gap-3">
+    <div class="w-1/2">
+      <div class="max-w-sm rounded overflow-hidden shadow-lg animate-pulse">
+        <div class="h-20 bg-gray-300"></div>
+        <div class="px-6 py-4">
+          <div class="h-6 bg-gray-300 mb-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</ul>

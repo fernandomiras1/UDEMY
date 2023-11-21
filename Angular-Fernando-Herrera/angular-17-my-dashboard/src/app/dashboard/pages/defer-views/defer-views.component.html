@@ -1,0 +1,39 @@
+<app-title title="Defer Views / Blocs" />
+
+<section class="grid grid-cols-1">
+  @defer () {
+  <app-heavy-loaders-slow cssClass="bg-blue-500" />
+
+  } @placeholder {
+  <p
+    class="h-[600px] w-full bg-gradient-to-t from-gray-200 to-gray-400 animate-pulse"
+  >
+    Cargando ....
+  </p>
+
+  <!-- Se dispara cuando el navegador llega a un
+  estado inactivo “idle” -->
+  } @defer (on idle) {
+  <app-heavy-loaders-slow cssClass="bg-green-500" />
+
+  } @placeholder {
+  <p
+    class="h-[600px] w-full bg-gradient-to-t from-gray-200 to-gray-400 animate-pulse"
+  >
+    Cargando ....
+  </p>
+
+  <!-- Se dispara cuando el bloque entra al punto de
+    vista del usuario. Por defecto se puede
+    conectar el placeholder y otro elemento -->
+  } @defer (on viewport) {
+  <app-heavy-loaders-slow cssClass="bg-purple-500" />
+
+  } @placeholder {
+  <p
+    class="h-[600px] w-full bg-gradient-to-t from-gray-200 to-gray-400 animate-pulse"
+  >
+    Cargando ....
+  </p>
+  }
+</section>
