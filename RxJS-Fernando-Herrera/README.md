@@ -1,27 +1,31 @@
-# Proyecto inicial - Curso de RXJS
+### Operadores RxJS en Angular
 
-* Lo primero que debemos de hacer después de descargar el código es ejecutar el comando:
+**merge**: Esta función recibe uno o más observables y el resultado será el producto de todos los observables combinados simultáneamente.
 
-```
-npm install
-```
-Ese comando descargará todos los módulos de node necesarios para ejecutar el proyecto.
+**startWith**: Especifica con qué valor deseas que comience la emisión. Puedes enviar cualquier argumento y siempre comenzará la emisión con ese valor.
 
+**endWith**: Especifica con qué valor deseas que termine la emisión.
 
-* Cuando termine de instalar los node_modules, entonces podermos ejecutar el proyecto de con el siguiente comando
+**concat**: Crea un Observable de salida que emite secuencialmente todos los valores de un Observable dado y luego pasa al siguiente.
 
-```
-npm start
-```
-Para que eso funcione, recuerden que deben de ejecutar ese comando en el mismo directorio donde se encuentra el ```package.json```
+**combineLatest**: Combina múltiples observables para crear un observable cuyos valores se calculan a partir de los últimos valores de cada uno de sus observables de entrada.
 
-## Cambiar el puerto
-Por defecto, el puerto que configuré para este proyecto es el ```8081```, pero si necesitan cambiarlo porque pueda que ese puerto lo use su computadora, pueden cambiarlo abriendo el ```package.json``` >> scripts. Ahí verán la instrucción que lanza el servidor de desarrollo
+**forkJoin**: Acepta un array de observables o un diccionario de objetos de ObservableInput y devuelve un Observable que emite una matriz de valores en el mismo orden exacto que el array pasado, o un diccionario de valores en la misma forma que el diccionario pasado.
 
-```
-"start": "webpack-dev-server --mode development --open --port=8081"
-```
+**from**: Función para generar arreglos.
 
-Simplemente cambian el puerto por el que ustedes necesiten y listo. (lógicamente graban los cambios antes de ejecutar el ```npm start``` nuevamente)
+**take**: Este operador es sumamente útil cuando deseas limitar la cantidad de emisiones que un observador puede tener.
 
+**first**: Se completa en la primera suscripción, sin importar que después tengamos otras emisiones de diferentes valores.
 
+**takeWhile**: Permite recibir valores mientras la condición se cumpla.
+
+**distinct**: Sólo deja pasar las emisiones cuyos valores no han sido previamente emitidos.
+
+**distinctUntilChanged**: Emite valores siempre y cuando la emisión anterior no sea la misma.
+
+**debounceTime**: Cuando escribimos en un input, después de 3 segundos va a emitir el resultado escrito.
+
+**switchMap**: Sólo mantiene una suscripción interna activa, mientras que el mergeMap puede mantener todas.
+
+**concatMap**: Sirve para concatenar los observables resultantes que pueden fluir a través de ese operador. Es decir, hasta que no se termine el observable actual, no pasa al siguiente, poniéndolo en una cola.
